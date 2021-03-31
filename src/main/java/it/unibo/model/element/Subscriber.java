@@ -1,0 +1,8 @@
+package it.unibo.model.element;
+
+import it.unibo.model.event.Event;
+
+public interface Subscriber {
+    void inform(Event event);
+}
+
