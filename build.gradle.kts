@@ -33,8 +33,6 @@ val javaFxVersion = "15.0.1"
 val jUnitVersion = "5.7.1"
 
 dependencies {
-    // Example library: Guava. Add what you need (and remove Guava if you don't use it)
-    // implementation("com.google.guava:guava:28.1-jre")
 
     // JavaFX: comment out if you do not need them
     for (platform in supportedPlatforms) {
@@ -46,6 +44,9 @@ dependencies {
     // JUnit API and testing engine
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
+
+    // Used for event bus
+    implementation("com.google.guava:guava:30.1.1-jre")
 }
 
 tasks.withType<JavaCompile> {
@@ -59,7 +60,7 @@ tasks.withType<Test> {
 
 application {
     // Define the main class for the application
-    mainClass.set("it.unibo.samplejavafx.App")
+    mainClass.set("it.unibo.pyxis.app.App")
 
     /*
      * mainClassName was deprecated by Gradle, but it is still required by John Engelman's Shadow plugin.
