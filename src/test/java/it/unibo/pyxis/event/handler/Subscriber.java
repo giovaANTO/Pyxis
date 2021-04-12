@@ -2,16 +2,33 @@ package it.unibo.pyxis.event.handler;
 
 import com.google.common.base.Objects;
 import com.google.common.eventbus.Subscribe;
+import it.unibo.pyxis.event.EventHandler;
+import it.unibo.pyxis.event.movement.PowerupEvent;
+import it.unibo.pyxis.event.movement.PowerupMovementEvent;
 
 public class Subscriber {
 
     private boolean isHandled = false;
     private int countHandled = 0;
+    private final String name;
+
+    public Subscriber (final String name) {
+        this.name = name;
+    }
+
 
     @Subscribe
     public void onTestEvent(TestEvent testEvent) {
+        System.out.println("Sono " + this.name + " ho ricevuto un TestEvent");
+        testEvent.handle();
         this.isHandled = true;
         this.countHandled++;
+    }
+
+    @Subscribe
+    public void onPowerupEvent(PowerupEvent powerupEvent) {
+        System.out.println("Sono " + this.name + " ho ricevuto un PowerupEvent");
+        powerupEvent.applyPowerup(this);
     }
 
     public boolean getIsHandled() {
@@ -34,4 +51,7 @@ public class Subscriber {
     public int hashCode() {
         return Objects.hashCode(isHandled);
     }
+
+
+
 }
