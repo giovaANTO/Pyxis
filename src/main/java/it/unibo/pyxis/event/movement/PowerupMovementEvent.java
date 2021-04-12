@@ -1,4 +1,4 @@
 package it.unibo.pyxis.event.movement;
 
-public interface PowerupMovementEvent extends MovementEvent{
+public interface PowerupMovementEvent extends MovementEvent {
 }

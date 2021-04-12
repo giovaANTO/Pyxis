@@ -1,5 +1,5 @@
 package it.unibo.pyxis.event.notify;
 
-public interface CollisionEvent extends NotifyEvent {
-
+public interface CollisionEvent<T> extends NotifyEvent {
+    T getCollidedObject();
 }

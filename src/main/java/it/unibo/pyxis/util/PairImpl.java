@@ -1,5 +1,7 @@
 package it.unibo.pyxis.util;
 
+import com.google.common.base.Objects;
+
 public class PairImpl<T> implements Pair<T> {
 
     private T first;
@@ -29,5 +31,18 @@ public class PairImpl<T> implements Pair<T> {
     @Override
     public T getSecond() {
         return this.second;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PairImpl)) return false;
+        PairImpl<?> pair = (PairImpl<?>) o;
+        return Objects.equal(getFirst(), pair.getFirst()) && Objects.equal(getSecond(), pair.getSecond());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getFirst(), getSecond());
     }
 }
