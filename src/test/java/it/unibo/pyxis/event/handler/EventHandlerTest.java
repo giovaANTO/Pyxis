@@ -2,7 +2,6 @@ package it.unibo.pyxis.event.handler;
 
 import it.unibo.pyxis.event.EventHandler;
 import it.unibo.pyxis.event.Handler;
-import it.unibo.pyxis.event.movement.PowerupEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -61,7 +60,6 @@ class EventHandlerTest {
     @Test
     public void testPowerupEvent() {
         System.out.println("testPowerupEvent");
-        this.sendPowerupEvent();
     }
 
     private void sendTestEvent() {
@@ -72,15 +70,4 @@ class EventHandlerTest {
             }
         });
     }
-
-    private void sendPowerupEvent() {
-        EventHandler.getEventHanlder().sendEvent(new PowerupEvent() {
-            @Override
-            public void applyPowerup(Object arena) {
-                System.out.println(arena.hashCode());
-                // tutte le operazioni che deve eseguire
-            }
-        });
-    }
-
 }
