@@ -51,13 +51,13 @@ public interface Arena {
     void getLevel();
     
     
-    Dimension getDimensions();
+    void getDimensions();
     
     
-    void setDimensions(Dimension dimension);
+    void setDimensions();
     
     
-    void addElement(Element element);
+    void addElement();
     
     
     Stream<Object> getBallStream();
