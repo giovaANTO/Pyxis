@@ -1,6 +1,7 @@
 package it.unibo.pyxis.element;
 
 import it.unibo.pyxis.util.Coord;
+import it.unibo.pyxis.util.Dimension;
 
 public interface Element {
 
@@ -8,7 +9,7 @@ public interface Element {
 
     Coord getPosition();
 
-    void setDimension();
+    void setDimension(Dimension elementDimension);
 
-    void getDimension();
+    Dimension getDimension();
 }
