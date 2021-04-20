@@ -1,6 +1,6 @@
 package it.unibo.pyxis.util;
 
-public class DimensionImpl implements Dimension {
+public final class DimensionImpl implements Dimension {
 
     private final Pair<Double> internalPair;
 
@@ -19,12 +19,12 @@ public class DimensionImpl implements Dimension {
     }
 
     @Override
-    public void setWidth(double width) {
+    public void setWidth(final double width) {
         this.internalPair.setFirst(width);
     }
 
     @Override
-    public void setHeight(double height) {
+    public void setHeight(final double height) {
         this.internalPair.setSecond(height);
     }
 }

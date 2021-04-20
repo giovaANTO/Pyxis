@@ -1,10 +1,7 @@
 package it.unibo.pyxis.util;
-
-import it.unibo.pyxis.event.movement.BallMovementEvent;
-
 import java.util.Objects;
 
-public class CoordImpl implements Coord {
+public final class CoordImpl implements Coord {
 
     private final Pair<Double> internalPair;
 
@@ -23,19 +20,23 @@ public class CoordImpl implements Coord {
     }
 
     @Override
-    public void setX(double xCoord) {
+    public void setX(final double xCoord) {
         this.internalPair.setFirst(xCoord);
     }
 
     @Override
-    public void setY(double yCoord) {
+    public void setY(final double yCoord) {
         this.internalPair.setSecond(yCoord);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         CoordImpl coord = (CoordImpl) o;
         return internalPair.equals(coord.internalPair);
     }

@@ -17,7 +17,7 @@ class EventHandlerTest {
     void setUp() {
         this.firstSubscriber = new Subscriber("Subscriber 1");
         this.secondSubscriber = new Subscriber("Subscriber 2");
-        this.eventHandler = EventHandler.getEventHanlder();
+        this.eventHandler = EventHandler.getEventHandler();
         // Register the subscribers
         this.eventHandler.register(firstSubscriber);
         this.eventHandler.register(secondSubscriber);
