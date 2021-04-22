@@ -1,15 +1,12 @@
 package it.unibo.pyxis.event;
 import com.google.common.eventbus.EventBus;
 
-/**
- * Event handler is the singleton class used for dispatching events among the model entities.
- * Is based on the
- */
+
 public final class EventHandler {
 
     private static Handler handlerInstance;
 
-    private EventHandler() { };
+    private EventHandler() { }
 
     public static Handler getEventHandler() {
         if (handlerInstance == null) {
