@@ -5,6 +5,4 @@ import it.unibo.pyxis.element.Element;
 public interface Powerup extends Element {
 
     void apply();
-
-    void test();
 }
