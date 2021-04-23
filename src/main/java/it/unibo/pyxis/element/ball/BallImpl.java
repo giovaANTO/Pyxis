@@ -8,12 +8,12 @@ import it.unibo.pyxis.event.notify.CollisionEvent;
 public class BallImpl extends AbstractElement implements Ball {
 
     @Override
-    public void handleBrickCollision(CollisionEvent<Brick> collisionEvent) {
+    public void handleBrickCollision(final CollisionEvent<Brick> collisionEvent) {
 
     }
 
     @Override
-    public void handlePadCollision(CollisionEvent<Pad> collisionEvent) {
+    public void handlePadCollision(final CollisionEvent<Pad> collisionEvent) {
 
     }
 

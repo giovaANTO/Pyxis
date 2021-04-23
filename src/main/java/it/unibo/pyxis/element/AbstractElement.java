@@ -3,7 +3,7 @@ package it.unibo.pyxis.element;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 
-public abstract class AbstractElement implements Element{
+public abstract class AbstractElement implements Element {
 
     private Dimension dimension;
     private Coord position;
@@ -19,12 +19,12 @@ public abstract class AbstractElement implements Element{
     }
 
     @Override
-    public void setDimension(Dimension newDimension) {
+    public void setDimension(final Dimension newDimension) {
         this.dimension = newDimension;
     }
 
     @Override
-    public void setPosition(Coord newPosition) {
+    public void setPosition(final Coord newPosition) {
         this.position = newPosition;
     }
 }

@@ -7,9 +7,18 @@ import it.unibo.pyxis.event.notify.CollisionEvent;
 
 public interface Ball extends Element {
 
+    /**
+     * Handles the collision event between the ball and a brick.
+     * @param collisionEvent
+     */
     void handleBrickCollision(CollisionEvent<Brick> collisionEvent);
 
+    /**
+     * Handles the collision event between the ball and the pad.
+     * @param collisionEvent
+     */
     void handlePadCollision(CollisionEvent<Pad> collisionEvent);
+
 
     void setStatus();
 
