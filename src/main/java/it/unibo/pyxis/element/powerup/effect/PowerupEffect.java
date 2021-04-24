@@ -1,4 +1,4 @@
-package it.unibo.pyxis.element.powerup;
+package it.unibo.pyxis.element.powerup.effect;
 
 import it.unibo.pyxis.arena.Arena;
 
