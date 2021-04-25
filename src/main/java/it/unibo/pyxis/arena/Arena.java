@@ -8,52 +8,52 @@ public interface Arena {
 
     
     /*
-     * caricamento da file della composizione del livello corrente
+     * Load file composition of the current level
      */
     void loadConfigurationFile();
     
     
     /*
-     * aggiornamenti degli elementi nell'arena
+     * Update the elements of the arena
      */
     void update();
     
     
     /*
-     * movimento del pad su input del giocatore
+     * Pad's movement based on player input
      */
     void movePad();
     
     
     /*
-     * Gestione della distruzione di un mattone
+     * Brick's destruction process handling
      */
     void handleBrickDestruction(Coord brick);
     
     
     /*
-     * Aggiunta di un elemento powerup nell'arena come conseguenza
-     * della distruzione di un mattone
+     * Creation of a new Powerup Element
+     * after a brick destruction
      */
     void spawnPowerup();
     
     
     /*
-     * Gestione dell'attivazione di un powerup
+     * Powerup activation process handling
      */
     void handlePowerupActivation();
     
     
     /*
-     * Check del completamento del livello corrente.
-     * Ritorna TRUE se non ci sono più mattoncini da distruggere
-     * altrimenti ritorna FALSE
+     * Checks the completition of the current level.
+     * Returns TRUE if there are no more bricks to destroy,
+     * otherwise returns FALSE
      */
     boolean isArenaClear();
     
     
     /*
-     * adds an element to the arena
+     * Adds an element to the arena
      */
     void addElement();
     
