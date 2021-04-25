@@ -4,6 +4,7 @@ import java.util.stream.Stream;
 
 import it.unibo.pyxis.element.Element;
 import it.unibo.pyxis.element.ball.Ball;
+import it.unibo.pyxis.element.brick.Brick;
 import it.unibo.pyxis.element.pad.Pad;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
@@ -72,7 +73,7 @@ public class ArenaImpl implements Arena {
     }
 
 
-    public Stream<Pad> getBrickStream() {
+    public Stream<Brick> getBrickStream() {
         return null;
     }
 

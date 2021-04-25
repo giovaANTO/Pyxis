@@ -6,6 +6,7 @@ import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.element.*;
 import it.unibo.pyxis.element.ball.Ball;
+import it.unibo.pyxis.element.brick.Brick;
 import it.unibo.pyxis.element.pad.Pad;
 
 public interface Arena {
@@ -74,7 +75,7 @@ public interface Arena {
     Stream<Ball> getBallStream();
     
     
-    Stream<Pad> getBrickStream();
+    Stream<Brick> getBrickStream();
     
     
     Pad getPad();
