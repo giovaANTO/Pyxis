@@ -77,7 +77,7 @@ public interface Arena {
     Stream<Pad> getBrickStream();
     
     
-    void getPad();
+    Pad getPad();
     
     
 }

@@ -77,7 +77,8 @@ public class ArenaImpl implements Arena {
     }
 
 
-    public void getPad() {
+    public Pad getPad() {
+        return null;
 
     }
 
