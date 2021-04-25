@@ -27,4 +27,16 @@ public final class DimensionImpl implements Dimension {
     public void setHeight(final double height) {
         this.internalPair.setSecond(height);
     }
+
+    @Override
+    public void increaseWidth(final double increaseValue) {
+        this.setWidth(this.getWidth() + increaseValue);
+    }
+
+    @Override
+    public void increaseHeight(final double increaseValue) {
+        this.setHeight(this.getHeight() + increaseValue);
+    }
+
+
 }

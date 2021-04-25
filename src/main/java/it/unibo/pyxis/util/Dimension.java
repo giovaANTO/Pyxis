@@ -9,4 +9,8 @@ public interface Dimension {
     void setWidth(double width);
 
     void setHeight(double height);
+
+    void increaseWidth(double increaseValue);
+
+    void increaseHeight(double increaseValue);
 }

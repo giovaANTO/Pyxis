@@ -3,7 +3,6 @@ import it.unibo.pyxis.arena.Arena;
 
 @FunctionalInterface
 public interface PowerupEffect {
-
     /**
      * Create a new powerup thread that will apply and remove the effects
      * after a certain timeout.

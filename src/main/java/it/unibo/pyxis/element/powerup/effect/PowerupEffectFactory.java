@@ -4,28 +4,12 @@ package it.unibo.pyxis.element.powerup.effect;
  * Factory used for creating {@link PowerupEffect}.
  */
 public interface PowerupEffectFactory {
-
     /**
-     * Create a new powerup effect that enlarge the pad dimension.
-     * @return a {@link PowerupEffect} class
+     * Create a {@link PowerupEffect} that will modify the Pad's width.
+     * @param applicationTime   The application time of the Powerup.
+     * @param increaseVal       The value that should be incremented to the Pad's width
+     * @return
+     *          A new {@link PowerupEffect} class
      */
-    PowerupEffect enlargePad();
-
-    /**
-     * Create a new powerup effect that reduce the pad dimension.
-     * @return a{@link PowerupEffect} class
-     */
-    PowerupEffect reducePad();
-
-    /**
-     * Create a new powerup effect that set the Ball in the atomic state.
-     * @return a {@link PowerupEffect} class
-     */
-    PowerupEffect atomicBall();
-
-    /**
-     * Create a new powerup effect that set the Ball in the iron state.
-     * @return a {@link PowerupEffect} class
-     */
-    PowerupEffect ironBall();
+    PowerupEffect modifyPadWidth(long applicationTime, double increaseVal);
 }
