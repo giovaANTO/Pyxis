@@ -2,7 +2,11 @@ package it.unibo.pyxis.arena;
 
 import java.util.stream.Stream;
 
+import it.unibo.pyxis.element.Element;
+import it.unibo.pyxis.element.ball.Ball;
+import it.unibo.pyxis.element.pad.Pad;
 import it.unibo.pyxis.util.Coord;
+import it.unibo.pyxis.util.Dimension;
 
 public class ArenaImpl implements Arena {
 
@@ -42,7 +46,7 @@ public class ArenaImpl implements Arena {
     }
 
     
-    public void addElement() {
+    public void addElement(Element element) {
 
     }
 
@@ -52,22 +56,23 @@ public class ArenaImpl implements Arena {
     }
 
 
-    public void getDimensions() {
+    public Dimension getDimensions() {
+        return null;
 
     }
 
 
-    public void setDimensions() {
+    public void setDimensions(Dimension dimension) {
 
     }
 
 
-    public Stream<Object> getBallStream() {
+    public Stream<Ball> getBallStream() {
         return null;
     }
 
 
-    public Stream<Object> getBrickStream() {
+    public Stream<Pad> getBrickStream() {
         return null;
     }
 
