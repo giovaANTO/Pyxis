@@ -5,26 +5,21 @@ import it.unibo.pyxis.util.Dimension;
 
 public abstract class AbstractElement implements Element {
 
-    private Dimension dimension;
-    private Coord position;
+    private final Dimension dimension;
+    private final Coord position;
+
+    public AbstractElement(final Dimension inputDimension, final Coord inputPosition) {
+        this.dimension = inputDimension;
+        this.position = inputPosition;
+    }
 
     @Override
-    public Dimension getDimension() {
+    public synchronized Dimension getDimension() {
         return this.dimension;
     }
 
     @Override
-    public Coord getPosition() {
+    public synchronized Coord getPosition() {
         return this.position;
-    }
-
-    @Override
-    public void setDimension(final Dimension newDimension) {
-        this.dimension = newDimension;
-    }
-
-    @Override
-    public void setPosition(final Coord newPosition) {
-        this.position = newPosition;
     }
 }

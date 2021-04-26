@@ -7,6 +7,7 @@ import it.unibo.pyxis.util.DimensionImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ElementTest {
@@ -15,29 +16,21 @@ class ElementTest {
 
     @BeforeEach
     void setUp() {
-        this.element1 = new ToTestElement();
+        this.element1 = new ToTestElement(new DimensionImpl(4.0, 5.0), new CoordImpl(4.0, 5.0));
     }
 
     @Test
     public void testDimension() {
         System.out.println("testDimension");
-
         Dimension elemDimension = new DimensionImpl(4.0, 5.0);
-
-        this.element1.setDimension(elemDimension);
-
-        assertTrue(this.element1.getDimension().equals(elemDimension));
+        assertEquals(this.element1.getDimension(), elemDimension);
     }
 
     @Test
     public void testPosition() {
         System.out.println("testPosition");
-
         Coord elemPosition = new CoordImpl(4.0, 5.0);
-
-        this.element1.setPosition(elemPosition);
-
-        assertTrue(this.element1.getPosition().equals(elemPosition));
+        assertEquals(this.element1.getPosition(), elemPosition);
     }
 
 }

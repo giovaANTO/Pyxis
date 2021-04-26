@@ -6,26 +6,16 @@ import it.unibo.pyxis.util.Dimension;
 public interface Element {
 
     /**
-     * Sets the element's coord.
-     * @param elementCoord
-     */
-    void setPosition(Coord elementCoord);
-
-    /**
      * Returns the element's position.
      * @return
+     *          The element's {@link Coord}
      */
     Coord getPosition();
 
     /**
-     * Sets the element's dimension.
-     * @param elementDimension
-     */
-    void setDimension(Dimension elementDimension);
-
-    /**
      * Returns the element's dimension.
      * @return
+     *         The element's {@link Dimension}
      */
     Dimension getDimension();
 }
