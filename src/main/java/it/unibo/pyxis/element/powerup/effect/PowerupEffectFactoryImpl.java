@@ -30,10 +30,10 @@ public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
     @Override
     public PowerupEffect modifyPadWidth(final long applicationTime, final double increaseVal) {
         return this.createPowerup(
-                PowerupEffectType.PAD_WIDTH_ALTERATION,
+                PowerupEffectType.PAD_POWERUP,
                 applicationTime,
                 arena -> arena.getPad().getDimension().increaseWidth(increaseVal),
-                arena -> arena.getPad().getDimension().increaseWidth(increaseVal)
+                arena -> arena.getPad().getDimension().increaseWidth(-increaseVal)
         );
     }
 }
