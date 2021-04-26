@@ -1,5 +1,7 @@
 package it.unibo.pyxis.util;
 
+import com.google.common.base.Objects;
+
 public final class DimensionImpl implements Dimension {
 
     private final Pair<Double> internalPair;
@@ -38,5 +40,19 @@ public final class DimensionImpl implements Dimension {
         this.setHeight(this.getHeight() + increaseValue);
     }
 
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DimensionImpl)) {
+            return false;
+        }
+        DimensionImpl dimension = (DimensionImpl) o;
+        return Objects.equal(internalPair, dimension.internalPair);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(internalPair);
+    }
 }
