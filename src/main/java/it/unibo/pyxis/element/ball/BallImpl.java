@@ -6,11 +6,19 @@ import it.unibo.pyxis.element.pad.Pad;
 import it.unibo.pyxis.event.notify.CollisionEvent;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
+import it.unibo.pyxis.util.Pair;
+import it.unibo.pyxis.util.Vector;
 
 public class BallImpl extends AbstractElement implements Ball {
 
-    public BallImpl(final Dimension inputDimension, final Coord inputPosition) {
+    private BallType type;
+    private final Vector pace;
+
+    public BallImpl(final Dimension inputDimension, final Coord inputPosition,
+                    final Vector inputPace) {
         super(inputDimension, inputPosition);
+        this.type = BallType.NORMAL_BALL;
+        this.pace = inputPace;
     }
 
     @Override
@@ -24,12 +32,22 @@ public class BallImpl extends AbstractElement implements Ball {
     }
 
     @Override
-    public void setStatus() {
-
+    public BallType getType() {
+        return this.type;
     }
 
     @Override
-    public void setPace() {
+    public Vector getPace() {
+        return this.pace;
+    }
 
+    @Override
+    public void setType(BallType inputType) {
+        this.type = inputType;
+    }
+
+    @Override
+    public void setPace(Vector inputPace) {
+        this.pace.setComponents(inputPace.getComponents());
     }
 }

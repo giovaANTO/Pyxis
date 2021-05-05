@@ -4,6 +4,7 @@ import it.unibo.pyxis.element.Element;
 import it.unibo.pyxis.element.brick.Brick;
 import it.unibo.pyxis.element.pad.Pad;
 import it.unibo.pyxis.event.notify.CollisionEvent;
+import it.unibo.pyxis.util.Vector;
 
 public interface Ball extends Element {
 
@@ -19,8 +20,27 @@ public interface Ball extends Element {
      */
     void handlePadCollision(CollisionEvent<Pad> collisionEvent);
 
+    /**
+     * Returns the ball's type.
+     * @return
+     */
+    BallType getType();
 
-    void setStatus();
+    /**
+     * Returns the ball's pace.
+     * @return
+     */
+    Vector getPace();
 
-    void setPace();
+    /**
+     * Sets the ball's type.
+     * @param type
+     */
+    void setType(BallType type);
+
+    /**
+     * Sets the ball's pace.
+     * @param pace
+     */
+    void setPace(Vector pace);
 }
