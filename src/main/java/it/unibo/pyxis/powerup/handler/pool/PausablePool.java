@@ -1,9 +1,10 @@
 package it.unibo.pyxis.powerup.handler.pool;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-public interface PausablePool {
+public interface PausablePool extends ExecutorService {
     /**
      * Pause the execution of the thread pool.
      */
