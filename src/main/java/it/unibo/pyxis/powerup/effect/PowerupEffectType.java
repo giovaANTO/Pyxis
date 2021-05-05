@@ -1,4 +1,4 @@
-package it.unibo.pyxis.element.powerup.effect;
+package it.unibo.pyxis.powerup.effect;
 
 public enum PowerupEffectType {
     PAD_POWERUP,

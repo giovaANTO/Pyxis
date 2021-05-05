@@ -1,8 +1,6 @@
 package it.unibo.pyxis.element.powerup;
 
-import it.unibo.pyxis.element.powerup.effect.PowerupEffect;
-import it.unibo.pyxis.element.powerup.effect.PowerupEffectFactory;
-import it.unibo.pyxis.element.powerup.effect.PowerupEffectFactoryImpl;
+import it.unibo.pyxis.powerup.effect.PowerupEffect;
 
 public enum PowerupType {
     /**
@@ -11,8 +9,7 @@ public enum PowerupType {
     INCREASE_PAD {
         @Override
         public PowerupEffect getEffect() {
-            final PowerupEffectFactory factory = new PowerupEffectFactoryImpl();
-            return factory.modifyPadWidth(10, 4);
+           return null;
         }
     },
     /**
@@ -21,8 +18,7 @@ public enum PowerupType {
     DECREASE_PAD {
         @Override
         public PowerupEffect getEffect() {
-            final PowerupEffectFactory factory = new PowerupEffectFactoryImpl();
-            return factory.modifyPadWidth(10, -4);
+            return null;
         }
     };
 

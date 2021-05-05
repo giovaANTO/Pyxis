@@ -1,4 +1,4 @@
-package it.unibo.pyxis.element.powerup.effect;
+package it.unibo.pyxis.powerup.effect;
 
 /**
  * Factory used for creating {@link PowerupEffect}.
@@ -11,5 +11,5 @@ public interface PowerupEffectFactory {
      * @return
      *          A new {@link PowerupEffect} class
      */
-    PowerupEffect modifyPadWidth(long applicationTime, double increaseVal);
+    PowerupEffect modifyPadWidth(int applicationTime, double increaseVal);
 }
