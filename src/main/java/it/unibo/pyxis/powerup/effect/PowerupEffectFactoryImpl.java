@@ -1,15 +1,14 @@
 package it.unibo.pyxis.powerup.effect;
 
 import it.unibo.pyxis.arena.Arena;
-
-import java.util.Optional;
 import java.util.function.Consumer;
 
 import static it.unibo.pyxis.powerup.effect.PowerupEffectType.PAD_POWERUP;
 
-public class PowerupEffectFactoryImpl implements PowerupEffectFactory {
+public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
 
-    private PowerupEffect createEffect(final PowerupEffectType type, final Consumer<Arena> apply, final Consumer<Arena> remove, final Optional<Integer> time) {
+    private PowerupEffect createEffect(final PowerupEffectType type, final Consumer<Arena> apply,
+                                       final Consumer<Arena> remove, final int time) {
         return new PowerupEffect() {
             @Override
             public void applyEffect(final Arena arena) {
@@ -22,7 +21,7 @@ public class PowerupEffectFactoryImpl implements PowerupEffectFactory {
             }
 
             @Override
-            public Optional<Integer> getApplyTime() {
+            public int getApplyTime() {
                 return time;
             }
 
@@ -39,7 +38,7 @@ public class PowerupEffectFactoryImpl implements PowerupEffectFactory {
                 PAD_POWERUP,
                 arena -> arena.getPad().getDimension().increaseWidth(increaseVal),
                 arena -> arena.getPad().getDimension().increaseWidth(-increaseVal),
-                Optional.of(applicationTime)
+                applicationTime
         );
     }
 }

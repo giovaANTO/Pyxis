@@ -26,12 +26,14 @@ public enum PowerupType {
         }
     };
 
+
+    private static final int PAD_MOD_TIME = 10;
+    private static final int PAD_MOD_FACTOR = 2;
+
     /**
      * Return the Powerup effect associated to a PowerupType.
      * @return effect
      *                  The powerup effect.
      */
     public abstract PowerupEffect getEffect();
-    private static final int PAD_MOD_TIME = 10;
-    private static final int PAD_MOD_FACTOR = 2;
 }

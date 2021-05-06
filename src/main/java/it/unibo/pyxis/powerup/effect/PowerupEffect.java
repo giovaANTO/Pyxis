@@ -25,7 +25,7 @@ public interface PowerupEffect {
      * @return
      *                  The time of the powerup's application.
      */
-    Optional<Integer> getApplyTime();
+     int getApplyTime();
 
     /**
      * Return the type of the effect.

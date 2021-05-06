@@ -1,6 +1,9 @@
 package it.unibo.pyxis.powerup.handler;
 
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
+import it.unibo.pyxis.powerup.effect.PowerupEffectType;
+
+import java.util.Map;
 
 public interface PowerupHandler {
     /**
