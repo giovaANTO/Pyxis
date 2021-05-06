@@ -31,6 +31,15 @@ public final class DimensionImpl implements Dimension {
     }
 
     @Override
+    public void increaseWidth(final double increaseValue) {
+        this.setWidth(this.getWidth() + increaseValue);
+    }
+
+    @Override
+    public void increaseHeight(final double increaseValue) {
+        this.setHeight(this.getHeight() + increaseValue);
+    }
+
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
