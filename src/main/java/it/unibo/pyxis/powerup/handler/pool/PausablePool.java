@@ -23,6 +23,13 @@ public interface PausablePool extends ExecutorService {
     boolean isPaused();
 
     /**
+     * Return the number of active threads that are executing a task running.
+     * @return
+     *          the number of threads
+     */
+    int getActiveCount();
+
+    /**
      * Return a {@link ReentrantLock} of the pause condition flag.
      * @return
      *          an instance of {@link ReentrantLock}

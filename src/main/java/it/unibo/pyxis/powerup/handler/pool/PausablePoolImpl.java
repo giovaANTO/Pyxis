@@ -6,11 +6,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * A pausable {@link java.util.concurrent.ExecutorService} based on a ThreadPoolExecutor.
+ * @see <a href="shorturl.at/opDNS">JavaDoc 11 ThreadPoolExecutor</a>
+ */
 public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool {
     private final ReentrantLock lock;
     private final Condition waitCond;
 
-    private boolean paused = false;
+    private boolean isPaused = false;
 
     public PausablePoolImpl(final int corePoolSize, final int maximumPoolSize, final long keepAliveTime,
                             final TimeUnit unit, final BlockingQueue<Runnable> workQueue) {
@@ -24,7 +28,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         super.beforeExecute(t, r);
         lock.lock();
         try {
-            while (this.paused) {
+            while (this.isPaused) {
                 waitCond.await();
             }
         } catch (InterruptedException ie) {
@@ -38,7 +42,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     public void pause() {
         lock.lock();
         try {
-            this.paused = true;
+            this.isPaused = true;
         } finally {
             lock.unlock();
         }
@@ -48,7 +52,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     public void resume() {
         lock.lock();
         try {
-            this.paused = false;
+            this.isPaused = false;
             waitCond.signalAll();
         } finally {
             lock.unlock();
@@ -67,6 +71,6 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
 
     @Override
     public boolean isPaused() {
-        return this.paused;
+        return this.isPaused;
     }
 }

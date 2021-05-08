@@ -1,9 +1,6 @@
 package it.unibo.pyxis.powerup.handler;
 
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
-import it.unibo.pyxis.powerup.effect.PowerupEffectType;
-
-import java.util.Map;
 
 public interface PowerupHandler {
     /**
@@ -31,8 +28,8 @@ public interface PowerupHandler {
 
     /**
      * Return the paused status of the handler.
-     * @return s
-     *              true if the internal executor of {@link PowerupHandler} is in a paused state
+     * @return
+     *          true if the internal executor of {@link PowerupHandler} is in a paused state
      */
     boolean isPaused();
 

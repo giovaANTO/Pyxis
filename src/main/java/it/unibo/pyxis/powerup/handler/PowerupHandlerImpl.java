@@ -24,7 +24,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
     private final PowerupHandlerPolicy insertionPolicy;
     private final Arena arena;
 
-    public PowerupHandlerImpl(final PowerupHandlerPolicy policy, final Arena inputArena) {
+    public PowerupHandlerImpl( final Arena inputArena, final PowerupHandlerPolicy policy) {
         EventHandler.getEventHandler().register(this);
         this.executor = new InternalExecutor(MIN_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIMEOUT, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         this.insertionPolicy = policy;
@@ -115,8 +115,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                 public void run() {
                     final ReentrantLock lock = InternalExecutor.this.getLock();
                     final Condition cond = InternalExecutor.this.getCondition();
-                    InternalExecutor.this.trackThread(effect.getType(), Thread.currentThread().getId(),
-                            Thread.currentThread());
+                    InternalExecutor.this.trackThread(effect.getType(), Thread.currentThread().getId(), Thread.currentThread());
                     try {
                         effect.applyEffect(PowerupHandlerImpl.this.getArena());
                         for (int i = 0; i < effect.getApplyTime(); i++) {

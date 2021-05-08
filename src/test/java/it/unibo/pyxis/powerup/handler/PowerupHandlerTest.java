@@ -6,7 +6,7 @@ import it.unibo.pyxis.event.EventHandler;
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.powerup.effect.PowerupEffectType;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -77,7 +77,7 @@ class PowerupHandlerTest {
 
     @Test
     public void testPowerupActivation() throws InterruptedException {
-        this.powerupHandler = new PowerupHandlerImpl( (t,m) -> System.out.println(t), this.arena);
+        this.powerupHandler = new PowerupHandlerImpl(this.arena, (t,m) -> System.out.println(t));
         final PowerupActivationEvent event = () -> this.effect1;
         EventHandler.getEventHandler().sendEvent(event);
         Thread.sleep(1000);
@@ -88,7 +88,7 @@ class PowerupHandlerTest {
 
     @Test
     public void testMultiplePowerupActivation() throws InterruptedException {
-        this.powerupHandler = new PowerupHandlerImpl( (t,m) -> System.out.println(t), this.arena);
+        this.powerupHandler = new PowerupHandlerImpl(this.arena, (t,m) -> System.out.println(t));
         final PowerupActivationEvent event = () -> this.effect1;
         EventHandler.getEventHandler().sendEvent(event);
         EventHandler.getEventHandler().sendEvent(event);
@@ -104,12 +104,12 @@ class PowerupHandlerTest {
     @Test
     public void testCantExecuteMultipleBallPowerup() throws InterruptedException {
         this.powerupHandler = new PowerupHandlerImpl(
+                this.arena,
                 (t,m) -> {
                     if (t == PowerupEffectType.BALL_POWERUP) {
-                        m.values().stream().forEach(Thread::interrupt);
+                        m.values().forEach(Thread::interrupt);
                     }
-                },
-                this.arena
+                }
         );
 
         final PowerupActivationEvent event = () -> this.effect2;
