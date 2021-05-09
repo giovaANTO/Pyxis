@@ -12,7 +12,7 @@ package it.unibo.pyxis.event;
  *     <li> etc..</li>
  * </ul>
  *
- * Instances of Event and relative extensions can be dispatched using {@link EventHandler} class.
+ * Instances of Event and relative extensions can be dispatched using {@link EventHandlerImpl} class.
  */
 public interface Event {
 }

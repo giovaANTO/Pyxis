@@ -2,8 +2,6 @@ package it.unibo.pyxis.event.handler;
 
 import com.google.common.base.Objects;
 import com.google.common.eventbus.Subscribe;
-import it.unibo.pyxis.event.EventHandler;
-import it.unibo.pyxis.event.movement.PowerupMovementEvent;
 
 public class Subscriber {
 

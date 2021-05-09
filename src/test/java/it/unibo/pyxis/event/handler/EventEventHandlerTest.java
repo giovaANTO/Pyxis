@@ -1,23 +1,23 @@
 package it.unibo.pyxis.event.handler;
 
+import it.unibo.pyxis.event.EventHandlerImpl;
 import it.unibo.pyxis.event.EventHandler;
-import it.unibo.pyxis.event.Handler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EventHandlerTest {
+class EventEventHandlerTest {
 
     private Subscriber firstSubscriber;
     private Subscriber secondSubscriber;
-    private Handler eventHandler;
+    private EventHandler eventHandler;
 
     @BeforeEach
     void setUp() {
         this.firstSubscriber = new Subscriber("Subscriber 1");
         this.secondSubscriber = new Subscriber("Subscriber 2");
-        this.eventHandler = EventHandler.getEventHandler();
+        this.eventHandler = EventHandlerImpl.getEventHandler();
         // Register the subscribers
         this.eventHandler.register(firstSubscriber);
         this.eventHandler.register(secondSubscriber);

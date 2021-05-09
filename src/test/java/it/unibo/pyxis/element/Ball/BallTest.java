@@ -16,10 +16,10 @@ public class BallTest {
     private Ball ball1;
 
     @BeforeEach
-    private setUp() {
+    private void setUp() {
         this.ball1 = new BallImpl(new DimensionImpl(3, 3),
                 new CoordImpl(3, 5),
-                new VectorImpl(new PairImpl<Double>(2, 5)));
+                new VectorImpl(new PairImpl<Double>(2.0, 5.0)));
     }
 
     public void testType() {

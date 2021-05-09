@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import it.unibo.pyxis.arena.Arena;
-import it.unibo.pyxis.event.EventHandler;
+import it.unibo.pyxis.event.EventHandlerImpl;
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.powerup.effect.PowerupEffectType;
@@ -25,7 +25,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
     private final Arena arena;
 
     public PowerupHandlerImpl(final PowerupHandlerPolicy policy, final Arena inputArena) {
-        EventHandler.getEventHandler().register(this);
+        EventHandlerImpl.getEventHandler().register(this);
         this.executor = new InternalExecutor(MIN_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIMEOUT, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         this.insertionPolicy = policy;
         this.arena = inputArena;
