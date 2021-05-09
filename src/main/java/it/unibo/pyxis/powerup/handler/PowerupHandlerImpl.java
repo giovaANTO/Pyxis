@@ -5,13 +5,15 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import it.unibo.pyxis.arena.Arena;
-import it.unibo.pyxis.event.EventHandlerImpl;
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.powerup.handler.pool.PausablePoolImpl;
 import it.unibo.pyxis.powerup.handler.pool.PowerupPool;
-import com.google.common.eventbus.Subscribe;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 public final class PowerupHandlerImpl implements PowerupHandler {
@@ -25,14 +27,14 @@ public final class PowerupHandlerImpl implements PowerupHandler {
     private final Arena arena;
 
     public PowerupHandlerImpl(final PowerupHandlerPolicy policy, final Arena inputArena) {
-        EventHandlerImpl.getEventHandler().register(this);
+        EventBus.getDefault().register(this);
         this.executor = new InternalExecutor(MIN_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIMEOUT, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         this.insertionPolicy = policy;
         this.arena = inputArena;
     }
 
     @Override
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void handlePowerupActivationEvent(final PowerupActivationEvent event) {
         final PowerupEffect effect = event.getPowerupEffect();
         this.insertionPolicy.execute(effect.getType(), this.executor.getTypeMap(effect.getType()));

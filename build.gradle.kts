@@ -47,6 +47,7 @@ dependencies {
 
 
     implementation("com.google.guava:guava:30.1.1-jre")
+    implementation("org.greenrobot:eventbus:3.2.0")
 }
 
 tasks.withType<JavaCompile> {

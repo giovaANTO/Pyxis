@@ -2,10 +2,11 @@ package it.unibo.pyxis.powerup.handler;
 
 import it.unibo.pyxis.arena.Arena;
 import it.unibo.pyxis.arena.ArenaImpl;
-import it.unibo.pyxis.event.EventHandlerImpl;
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.powerup.effect.PowerupEffectType;
+
+import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -78,7 +79,7 @@ class PowerupEventHandlerTest {
     public void testPowerupActivation() throws InterruptedException {
         this.powerupHandler = new PowerupHandlerImpl( (t,m) -> System.out.println(t), this.arena);
         final PowerupActivationEvent event = () -> this.effect1;
-        EventHandlerImpl.getEventHandler().sendEvent(event);
+        EventBus.getDefault().post(event);
         Thread.sleep(1000);
         assertEquals(1, this.counter);
         Thread.sleep(1500);
@@ -89,8 +90,8 @@ class PowerupEventHandlerTest {
     public void testMultiplePowerupActivation() throws InterruptedException {
         this.powerupHandler = new PowerupHandlerImpl( (t,m) -> System.out.println(t), this.arena);
         final PowerupActivationEvent event = () -> this.effect1;
-        EventHandlerImpl.getEventHandler().sendEvent(event);
-        EventHandlerImpl.getEventHandler().sendEvent(event);
+        EventBus.getDefault().post(event);
+        EventBus.getDefault().post(event);
         Thread.sleep(1000);
         assertEquals(2, this.counter);
         Thread.sleep(2000);
@@ -105,17 +106,17 @@ class PowerupEventHandlerTest {
         this.powerupHandler = new PowerupHandlerImpl(
                 (t,m) -> {
                     if (t == PowerupEffectType.BALL_POWERUP) {
-                        m.values().stream().forEach(Thread::interrupt);
+                        m.values().forEach(Thread::interrupt);
                     }
                 },
                 this.arena
         );
 
         final PowerupActivationEvent event = () -> this.effect2;
-        EventHandlerImpl.getEventHandler().sendEvent(event);
+        EventBus.getDefault().post(event);
         Thread.sleep(500);
         assertEquals(2, this.counter);
-        EventHandlerImpl.getEventHandler().sendEvent(event);
+        EventBus.getDefault().post(event);
         Thread.sleep(500);
         assertEquals(2, this.counter);
     }
