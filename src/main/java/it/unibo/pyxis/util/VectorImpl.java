@@ -26,4 +26,5 @@ public class VectorImpl implements Vector{
         this.components.setFirst(inputComponents.getFirst());
         this.components.setSecond(inputComponents.getSecond());
     }
+
 }

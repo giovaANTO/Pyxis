@@ -3,11 +3,13 @@ package it.unibo.pyxis.element.ball;
 import it.unibo.pyxis.element.AbstractElement;
 import it.unibo.pyxis.element.brick.Brick;
 import it.unibo.pyxis.element.pad.Pad;
+import it.unibo.pyxis.event.movement.BallMovementEvent;
 import it.unibo.pyxis.event.notify.CollisionEvent;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.util.Pair;
 import it.unibo.pyxis.util.Vector;
+import org.greenrobot.eventbus.EventBus;
 
 public class BallImpl extends AbstractElement implements Ball {
 
@@ -42,12 +44,23 @@ public class BallImpl extends AbstractElement implements Ball {
     }
 
     @Override
-    public void setType(BallType inputType) {
+    public void setType(final BallType inputType) {
         this.type = inputType;
     }
 
     @Override
-    public void setPace(Vector inputPace) {
+    public void setPace(final Vector inputPace) {
         this.pace.setComponents(inputPace.getComponents());
+    }
+
+    @Override
+    public void update() {
+        this.calculateNewCoord();
+        BallMovementEvent event = this::getPosition;
+        EventBus.getDefault().post(event);
+    }
+
+    private void calculateNewCoord() {
+        this.getPosition().sumVector(this.getPace(), this.getType().getPaceMultiplier());
     }
 }

@@ -19,4 +19,5 @@ public interface Vector {
      * @param components
      */
     void setComponents(Pair<Double> components);
+
 }
