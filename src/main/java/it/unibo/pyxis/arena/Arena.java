@@ -8,6 +8,7 @@ import it.unibo.pyxis.element.*;
 import it.unibo.pyxis.element.ball.Ball;
 import it.unibo.pyxis.element.brick.Brick;
 import it.unibo.pyxis.element.pad.Pad;
+import it.unibo.pyxis.element.powerup.Powerup;
 
 public interface Arena {
 
@@ -67,6 +68,9 @@ public interface Arena {
     
     
     Stream<Brick> getBrickStream();
+    
+    
+    Stream<Powerup> getPowerupStream();
     
     
     Pad getPad();

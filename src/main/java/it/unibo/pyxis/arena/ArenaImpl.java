@@ -1,8 +1,8 @@
 package it.unibo.pyxis.arena;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import it.unibo.pyxis.element.Element;
@@ -24,8 +24,8 @@ public class ArenaImpl implements Arena {
     private Dimension dimension;
     
     private Map<Coord, Brick> brickMap;
-    private Set<Ball> ballCollection;
-    private Set<Powerup> powerupCollection;
+    private List<Ball> ballCollection;
+    private List<Powerup> powerupCollection;
     private Pad pad;
     
     
