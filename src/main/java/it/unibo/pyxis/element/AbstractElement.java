@@ -22,4 +22,7 @@ public abstract class AbstractElement implements Element {
     public synchronized Coord getPosition() {
         return this.position;
     }
+
+    @Override
+    public abstract void update();
 }

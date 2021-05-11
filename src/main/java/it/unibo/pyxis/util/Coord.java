@@ -9,4 +9,11 @@ public interface Coord {
     void setX(double xCoord);
 
     void setY(double yCoord);
+
+    default void setXY(double xCoord, double yCoord) {
+        this.setX(xCoord);
+        this.setY(yCoord);
+    }
+
+    void sumVector(Vector vector, double multiplier);
 }

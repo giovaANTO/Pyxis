@@ -1,10 +1,11 @@
 package it.unibo.pyxis.element.powerup;
 
 import it.unibo.pyxis.element.AbstractElement;
-import it.unibo.pyxis.event.EventHandler;
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
+import org.greenrobot.eventbus.EventBus;
+
 
 public final class PowerupImpl extends AbstractElement implements Powerup {
 
@@ -18,11 +19,16 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     @Override
     public void apply() {
         final PowerupActivationEvent powerupActivationEvent = () -> this.getType().getEffect();
-        EventHandler.getEventHandler().sendEvent(powerupActivationEvent);
+        EventBus.getDefault().post(powerupActivationEvent);
     }
 
     @Override
     public PowerupType getType() {
         return this.type;
+    }
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("This method isn't implemented yet");
     }
 }

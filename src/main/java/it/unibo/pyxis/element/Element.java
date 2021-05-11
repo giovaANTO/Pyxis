@@ -18,4 +18,9 @@ public interface Element {
      *         The element's {@link Dimension}
      */
     Dimension getDimension();
+
+    /**
+     * Execute an update on the element.
+     */
+    void update();
 }

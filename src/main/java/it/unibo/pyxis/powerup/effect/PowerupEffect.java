@@ -2,8 +2,6 @@ package it.unibo.pyxis.powerup.effect;
 
 import it.unibo.pyxis.arena.Arena;
 
-import java.util.Optional;
-
 public interface PowerupEffect {
 
     /**

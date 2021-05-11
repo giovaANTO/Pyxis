@@ -2,17 +2,18 @@ package it.unibo.pyxis.powerup.handler;
 
 import it.unibo.pyxis.arena.Arena;
 import it.unibo.pyxis.arena.ArenaImpl;
-import it.unibo.pyxis.event.EventHandler;
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.powerup.effect.PowerupEffectType;
 
+
+import org.greenrobot.eventbus.EventBus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PowerupHandlerTest {
+class PowerupEventHandlerTest {
 
     // The arena where these powerups will apply
     private final Arena arena = new ArenaImpl();
@@ -77,9 +78,9 @@ class PowerupHandlerTest {
 
     @Test
     public void testPowerupActivation() throws InterruptedException {
-        this.powerupHandler = new PowerupHandlerImpl(this.arena, (t,m) -> System.out.println(t));
+        this.powerupHandler = new PowerupHandlerImpl((t,m) -> System.out.println(t), this.arena);
         final PowerupActivationEvent event = () -> this.effect1;
-        EventHandler.getEventHandler().sendEvent(event);
+        EventBus.getDefault().post(event);
         Thread.sleep(1000);
         assertEquals(1, this.counter);
         Thread.sleep(1500);
@@ -88,10 +89,10 @@ class PowerupHandlerTest {
 
     @Test
     public void testMultiplePowerupActivation() throws InterruptedException {
-        this.powerupHandler = new PowerupHandlerImpl(this.arena, (t,m) -> System.out.println(t));
+        this.powerupHandler = new PowerupHandlerImpl((t,m) -> System.out.println(t), this.arena);
         final PowerupActivationEvent event = () -> this.effect1;
-        EventHandler.getEventHandler().sendEvent(event);
-        EventHandler.getEventHandler().sendEvent(event);
+        EventBus.getDefault().post(event);
+        EventBus.getDefault().post(event);
         Thread.sleep(1000);
         assertEquals(2, this.counter);
         Thread.sleep(2000);
@@ -104,19 +105,19 @@ class PowerupHandlerTest {
     @Test
     public void testCantExecuteMultipleBallPowerup() throws InterruptedException {
         this.powerupHandler = new PowerupHandlerImpl(
-                this.arena,
                 (t,m) -> {
                     if (t == PowerupEffectType.BALL_POWERUP) {
                         m.values().forEach(Thread::interrupt);
                     }
-                }
+                },
+                this.arena
         );
 
         final PowerupActivationEvent event = () -> this.effect2;
-        EventHandler.getEventHandler().sendEvent(event);
+        EventBus.getDefault().post(event);
         Thread.sleep(500);
         assertEquals(2, this.counter);
-        EventHandler.getEventHandler().sendEvent(event);
+        EventBus.getDefault().post(event);
         Thread.sleep(500);
         assertEquals(2, this.counter);
     }
