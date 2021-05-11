@@ -11,7 +11,7 @@ import it.unibo.pyxis.util.Pair;
 import it.unibo.pyxis.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 
-public class BallImpl extends AbstractElement implements Ball {
+public final class BallImpl extends AbstractElement implements Ball {
 
     private BallType type;
     private final Vector pace;

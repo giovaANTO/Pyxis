@@ -14,12 +14,12 @@ public abstract class AbstractElement implements Element {
     }
 
     @Override
-    public synchronized Dimension getDimension() {
+    public final synchronized Dimension getDimension() {
         return this.dimension;
     }
 
     @Override
-    public synchronized Coord getPosition() {
+    public final synchronized Coord getPosition() {
         return this.position;
     }
 
