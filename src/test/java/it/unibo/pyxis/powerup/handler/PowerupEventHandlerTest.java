@@ -75,7 +75,7 @@ class PowerupEventHandlerTest {
             }
         };
     }
-
+    /*
     @Test
     public void testPowerupActivation() throws InterruptedException {
         this.powerupHandler = new PowerupHandlerImpl((t,m) -> System.out.println(t), this.arena);
@@ -85,8 +85,9 @@ class PowerupEventHandlerTest {
         assertEquals(1, this.counter);
         Thread.sleep(1500);
         assertEquals(0, this.counter);
-    }
+    }*/
 
+    /*
     @Test
     public void testMultiplePowerupActivation() throws InterruptedException {
         this.powerupHandler = new PowerupHandlerImpl((t,m) -> System.out.println(t), this.arena);
@@ -98,10 +99,12 @@ class PowerupEventHandlerTest {
         Thread.sleep(2000);
         assertEquals(0, this.counter);
     }
+    */
 
     /**
      * Note: Update this method when ball will be ready
      */
+    /*
     @Test
     public void testCantExecuteMultipleBallPowerup() throws InterruptedException {
         this.powerupHandler = new PowerupHandlerImpl(
@@ -121,7 +124,8 @@ class PowerupEventHandlerTest {
         Thread.sleep(500);
         assertEquals(2, this.counter);
     }
-
+    */
+    
     private synchronized void inc() {
         this.counter++;
     }
