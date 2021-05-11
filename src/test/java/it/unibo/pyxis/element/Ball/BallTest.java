@@ -8,6 +8,7 @@ import it.unibo.pyxis.util.CoordImpl;
 import it.unibo.pyxis.util.PairImpl;
 import it.unibo.pyxis.util.VectorImpl;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,6 +23,7 @@ public class BallTest {
                 new VectorImpl(new PairImpl<Double>(2.0, 5.0)));
     }
 
+    @Test
     public void testType() {
         System.out.println("testType");
         assertEquals(this.ball1.getType(), BallType.NORMAL_BALL);
@@ -29,5 +31,9 @@ public class BallTest {
         assertEquals(this.ball1.getType(), BallType.ATOMIC_BALL);
     }
 
+    @Test
+    public void testPace() {
+        System.out.println("testPace");
 
+    }
 }

@@ -10,13 +10,15 @@ public interface Ball extends Element {
 
     /**
      * Handles the collision event between the ball and a brick.
-     * @param collisionEvent {@link CollisionEvent}
+     * @param collisionEvent
+     *                      Receive a {@link CollisionEvent}
      */
     void handleBrickCollision(CollisionEvent<Brick> collisionEvent);
 
     /**
      * Handles the collision event between the ball and the pad.
-     * @param collisionEvent {@link CollisionEvent}
+     * @param collisionEvent
+     *                      Receive a {@link CollisionEvent}
      */
     void handlePadCollision(CollisionEvent<Pad> collisionEvent);
 
@@ -30,7 +32,7 @@ public interface Ball extends Element {
     /**
      * Returns the ball's pace.
      * @return
-     *              The {@link Vector}
+     *              The pace's {@link Vector}
      */
     Vector getPace();
 
