@@ -33,20 +33,14 @@ public interface Arena {
     /**
      * Brick's destruction process handling
      */
-    void handleBrickDestruction(Coord brick);
+    void handleBrickDestruction(Coord brickCoord);
     
     
     /**
      * Creation of a new Powerup Element
      * after a brick destruction
      */
-    void spawnPowerup();
-    
-    
-    /**
-     * Powerup activation process handling
-     */
-    void handlePowerupActivation();
+    void spawnPowerup(Coord spawnCoord);
     
     
     /**
@@ -57,19 +51,16 @@ public interface Arena {
     boolean isArenaClear();
     
     
-    /**
-     * Adds an element to the arena
-     */
-    void addElement(Element element);
-    
-    
     void getLevel();
     
     
     Dimension getDimensions();
     
     
-    void setDimensions(Dimension dimension);
+    void setHeight(double height);
+    
+    
+    void setWidth(double width);
     
     
     Stream<Ball> getBallStream();
