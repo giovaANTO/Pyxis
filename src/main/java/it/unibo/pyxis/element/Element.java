@@ -20,6 +20,41 @@ public interface Element {
     Dimension getDimension();
 
     /**
+     * Sets the element's position.
+     * @param position
+     *          The {@link Coord}
+     */
+    void setPosition(Coord position);
+
+    /**
+     * Sets the element's width value.
+     * @param width
+     *          The width value
+     */
+    void setWidth(double width);
+
+    /**
+     * Sets the element's height value.
+     * @param height
+     *          The height value
+     */
+    void setHeight(double height);
+
+    /**
+     * Increases the element's width value.
+     * @param increaseValue
+     *          The increment value
+     */
+    void increaseWidth(double increaseValue);
+
+    /**
+     * Increases the element's height value
+     * @param increaseValue
+     *          The increment value
+     */
+    void increaseHeight(double increaseValue);
+
+    /**
      * Execute an update on the element.
      */
     void update();

@@ -36,6 +36,11 @@ public final class CoordImpl implements Coord {
     }
 
     @Override
+    public Coord copyOf() {
+        return new CoordImpl(this.getX(), this.getY());
+    }
+
+    @Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
