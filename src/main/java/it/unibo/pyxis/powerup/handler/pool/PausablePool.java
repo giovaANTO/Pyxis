@@ -42,4 +42,6 @@ public interface PausablePool extends ExecutorService {
      *          an instance of {@link Condition}
      */
     Condition getCondition();
+
+
 }
