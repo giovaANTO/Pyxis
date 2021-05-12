@@ -16,4 +16,9 @@ public interface Coord {
     }
 
     void sumVector(Vector vector, double multiplier);
+    
+    double distance(Coord position);
+    
+    double distance(double px, double py);
+    
 }
