@@ -4,15 +4,24 @@ import java.util.Optional;
 
 public enum BallType {
 
+    /**
+     * The ball's standard type.
+     */
     NORMAL_BALL(Optional.of(1), 1, true),
+    /**
+     * A ball's type that gives infinite damage and no bouncing peculiarity.
+     */
     ATOMIC_BALL(Optional.empty(), 1, false),
+    /**
+     * A ball's type that gives infinite damage.
+     */
     STEEL_BALL(Optional.empty(), 1, true);
 
     private final Optional<Integer> damage;
     private final double paceMultiplier;
     private final boolean bounce;
 
-    private BallType(final Optional<Integer> typeDamage,
+    BallType(final Optional<Integer> typeDamage,
                      final double typePaceMultiplier, final boolean typeBounce) {
         this.damage = typeDamage;
         this.paceMultiplier = typePaceMultiplier;
@@ -30,7 +39,7 @@ public enum BallType {
 
     /**
      * Returns the ball's pace multiplier.
-     * @return
+     * @return double representing ball's pace multiplier
      */
     public double getPaceMultiplier() {
         return this.paceMultiplier;
@@ -41,7 +50,7 @@ public enum BallType {
      * @return  true if the ball bounces,
      *          false if the ball doesn't bounce.
      */
-    public boolean isBounce() {
+    public boolean bounce() {
         return this.bounce;
     }
 }

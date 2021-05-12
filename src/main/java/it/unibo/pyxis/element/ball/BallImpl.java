@@ -7,7 +7,6 @@ import it.unibo.pyxis.event.movement.BallMovementEvent;
 import it.unibo.pyxis.event.notify.CollisionEvent;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
-import it.unibo.pyxis.util.Pair;
 import it.unibo.pyxis.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 
