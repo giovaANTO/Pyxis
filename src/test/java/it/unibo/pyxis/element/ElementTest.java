@@ -26,7 +26,7 @@ class ElementTest {
     public void testDimension() {
         System.out.println("testDimension");
         assertEquals(this.element1.getDimension(), this.startingDimension);
-        Dimension modifyDimension = this.element1.getDimension();
+        final Dimension modifyDimension = this.element1.getDimension();
         modifyDimension.increaseHeight(5);
         assertNotEquals(this.element1.getDimension(), modifyDimension);
         this.element1.increaseHeight(5);
@@ -37,12 +37,11 @@ class ElementTest {
     public void testPosition() {
         System.out.println("testPosition");
         assertEquals(this.element1.getPosition(), this.startingPosition);
-        Coord modifyPosition = this.element1.getPosition();
+        final Coord modifyPosition = this.element1.getPosition();
         modifyPosition.setX(this.startingPosition.getX() + 10);
         assertNotEquals(this.element1.getPosition(), modifyPosition);
-        this.element1.setPosition(new CoordImpl(
-                this.element1.getPosition().getX() + 10,
-                this.element1.getPosition().getY()));
+        final Coord newPosition = new CoordImpl(this.element1.getPosition().getX() + 10, this.element1.getPosition().getY());
+        this.element1.setPosition(newPosition);
         assertEquals(this.element1.getPosition(), modifyPosition);
     }
 
