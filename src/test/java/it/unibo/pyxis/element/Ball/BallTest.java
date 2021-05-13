@@ -50,4 +50,17 @@ public class BallTest {
         this.ball1.setPace(modifyPace);
         assertEquals(this.ball1.getPace().getComponents(), modifyPace.getComponents());
     }
+
+    @Test
+    public void testUpdate() {
+        System.out.println("testUpdate");
+        assertEquals(this.ball1.getPosition(), this.startingCoordinates);
+        this.ball1.update();
+        double multiplier = this.ball1.getType().getPaceMultiplier();
+        Coord updatedCoordinates = new CoordImpl(this.startingCoordinates.getX()
+                + (this.ball1.getPace().getComponents().getFirst() * multiplier),
+                this.startingCoordinates.getY()
+                        + (this.ball1.getPace().getComponents().getSecond() * multiplier));
+        assertEquals(this.ball1.getPosition(), updatedCoordinates);
+    }
 }

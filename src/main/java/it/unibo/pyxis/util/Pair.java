@@ -24,7 +24,7 @@ public interface Pair<T> {
     T getFirst();
 
     /**
-     * Returns the pai's second value
+     * Returns the pair's second value
      * @return
      *          The second value
      */

@@ -29,15 +29,21 @@ class ElementTest {
         Dimension modifyDimension = this.element1.getDimension();
         modifyDimension.increaseHeight(5);
         assertNotEquals(this.element1.getDimension(), modifyDimension);
+        this.element1.increaseHeight(5);
+        assertEquals(this.element1.getDimension(), modifyDimension);
     }
 
     @Test
     public void testPosition() {
         System.out.println("testPosition");
-        assertEquals(this.element1.getPosition().copyOf(), this.startingPosition.copyOf());
-        Dimension modifyDimension = this.element1.getDimension().copyOf();
-        modifyDimension.increaseHeight(5);
-        assertNotEquals(this.element1.getDimension().copyOf(), modifyDimension.copyOf());
+        assertEquals(this.element1.getPosition(), this.startingPosition);
+        Coord modifyPosition = this.element1.getPosition();
+        modifyPosition.setX(this.startingPosition.getX() + 10);
+        assertNotEquals(this.element1.getPosition(), modifyPosition);
+        this.element1.setPosition(new CoordImpl(
+                this.element1.getPosition().getX() + 10,
+                this.element1.getPosition().getY()));
+        assertEquals(this.element1.getPosition(), modifyPosition);
     }
 
 }
