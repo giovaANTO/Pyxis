@@ -3,11 +3,18 @@ package it.unibo.pyxis.util;
 public interface Vector {
 
     /**
-     * Returns vector's components.
+     * Returns vector's x component.
      * @return
-     *          The {@link Pair} components to return
+     *          The x component
      */
-    Pair<Double> getComponents();
+    double getX();
+
+    /**
+     * Returns vector's y component.
+     * @return
+     *          The y component
+     */
+    double getY();
 
     /**
      * Returns vector's module.

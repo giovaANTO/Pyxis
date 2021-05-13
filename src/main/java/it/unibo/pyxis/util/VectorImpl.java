@@ -14,8 +14,13 @@ public final class VectorImpl implements Vector {
     }
 
     @Override
-    public Pair<Double> getComponents() {
-        return this.components;
+    public double getX() {
+        return this.components.getFirst();
+    }
+
+    @Override
+    public double getY() {
+        return this.components.getSecond();
     }
 
     @Override
