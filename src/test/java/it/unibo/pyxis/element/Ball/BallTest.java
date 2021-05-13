@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class BallTest {
 
     private Ball ball1;
-    private Dimension startingDimension;
     private Coord startingCoordinates;
     private Vector startingPace;
 
@@ -23,10 +22,10 @@ public class BallTest {
      */
     @BeforeEach
     private void setUp() {
-        this.startingDimension = new DimensionImpl(3, 3);
+        final Dimension startingDimension = new DimensionImpl(3, 3);
         this.startingCoordinates = new CoordImpl(3, 5);
         this.startingPace = new VectorImpl(new PairImpl<Double>(2.0, 5.0));
-        this.ball1 = new BallImpl(this.startingDimension.copyOf(),
+        this.ball1 = new BallImpl(startingDimension.copyOf(),
                 this.startingCoordinates.copyOf(), this.startingPace.copyOf());
     }
 
@@ -44,7 +43,7 @@ public class BallTest {
     public void testPace() {
         System.out.println("testPace");
         assertEquals(this.ball1.getPace().getComponents(), this.startingPace.getComponents());
-        Vector modifyPace = this.ball1.getPace();
+        final Vector modifyPace = this.ball1.getPace();
         modifyPace.setComponents(new PairImpl<Double>(4.0, 6.2));
         assertNotEquals(this.ball1.getPace().getComponents(), modifyPace.getComponents());
         this.ball1.setPace(modifyPace);
@@ -56,11 +55,10 @@ public class BallTest {
         System.out.println("testUpdate");
         assertEquals(this.ball1.getPosition(), this.startingCoordinates);
         this.ball1.update();
-        double multiplier = this.ball1.getType().getPaceMultiplier();
-        Coord updatedCoordinates = new CoordImpl(this.startingCoordinates.getX()
-                + (this.ball1.getPace().getComponents().getFirst() * multiplier),
-                this.startingCoordinates.getY()
-                        + (this.ball1.getPace().getComponents().getSecond() * multiplier));
+        final double multiplier = this.ball1.getType().getPaceMultiplier();
+        final double modX = this.startingCoordinates.getX() + (this.ball1.getPace().getComponents().getFirst() * multiplier);
+        final double modY = this.startingCoordinates.getY() + (this.ball1.getPace().getComponents().getSecond() * multiplier);
+        Coord updatedCoordinates = new CoordImpl(modX, modY);
         assertEquals(this.ball1.getPosition(), updatedCoordinates);
     }
 }
