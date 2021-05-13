@@ -21,11 +21,11 @@ public enum BallType {
     private final double paceMultiplier;
     private final boolean bounce;
 
-    BallType(final Optional<Integer> typeDamage,
-                     final double typePaceMultiplier, final boolean typeBounce) {
-        this.damage = typeDamage;
-        this.paceMultiplier = typePaceMultiplier;
-        this.bounce = typeBounce;
+    BallType(final Optional<Integer> inputDamage,
+                     final double inputPaceMultiplier, final boolean inputBounce) {
+        this.damage = inputDamage;
+        this.paceMultiplier = inputPaceMultiplier;
+        this.bounce = inputBounce;
     }
 
     /**

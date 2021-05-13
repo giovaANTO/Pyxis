@@ -7,30 +7,37 @@ import it.unibo.pyxis.util.DimensionImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ElementTest {
 
     private Element element1;
+    private Dimension startingDimension;
+    private Coord startingPosition;
 
     @BeforeEach
     void setUp() {
-        this.element1 = new ToTestElement(new DimensionImpl(4.0, 5.0), new CoordImpl(4.0, 5.0));
+        this.startingDimension = new DimensionImpl(4.0, 5.0);
+        this.startingPosition = new CoordImpl(4.0, 5.0);
+        this.element1 = new ToTestElement(startingDimension.copyOf(), startingPosition.copyOf());
     }
 
     @Test
     public void testDimension() {
         System.out.println("testDimension");
-        Dimension elemDimension = new DimensionImpl(4.0, 5.0);
-        assertEquals(this.element1.getDimension(), elemDimension);
+        assertEquals(this.element1.getDimension(), this.startingDimension);
+        Dimension modifyDimension = this.element1.getDimension();
+        modifyDimension.increaseHeight(5);
+        assertNotEquals(this.element1.getDimension(), modifyDimension);
     }
 
     @Test
     public void testPosition() {
         System.out.println("testPosition");
-        Coord elemPosition = new CoordImpl(4.0, 5.0);
-        assertEquals(this.element1.getPosition(), elemPosition);
+        assertEquals(this.element1.getPosition().copyOf(), this.startingPosition.copyOf());
+        Dimension modifyDimension = this.element1.getDimension().copyOf();
+        modifyDimension.increaseHeight(5);
+        assertNotEquals(this.element1.getDimension().copyOf(), modifyDimension.copyOf());
     }
 
 }

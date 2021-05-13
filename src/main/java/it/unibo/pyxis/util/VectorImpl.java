@@ -9,6 +9,10 @@ public final class VectorImpl implements Vector {
         this.components = initialComponents;
     }
 
+    public VectorImpl(final double firstComponent, final double secondComponent) {
+        this(new PairImpl<Double>(firstComponent, secondComponent));
+    }
+
     @Override
     public Pair<Double> getComponents() {
         return this.components;
@@ -28,7 +32,9 @@ public final class VectorImpl implements Vector {
 
     @Override
     public Vector copyOf() {
-        return new VectorImpl(this.getComponents());
+        double firstComponent = this.components.getFirst();
+        double secondComponent = this.components.getSecond();
+        return new VectorImpl(firstComponent, secondComponent);
     }
 
 }

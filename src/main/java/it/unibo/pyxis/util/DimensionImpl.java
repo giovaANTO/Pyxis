@@ -45,6 +45,7 @@ public final class DimensionImpl implements Dimension {
         return new DimensionImpl(this.getWidth(), this.getHeight());
     }
 
+    @Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;

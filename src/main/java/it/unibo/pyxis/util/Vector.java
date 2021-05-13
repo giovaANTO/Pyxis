@@ -5,14 +5,14 @@ public interface Vector {
     /**
      * Returns vector's components.
      * @return
-     *          The {@link Pair}
+     *          The {@link Pair} components to return
      */
     Pair<Double> getComponents();
 
     /**
      * Returns vector's module.
      * @return
-     *          Value of the module
+     *          The module's value
      */
     double getModule();
 
