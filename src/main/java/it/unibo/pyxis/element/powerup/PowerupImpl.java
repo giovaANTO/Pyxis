@@ -1,11 +1,10 @@
 package it.unibo.pyxis.element.powerup;
 
 import it.unibo.pyxis.element.AbstractElement;
-import it.unibo.pyxis.event.notify.PowerupActivationEvent;
+import it.unibo.pyxis.event.Events;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 import org.greenrobot.eventbus.EventBus;
-
 
 public final class PowerupImpl extends AbstractElement implements Powerup {
 
@@ -18,8 +17,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
 
     @Override
     public void apply() {
-        final PowerupActivationEvent powerupActivationEvent = () -> this.getType().getEffect();
-        EventBus.getDefault().post(powerupActivationEvent);
+        EventBus.getDefault().post(Events.newPowerupActivationEvent(this.getType().getEffect()));
     }
 
     @Override

@@ -11,8 +11,6 @@ package it.unibo.pyxis.event;
  *     <li> a notification of a status change </li>
  *     <li> etc..</li>
  * </ul>
- *
- * Instances of Event and relative extensions can be dispatched using {@link EventHandlerImpl} class.
  */
 public interface Event {
 }
