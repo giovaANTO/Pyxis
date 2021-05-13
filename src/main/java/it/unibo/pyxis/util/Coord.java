@@ -52,10 +52,16 @@ public interface Coord {
      */
     void sumVector(Vector vector, double multiplier);
 
+
     /**
      * Returns a copy of the {@link Coord}.
      * @return
      *          The {@link Coord}
      */
     Coord copyOf();
+
+    
+    double distance(Coord position);
+    
+    double distance(double px, double py);
 }

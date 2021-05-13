@@ -56,4 +56,16 @@ public final class CoordImpl implements Coord {
     public int hashCode() {
         return Objects.hash(internalPair);
     }
+
+    public double distance(final Coord position) {
+        final double px = position.getX() - this.getX();
+        final double py = position.getY() - this.getY();
+        return Math.sqrt(px * px + py * py);
+    }
+
+    public double distance(final double x, final double y) {
+        final double px = x - getX();
+        final double py = y - getY();
+        return Math.sqrt(px * px + py * py);
+    }
 }
