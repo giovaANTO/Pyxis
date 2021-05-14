@@ -42,12 +42,12 @@ public class BallTest {
     @Test
     public void testPace() {
         System.out.println("testPace");
-        assertEquals(this.ball1.getPace().getComponents(), this.startingPace.getComponents());
+        assertEquals(this.ball1.getPace(), this.startingPace);
         final Vector modifyPace = this.ball1.getPace();
         modifyPace.setComponents(new PairImpl<Double>(4.0, 6.2));
-        assertNotEquals(this.ball1.getPace().getComponents(), modifyPace.getComponents());
+        assertNotEquals(this.ball1.getPace(), modifyPace);
         this.ball1.setPace(modifyPace);
-        assertEquals(this.ball1.getPace().getComponents(), modifyPace.getComponents());
+        assertEquals(this.ball1.getPace(), modifyPace);
     }
 
     @Test
@@ -56,8 +56,8 @@ public class BallTest {
         assertEquals(this.ball1.getPosition(), this.startingCoordinates);
         this.ball1.update();
         final double multiplier = this.ball1.getType().getPaceMultiplier();
-        final double modX = this.startingCoordinates.getX() + (this.ball1.getPace().getComponents().getFirst() * multiplier);
-        final double modY = this.startingCoordinates.getY() + (this.ball1.getPace().getComponents().getSecond() * multiplier);
+        final double modX = this.startingCoordinates.getX() + (this.ball1.getPace().getX() * multiplier);
+        final double modY = this.startingCoordinates.getY() + (this.ball1.getPace().getY() * multiplier);
         Coord updatedCoordinates = new CoordImpl(modX, modY);
         assertEquals(this.ball1.getPosition(), updatedCoordinates);
     }

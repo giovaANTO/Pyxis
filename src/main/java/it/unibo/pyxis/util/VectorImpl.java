@@ -1,6 +1,8 @@
 package it.unibo.pyxis.util;
 
 
+import java.util.Objects;
+
 public final class VectorImpl implements Vector {
 
     private final Pair<Double> components;
@@ -27,6 +29,23 @@ public final class VectorImpl implements Vector {
     public double getModule() {
         return Math.sqrt(Math.pow(this.components.getFirst(), 2)
                 + Math.pow(this.components.getSecond(), 2));
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        VectorImpl vector = (VectorImpl) o;
+        return Objects.equals(components, vector.components);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(components);
     }
 
     @Override
