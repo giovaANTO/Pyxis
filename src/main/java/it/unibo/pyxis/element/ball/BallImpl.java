@@ -52,7 +52,8 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     public void setPace(final Vector inputPace) {
-        this.pace.setComponents(new PairImpl<Double>(inputPace.getX(), inputPace.getY()));
+        this.pace.setX(inputPace.getX());
+        this.pace.setY(inputPace.getY());
     }
 
     @Override

@@ -44,7 +44,8 @@ public class BallTest {
         System.out.println("testPace");
         assertEquals(this.ball1.getPace(), this.startingPace);
         final Vector modifyPace = this.ball1.getPace();
-        modifyPace.setComponents(new PairImpl<Double>(4.0, 6.2));
+        modifyPace.setX(4.0);
+        modifyPace.setY(6.2);
         assertNotEquals(this.ball1.getPace(), modifyPace);
         this.ball1.setPace(modifyPace);
         assertEquals(this.ball1.getPace(), modifyPace);

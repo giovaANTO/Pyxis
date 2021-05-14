@@ -24,11 +24,18 @@ public interface Vector {
     double getModule();
 
     /**
-     * Sets vector's components.
-     * @param components
-     *          The {@link Pair} components x, y
+     * Sets vector's x component.
+     * @param xCoord
+     *          The x component
      */
-    void setComponents(Pair<Double> components);
+    void setX(double xCoord);
+
+    /**
+     * Sets vector's y component.
+     * @param yCoord
+     *          The y component
+     */
+    void setY(double yCoord);
 
     /**
      * Return a copy of the vector.

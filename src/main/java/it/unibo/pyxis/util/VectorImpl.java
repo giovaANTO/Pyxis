@@ -32,6 +32,16 @@ public final class VectorImpl implements Vector {
     }
 
     @Override
+    public void setX(final double xCoord) {
+        this.components.setFirst(xCoord);
+    }
+
+    @Override
+    public void setY(final double yCoord) {
+        this.components.setSecond(yCoord);
+    }
+
+    @Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
@@ -46,12 +56,6 @@ public final class VectorImpl implements Vector {
     @Override
     public int hashCode() {
         return Objects.hash(components);
-    }
-
-    @Override
-    public void setComponents(final Pair<Double> inputComponents) {
-        this.components.setFirst(inputComponents.getFirst());
-        this.components.setSecond(inputComponents.getSecond());
     }
 
     @Override
