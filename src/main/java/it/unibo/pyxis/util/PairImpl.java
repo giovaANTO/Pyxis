@@ -5,7 +5,6 @@ import com.google.common.base.Objects;
 public final class PairImpl<T> implements Pair<T> {
 
     private T first;
-
     private T second;
 
     public PairImpl(final T inFirst, final T inSecond) {

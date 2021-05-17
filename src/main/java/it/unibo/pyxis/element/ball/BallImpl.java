@@ -10,6 +10,8 @@ import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Objects;
+
 public final class BallImpl extends AbstractElement implements Ball {
 
     private BallType type;
@@ -39,7 +41,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     public Vector getPace() {
-        return this.pace;
+        return this.pace.copyOf();
     }
 
     @Override
@@ -49,7 +51,8 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     public void setPace(final Vector inputPace) {
-        this.pace.setComponents(inputPace.getComponents());
+        this.pace.setX(inputPace.getX());
+        this.pace.setY(inputPace.getY());
     }
 
     @Override
@@ -60,6 +63,25 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     private void calculateNewCoord() {
-        this.getPosition().sumVector(this.getPace(), this.getType().getPaceMultiplier());
+        Coord updatedCoord = this.getPosition();
+        updatedCoord.sumVector(this.getPace(), this.getType().getPaceMultiplier());
+        this.setPosition(updatedCoord);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BallImpl ball = (BallImpl) o;
+        return type == ball.type && pace.equals(ball.pace);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, pace);
     }
 }

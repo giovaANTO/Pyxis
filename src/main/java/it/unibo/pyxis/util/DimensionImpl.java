@@ -40,6 +40,12 @@ public final class DimensionImpl implements Dimension {
         this.setHeight(this.getHeight() + increaseValue);
     }
 
+    @Override
+    public Dimension copyOf() {
+        return new DimensionImpl(this.getWidth(), this.getHeight());
+    }
+
+    @Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;

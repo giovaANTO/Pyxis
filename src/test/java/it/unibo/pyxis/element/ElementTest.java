@@ -7,30 +7,42 @@ import it.unibo.pyxis.util.DimensionImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ElementTest {
 
     private Element element1;
+    private Dimension startingDimension;
+    private Coord startingPosition;
 
     @BeforeEach
     void setUp() {
-        this.element1 = new ToTestElement(new DimensionImpl(4.0, 5.0), new CoordImpl(4.0, 5.0));
+        this.startingDimension = new DimensionImpl(4.0, 5.0);
+        this.startingPosition = new CoordImpl(4.0, 5.0);
+        this.element1 = new ToTestElement(startingDimension.copyOf(), startingPosition.copyOf());
     }
 
     @Test
     public void testDimension() {
         System.out.println("testDimension");
-        Dimension elemDimension = new DimensionImpl(4.0, 5.0);
-        assertEquals(this.element1.getDimension(), elemDimension);
+        assertEquals(this.element1.getDimension(), this.startingDimension);
+        final Dimension modifyDimension = this.element1.getDimension();
+        modifyDimension.increaseHeight(5);
+        assertNotEquals(this.element1.getDimension(), modifyDimension);
+        this.element1.increaseHeight(5);
+        assertEquals(this.element1.getDimension(), modifyDimension);
     }
 
     @Test
     public void testPosition() {
         System.out.println("testPosition");
-        Coord elemPosition = new CoordImpl(4.0, 5.0);
-        assertEquals(this.element1.getPosition(), elemPosition);
+        assertEquals(this.element1.getPosition(), this.startingPosition);
+        final Coord modifyPosition = this.element1.getPosition();
+        modifyPosition.setX(this.startingPosition.getX() + 10);
+        assertNotEquals(this.element1.getPosition(), modifyPosition);
+        final Coord newPosition = new CoordImpl(this.element1.getPosition().getX() + 10, this.element1.getPosition().getY());
+        this.element1.setPosition(newPosition);
+        assertEquals(this.element1.getPosition(), modifyPosition);
     }
 
 }

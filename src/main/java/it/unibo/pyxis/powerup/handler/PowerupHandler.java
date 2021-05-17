@@ -1,14 +1,16 @@
 package it.unibo.pyxis.powerup.handler;
 
-import it.unibo.pyxis.event.notify.PowerupActivationEvent;
+import it.unibo.pyxis.powerup.effect.PowerupEffect;
+
+import java.util.concurrent.Future;
 
 public interface PowerupHandler {
     /**
-     * Entry point where powerup activation event is handled.
-     * @param event
-     *               Received event.
+     * Insert a new powerup.
+     * @param effect
+     *               the effect to insert
      */
-    void handlePowerupActivationEvent(PowerupActivationEvent event);
+    Future<?> addPowerup(PowerupEffect effect);
 
     /**
      * Pause the execution handler.
@@ -42,4 +44,11 @@ public interface PowerupHandler {
      * Shutdown the internal executor of the handler.
      */
     void shutdown();
+
+    /**
+     * Return the number of threads that are currently running.
+     * @return
+     *          The thread number
+     */
+    int activeCount();
 }

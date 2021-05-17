@@ -5,16 +5,10 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import it.unibo.pyxis.arena.Arena;
-import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.powerup.handler.pool.PausablePoolImpl;
 import it.unibo.pyxis.powerup.handler.pool.PowerupPool;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 
 public final class PowerupHandlerImpl implements PowerupHandler {
 
@@ -26,20 +20,17 @@ public final class PowerupHandlerImpl implements PowerupHandler {
     private final PowerupHandlerPolicy insertionPolicy;
     private final Arena arena;
 
-
     public PowerupHandlerImpl(final PowerupHandlerPolicy policy, final Arena inputArena) {
-        EventBus.getDefault().register(this);
-        this.executor = new InternalExecutor(MIN_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIMEOUT, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+        this.executor = new InternalExecutor(MIN_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIMEOUT,
+                TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         this.insertionPolicy = policy;
         this.arena = inputArena;
     }
 
     @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handlePowerupActivationEvent(final PowerupActivationEvent event) {
-        final PowerupEffect effect = event.getPowerupEffect();
+    public Future<?> addPowerup(final PowerupEffect effect) {
         this.insertionPolicy.execute(effect.getType(), this.executor.getTypeMap(effect.getType()));
-        this.executor.submit(effect);
+        return this.executor.submit(effect);
     }
 
     @Override
@@ -65,6 +56,11 @@ public final class PowerupHandlerImpl implements PowerupHandler {
     @Override
     public void shutdown() {
         this.executor.shutdown();
+    }
+
+    @Override
+    public int activeCount() {
+        return this.executor.getActiveCount();
     }
 
     /**
@@ -127,7 +123,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                                 cond.await();
                             }
                             lock.unlock();
-                            Thread.sleep(1000);
+                            TimeUnit.SECONDS.sleep(1);
                         }
                     } catch (InterruptedException e) {
                         System.out.println(e.getMessage());
@@ -164,5 +160,6 @@ public final class PowerupHandlerImpl implements PowerupHandler {
         private void untrackThread(final PowerupEffectType type, final long tid) {
             this.threadMap.get(type).remove(tid);
         }
+
     }
 }
