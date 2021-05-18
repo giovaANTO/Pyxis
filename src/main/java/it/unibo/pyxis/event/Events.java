@@ -4,7 +4,6 @@ import it.unibo.pyxis.element.powerup.Powerup;
 import it.unibo.pyxis.event.movement.BallMovementEvent;
 import it.unibo.pyxis.event.movement.PowerupMovementEvent;
 import it.unibo.pyxis.event.notify.BrickDestructionEvent;
-import it.unibo.pyxis.event.notify.CollisionEvent;
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.util.Coord;
 
@@ -24,19 +23,6 @@ public final class Events {
      */
     public static BrickDestructionEvent newBrickDestructionEvent(final Coord coords) {
         return () -> coords;
-    }
-
-    /**
-     * Create a new {@link CollisionEvent} instance passing an entity that has received a collision.
-     * @param collidedEntity
-     *                          The entity that has been hit.
-     * @param <T>
-     *                          Type of collided entity.
-     * @return
-     *                          The {@link CollisionEvent} instance.
-     */
-    public static <T> CollisionEvent<T> newCollisionEvent(final T collidedEntity) {
-        return () -> collidedEntity;
     }
 
     /**

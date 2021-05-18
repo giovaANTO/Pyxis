@@ -1,10 +1,9 @@
 package it.unibo.pyxis.element.ball;
 
 import it.unibo.pyxis.element.AbstractElement;
-import it.unibo.pyxis.element.brick.Brick;
-import it.unibo.pyxis.element.pad.Pad;
+import it.unibo.pyxis.event.collision.BrickCollisionEvent;
+import it.unibo.pyxis.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.event.movement.BallMovementEvent;
-import it.unibo.pyxis.event.notify.CollisionEvent;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.util.Vector;
@@ -25,12 +24,12 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     @Override
-    public void handleBrickCollision(final CollisionEvent<Brick> collisionEvent) {
+    public void handleBrickCollision(final BrickCollisionEvent collisionEvent) {
 
     }
 
     @Override
-    public void handlePadCollision(final CollisionEvent<Pad> collisionEvent) {
+    public void handlePadCollision(final PadCollisionEvent collisionEvent) {
 
     }
 
