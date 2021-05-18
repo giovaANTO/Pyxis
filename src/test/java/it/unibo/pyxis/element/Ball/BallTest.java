@@ -25,8 +25,11 @@ public class BallTest {
         final Dimension startingDimension = new DimensionImpl(3, 3);
         this.startingCoordinates = new CoordImpl(3, 5);
         this.startingPace = new VectorImpl(new PairImpl<Double>(2.0, 5.0));
-        this.ball1 = new BallImpl(startingDimension.copyOf(),
-                this.startingCoordinates.copyOf(), this.startingPace.copyOf());
+        this.ball1 = new BallImpl.BallBuilderImpl()
+                        .dimension(startingDimension.copyOf())
+                        .position(this.startingCoordinates.copyOf())
+                        .pace(this.startingPace.copyOf())
+                        .build();
     }
 
     @Test
