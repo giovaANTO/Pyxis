@@ -11,13 +11,14 @@ import it.unibo.pyxis.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public final class BallImpl extends AbstractElement implements Ball {
 
     private BallType type;
     private final Vector pace;
 
-    public BallImpl(final Dimension inputDimension, final Coord inputPosition,
+    private BallImpl(final Dimension inputDimension, final Coord inputPosition,
                     final Vector inputPace) {
         super(inputDimension, inputPosition);
         this.type = BallType.NORMAL_BALL;
@@ -65,6 +66,42 @@ public final class BallImpl extends AbstractElement implements Ball {
         Coord updatedCoord = this.getPosition();
         updatedCoord.sumVector(this.getPace(), this.getType().getPaceMultiplier());
         this.setPosition(updatedCoord);
+    }
+
+    public static final class BallBuilderImpl implements BallBuilder {
+
+        private Optional<Dimension> dimension;
+        private Optional<Coord> position;
+        private Optional<Vector> pace;
+
+        private BallBuilderImpl() {
+        }
+
+        @Override
+        public BallBuilder dimension(final Dimension inputDimension) {
+            this.dimension = Optional.of(inputDimension.copyOf());
+            return this;
+        }
+
+        @Override
+        public BallBuilder position(final Coord inputPosition) {
+            this.position = Optional.of(inputPosition.copyOf());
+            return this;
+        }
+
+        @Override
+        public BallBuilder pace(final Vector inputPace) {
+            this.pace = Optional.of(inputPace.copyOf());
+            return this;
+        }
+
+        @Override
+        public Ball build() {
+            if (this.dimension.isEmpty() || this.position.isEmpty() || this.pace.isEmpty()) {
+                throw new IllegalStateException("Wrong ball Build");
+            }
+            return new BallImpl(this.dimension.get(), this.position.get(), this.pace.get());
+        }
     }
 
     @Override
