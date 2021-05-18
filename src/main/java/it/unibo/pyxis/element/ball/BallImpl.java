@@ -74,9 +74,6 @@ public final class BallImpl extends AbstractElement implements Ball {
         private Optional<Coord> position;
         private Optional<Vector> pace;
 
-        private BallBuilderImpl() {
-        }
-
         @Override
         public BallBuilder dimension(final Dimension inputDimension) {
             this.dimension = Optional.of(inputDimension.copyOf());
