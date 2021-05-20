@@ -3,6 +3,7 @@ package it.unibo.pyxis.level;
 import it.unibo.pyxis.arena.Arena;
 import it.unibo.pyxis.event.notify.DecreaseLifeEvent;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class LevelImpl implements Level {
 
@@ -49,6 +50,7 @@ public class LevelImpl implements Level {
     }
 
     @Override
+    @Subscribe
     public void handleDecreaseLife(final DecreaseLifeEvent event) {
         event.getScore().ifPresent(this::increaseScore);
     }
