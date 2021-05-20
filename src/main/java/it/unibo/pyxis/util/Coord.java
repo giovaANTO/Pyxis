@@ -43,6 +43,14 @@ public interface Coord {
     }
 
     /**
+     * Sums the x, y coordinates to the x, y, components of a
+     * {@link Vector}.
+     * @param vector
+     *          The {@link Vector} to sum
+     */
+    void sumVector(Vector vector);
+
+    /**
      * Sums the x, y coordinates to the x, y components of a
      * {@link Vector} multiplied by a certain value.
      * @param vector
@@ -51,7 +59,6 @@ public interface Coord {
      *          The multiplier value
      */
     void sumVector(Vector vector, double multiplier);
-
 
     /**
      * Returns a copy of the {@link Coord}.

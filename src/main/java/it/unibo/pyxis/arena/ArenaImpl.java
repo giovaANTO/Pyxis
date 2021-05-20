@@ -61,7 +61,9 @@ public class ArenaImpl implements Arena {
 
 
     public void spawnPowerup(Coord spawnCoord) {
-        addElement(new PowerupImpl(PowerupType.values()[rand.nextInt(PowerupType.values().length)], new DimensionImpl(1, 1), spawnCoord));
+        addElement(new PowerupImpl(
+                PowerupType.values()[rand.nextInt(PowerupType.values().length)],
+                new DimensionImpl(1, 1), spawnCoord));
     }
 
 

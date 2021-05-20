@@ -1,6 +1,7 @@
 package it.unibo.pyxis.element.powerup;
 
 import it.unibo.pyxis.element.Element;
+import it.unibo.pyxis.util.Vector;
 
 public interface Powerup extends Element {
     /**
@@ -15,4 +16,11 @@ public interface Powerup extends Element {
      *              The {@link PowerupType}
      */
     PowerupType getType();
+
+    /**
+     * Return the powerup's pace.
+     * @return
+     *          The {@link Vector}
+     */
+    Vector getPace();
 }
