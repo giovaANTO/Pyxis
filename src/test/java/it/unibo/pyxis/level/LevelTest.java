@@ -1,6 +1,7 @@
 package it.unibo.pyxis.level;
 
 import it.unibo.pyxis.arena.Arena;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,6 +12,11 @@ class LevelTest {
 
     private Level level;
     private Arena arena;
+
+    @BeforeEach
+    public void init() {
+        this.level = new LevelImpl(arena);
+    }
 
     @Test
     void decreaseLife() {
