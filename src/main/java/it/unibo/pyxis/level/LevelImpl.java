@@ -1,6 +1,8 @@
 package it.unibo.pyxis.level;
 
 import it.unibo.pyxis.arena.Arena;
+import it.unibo.pyxis.event.notify.DecreaseLifeEvent;
+import org.greenrobot.eventbus.EventBus;
 
 public class LevelImpl implements Level {
 
@@ -14,6 +16,7 @@ public class LevelImpl implements Level {
         this.lives = DEFAULT_STARTING_LIVES;
         this.score = 0;
         this.arena = inputArena;
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -31,13 +34,22 @@ public class LevelImpl implements Level {
         return this.score;
     }
 
-    @Override
-    public void increaseScore(final int score) {
+    /**
+     * Increase the score of this level.
+     * @param score
+     *               The score to increase
+     */
+    private void increaseScore(final int score) {
         this.score += score;
     }
 
     @Override
     public Arena getArena() {
         return this.arena;
+    }
+
+    @Override
+    public void handleDecreaseLife(final DecreaseLifeEvent event) {
+        event.getScore().ifPresent(this::increaseScore);
     }
 }
