@@ -86,7 +86,7 @@ public class BallTest {
                     .pace(this.startingPace)
                     .build();
         });
-        Ball testBall = new BallImpl.BallBuilderImpl()
+        final Ball testBall = new BallImpl.BallBuilderImpl()
                 .dimension(this.startingDimension)
                 .position(this.startingCoordinates)
                 .pace(this.startingPace)
