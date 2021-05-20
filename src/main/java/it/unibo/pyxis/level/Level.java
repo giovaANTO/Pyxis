@@ -3,7 +3,6 @@ package it.unibo.pyxis.level;
 import it.unibo.pyxis.arena.Arena;
 
 public interface Level {
-
     /**
      * Decrease a life.
      */
@@ -14,7 +13,7 @@ public interface Level {
      * @return
      *          The number of current lifes
      */
-    int getLifes();
+    int getLives();
 
     /**
      * Return the total score of this level.
