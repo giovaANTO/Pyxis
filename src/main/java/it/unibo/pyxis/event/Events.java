@@ -5,10 +5,13 @@ import it.unibo.pyxis.event.collision.BrickCollisionEvent;
 import it.unibo.pyxis.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.event.movement.BallMovementEvent;
 import it.unibo.pyxis.event.movement.PowerupMovementEvent;
+import it.unibo.pyxis.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.hitbox.HitEdge;
 import it.unibo.pyxis.util.Coord;
+
+import java.util.Optional;
 
 public final class Events {
 
@@ -73,8 +76,8 @@ public final class Events {
     }
 
     /**
-     *  Create a new {@link BallMovementEvent} instance passing a {@link Coord} representing the current position
-     *  of the {@link it.unibo.pyxis.element.ball.Ball} inside the {@link it.unibo.pyxis.arena.Arena}.
+     * Create a new {@link BallMovementEvent} instance passing a {@link Coord} representing the current position
+     * of the {@link it.unibo.pyxis.element.ball.Ball} inside the {@link it.unibo.pyxis.arena.Arena}.
      *
      * @param coord
      *                  The {@link it.unibo.pyxis.element.ball.Ball}'s {@link Coord} position.
@@ -96,5 +99,17 @@ public final class Events {
      */
     public static PowerupMovementEvent newPowerupMovementEvent(final Coord coord) {
         return () -> coord;
+    }
+
+    /**
+     * Create a new {@link DecreaseLifeEvent} instance passing an {@link Optional} indicating the score gained.
+     *
+     * @param score
+     *              An {@link Optional} with the score gained
+     * @return
+     *              The {@link DecreaseLifeEvent} instance.
+     */
+    public static DecreaseLifeEvent newDecreaseLifeEvent(final Optional<Integer> score) {
+        return () -> score;
     }
 }

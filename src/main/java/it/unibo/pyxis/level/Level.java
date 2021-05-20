@@ -1,6 +1,7 @@
 package it.unibo.pyxis.level;
 
 import it.unibo.pyxis.arena.Arena;
+import it.unibo.pyxis.event.notify.DecreaseLifeEvent;
 
 public interface Level {
     /**
@@ -23,16 +24,11 @@ public interface Level {
     int getScore();
 
     /**
-     * Increase the score of this level.
-     * @param score
-     *               The score to increase
-     */
-    void increaseScore(int score);
-
-    /**
      * Get the {@link Arena} associated to this level.
      * @return
      *          The instance of {@link Arena}
      */
     Arena getArena();
+
+    void handleDecreaseLife(DecreaseLifeEvent event);
 }
