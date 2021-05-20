@@ -30,6 +30,12 @@ public final class CoordImpl implements Coord {
     }
 
     @Override
+    public void sumVector(final Vector inputVector) {
+        this.internalPair.setFirst(this.internalPair.getFirst() + inputVector.getX());
+        this.internalPair.setSecond(this.internalPair.getSecond() + inputVector.getY());
+    }
+
+    @Override
     public void sumVector(final Vector inputVector, final double multiplier) {
         this.internalPair.setFirst(this.internalPair.getFirst() + inputVector.getX() * multiplier);
         this.internalPair.setSecond(this.internalPair.getSecond() + inputVector.getY() * multiplier);
