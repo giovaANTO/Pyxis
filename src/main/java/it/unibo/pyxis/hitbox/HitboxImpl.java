@@ -7,153 +7,135 @@ import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.util.DimensionImpl;
 
 public abstract class HitboxImpl implements Hitbox {
-        
-        private Coord position;
-        private Dimension dimension;
-        
 
-        public HitboxImpl(Coord position, Dimension dimension) {
+        private final Coord position;
+        private final Dimension dimension;
+
+        public HitboxImpl(final Coord position, final Dimension dimension) {
                 this.position = position;
                 this.dimension = dimension;
         }
-        
-        
-        protected Coord getPosition() {
-                return position;
+
+        @Override
+        public Coord getPosition() {
+                return this.position;
         }
-        
-        
-        protected Dimension getDimension() {
-                return dimension;
+
+        @Override
+        public Dimension getDimension() {
+                return this.dimension;
         }
-        
-        
+
+        @Override
         public abstract boolean isCollidingWithPoint(Coord position);
-        
-        public abstract boolean isCollidingWithOtherHB(HitboxImpl hitbox);
-        
-        public abstract boolean isCollidingWithSameHB(HitboxImpl hitbox);
-        
-        public abstract Optional<HitEdge> collidingEdgeWithOtherHB(HitboxImpl hitbox);
-        
-        
-        
+
+        @Override
+        public abstract boolean isCollidingWithOtherHB(Hitbox hitbox);
+
+        @Override
+        public abstract boolean isCollidingWithSameHB(Hitbox hitbox);
+
+        @Override
+        public abstract Optional<HitEdge> collidingEdgeWithOtherHB(Hitbox hitbox);
+
         public static class CircleHitbox extends HitboxImpl {
-            
-            
-            public CircleHitbox(Coord position, Double diameter) {
+
+            public CircleHitbox(final Coord position, final Double diameter) {
                 super(position, new DimensionImpl(diameter, diameter));
             }
-        
-        
+
             public Double getRadius() {
                 return getDimension().getHeight() / 2;
             }
 
-
-            public boolean isCollidingWithPoint(Coord position) {
+            @Override
+            public boolean isCollidingWithPoint(final Coord position) {
                 return getPosition().distance(position) <= getRadius();
             }
 
-
-            public boolean isCollidingWithSameHB(HitboxImpl hitbox) {
+            @Override
+            public boolean isCollidingWithSameHB(final Hitbox hitbox) {
                 return hitbox instanceof CircleHitbox
-                        ? getPosition().distance(hitbox.getPosition()) <= getRadius() + ((CircleHitbox) hitbox).getRadius()
-                        : false;
+                        && getPosition().distance(hitbox.getPosition()) <= getRadius() + ((CircleHitbox) hitbox).getRadius();
             }
-            
-            
-            public boolean isCollidingWithOtherHB(HitboxImpl hitbox) {
+
+            @Override
+            public boolean isCollidingWithOtherHB(final Hitbox hitbox) {
                 return collidingEdgeWithOtherHB(hitbox).isPresent();
             }
 
-
-            public Optional<HitEdge> collidingEdgeWithOtherHB(HitboxImpl hitbox) {
+            @Override
+            public Optional<HitEdge> collidingEdgeWithOtherHB(final Hitbox hitbox) {
                 if (hitbox instanceof CircleHitbox) {
                     return Optional.empty();
                 }
-                
+
                 double closestPointX;
                 double closestPointY;
-                
+
                 HitEdge hitEdge;
-                
+
                 double cHBCenterX = getPosition().getX();
                 double cHBCenterY = getPosition().getY();
                 double rHBCenterX = hitbox.getPosition().getX();
                 double rHBCenterY = hitbox.getPosition().getY();
                 double rHBWidth   = hitbox.getDimension().getWidth();
                 double rHBHeight  = hitbox.getDimension().getHeight();
-                
-                
+
                 closestPointX = closestPointCalculation(cHBCenterX, rHBCenterX, rHBWidth);
                 closestPointY = closestPointCalculation(cHBCenterY, rHBCenterY, rHBHeight);
-                
-                
+
                 if (closestPointX != cHBCenterX && closestPointY != cHBCenterY) {
                     hitEdge = HitEdge.CORNER;
-                }
-                else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY) {
+                } else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY) {
                         hitEdge = HitEdge.HORIZONTAL;
-                }
-                else {
+                } else {
                         hitEdge = HitEdge.VERTICAL;
                 }
-                
-                                                
-                return getPosition().distance(closestPointX, closestPointY) < getRadius() 
+
+                return getPosition().distance(closestPointX, closestPointY) < getRadius()
                         ? Optional.of(hitEdge)
                         : Optional.empty();
-                
             }
-        
-            private double closestPointCalculation(double cHBCenterCoord, double rHBCenterCoord, double rHBEdgeLength) {
+
+            private double closestPointCalculation(final double cHBCenterCoord, final double rHBCenterCoord,
+                                                   final double rHBEdgeLength) {
                 return cHBCenterCoord < rHBCenterCoord - rHBEdgeLength / 2
                         ? rHBCenterCoord - rHBEdgeLength / 2
-                                
-                        : cHBCenterCoord > rHBCenterCoord + rHBEdgeLength / 2
-                            ? rHBCenterCoord + rHBEdgeLength / 2
-                            : cHBCenterCoord;
+                        : Math.min(cHBCenterCoord, rHBCenterCoord + rHBEdgeLength / 2);
             }
-            
         }
-        
-        
+
         public static class RectHitbox extends HitboxImpl {
-            
-            public RectHitbox(Coord position, Dimension dimension) {
+
+            public RectHitbox(final Coord position, final Dimension dimension) {
                 super(position, dimension);
             }
 
-            
-            public boolean isCollidingWithPoint(Coord position) {
+            @Override
+            public boolean isCollidingWithPoint(final Coord position) {
                 return Math.abs(position.getX() - getPosition().getX()) <= getDimension().getWidth() / 2 
                         && Math.abs(position.getY() - getPosition().getY()) <= getDimension().getHeight() / 2;
             }
 
-
-            public boolean isCollidingWithSameHB(HitboxImpl hitbox) {
-                return hitbox instanceof RectHitbox
-                        ? Math.abs(getPosition().getX() - hitbox.getPosition().getX()) 
-                              <= (getDimension().getWidth() / 2) + hitbox.getDimension().getWidth() / 2
-                          && Math.abs(getPosition().getY() - hitbox.getPosition().getY()) 
-                              <= (getDimension().getHeight() / 2) + hitbox.getDimension().getHeight() / 2
-                        : false;
+            @Override
+            public boolean isCollidingWithSameHB(final Hitbox hitbox) {
+                return hitbox instanceof RectHitbox && Math.abs(getPosition().getX() - hitbox.getPosition().getX())
+                        <= (getDimension().getWidth() / 2) + hitbox.getDimension().getWidth() / 2
+                        && Math.abs(getPosition().getY() - hitbox.getPosition().getY())
+                        <= (getDimension().getHeight() / 2) + hitbox.getDimension().getHeight() / 2;
             }
 
-
-            public boolean isCollidingWithOtherHB(HitboxImpl hitbox) {
+            @Override
+            public boolean isCollidingWithOtherHB(final Hitbox hitbox) {
                 return hitbox.isCollidingWithOtherHB(this);
             }
 
-
-            public Optional<HitEdge> collidingEdgeWithOtherHB(HitboxImpl hitbox) {
+            @Override
+            public Optional<HitEdge> collidingEdgeWithOtherHB(final Hitbox hitbox) {
                 return hitbox instanceof CircleHitbox 
                         ? hitbox.collidingEdgeWithOtherHB(this)
                         : Optional.empty();
             }
-            
         }
-        
-        
 }

@@ -45,15 +45,15 @@ class HitboxTest {
         final Hitbox circleBoxToHit = new HitboxImpl.CircleHitbox(coord2, 6.0);
         final Hitbox circleBoxToMiss = new HitboxImpl.CircleHitbox(coord3, 4.0);
 
-        assertTrue(rectBox.isCollidingWithOtherHB((HitboxImpl) circleBoxToHit));
-        assertFalse(rectBox.isCollidingWithOtherHB((HitboxImpl) circleBoxToMiss));
+        assertTrue(rectBox.isCollidingWithOtherHB(circleBoxToHit));
+        assertFalse(rectBox.isCollidingWithOtherHB(circleBoxToMiss));
 
         final Hitbox circleBox = new HitboxImpl.CircleHitbox(coord1, 6.0);
         final Hitbox rectBoxToHit = new HitboxImpl.RectHitbox(coord2, dimension2);
         final Hitbox rectBoxToMiss = new HitboxImpl.RectHitbox(coord3, dimension2);
 
-        assertTrue(circleBox.isCollidingWithOtherHB((HitboxImpl) rectBoxToHit));
-        assertFalse(circleBox.isCollidingWithOtherHB((HitboxImpl) rectBoxToMiss));
+        assertTrue(circleBox.isCollidingWithOtherHB(rectBoxToHit));
+        assertFalse(circleBox.isCollidingWithOtherHB(rectBoxToMiss));
     }
 
     @Test
@@ -70,15 +70,15 @@ class HitboxTest {
         final Hitbox rectBoxToHit = new HitboxImpl.RectHitbox(coord2, dimension2);
         final Hitbox rectBoxToMiss = new HitboxImpl.RectHitbox(coord3, dimension2);
 
-        assertTrue(rectBox.isCollidingWithSameHB((HitboxImpl) rectBoxToHit));
-        assertFalse(rectBox.isCollidingWithSameHB((HitboxImpl) rectBoxToMiss));
+        assertTrue(rectBox.isCollidingWithSameHB(rectBoxToHit));
+        assertFalse(rectBox.isCollidingWithSameHB(rectBoxToMiss));
 
         final Hitbox circleBox = new HitboxImpl.CircleHitbox(coord1, 6.0);
         final Hitbox circleBoxToHit = new HitboxImpl.CircleHitbox(coord2, 4.0);
         final Hitbox circleBoxToMiss = new HitboxImpl.CircleHitbox(coord3, 4.0);
 
-        assertTrue(circleBox.isCollidingWithSameHB((HitboxImpl) circleBoxToHit));
-        assertFalse(circleBox.isCollidingWithSameHB((HitboxImpl) circleBoxToMiss));
+        assertTrue(circleBox.isCollidingWithSameHB(circleBoxToHit));
+        assertFalse(circleBox.isCollidingWithSameHB(circleBoxToMiss));
     }
 
     @Test
@@ -94,30 +94,30 @@ class HitboxTest {
         final Hitbox rectBox = new HitboxImpl.RectHitbox(coord1, dimension1);
         final Hitbox circleBoxToHit = new HitboxImpl.CircleHitbox(coord2, 6.0);
 
-        Optional<HitEdge> result = rectBox.collidingEdgeWithOtherHB((HitboxImpl) circleBoxToHit);
+        Optional<HitEdge> result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.VERTICAL, result.get());
 
         final Hitbox circleBoxToHit2 = new HitboxImpl.CircleHitbox(coord3, 2.0);
 
-        result = rectBox.collidingEdgeWithOtherHB((HitboxImpl) circleBoxToHit2);
+        result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit2);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.CORNER, result.get());
 
         final Hitbox circleBoxToHit3 = new HitboxImpl.CircleHitbox(coord3, 1.3);
 
-        result = rectBox.collidingEdgeWithOtherHB((HitboxImpl) circleBoxToHit3);
+        result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit3);
         assertTrue(result.isEmpty());
 
         final Hitbox circleBoxToHit4 = new HitboxImpl.CircleHitbox(coord4, 10.0);
 
-        result = rectBox.collidingEdgeWithOtherHB((HitboxImpl) circleBoxToHit4);
+        result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit4);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.VERTICAL, result.get());
 
         final Hitbox circleBoxToHit5 = new HitboxImpl.CircleHitbox(coord5, 10.0);
 
-        result = rectBox.collidingEdgeWithOtherHB((HitboxImpl) circleBoxToHit5);
+        result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit5);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.HORIZONTAL, result.get());
     }

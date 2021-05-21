@@ -6,7 +6,23 @@ import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 
 public interface Hitbox {
-    
+
+    /**
+     * Return the position of the {@link Hitbox}.
+     * @return
+     *          The {@link Coord} of the {@link Hitbox}
+     */
+    Coord getPosition();
+
+    /**
+     * Return the dimension of the {@link Hitbox}.
+     *
+     * @return
+     *          The {@link Dimension} of the {@link Hitbox}
+     *
+     */
+    Dimension getDimension();
+
     /**
      * Checks for a collision with a Coord point.
      * 
@@ -17,26 +33,26 @@ public interface Hitbox {
      * 
      */
     boolean isCollidingWithPoint(Coord position);
-    
+
     /**
      * Checks for a collision with the different hitbox.
      * @param hitbox
      * @return TRUE if the two hitboxes are different and colliding, otherwise FALSE.
      */
-    boolean isCollidingWithOtherHB(HitboxImpl hitbox);
-    
+    boolean isCollidingWithOtherHB(Hitbox hitbox);
+
     /**
      * Checks for a collision with the same hitbox.
      * @param hitbox
      * @return TRUE if the two hitboxes are the same and colliding, otherwise FALSE.
      */
-    boolean isCollidingWithSameHB(HitboxImpl hitbox);
-    
+    boolean isCollidingWithSameHB(Hitbox hitbox);
+
     /**
      * Checks for a collision with the different hitbox.
      * @param hitbox
      * @return An Optional with the specified Edge the RectHitbox is colliding with, an EMPTY optional if they are the same or not colliding.
      */
-    Optional<HitEdge> collidingEdgeWithOtherHB(HitboxImpl hitbox);
+    Optional<HitEdge> collidingEdgeWithOtherHB(Hitbox hitbox);
     
 }
