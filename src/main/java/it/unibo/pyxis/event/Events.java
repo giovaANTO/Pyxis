@@ -1,13 +1,17 @@
 package it.unibo.pyxis.event;
 
 import it.unibo.pyxis.element.powerup.Powerup;
+import it.unibo.pyxis.event.collision.BrickCollisionEvent;
+import it.unibo.pyxis.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.event.movement.BallMovementEvent;
 import it.unibo.pyxis.event.movement.PowerupMovementEvent;
+import it.unibo.pyxis.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.event.notify.BrickDestructionEvent;
-import it.unibo.pyxis.event.notify.CollisionEvent;
 import it.unibo.pyxis.event.notify.PowerupActivationEvent;
+import it.unibo.pyxis.hitbox.HitEdge;
 import it.unibo.pyxis.util.Coord;
 
+import java.util.Optional;
 
 public final class Events {
 
@@ -27,16 +31,37 @@ public final class Events {
     }
 
     /**
-     * Create a new {@link CollisionEvent} instance passing an entity that has received a collision.
-     * @param collidedEntity
-     *                          The entity that has been hit.
-     * @param <T>
-     *                          Type of collided entity.
+     * Create a new {@link BrickCollisionEvent} instance passing a {@link HitEdge}.
+     * @param hitEdge
+     *                  The edge of the {@link it.unibo.pyxis.element.brick.Brick} that has been hit.
      * @return
-     *                          The {@link CollisionEvent} instance.
+     *         The {@link BrickCollisionEvent} instance.
      */
-    public static <T> CollisionEvent<T> newCollisionEvent(final T collidedEntity) {
-        return () -> collidedEntity;
+    public static BrickCollisionEvent newBrickCollisionEvent(final HitEdge hitEdge) {
+        return () -> hitEdge;
+    }
+
+    /**
+     * Create a new {@link PadCollisionEvent} instance passing a {@link HitEdge}.
+     * @param hitEdge
+     *                  The edge of the {@link it.unibo.pyxis.element.pad.Pad} that has been hit.
+     * @param padWidth
+     *                  The current width of the {@link it.unibo.pyxis.element.pad.Pad}
+     * @return
+     *           The {@link PadCollisionEvent} instance.
+     */
+    public static PadCollisionEvent newPadCollisionEvent(final HitEdge hitEdge, final double padWidth) {
+        return new PadCollisionEvent() {
+            @Override
+            public double getPadWidth() {
+                return padWidth;
+            }
+
+            @Override
+            public HitEdge getCollidedEdge() {
+                return hitEdge;
+            }
+        };
     }
 
     /**
@@ -51,8 +76,8 @@ public final class Events {
     }
 
     /**
-     *  Create a new {@link BallMovementEvent} instance passing a {@link Coord} representing the current position
-     *  of the {@link it.unibo.pyxis.element.ball.Ball} inside the {@link it.unibo.pyxis.arena.Arena}.
+     * Create a new {@link BallMovementEvent} instance passing a {@link Coord} representing the current position
+     * of the {@link it.unibo.pyxis.element.ball.Ball} inside the {@link it.unibo.pyxis.arena.Arena}.
      *
      * @param coord
      *                  The {@link it.unibo.pyxis.element.ball.Ball}'s {@link Coord} position.
@@ -74,5 +99,17 @@ public final class Events {
      */
     public static PowerupMovementEvent newPowerupMovementEvent(final Coord coord) {
         return () -> coord;
+    }
+
+    /**
+     * Create a new {@link DecreaseLifeEvent} instance passing an {@link Optional} indicating the score gained.
+     *
+     * @param score
+     *              An {@link Optional} with the score gained
+     * @return
+     *              The {@link DecreaseLifeEvent} instance.
+     */
+    public static DecreaseLifeEvent newDecreaseLifeEvent(final Optional<Integer> score) {
+        return () -> score;
     }
 }

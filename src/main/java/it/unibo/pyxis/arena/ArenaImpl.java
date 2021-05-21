@@ -14,6 +14,7 @@ import it.unibo.pyxis.element.powerup.PowerupImpl;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.util.DimensionImpl;
+import it.unibo.pyxis.util.VectorImpl;
 import it.unibo.pyxis.element.powerup.PowerupType;
 import it.unibo.pyxis.event.notify.BrickDestructionEvent;
 
@@ -63,7 +64,7 @@ public class ArenaImpl implements Arena {
 
 
     private void spawnPowerup(final Coord spawnCoord) {
-        addElement(new PowerupImpl(PowerupType.values()[rand.nextInt(PowerupType.values().length)], new DimensionImpl(1, 1), spawnCoord));
+        addElement(new PowerupImpl(PowerupType.values()[rand.nextInt(PowerupType.values().length)], new DimensionImpl(1, 1), spawnCoord, new VectorImpl(1, 1)));
     }
 
 
