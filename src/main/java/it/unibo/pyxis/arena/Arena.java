@@ -4,11 +4,11 @@ import java.util.stream.Stream;
 
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
-import it.unibo.pyxis.element.*;
 import it.unibo.pyxis.element.ball.Ball;
 import it.unibo.pyxis.element.brick.Brick;
 import it.unibo.pyxis.element.pad.Pad;
 import it.unibo.pyxis.element.powerup.Powerup;
+import it.unibo.pyxis.event.notify.BrickDestructionEvent;
 
 public interface Arena {
 
@@ -26,42 +26,31 @@ public interface Arena {
     
     
     /**
-     * Pad's movement based on player input
-     */
-    void movePad();
-    
-    
-    /**
      * Brick's destruction process handling
+     * @param brickCoord
      */
-    void handleBrickDestruction(Coord brickCoord);
-    
-    
-    /**
-     * Creation of a new Powerup Element
-     * after a brick destruction
-     */
-    void spawnPowerup(Coord spawnCoord);
+    void handleBrickDestruction(final BrickDestructionEvent event);
     
     
     /**
      * Checks the completition of the current level.
-     * Returns TRUE if there are no more bricks to destroy,
-     * otherwise returns FALSE
+     * @return TRUE if there are no more bricks to destroy,
+     * FALSE otherwise
      */
     boolean isArenaClear();
     
     
-    void getLevel();
-    
-    
+    /**
+     * Returns the dimensions of the Arena
+     * @return the dimensions of the Arena
+     */
     Dimension getDimensions();
     
     
-    void setHeight(double height);
+    void setHeight(final double height);
     
     
-    void setWidth(double width);
+    void setWidth(final double width);
     
     
     Stream<Ball> getBallStream();
