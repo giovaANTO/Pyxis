@@ -94,10 +94,10 @@ public abstract class HitboxImpl implements Hitbox {
                     hitEdge = HitEdge.CORNER;
                 }
                 else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY) {
-                        hitEdge = HitEdge.VERTICAL;
+                        hitEdge = HitEdge.HORIZONTAL;
                 }
                 else {
-                        hitEdge = HitEdge.HORIZONTAL;
+                        hitEdge = HitEdge.VERTICAL;
                 }
                 
                                                 
@@ -133,7 +133,7 @@ public abstract class HitboxImpl implements Hitbox {
 
 
             public boolean isCollidingWithSameHB(HitboxImpl hitbox) {
-                return hitbox instanceof RectHitbox 
+                return hitbox instanceof RectHitbox
                         ? Math.abs(getPosition().getX() - hitbox.getPosition().getX()) 
                               <= (getDimension().getWidth() / 2) + hitbox.getDimension().getWidth() / 2
                           && Math.abs(getPosition().getY() - hitbox.getPosition().getY()) 
@@ -151,7 +151,7 @@ public abstract class HitboxImpl implements Hitbox {
                 return hitbox instanceof CircleHitbox 
                         ? hitbox.collidingEdgeWithOtherHB(this)
                         : Optional.empty();
-            }           
+            }
             
         }
         
