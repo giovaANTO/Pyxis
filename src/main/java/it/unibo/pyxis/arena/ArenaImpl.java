@@ -14,7 +14,9 @@ import it.unibo.pyxis.element.powerup.PowerupImpl;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.util.DimensionImpl;
+import it.unibo.pyxis.util.VectorImpl;
 import it.unibo.pyxis.element.powerup.PowerupType;
+import it.unibo.pyxis.event.notify.BrickDestructionEvent;
 
 public class ArenaImpl implements Arena {
     
@@ -52,7 +54,8 @@ public class ArenaImpl implements Arena {
     }
 
 
-    public void handleBrickDestruction(Coord brickCoord) {
+    public void handleBrickDestruction(final BrickDestructionEvent event) {
+        Coord brickCoord = event.getBrickCoord();
         brickMap.remove(brickCoord);
         if (rand.nextInt(RNG_POWERUP_SPAWN) == 0) {
             spawnPowerup(brickCoord);
@@ -60,10 +63,8 @@ public class ArenaImpl implements Arena {
     }
 
 
-    public void spawnPowerup(Coord spawnCoord) {
-        addElement(new PowerupImpl(
-                PowerupType.values()[rand.nextInt(PowerupType.values().length)],
-                new DimensionImpl(1, 1), spawnCoord));
+    private void spawnPowerup(final Coord spawnCoord) {
+        addElement(new PowerupImpl(PowerupType.values()[rand.nextInt(PowerupType.values().length)], new DimensionImpl(1, 1), spawnCoord, new VectorImpl(1, 1)));
     }
 
 
@@ -73,7 +74,7 @@ public class ArenaImpl implements Arena {
     }
 
     
-    private void addElement(Element element) {
+    private void addElement(final Element element) {
         if(element instanceof Brick) {
             brickMap.put(element.getPosition(), (Brick) element);
         }
@@ -89,21 +90,16 @@ public class ArenaImpl implements Arena {
     }
 
 
-    public void getLevel() {
-
-    }
-
-
     public Dimension getDimensions() {
         return dimension;
     }
 
 
-    public void setHeight(double height) {
+    public void setHeight(final double height) {
         dimension.setHeight(height);
     }
     
-    public void setWidth(double width) {
+    public void setWidth(final double width) {
         dimension.setHeight(width);
     }
 
@@ -121,7 +117,6 @@ public class ArenaImpl implements Arena {
     public Stream<Powerup> getPowerupStream() {
         return powerupCollection.stream();
     }
-
 
 
     public Pad getPad() {
