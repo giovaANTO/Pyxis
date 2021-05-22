@@ -18,7 +18,7 @@ public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
 
             @Override
             public void removeEffect(final Arena arena) {
-                apply.accept(arena);
+                remove.accept(arena);
             }
 
             @Override
