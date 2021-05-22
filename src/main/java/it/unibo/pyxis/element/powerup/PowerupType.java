@@ -12,7 +12,7 @@ public enum PowerupType {
         @Override
         public PowerupEffect getEffect() {
            final PowerupEffectFactory factory = new PowerupEffectFactoryImpl();
-           return factory.modifyPadWidth(PAD_MOD_TIME, PAD_MOD_FACTOR);
+           return factory.modifyPadWidthEffect(PAD_MOD_TIME, PAD_MOD_FACTOR);
         }
     },
     /**
@@ -22,7 +22,7 @@ public enum PowerupType {
         @Override
         public PowerupEffect getEffect() {
             final PowerupEffectFactory factory = new PowerupEffectFactoryImpl();
-            return factory.modifyPadWidth(PAD_MOD_TIME, -PAD_MOD_FACTOR);
+            return factory.modifyPadWidthEffect(PAD_MOD_TIME, -PAD_MOD_FACTOR);
         }
     };
 

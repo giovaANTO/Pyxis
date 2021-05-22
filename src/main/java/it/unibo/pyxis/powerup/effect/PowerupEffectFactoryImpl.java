@@ -1,8 +1,9 @@
 package it.unibo.pyxis.powerup.effect;
 
 import it.unibo.pyxis.arena.Arena;
+import it.unibo.pyxis.element.ball.BallType;
 import java.util.function.Consumer;
-
+import static it.unibo.pyxis.powerup.effect.PowerupEffectType.BALL_POWERUP;
 import static it.unibo.pyxis.powerup.effect.PowerupEffectType.PAD_POWERUP;
 
 public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
@@ -33,11 +34,31 @@ public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
     }
 
     @Override
-    public PowerupEffect modifyPadWidth(final int applicationTime, final double increaseVal) {
+    public PowerupEffect modifyPadWidthEffect(final int applicationTime, final double increaseVal) {
         return this.createEffect(
                 PAD_POWERUP,
                 arena -> arena.getPad().getDimension().increaseWidth(increaseVal),
                 arena -> arena.getPad().getDimension().increaseWidth(-increaseVal),
+                applicationTime
+        );
+    }
+
+    @Override
+    public PowerupEffect atomicBallEffect(final int applicationTime) {
+        return this.createEffect(
+                BALL_POWERUP,
+                arena -> arena.getBallStream().forEach(b -> b.setType(BallType.ATOMIC_BALL)),
+                arena -> arena.getBallStream().forEach(b -> b.setType(BallType.NORMAL_BALL)),
+                applicationTime
+        );
+    }
+
+    @Override
+    public PowerupEffect steelBall(final int applicationTime) {
+        return this.createEffect(
+                BALL_POWERUP,
+                arena -> arena.getBallStream().forEach(b -> b.setType(BallType.ATOMIC_BALL)),
+                arena -> arena.getBallStream().forEach(b -> b.setType(BallType.NORMAL_BALL)),
                 applicationTime
         );
     }
