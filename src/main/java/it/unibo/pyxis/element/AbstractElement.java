@@ -32,22 +32,22 @@ public abstract class AbstractElement implements Element {
     }
 
     @Override
-    public final void setWidth(final double inputWidth) {
+    public final synchronized void setWidth(final double inputWidth) {
         this.dimension.setWidth(inputWidth);
     }
 
     @Override
-    public final void setHeight(final double inputHeight) {
+    public final synchronized void setHeight(final double inputHeight) {
         this.dimension.setHeight(inputHeight);
     }
 
     @Override
-    public final void increaseWidth(final double increaseValue) {
+    public final synchronized void increaseWidth(final double increaseValue) {
         this.dimension.increaseWidth(increaseValue);
     }
 
     @Override
-    public final void increaseHeight(final double increaseValue) {
+    public final synchronized void increaseHeight(final double increaseValue) {
         this.dimension.increaseHeight(increaseValue);
     }
 

@@ -45,12 +45,12 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     @Override
-    public void setType(final BallType inputType) {
+    public synchronized void setType(final BallType inputType) {
         this.type = inputType;
     }
 
     @Override
-    public void setPace(final Vector inputPace) {
+    public synchronized void setPace(final Vector inputPace) {
         this.pace.setX(inputPace.getX());
         this.pace.setY(inputPace.getY());
     }
