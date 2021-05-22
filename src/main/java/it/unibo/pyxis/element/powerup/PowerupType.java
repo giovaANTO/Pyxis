@@ -12,7 +12,7 @@ public enum PowerupType {
         @Override
         public PowerupEffect getEffect() {
            final PowerupEffectFactory factory = new PowerupEffectFactoryImpl();
-           return factory.modifyPadWidthEffect(PAD_MOD_TIME, PAD_MOD_FACTOR);
+           return factory.modifyPadWidthEffect(STD_APP_TIME, PAD_MOD_FACTOR);
         }
     },
     /**
@@ -22,12 +22,33 @@ public enum PowerupType {
         @Override
         public PowerupEffect getEffect() {
             final PowerupEffectFactory factory = new PowerupEffectFactoryImpl();
-            return factory.modifyPadWidthEffect(PAD_MOD_TIME, -PAD_MOD_FACTOR);
+            return factory.modifyPadWidthEffect(STD_APP_TIME, -PAD_MOD_FACTOR);
+        }
+    },
+
+    /**
+     * Powerup that set the balls as atomic.
+     */
+    ATOMIC_BALL {
+        @Override
+        public PowerupEffect getEffect() {
+            final PowerupEffectFactory factory = new PowerupEffectFactoryImpl();
+            return factory.atomicBallEffect(STD_APP_TIME);
+        }
+    },
+
+    /**
+     * Powerup that set the balls as atomic.
+     */
+    STEEL_BALL {
+        @Override
+        public PowerupEffect getEffect() {
+            final PowerupEffectFactory factory = new PowerupEffectFactoryImpl();
+            return factory.steelBall(STD_APP_TIME);
         }
     };
 
-
-    private static final int PAD_MOD_TIME = 10;
+    private static final int STD_APP_TIME = 10;
     private static final int PAD_MOD_FACTOR = 2;
 
     /**
