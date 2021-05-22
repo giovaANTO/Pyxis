@@ -41,10 +41,10 @@ public enum BrickType {
      */
     INDESTRUCTIBLE(Optional.empty());
 
-    private final Optional<Integer> life;
+    private final Optional<Integer> durability;
 
     BrickType(final Optional<Integer>  inputLife) {
-        this.life = inputLife;
+        this.durability = inputLife;
     }
 
     /**
@@ -54,6 +54,16 @@ public enum BrickType {
      *          True if the brick is indestructible, false otherwise.
      */
     public boolean isIndestructible() {
-        return life.isEmpty();
+        return durability.isEmpty();
+    }
+
+    /**
+     * Return the initial durability of the brick.
+     *
+     * @return
+     *           An integer representing the durability of the the brick
+     */
+    public int getDurability() {
+        return durability.orElse(0);
     }
 }
