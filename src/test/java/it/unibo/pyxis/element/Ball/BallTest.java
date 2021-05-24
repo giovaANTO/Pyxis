@@ -31,6 +31,7 @@ public class BallTest {
                         .dimension(startingDimension.copyOf())
                         .position(this.startingCoordinates.copyOf())
                         .pace(this.startingPace.copyOf())
+                        .id(0)
                         .build();
     }
 
@@ -84,16 +85,19 @@ public class BallTest {
                     .dimension(this.startingDimension)
                     .position(this.startingCoordinates)
                     .pace(this.startingPace)
+                    .id(1)
                     .build();
         });
         final Ball testBall = new BallImpl.BallBuilderImpl()
                 .dimension(this.startingDimension)
                 .position(this.startingCoordinates)
                 .pace(this.startingPace)
+                .id(2)
                 .build();
         assertEquals(testBall.getPosition(), this.startingCoordinates);
         assertEquals(testBall.getPace(), this.startingPace);
         assertEquals(testBall.getDimension(), this.startingDimension);
         assertEquals(testBall.getType(), BallType.NORMAL_BALL);
+        assertEquals(testBall.getId(), 2);
     }
 }
