@@ -6,13 +6,14 @@ import it.unibo.pyxis.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.powerup.handler.effects.GenericBallEffect;
 import it.unibo.pyxis.powerup.handler.effects.GenericPadEffect;
+import it.unibo.pyxis.util.DimensionImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PowerupHandlerImplTest {
 
-    final Arena arena = new ArenaImpl();
+    final Arena arena = new ArenaImpl(new DimensionImpl(1,1));
     final PowerupEffect padEffect = new GenericPadEffect();
     final PowerupEffect ballEffect = new GenericBallEffect();
 

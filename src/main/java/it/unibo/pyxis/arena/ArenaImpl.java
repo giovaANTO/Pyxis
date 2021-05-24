@@ -1,11 +1,8 @@
 package it.unibo.pyxis.arena;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Stream;
 
-import it.unibo.pyxis.element.Element;
 import it.unibo.pyxis.element.ball.Ball;
 import it.unibo.pyxis.element.brick.Brick;
 import it.unibo.pyxis.element.pad.Pad;
@@ -19,109 +16,80 @@ import it.unibo.pyxis.element.powerup.PowerupType;
 import it.unibo.pyxis.event.notify.BrickDestructionEvent;
 
 public class ArenaImpl implements Arena {
-    
-    static private int RNG_POWERUP_SPAWN = 10;
-    private Random rand = new Random();
-    
-    private Dimension dimension;
-    
-    private Map<Coord, Brick> brickMap;
-    private List<Ball> ballCollection;
-    private List<Powerup> powerupCollection;
+
+    private final Dimension dimension;
+    private final Map<Coord, Brick> brickMap;
+    private final Set<Ball> ballSet;
+    private final Set<Powerup> powerupSet;
     private Pad pad;
-    
-    
-    
-    public ArenaImpl(/*String configFiles*/) {
-        loadConfigurationFile(/*configFiles*/);
+
+    public ArenaImpl(final Dimension inputDimension) {
+        this.brickMap = new HashMap<>();
+        this.ballSet = new HashSet<>();
+        this.powerupSet = new HashSet<>();
+        this.dimension = inputDimension;
     }
-
-
-    public void loadConfigurationFile() {
-
-    }
-
-
-    public void update() {
-        getBallStream().forEach(x -> x.update());
-        getBrickStream().forEach(x -> x.update());
-        getPowerupStream().forEach(x -> x.update());
-    }
-
-
-    public void movePad() {
-
-    }
-
-
-    public void handleBrickDestruction(final BrickDestructionEvent event) {
-        Coord brickCoord = event.getBrickCoord();
-        brickMap.remove(brickCoord);
-        if (rand.nextInt(RNG_POWERUP_SPAWN) == 0) {
-            spawnPowerup(brickCoord);
-        }
-    }
-
 
     private void spawnPowerup(final Coord spawnCoord) {
-        addElement(new PowerupImpl(PowerupType.values()[rand.nextInt(PowerupType.values().length)], new DimensionImpl(1, 1), spawnCoord, new VectorImpl(1, 1)));
+        final Random rand = new Random();
+        final PowerupType selectedType = PowerupType.values()[rand.nextInt(PowerupType.values().length)];
+        final Powerup powerup = new PowerupImpl(selectedType, new DimensionImpl(1, 1), spawnCoord, new VectorImpl(1, 1));
+        this.addPowerup(powerup);
     }
 
-
-    public boolean isArenaClear() {
-//        return !getBrickStream().anyMatch(x -> x.isDestructable());
-        return false;
+    @Override
+    public void update(final Double delta) {
+        this.ballSet.forEach(Ball::update);
+        this.powerupSet.forEach(Powerup::update);
     }
 
-    
-    private void addElement(final Element element) {
-        if(element instanceof Brick) {
-            brickMap.put(element.getPosition(), (Brick) element);
-        }
-        else if(element instanceof Ball) {
-            ballCollection.add((Ball) element);
-        }
-        else if(element instanceof Powerup) {
-            powerupCollection.add((Powerup) element);
-        }
-        else if (pad == null) {
-            pad = (Pad) element;
-        }
+    @Override
+    public void handleBrickDestruction(final BrickDestructionEvent event) {
+
     }
 
-
-    public Dimension getDimensions() {
-        return dimension;
+    @Override
+    public Dimension getDimension() {
+        return this.dimension;
     }
 
-
-    public void setHeight(final double height) {
-        dimension.setHeight(height);
-    }
-    
-    public void setWidth(final double width) {
-        dimension.setHeight(width);
-    }
-
-
+    @Override
     public Stream<Ball> getBallStream() {
-        return ballCollection.stream();
+        return this.ballSet.stream();
     }
 
-
+    @Override
     public Stream<Brick> getBrickStream() {
-        return brickMap.values().stream();
+        return this.brickMap.values().stream();
     }
 
-    
+    @Override
     public Stream<Powerup> getPowerupStream() {
-        return powerupCollection.stream();
+        return this.powerupSet.stream();
     }
 
-
+    @Override
     public Pad getPad() {
-        return pad;
-
+        return this.pad;
     }
 
+    @Override
+    public void setPad(final Pad inputPad) {
+        this.pad = inputPad;
+    }
+
+    @Override
+    public void addBrick(final Brick brick) {
+        this.brickMap.put(brick.getPosition(), brick);
+    }
+
+    @Override
+    public void addBall(final Ball ball) {
+        this.ballSet.add(ball);
+    }
+
+    @Override
+    public void addPowerup(final Powerup powerup) {
+        this.powerupSet.add(powerup);
+    }
 }
