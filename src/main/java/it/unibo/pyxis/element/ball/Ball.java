@@ -48,4 +48,11 @@ public interface Ball extends Element {
      *              The pace {@link Vector} to set
      */
     void setPace(Vector pace);
+
+    /**
+     * Allow to access to the {@link Ball} identifier.
+     * @return
+     *          The identifier of the {@link Ball}.
+     */
+    int getId();
 }

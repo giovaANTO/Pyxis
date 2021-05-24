@@ -34,6 +34,15 @@ public interface BallBuilder {
     BallBuilder pace(Vector pace);
 
     /**
+     * Sets the ball's id.
+     * @param id
+     *              The id to set
+     * @return
+     *              The {@link BallBuilder}
+     */
+    BallBuilder id(int id);
+
+    /**
      * Builds the ball checking all fields are set.
      * @return
      *              The {@link Ball}
