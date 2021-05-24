@@ -81,11 +81,23 @@ public final class Events {
      *
      * @param coord
      *                  The {@link it.unibo.pyxis.element.ball.Ball}'s {@link Coord} position.
+     * @param id
+     *                  The {@link it.unibo.pyxis.element.ball.Ball}'s identifier.
      * @return
      *                  The {@link BallMovementEvent} instance.
      */
-    public static BallMovementEvent newBallMovementEvent(final Coord coord) {
-        return () -> coord;
+    public static BallMovementEvent newBallMovementEvent(final int id, final Coord coord) {
+        return new BallMovementEvent() {
+            @Override
+            public int getBallId() {
+                return id;
+            }
+
+            @Override
+            public Coord getCoord() {
+                return coord;
+            }
+        };
     }
 
     /**

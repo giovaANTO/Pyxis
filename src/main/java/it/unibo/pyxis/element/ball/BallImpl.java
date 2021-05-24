@@ -8,7 +8,6 @@ import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.util.Vector;
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -16,12 +15,14 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     private BallType type;
     private final Vector pace;
+    private final int id;
 
     private BallImpl(final Dimension inputDimension, final Coord inputPosition,
-                    final Vector inputPace) {
+                    final Vector inputPace, final int inputId) {
         super(inputDimension, inputPosition);
         this.type = BallType.NORMAL_BALL;
         this.pace = inputPace;
+        this.id = inputId;
     }
 
     @Override
@@ -56,9 +57,14 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
     public void update() {
         this.calculateNewCoord();
-        EventBus.getDefault().post(Events.newBallMovementEvent(this.getPosition()));
+        EventBus.getDefault().post(Events.newBallMovementEvent(this.id, this.getPosition()));
     }
 
     private void calculateNewCoord() {
@@ -67,11 +73,15 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.setPosition(updatedCoord);
     }
 
+    /**
+     * Builder of the {@link Ball}.
+     */
     public static final class BallBuilderImpl implements BallBuilder {
 
         private Optional<Dimension> dimension = Optional.empty();
         private Optional<Coord> position = Optional.empty();
         private Optional<Vector> pace = Optional.empty();
+        private Optional<Integer> id = Optional.empty();
 
         private void check(final Object inputObject) {
             Objects.requireNonNull(inputObject);
@@ -99,9 +109,15 @@ public final class BallImpl extends AbstractElement implements Ball {
         }
 
         @Override
+        public BallBuilder id(final int inputId) {
+            this.id = Optional.of(inputId);
+            return this;
+        }
+
+        @Override
         public Ball build() {
             return new BallImpl(this.dimension.orElseThrow(),
-                    this.position.orElseThrow(), this.pace.orElseThrow());
+                    this.position.orElseThrow(), this.pace.orElseThrow(), this.id.orElseThrow());
         }
     }
 
