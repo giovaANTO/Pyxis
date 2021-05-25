@@ -47,6 +47,13 @@ public final class ArenaImpl implements Arena {
         EventBus.getDefault().register(this);
     }
 
+    /**
+     * Spawn a new {@link Powerup} in a specified position.
+     * Add a new instance of {@link Powerup} inside the set of powerups.
+     *
+     * @param spawnCoord
+     *                  The starting position of newly created {@link Powerup}.
+     */
     private void spawnPowerup(final Coord spawnCoord) {
         final Random rand = new Random();
         final PowerupType selectedType = PowerupType.values()[rand.nextInt(PowerupType.values().length)];
