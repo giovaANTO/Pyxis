@@ -2,6 +2,7 @@ package it.unibo.pyxis.arena;
 
 import java.util.stream.Stream;
 
+import it.unibo.pyxis.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.element.ball.Ball;
 import it.unibo.pyxis.element.brick.Brick;
@@ -24,6 +25,13 @@ public interface Arena {
      *              The instance of {@link BrickDestructionEvent}
      */
     void handleBrickDestruction(BrickDestructionEvent event);
+
+    /**
+     * Handle a {@link PowerupActivationEvent}.
+     * @param event
+     *              The instance of {@link PowerupActivationEvent}
+     */
+    void handlePowerupActivation(PowerupActivationEvent event);
 
     /**
      * Returns the dimensions of the {@link Arena}.
@@ -66,29 +74,29 @@ public interface Arena {
 
     /**
      * Set the {@link Pad} in the {@link Arena}.
-     * @param pad
-     *              The {@link Pad} to add.
+     * @param inputPad
+     *          The {@link Pad} to add.
      */
     void setPad(Pad inputPad);
 
     /**
      * Add a {@link Brick} in the {@link Arena}.
      * @param brick
-     *              The {@link Brick} to add.
+ *              The {@link Brick} to add.
      */
     void addBrick(Brick brick);
 
     /**
      * Add a {@link Ball} in the {@link Arena}.
      * @param ball
-     *              The {@link Ball} to add.
+ *              The {@link Ball} to add.
      */
     void addBall(Ball ball);
 
     /**
      * Add a new {@link Powerup} in the {@link Arena}.
      * @param powerup
-     *               The {@link Powerup} to add.
+ *               The {@link Powerup} to add.
      */
     void addPowerup(Powerup powerup);
 }

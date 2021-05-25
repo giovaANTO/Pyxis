@@ -8,19 +8,27 @@ import it.unibo.pyxis.element.brick.Brick;
 import it.unibo.pyxis.element.pad.Pad;
 import it.unibo.pyxis.element.powerup.Powerup;
 import it.unibo.pyxis.element.powerup.PowerupImpl;
+import it.unibo.pyxis.event.notify.PowerupActivationEvent;
+import it.unibo.pyxis.powerup.effect.PowerupEffectType;
+import it.unibo.pyxis.powerup.handler.PowerupHandler;
+import it.unibo.pyxis.powerup.handler.PowerupHandlerImpl;
+import it.unibo.pyxis.powerup.handler.PowerupHandlerPolicy;
 import it.unibo.pyxis.util.Coord;
 import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.util.DimensionImpl;
 import it.unibo.pyxis.util.VectorImpl;
 import it.unibo.pyxis.element.powerup.PowerupType;
 import it.unibo.pyxis.event.notify.BrickDestructionEvent;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
-public class ArenaImpl implements Arena {
+public final class ArenaImpl implements Arena {
 
     private final Dimension dimension;
     private final Map<Coord, Brick> brickMap;
     private final Set<Ball> ballSet;
     private final Set<Powerup> powerupSet;
+    private final PowerupHandler powerupHandler;
     private Pad pad;
 
     public ArenaImpl(final Dimension inputDimension) {
@@ -28,6 +36,15 @@ public class ArenaImpl implements Arena {
         this.ballSet = new HashSet<>();
         this.powerupSet = new HashSet<>();
         this.dimension = inputDimension;
+        // Configuring the powerup handler.
+        final PowerupHandlerPolicy policy = (type, map) -> {
+            if (type == PowerupEffectType.BALL_POWERUP) {
+                map.values().forEach(Thread::interrupt);
+            }
+        };
+        this.powerupHandler = new PowerupHandlerImpl(policy, this);
+        // Register the Arena to the event bus
+        EventBus.getDefault().register(this);
     }
 
     private void spawnPowerup(final Coord spawnCoord) {
@@ -44,8 +61,15 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
+    @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
+    }
 
+    @Override
+    @Subscribe
+    public void handlePowerupActivation(final PowerupActivationEvent event) {
+        this.powerupHandler.addPowerup(event.getPowerup().getType().getEffect());
+        this.powerupSet.remove(event.getPowerup());
     }
 
     @Override
