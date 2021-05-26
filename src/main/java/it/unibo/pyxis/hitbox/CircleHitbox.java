@@ -1,5 +1,6 @@
 package it.unibo.pyxis.hitbox;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import it.unibo.pyxis.util.Coord;
@@ -12,6 +13,11 @@ public class CircleHitbox extends AbstractHitbox {
         super(position, new DimensionImpl(diameter, diameter));
     }
 
+    /**
+     * Return the radius of the {@link CircleHitbox}.
+     * @return
+     *          the radius of the {@link CircleHitbox}.
+     */
     private Double getRadius() {
         return getDimension().getHeight() / 2;
     }
@@ -43,12 +49,12 @@ public class CircleHitbox extends AbstractHitbox {
 
         HitEdge hitEdge;
 
-        double cHBCenterX = getPosition().getX();
-        double cHBCenterY = getPosition().getY();
-        double rHBCenterX = hitbox.getPosition().getX();
-        double rHBCenterY = hitbox.getPosition().getY();
-        double rHBWidth   = hitbox.getDimension().getWidth();
-        double rHBHeight  = hitbox.getDimension().getHeight();
+        final double cHBCenterX = getPosition().getX();
+        final double cHBCenterY = getPosition().getY();
+        final double rHBCenterX = hitbox.getPosition().getX();
+        final double rHBCenterY = hitbox.getPosition().getY();
+        final double rHBWidth   = hitbox.getDimension().getWidth();
+        final double rHBHeight  = hitbox.getDimension().getHeight();
 
         closestPointX = closestPointCalculation(cHBCenterX, rHBCenterX, rHBWidth);
         closestPointY = closestPointCalculation(cHBCenterY, rHBCenterY, rHBHeight);
@@ -56,9 +62,9 @@ public class CircleHitbox extends AbstractHitbox {
         if (closestPointX != cHBCenterX && closestPointY != cHBCenterY) {
             hitEdge = HitEdge.CORNER;
         } else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY) {
-                hitEdge = HitEdge.HORIZONTAL;
+            hitEdge = HitEdge.HORIZONTAL;
         } else {
-                hitEdge = HitEdge.VERTICAL;
+            hitEdge = HitEdge.VERTICAL;
         }
 
         return getPosition().distance(closestPointX, closestPointY) < getRadius()

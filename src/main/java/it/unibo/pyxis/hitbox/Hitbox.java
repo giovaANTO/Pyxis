@@ -15,6 +15,13 @@ public interface Hitbox {
     Coord getPosition();
 
     /**
+     * Set the position of the {@link Hitbox}
+     * @param
+     *          position
+     */
+    void setPosition(Coord position);
+
+    /**
      * Return the dimension of the {@link Hitbox}.
      *
      * @return
@@ -24,35 +31,61 @@ public interface Hitbox {
     Dimension getDimension();
 
     /**
-     * Checks for a collision with a Coord point.
+     * Checks for a collision with a {@link Coord}.
      * 
      * @param
-     * 
+     *          position
      * @return
-     * TRUE is the point is situated inside the hitbox, otherwise FALSE.
+     *          TRUE is the point is situated inside the {@link Hitbox}, otherwise FALSE.
      * 
      */
     boolean isCollidingWithPoint(Coord position);
 
     /**
-     * Checks for a collision with the different hitbox.
-     * @param hitbox
-     * @return TRUE if the two hitboxes are different and colliding, otherwise FALSE.
+     * Checks for a collision with the different {@link Hitbox}.
+     * @param 
+     *          hitbox
+     * @return 
+     *          TRUE if the two {@link Hitbox} are different and colliding, otherwise FALSE.
      */
     boolean isCollidingWithOtherHB(Hitbox hitbox);
 
     /**
-     * Checks for a collision with the same hitbox.
-     * @param hitbox
-     * @return TRUE if the two hitboxes are the same and colliding, otherwise FALSE.
+     * Checks for a collision with the same {@link Hitbox}.
+     * @param 
+     *          hitbox
+     * @return 
+     *          TRUE if the two {@link Hitbox} are the same and colliding, otherwise FALSE.
      */
     boolean isCollidingWithSameHB(Hitbox hitbox);
 
     /**
-     * Checks for a collision with the different hitbox.
-     * @param hitbox
-     * @return An Optional with the specified Edge the RectHitbox is colliding with, an EMPTY optional if they are the same or not colliding.
+     * Checks for a collision with the different {@link Hitbox}.
+     * @param 
+     *          hitbox
+     * @return 
+     *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with, an EMPTY {@link Optional} if they are the same or not colliding.
      */
     Optional<HitEdge> collidingEdgeWithOtherHB(Hitbox hitbox);
+
+    /**
+     * Checks for a collision with the right, left and upper border of the {@link RectHitbox}.
+     * @param 
+     *          borderPosition
+     * @param 
+     *          borderDimension
+     * @return 
+     *          An {@link Optional} with the specified colliding {@link HitEdge} of the border, an EMPTY {@link Optional} if they are not colliding.
+     */
+    Optional<HitEdge> collidingEdgeWithBorder(RectHitbox border);
+
+    /**
+     * Checks for a collision with the lower border of the {@link RectHitbox}.
+     * @param 
+     *          border
+     * @return 
+     *          TRUE if there is a collision, otherwise FALSE.
+     */
+    boolean isCollidingWithLowerBorder(RectHitbox border);
     
 }
