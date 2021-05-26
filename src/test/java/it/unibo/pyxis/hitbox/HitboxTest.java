@@ -16,14 +16,14 @@ class HitboxTest {
     void testCollidingWithPoint() {
         final Coord coord = new CoordImpl(10,10);
         final Dimension dimension = new DimensionImpl(3,5);
-        final Hitbox rectBox = new HitboxImpl.RectHitbox(coord, dimension);
+        final Hitbox rectBox = new RectHitbox(coord, dimension);
 
         assertTrue(rectBox.isCollidingWithPoint(new CoordImpl(11, 8)));
         assertTrue(rectBox.isCollidingWithPoint(new CoordImpl(11.5, 7.5)));
         assertFalse(rectBox.isCollidingWithPoint(new CoordImpl(11.6, 7.5)));
         assertFalse(rectBox.isCollidingWithPoint(new CoordImpl(11, 7)));
 
-        final Hitbox circleBox = new HitboxImpl.CircleHitbox(coord, 5.9);
+        final Hitbox circleBox = new CircleHitbox(coord, 5.9);
 
         assertTrue(circleBox.isCollidingWithPoint(new CoordImpl(11, 8)));
         assertTrue(circleBox.isCollidingWithPoint(new CoordImpl(11.5, 7.5)));
@@ -41,16 +41,16 @@ class HitboxTest {
         final Dimension dimension1 = new DimensionImpl(3,5);
         final Dimension dimension2 = new DimensionImpl(2,1);
 
-        final Hitbox rectBox = new HitboxImpl.RectHitbox(coord1, dimension1);
-        final Hitbox circleBoxToHit = new HitboxImpl.CircleHitbox(coord2, 6.0);
-        final Hitbox circleBoxToMiss = new HitboxImpl.CircleHitbox(coord3, 4.0);
+        final Hitbox rectBox = new RectHitbox(coord1, dimension1);
+        final Hitbox circleBoxToHit = new CircleHitbox(coord2, 6.0);
+        final Hitbox circleBoxToMiss = new CircleHitbox(coord3, 4.0);
 
         assertTrue(rectBox.isCollidingWithOtherHB(circleBoxToHit));
         assertFalse(rectBox.isCollidingWithOtherHB(circleBoxToMiss));
 
-        final Hitbox circleBox = new HitboxImpl.CircleHitbox(coord1, 6.0);
-        final Hitbox rectBoxToHit = new HitboxImpl.RectHitbox(coord2, dimension2);
-        final Hitbox rectBoxToMiss = new HitboxImpl.RectHitbox(coord3, dimension2);
+        final Hitbox circleBox = new CircleHitbox(coord1, 6.0);
+        final Hitbox rectBoxToHit = new RectHitbox(coord2, dimension2);
+        final Hitbox rectBoxToMiss = new RectHitbox(coord3, dimension2);
 
         assertTrue(circleBox.isCollidingWithOtherHB(rectBoxToHit));
         assertFalse(circleBox.isCollidingWithOtherHB(rectBoxToMiss));
@@ -66,16 +66,16 @@ class HitboxTest {
         final Dimension dimension1 = new DimensionImpl(3,5);
         final Dimension dimension2 = new DimensionImpl(2,1);
 
-        final Hitbox rectBox = new HitboxImpl.RectHitbox(coord1, dimension1);
-        final Hitbox rectBoxToHit = new HitboxImpl.RectHitbox(coord2, dimension2);
-        final Hitbox rectBoxToMiss = new HitboxImpl.RectHitbox(coord3, dimension2);
+        final Hitbox rectBox = new RectHitbox(coord1, dimension1);
+        final Hitbox rectBoxToHit = new RectHitbox(coord2, dimension2);
+        final Hitbox rectBoxToMiss = new RectHitbox(coord3, dimension2);
 
         assertTrue(rectBox.isCollidingWithSameHB(rectBoxToHit));
         assertFalse(rectBox.isCollidingWithSameHB(rectBoxToMiss));
 
-        final Hitbox circleBox = new HitboxImpl.CircleHitbox(coord1, 6.0);
-        final Hitbox circleBoxToHit = new HitboxImpl.CircleHitbox(coord2, 4.0);
-        final Hitbox circleBoxToMiss = new HitboxImpl.CircleHitbox(coord3, 4.0);
+        final Hitbox circleBox = new CircleHitbox(coord1, 6.0);
+        final Hitbox circleBoxToHit = new CircleHitbox(coord2, 4.0);
+        final Hitbox circleBoxToMiss = new CircleHitbox(coord3, 4.0);
 
         assertTrue(circleBox.isCollidingWithSameHB(circleBoxToHit));
         assertFalse(circleBox.isCollidingWithSameHB(circleBoxToMiss));
@@ -91,31 +91,31 @@ class HitboxTest {
 
         final Dimension dimension1 = new DimensionImpl(3,5);
 
-        final Hitbox rectBox = new HitboxImpl.RectHitbox(coord1, dimension1);
-        final Hitbox circleBoxToHit = new HitboxImpl.CircleHitbox(coord2, 6.0);
+        final Hitbox rectBox = new RectHitbox(coord1, dimension1);
+        final Hitbox circleBoxToHit = new CircleHitbox(coord2, 6.0);
 
         Optional<HitEdge> result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.VERTICAL, result.get());
 
-        final Hitbox circleBoxToHit2 = new HitboxImpl.CircleHitbox(coord3, 2.0);
+        final Hitbox circleBoxToHit2 = new CircleHitbox(coord3, 2.0);
 
         result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit2);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.CORNER, result.get());
 
-        final Hitbox circleBoxToHit3 = new HitboxImpl.CircleHitbox(coord3, 1.3);
+        final Hitbox circleBoxToHit3 = new CircleHitbox(coord3, 1.3);
 
         result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit3);
         assertTrue(result.isEmpty());
 
-        final Hitbox circleBoxToHit4 = new HitboxImpl.CircleHitbox(coord4, 10.0);
+        final Hitbox circleBoxToHit4 = new CircleHitbox(coord4, 10.0);
 
         result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit4);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.VERTICAL, result.get());
 
-        final Hitbox circleBoxToHit5 = new HitboxImpl.CircleHitbox(coord5, 10.0);
+        final Hitbox circleBoxToHit5 = new CircleHitbox(coord5, 10.0);
 
         result = rectBox.collidingEdgeWithOtherHB(circleBoxToHit5);
         assertTrue(result.isPresent());
