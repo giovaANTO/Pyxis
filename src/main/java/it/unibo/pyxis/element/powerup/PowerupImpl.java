@@ -9,11 +9,12 @@ import com.google.common.base.Objects;
 
 public final class PowerupImpl extends AbstractElement implements Powerup {
 
+    private static final Dimension DIMENSION = new DimensionImpl(1, 1);
     private final PowerupType type;
     private final Vector pace;
 
     public PowerupImpl(final PowerupType inputType, final Coord inputCoord) {
-        super(new DimensionImpl(1, 1), inputCoord);
+        super(DIMENSION, inputCoord);
         this.type = inputType;
         this.pace = new VectorImpl(1, 1);
     }
