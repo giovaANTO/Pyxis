@@ -12,7 +12,7 @@ public class CircleHitbox extends AbstractHitbox {
         super(position, new DimensionImpl(diameter, diameter));
     }
 
-    public Double getRadius() {
+    private Double getRadius() {
         return getDimension().getHeight() / 2;
     }
 
