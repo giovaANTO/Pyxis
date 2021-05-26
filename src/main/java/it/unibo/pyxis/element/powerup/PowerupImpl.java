@@ -2,10 +2,8 @@ package it.unibo.pyxis.element.powerup;
 
 import it.unibo.pyxis.element.AbstractElement;
 import it.unibo.pyxis.event.Events;
-import it.unibo.pyxis.util.Coord;
-import it.unibo.pyxis.util.Dimension;
+import it.unibo.pyxis.util.*;
 
-import it.unibo.pyxis.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 import com.google.common.base.Objects;
 
@@ -14,11 +12,10 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     private final PowerupType type;
     private final Vector pace;
 
-    public PowerupImpl(final PowerupType inputType, final Dimension inputDimension,
-                       final Coord inputCoord, final Vector inputPace) {
-        super(inputDimension, inputCoord);
+    public PowerupImpl(final PowerupType inputType, final Coord inputCoord) {
+        super(new DimensionImpl(1, 1), inputCoord);
         this.type = inputType;
-        this.pace = inputPace;
+        this.pace = new VectorImpl(1, 1);
     }
 
     @Override
