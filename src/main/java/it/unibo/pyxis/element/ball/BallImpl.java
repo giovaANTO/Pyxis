@@ -4,22 +4,21 @@ import it.unibo.pyxis.element.AbstractElement;
 import it.unibo.pyxis.event.collision.BrickCollisionEvent;
 import it.unibo.pyxis.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.event.Events;
-import it.unibo.pyxis.util.Coord;
-import it.unibo.pyxis.util.Dimension;
-import it.unibo.pyxis.util.Vector;
+import it.unibo.pyxis.util.*;
 import org.greenrobot.eventbus.EventBus;
 import java.util.Objects;
 import java.util.Optional;
 
 public final class BallImpl extends AbstractElement implements Ball {
 
+    private static final Dimension DIMENSION = new DimensionImpl(1, 1);
+    private static final Coord STARTING_POSITION = new CoordImpl(1, 1);
     private BallType type;
     private final Vector pace;
     private final int id;
 
-    private BallImpl(final Dimension inputDimension, final Coord inputPosition,
-                    final Vector inputPace, final int inputId) {
-        super(inputDimension, inputPosition);
+    private BallImpl(final Vector inputPace, final int inputId) {
+        super(DIMENSION, STARTING_POSITION);
         this.type = BallType.NORMAL_BALL;
         this.pace = inputPace;
         this.id = inputId;
