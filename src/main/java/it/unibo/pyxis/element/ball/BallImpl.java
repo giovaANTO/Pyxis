@@ -77,27 +77,11 @@ public final class BallImpl extends AbstractElement implements Ball {
      */
     public static final class BallBuilderImpl implements BallBuilder {
 
-        private Optional<Dimension> dimension = Optional.empty();
-        private Optional<Coord> position = Optional.empty();
         private Optional<Vector> pace = Optional.empty();
         private Optional<Integer> id = Optional.empty();
 
         private void check(final Object inputObject) {
             Objects.requireNonNull(inputObject);
-        }
-
-        @Override
-        public BallBuilder dimension(final Dimension inputDimension) {
-            this.check(inputDimension);
-            this.dimension = Optional.of(inputDimension.copyOf());
-            return this;
-        }
-
-        @Override
-        public BallBuilder position(final Coord inputPosition) {
-            this.check(inputPosition);
-            this.position = Optional.of(inputPosition.copyOf());
-            return this;
         }
 
         @Override
@@ -115,8 +99,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
         @Override
         public Ball build() {
-            return new BallImpl(this.dimension.orElseThrow(),
-                    this.position.orElseThrow(), this.pace.orElseThrow(), this.id.orElseThrow());
+            return new BallImpl(this.pace.orElseThrow(), this.id.orElseThrow());
         }
     }
 
