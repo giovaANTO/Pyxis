@@ -10,13 +10,12 @@ import com.google.common.base.Objects;
 public final class PowerupImpl extends AbstractElement implements Powerup {
 
     private static final Dimension DIMENSION = new DimensionImpl(1, 1);
+    private static final Vector PACE = new VectorImpl(1, 1);
     private final PowerupType type;
-    private final Vector pace;
 
     public PowerupImpl(final PowerupType inputType, final Coord inputCoord) {
         super(DIMENSION, inputCoord);
         this.type = inputType;
-        this.pace = new VectorImpl(1, 1);
     }
 
     @Override
@@ -31,7 +30,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
 
     @Override
     public Vector getPace() {
-        return this.pace.copyOf();
+        return PACE.copyOf();
     }
 
     @Override
