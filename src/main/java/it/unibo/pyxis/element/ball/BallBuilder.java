@@ -5,7 +5,7 @@ import it.unibo.pyxis.util.Dimension;
 import it.unibo.pyxis.util.Vector;
 
 public interface BallBuilder {
-    
+
     /**
      * Sets the ball's pace.
      * @param pace
