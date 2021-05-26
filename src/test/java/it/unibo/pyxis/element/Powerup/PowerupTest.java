@@ -20,13 +20,11 @@ public class PowerupTest {
 
     @BeforeEach
     private void setUp() {
-        this.startingDimension = new DimensionImpl(3, 3);
         this.startingCoordinates = new CoordImpl(3, 5);
-        this.startingPace = new VectorImpl(new PairImpl<Double>(2.0, 5.0));
         this.startingType = PowerupType.INCREASE_PAD;
-        this.powerup1 = new PowerupImpl(this.startingType,
-                this.startingDimension.copyOf(), this.startingCoordinates.copyOf(),
-                this.startingPace.copyOf());
+        this.powerup1 = new PowerupImpl(this.startingType, this.startingCoordinates.copyOf());
+        this.startingPace = new VectorImpl(1, 1);
+        this.startingDimension = new DimensionImpl(1, 1);
     }
 
     @Test
