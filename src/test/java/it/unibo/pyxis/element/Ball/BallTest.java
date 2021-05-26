@@ -14,9 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BallTest {
 
     private Ball ball1;
-    private Coord startingCoordinates;
     private Vector startingPace;
-    private Dimension startingDimension;
 
     /**
      * Sets a new ball with dimension, position and pace as startingDimension,
@@ -24,12 +22,8 @@ public class BallTest {
      */
     @BeforeEach
     private void setUp() {
-        this.startingDimension = new DimensionImpl(3, 3);
-        this.startingCoordinates = new CoordImpl(3, 5);
         this.startingPace = new VectorImpl(new PairImpl<Double>(2.0, 5.0));
         this.ball1 = new BallImpl.BallBuilderImpl()
-                        .dimension(startingDimension.copyOf())
-                        .position(this.startingCoordinates.copyOf())
                         .pace(this.startingPace.copyOf())
                         .id(0)
                         .build();
@@ -60,11 +54,12 @@ public class BallTest {
     @Test
     public void testUpdate() {
         System.out.println("testUpdate");
-        assertEquals(this.ball1.getPosition(), this.startingCoordinates);
+        final Coord coordinates = this.ball1.getPosition();
+        assertEquals(this.ball1.getPosition(), coordinates);
         this.ball1.update();
         final double multiplier = this.ball1.getType().getPaceMultiplier();
-        final double modX = this.startingCoordinates.getX() + (this.ball1.getPace().getX() * multiplier);
-        final double modY = this.startingCoordinates.getY() + (this.ball1.getPace().getY() * multiplier);
+        final double modX = coordinates.getX() + (this.ball1.getPace().getX() * multiplier);
+        final double modY = coordinates.getY() + (this.ball1.getPace().getY() * multiplier);
         Coord updatedCoordinates = new CoordImpl(modX, modY);
         assertEquals(this.ball1.getPosition(), updatedCoordinates);
     }
@@ -77,26 +72,20 @@ public class BallTest {
         });
         assertThrows(NullPointerException.class, () -> {
             new BallImpl.BallBuilderImpl()
-                    .dimension(null)
+                    .pace(null)
                     .build();
         });
         assertDoesNotThrow(() -> {
             new BallImpl.BallBuilderImpl()
-                    .dimension(this.startingDimension)
-                    .position(this.startingCoordinates)
                     .pace(this.startingPace)
                     .id(1)
                     .build();
         });
         final Ball testBall = new BallImpl.BallBuilderImpl()
-                .dimension(this.startingDimension)
-                .position(this.startingCoordinates)
                 .pace(this.startingPace)
                 .id(2)
                 .build();
-        assertEquals(testBall.getPosition(), this.startingCoordinates);
         assertEquals(testBall.getPace(), this.startingPace);
-        assertEquals(testBall.getDimension(), this.startingDimension);
         assertEquals(testBall.getType(), BallType.NORMAL_BALL);
         assertEquals(testBall.getId(), 2);
     }

@@ -4,22 +4,21 @@ import it.unibo.pyxis.element.AbstractElement;
 import it.unibo.pyxis.event.collision.BrickCollisionEvent;
 import it.unibo.pyxis.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.event.Events;
-import it.unibo.pyxis.util.Coord;
-import it.unibo.pyxis.util.Dimension;
-import it.unibo.pyxis.util.Vector;
+import it.unibo.pyxis.util.*;
 import org.greenrobot.eventbus.EventBus;
 import java.util.Objects;
 import java.util.Optional;
 
 public final class BallImpl extends AbstractElement implements Ball {
 
+    private static final Dimension DIMENSION = new DimensionImpl(1, 1);
+    private static final Coord STARTING_POSITION = new CoordImpl(1, 1);
     private BallType type;
     private final Vector pace;
     private final int id;
 
-    private BallImpl(final Dimension inputDimension, final Coord inputPosition,
-                    final Vector inputPace, final int inputId) {
-        super(inputDimension, inputPosition);
+    private BallImpl(final Vector inputPace, final int inputId) {
+        super(DIMENSION, STARTING_POSITION);
         this.type = BallType.NORMAL_BALL;
         this.pace = inputPace;
         this.id = inputId;
@@ -78,27 +77,11 @@ public final class BallImpl extends AbstractElement implements Ball {
      */
     public static final class BallBuilderImpl implements BallBuilder {
 
-        private Optional<Dimension> dimension = Optional.empty();
-        private Optional<Coord> position = Optional.empty();
         private Optional<Vector> pace = Optional.empty();
         private Optional<Integer> id = Optional.empty();
 
         private void check(final Object inputObject) {
             Objects.requireNonNull(inputObject);
-        }
-
-        @Override
-        public BallBuilder dimension(final Dimension inputDimension) {
-            this.check(inputDimension);
-            this.dimension = Optional.of(inputDimension.copyOf());
-            return this;
-        }
-
-        @Override
-        public BallBuilder position(final Coord inputPosition) {
-            this.check(inputPosition);
-            this.position = Optional.of(inputPosition.copyOf());
-            return this;
         }
 
         @Override
@@ -116,8 +99,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
         @Override
         public Ball build() {
-            return new BallImpl(this.dimension.orElseThrow(),
-                    this.position.orElseThrow(), this.pace.orElseThrow(), this.id.orElseThrow());
+            return new BallImpl(this.pace.orElseThrow(), this.id.orElseThrow());
         }
     }
 
