@@ -20,6 +20,13 @@ public interface Element {
     Dimension getDimension();
 
     /**
+     * Returns the element's update time multiplier.
+     * @return
+     *          The dt multiplier
+     */
+    double getUpdateTimeMultiplier();
+
+    /**
      * Sets the element's position.
      * @param position
      *          The {@link Coord}

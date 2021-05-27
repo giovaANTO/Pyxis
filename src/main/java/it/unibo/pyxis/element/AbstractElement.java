@@ -26,6 +26,10 @@ public abstract class AbstractElement implements Element {
         return this.position.copyOf();
     }
 
+    public final double getUpdateTimeMultiplier() {
+        return UPDATE_TIME_MULTIPLIER;
+    }
+
     @Override
     public final synchronized void setPosition(final Coord inputPosition) {
         Objects.requireNonNull(inputPosition, "Error, tried to set null position.");
@@ -53,5 +57,5 @@ public abstract class AbstractElement implements Element {
     }
 
     @Override
-    public abstract void update(final int dt);
+    public abstract void update(int dt);
 }

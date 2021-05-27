@@ -69,7 +69,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     private void calculateNewCoord(final int dt) {
         Coord updatedCoord = this.getPosition();
         updatedCoord.sumVector(this.getPace(),
-                this.getType().getPaceMultiplier() * dt * UPDATE_TIME_MULTIPLIER);
+                this.getType().getPaceMultiplier() * dt * this.getUpdateTimeMultiplier());
         this.setPosition(updatedCoord);
     }
 
