@@ -15,6 +15,7 @@ public class BallTest {
 
     private Ball ball1;
     private Vector startingPace;
+    private int dt;
 
     /**
      * Sets a new ball with dimension, position and pace as startingDimension,
@@ -23,6 +24,7 @@ public class BallTest {
     @BeforeEach
     private void setUp() {
         this.startingPace = new VectorImpl(new PairImpl<Double>(2.0, 5.0));
+        this.dt = 200;
         this.ball1 = new BallImpl.BallBuilderImpl()
                         .pace(this.startingPace.copyOf())
                         .id(0)
@@ -56,10 +58,10 @@ public class BallTest {
         System.out.println("testUpdate");
         final Coord coordinates = this.ball1.getPosition();
         assertEquals(this.ball1.getPosition(), coordinates);
-        this.ball1.update();
+        this.ball1.update(this.dt);
         final double multiplier = this.ball1.getType().getPaceMultiplier();
-        final double modX = coordinates.getX() + (this.ball1.getPace().getX() * multiplier);
-        final double modY = coordinates.getY() + (this.ball1.getPace().getY() * multiplier);
+        final double modX = coordinates.getX() + (this.ball1.getPace().getX() * multiplier * this.dt * this.ball1.getUpdateTimeMultiplier());
+        final double modY = coordinates.getY() + (this.ball1.getPace().getY() * multiplier * this.dt * this.ball1.getUpdateTimeMultiplier());
         Coord updatedCoordinates = new CoordImpl(modX, modY);
         assertEquals(this.ball1.getPosition(), updatedCoordinates);
     }
