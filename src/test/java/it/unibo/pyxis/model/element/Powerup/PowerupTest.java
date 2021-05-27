@@ -14,35 +14,41 @@ public class PowerupTest {
 
     private Powerup powerup1;
     private Coord startingCoordinates;
-    private Vector startingPace;
-    private Dimension startingDimension;
-    private PowerupType startingType;
+    private Vector checkPace;
+    private Dimension checkDimension;
+    private PowerupType checkType;
+    private int dt;
 
     @BeforeEach
     private void setUp() {
         this.startingCoordinates = new CoordImpl(3, 5);
-        this.startingType = PowerupType.INCREASE_PAD;
-        this.powerup1 = new PowerupImpl(this.startingType, this.startingCoordinates.copyOf());
-        this.startingPace = new VectorImpl(1, 1);
-        this.startingDimension = new DimensionImpl(1, 1);
+        this.checkType = PowerupType.INCREASE_PAD;
+        this.powerup1 = new PowerupImpl(this.checkType, this.startingCoordinates.copyOf());
+        this.checkPace = new VectorImpl(1, 1);
+        this.checkDimension = new DimensionImpl(1, 1);
+        this.dt = 200;
     }
 
     @Test
     public void testStartingSetters() {
         System.out.println("testStartingSetters");
-        assertEquals(this.powerup1.getType(), this.startingType);
+        assertEquals(this.powerup1.getType(), this.checkType);
         assertEquals(this.powerup1.getPosition(), this.startingCoordinates);
-        assertEquals(this.powerup1.getPace(), this.startingPace);
-        assertEquals(this.powerup1.getDimension(), this.startingDimension);
+        assertEquals(this.powerup1.getPace(), this.checkPace);
+        assertEquals(this.powerup1.getDimension(), this.checkDimension);
     }
 
     @Test
     public void testUpdate() {
-        this.powerup1.update();
+        this.powerup1.update(this.dt);
         assertNotEquals(this.powerup1.getPosition(), this.startingCoordinates);
         final Coord updatedCoordinates = new
-                CoordImpl(this.startingCoordinates.getX() + this.startingPace.getX(),
-                        this.startingCoordinates.getY() + this.startingPace.getY());
+                CoordImpl(this.startingCoordinates.getX() +
+                            this.checkPace.getX() * this.dt *
+                                    this.powerup1.getUpdateTimeMultiplier(),
+                        this.startingCoordinates.getY() +
+                                this.checkPace.getY() * this.dt *
+                                        this.powerup1.getUpdateTimeMultiplier());
         assertEquals(this.powerup1.getPosition(), updatedCoordinates);
     }
 }

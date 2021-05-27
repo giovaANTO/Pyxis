@@ -59,9 +59,9 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    public void update(final Double delta) {
-        this.ballSet.forEach(Ball::update);
-        this.powerupSet.forEach(Powerup::update);
+    public void update(final int delta) {
+        this.ballSet.forEach(b -> b.update(delta));
+        this.powerupSet.forEach(p -> p.update(delta));
     }
 
     @Override

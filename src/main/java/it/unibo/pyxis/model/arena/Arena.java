@@ -17,7 +17,7 @@ public interface Arena {
      * @param delta
      *              The passed time.
      */
-    void update(Double delta);
+    void update(int delta);
 
     /**
      * Handle a {@link BrickDestructionEvent}.
