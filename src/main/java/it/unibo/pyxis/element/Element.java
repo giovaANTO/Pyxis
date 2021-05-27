@@ -48,7 +48,7 @@ public interface Element {
     void increaseWidth(double increaseValue);
 
     /**
-     * Increases the element's height value
+     * Increases the element's height value.
      * @param increaseValue
      *          The increment value
      */
@@ -56,6 +56,7 @@ public interface Element {
 
     /**
      * Execute an update on the element.
+     * @param dt The time gap intercurred between an update
      */
-    void update();
+    void update(int dt);
 }

@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public abstract class AbstractElement implements Element {
 
+    private static final double UPDATE_TIME_MULTIPLIER = 0.001;
     private final Dimension dimension;
     private final Coord position;
 
@@ -52,5 +53,5 @@ public abstract class AbstractElement implements Element {
     }
 
     @Override
-    public abstract void update();
+    public abstract void update(final int dt);
 }
