@@ -5,7 +5,8 @@ import it.unibo.pyxis.event.Events;
 import it.unibo.pyxis.util.*;
 
 import org.greenrobot.eventbus.EventBus;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 public final class PowerupImpl extends AbstractElement implements Powerup {
 
@@ -59,6 +60,6 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getType());
+        return Objects.hash(getType());
     }
 }

@@ -1,6 +1,6 @@
 package it.unibo.pyxis.util;
 
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 public final class PairImpl<T> implements Pair<T> {
 
@@ -41,11 +41,11 @@ public final class PairImpl<T> implements Pair<T> {
             return false;
         }
         PairImpl<?> pair = (PairImpl<?>) o;
-        return Objects.equal(getFirst(), pair.getFirst()) && Objects.equal(getSecond(), pair.getSecond());
+        return getFirst().equals(pair.getFirst()) && getSecond().equals(pair.getSecond());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getFirst(), getSecond());
+        return Objects.hash(getFirst(), getSecond());
     }
 }

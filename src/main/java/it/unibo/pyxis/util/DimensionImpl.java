@@ -1,6 +1,6 @@
 package it.unibo.pyxis.util;
 
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 public final class DimensionImpl implements Dimension {
 
@@ -54,11 +54,11 @@ public final class DimensionImpl implements Dimension {
             return false;
         }
         DimensionImpl dimension = (DimensionImpl) o;
-        return Objects.equal(internalPair, dimension.internalPair);
+        return internalPair.equals(dimension.internalPair);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(internalPair);
+        return Objects.hash(internalPair);
     }
 }
