@@ -1,4 +1,4 @@
-package it.unibo.pyxis.element.brick;
+package it.unibo.pyxis.model.element.brick;
 
 import java.util.Optional;
 

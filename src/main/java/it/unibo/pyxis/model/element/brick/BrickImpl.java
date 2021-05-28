@@ -1,9 +1,9 @@
-package it.unibo.pyxis.element.brick;
+package it.unibo.pyxis.model.element.brick;
 
-import it.unibo.pyxis.element.AbstractElement;
-import it.unibo.pyxis.event.movement.BallMovementEvent;
-import it.unibo.pyxis.util.Coord;
-import it.unibo.pyxis.util.Dimension;
+import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.event.movement.BallMovementEvent;
+import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.Dimension;
 
 public class BrickImpl extends AbstractElement implements Brick {
 
@@ -17,7 +17,7 @@ public class BrickImpl extends AbstractElement implements Brick {
     }
 
     @Override
-    public void update() {
+    public void update(final int delta) {
         throw new UnsupportedOperationException("Operation not implemented yet");
     }
 
