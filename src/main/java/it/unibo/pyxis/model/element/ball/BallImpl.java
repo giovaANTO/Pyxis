@@ -1,11 +1,16 @@
 package it.unibo.pyxis.model.element.ball;
 
 import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.event.Event;
 import it.unibo.pyxis.model.event.collision.BrickCollisionEvent;
 import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.model.event.Events;
+import it.unibo.pyxis.model.hitbox.CircleHitbox;
+import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.*;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -13,23 +18,27 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     private static final Dimension DIMENSION = new DimensionImpl(1, 1);
     private static final Coord STARTING_POSITION = new CoordImpl(1, 1);
+    private static final Hitbox HITBOX = new CircleHitbox(STARTING_POSITION,1.0);
     private BallType type;
-    private final Vector pace;
+    private Vector pace;
     private final int id;
 
     private BallImpl(final Vector inputPace, final int inputId) {
-        super(DIMENSION, STARTING_POSITION);
+        super(DIMENSION, STARTING_POSITION, HITBOX);
         this.type = BallType.NORMAL_BALL;
         this.pace = inputPace;
         this.id = inputId;
+        EventBus.getDefault().register(this);
     }
 
     @Override
+    @Subscribe
     public void handleBrickCollision(final BrickCollisionEvent collisionEvent) {
 
     }
 
     @Override
+    @Subscribe
     public void handlePadCollision(final PadCollisionEvent collisionEvent) {
 
     }
@@ -51,8 +60,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     public synchronized void setPace(final Vector inputPace) {
-        this.pace.setX(inputPace.getX());
-        this.pace.setY(inputPace.getY());
+      this.pace = inputPace;
     }
 
     @Override
@@ -64,6 +72,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public void update(final int dt) {
         this.calculateNewCoord(dt);
         EventBus.getDefault().post(Events.newBallMovementEvent(this.id, this.getPosition()));
+        this.getHitbox().setPosition(this.getPosition());
     }
 
     private void calculateNewCoord(final int dt) {

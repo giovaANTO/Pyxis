@@ -1,5 +1,6 @@
 package it.unibo.pyxis.model.element;
 
+import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
@@ -10,10 +11,12 @@ public abstract class AbstractElement implements Element {
     private static final double UPDATE_TIME_MULTIPLIER = 0.001;
     private final Dimension dimension;
     private final Coord position;
+    private final Hitbox hitbox;
 
-    public AbstractElement(final Dimension inputDimension, final Coord inputPosition) {
+    public AbstractElement(final Dimension inputDimension, final Coord inputPosition, final Hitbox inputHitbox) {
         this.dimension = inputDimension;
         this.position = inputPosition;
+        this.hitbox = inputHitbox;
     }
 
     @Override
@@ -26,8 +29,14 @@ public abstract class AbstractElement implements Element {
         return this.position.copyOf();
     }
 
+    @Override
     public final double getUpdateTimeMultiplier() {
         return UPDATE_TIME_MULTIPLIER;
+    }
+
+    @Override
+    public final Hitbox getHitbox() {
+        return this.hitbox;
     }
 
     @Override

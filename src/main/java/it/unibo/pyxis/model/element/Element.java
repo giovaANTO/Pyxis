@@ -1,5 +1,6 @@
 package it.unibo.pyxis.model.element;
 
+import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
@@ -25,6 +26,13 @@ public interface Element {
      *          The dt multiplier
      */
     double getUpdateTimeMultiplier();
+
+    /**
+     * Returns the element's {@link Hitbox}.
+     * @return
+     *          The element's {@link Hitbox}
+     */
+    Hitbox getHitbox();
 
     /**
      * Sets the element's position.

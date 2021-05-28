@@ -1,5 +1,7 @@
 package it.unibo.pyxis.model.element;
 
+import it.unibo.pyxis.model.hitbox.Hitbox;
+import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
@@ -14,12 +16,14 @@ class ElementTest {
     private Element element1;
     private Dimension startingDimension;
     private Coord startingPosition;
+    private Hitbox hitbox;
 
     @BeforeEach
     void setUp() {
         this.startingDimension = new DimensionImpl(4.0, 5.0);
         this.startingPosition = new CoordImpl(4.0, 5.0);
-        this.element1 = new ToTestElement(startingDimension.copyOf(), startingPosition.copyOf());
+        this.hitbox = new RectHitbox(startingPosition,startingDimension);
+        this.element1 = new ToTestElement(startingDimension.copyOf(), startingPosition.copyOf(), hitbox);
     }
 
     @Test
