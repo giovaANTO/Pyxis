@@ -38,7 +38,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     @Override
     public void update(final int dt) {
         this.calculateNewCoord(dt);
-        EventBus.getDefault().post(Events.newPowerupMovementEvent(this.getPosition()));
+        EventBus.getDefault().post(Events.newPowerupMovementEvent(this.getHitbox()));
         this.getHitbox().setPosition(this.getPosition());
     }
 
