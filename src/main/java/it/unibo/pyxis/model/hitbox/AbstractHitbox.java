@@ -32,7 +32,7 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
-    public Optional<HitEdge> collidingEdgeWithBorder(final RectHitbox border) {
+    public Optional<HitEdge> collidingEdgeWithBorder(final Hitbox border) {
 
         final double cHBCenterX = getPosition().getX();
         final double cHBCenterY = getPosition().getY();
@@ -58,7 +58,7 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
-    public boolean isCollidingWithLowerBorder(final RectHitbox border) {
+    public boolean isCollidingWithLowerBorder(final Hitbox border) {
         return checkBC(border.getPosition().getY(), getPosition().getY(),
                 border.getDimension().getHeight(), getDimension().getHeight() / 2);
     }

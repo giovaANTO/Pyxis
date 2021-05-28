@@ -69,7 +69,7 @@ public interface Hitbox {
     Optional<HitEdge> collidingEdgeWithOtherHB(Hitbox hitbox);
 
     /**
-     * Checks for a collision with the right, left and upper border of the {@link RectHitbox}.
+     * Checks for a collision with the right, left and upper edge of a {@link RectHitbox}.
      * @param 
      *          borderPosition
      * @param 
@@ -77,15 +77,15 @@ public interface Hitbox {
      * @return 
      *          An {@link Optional} with the specified colliding {@link HitEdge} of the border, an EMPTY {@link Optional} if they are not colliding.
      */
-    Optional<HitEdge> collidingEdgeWithBorder(RectHitbox border);
+    Optional<HitEdge> collidingEdgeWithBorder(Hitbox border);
 
     /**
-     * Checks for a collision with the lower border of the {@link RectHitbox}.
+     * Checks for a collision with the lower edge of a {@link RectHitbox}.
      * @param 
      *          border
      * @return 
      *          TRUE if there is a collision, otherwise FALSE.
      */
-    boolean isCollidingWithLowerBorder(RectHitbox border);
+    boolean isCollidingWithLowerBorder(Hitbox border);
     
 }
