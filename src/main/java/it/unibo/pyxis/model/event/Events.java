@@ -95,7 +95,7 @@ public final class Events {
             }
 
             @Override
-            public Hitbox getCoord() {
+            public Hitbox getHitbox() {
                 return hitbox;
             }
         };
