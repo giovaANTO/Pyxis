@@ -2,6 +2,7 @@ package it.unibo.pyxis.model.element.brick;
 
 import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
+import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
@@ -11,7 +12,7 @@ public class BrickImpl extends AbstractElement implements Brick {
     private int durability;
 
     public BrickImpl(final BrickType type, final Dimension inputDimension, final Coord inputPosition) {
-        super(inputDimension, inputPosition);
+        super(inputDimension, inputPosition, new RectHitbox(inputPosition, inputDimension));
         this.brickType = type;
         this.durability = type.getDurability();
     }
