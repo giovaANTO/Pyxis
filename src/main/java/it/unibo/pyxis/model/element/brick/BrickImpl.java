@@ -1,10 +1,15 @@
 package it.unibo.pyxis.model.element.brick;
 
 import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
+import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
 
@@ -24,7 +29,39 @@ public final class BrickImpl extends AbstractElement implements Brick {
 
     @Override
     public void handleBallMovement(final BallMovementEvent movementEvent) {
+        final Hitbox ballHitbox = movementEvent.getHitbox();
+        if (ballHitbox.isCollidingWithOtherHB(this.getHitbox())) {
+            this.handleIncomingDamage(movementEvent.getDamage());
+        }
+    }
 
+    /**
+     * Handle the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}.
+     * If the durability of the {@link Brick} reaches the value 0 then the brick is destroyed.
+     *
+     * @param incomingDamage
+     *                         The {@link Optional} indicating the damage taken.
+     */
+    private void handleIncomingDamage(final Optional<Integer> incomingDamage) {
+       this.decreaseDurability(incomingDamage);
+       if (this.durability == 0) {
+           EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
+           EventBus.getDefault().unregister(this);
+       }
+    }
+
+    /**
+     * Decrease the durability of the brick.
+     * @param incomingDamage
+     *                        The {@link Optional} indicating the damage taken.
+     */
+    private void decreaseDurability(final Optional<Integer> incomingDamage) {
+        if (incomingDamage.isEmpty()) {
+            this.durability = 0;
+        } else {
+            final int damage = incomingDamage.get();
+            this.durability = Math.max(this.durability - damage, 0);
+        }
     }
 
     @Override
