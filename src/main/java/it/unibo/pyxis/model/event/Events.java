@@ -9,6 +9,7 @@ import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.hitbox.HitEdge;
+import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 
 import java.util.Optional;
@@ -79,14 +80,14 @@ public final class Events {
      * Create a new {@link BallMovementEvent} instance passing a {@link Coord} representing the current position
      * of the {@link it.unibo.pyxis.model.element.ball.Ball} inside the {@link it.unibo.pyxis.model.arena.Arena}.
      *
-     * @param coord
-     *                  The {@link it.unibo.pyxis.model.element.ball.Ball}'s {@link Coord} position.
+     * @param hitbox
+     *                  The {@link it.unibo.pyxis.model.element.ball.Ball}'s {@link Hitbox}.
      * @param id
      *                  The {@link it.unibo.pyxis.model.element.ball.Ball}'s identifier.
      * @return
      *                  The {@link BallMovementEvent} instance.
      */
-    public static BallMovementEvent newBallMovementEvent(final int id, final Coord coord) {
+    public static BallMovementEvent newBallMovementEvent(final int id, final Hitbox hitbox) {
         return new BallMovementEvent() {
             @Override
             public int getBallId() {
@@ -94,8 +95,8 @@ public final class Events {
             }
 
             @Override
-            public Coord getCoord() {
-                return coord;
+            public Hitbox getCoord() {
+                return hitbox;
             }
         };
     }
@@ -104,13 +105,13 @@ public final class Events {
      * Create a new {@link PowerupMovementEvent} instance passing a {@link Coord} representing the current position
      * of the {@link it.unibo.pyxis.model.element.powerup.Powerup} inside the {@link it.unibo.pyxis.model.arena.Arena}.
      *
-     * @param coord
+     * @param hitbox
      *               The {@link it.unibo.pyxis.model.element.powerup.Powerup}'s {@link Coord} position.
      * @return
      *               The {@link PowerupMovementEvent} instance.
      */
-    public static PowerupMovementEvent newPowerupMovementEvent(final Coord coord) {
-        return () -> coord;
+    public static PowerupMovementEvent newPowerupMovementEvent(final Hitbox hitbox) {
+        return () -> hitbox;
     }
 
     /**

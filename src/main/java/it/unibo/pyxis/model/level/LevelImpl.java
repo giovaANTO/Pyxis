@@ -5,16 +5,17 @@ import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class LevelImpl implements Level {
+import java.util.Objects;
 
-    private static final int DEFAULT_STARTING_LIVES = 3;
+public class LevelImpl implements Level {
 
     private int lives;
     private int score;
     private final Arena arena;
 
-    public LevelImpl(final Arena inputArena) {
-        this.lives = DEFAULT_STARTING_LIVES;
+    public LevelImpl(final int inputLives, final Arena inputArena) {
+        Objects.requireNonNull(inputArena, "You must pass an instance of Arena");
+        this.lives = inputLives;
         this.score = 0;
         this.arena = inputArena;
         EventBus.getDefault().register(this);

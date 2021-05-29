@@ -2,6 +2,7 @@ package it.unibo.pyxis.model.element.powerup;
 
 import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.event.Events;
+import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.*;
 
 import org.greenrobot.eventbus.EventBus;
@@ -15,7 +16,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     private final PowerupType type;
 
     public PowerupImpl(final PowerupType inputType, final Coord inputCoord) {
-        super(DIMENSION, inputCoord);
+        super(DIMENSION, inputCoord, new RectHitbox(inputCoord, DIMENSION));
         this.type = inputType;
     }
 
@@ -37,7 +38,8 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     @Override
     public void update(final int dt) {
         this.calculateNewCoord(dt);
-        EventBus.getDefault().post(Events.newPowerupMovementEvent(this.getPosition()));
+        EventBus.getDefault().post(Events.newPowerupMovementEvent(this.getHitbox()));
+        this.getHitbox().setPosition(this.getPosition());
     }
 
     private void calculateNewCoord(final int dt) {
