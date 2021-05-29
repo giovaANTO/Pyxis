@@ -6,7 +6,7 @@ import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
-public class BrickImpl extends AbstractElement implements Brick {
+public final class BrickImpl extends AbstractElement implements Brick {
 
     private final BrickType brickType;
     private int durability;
