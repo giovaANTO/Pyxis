@@ -8,5 +8,5 @@ import it.unibo.pyxis.model.hitbox.Hitbox;
  */
 @FunctionalInterface
 public interface MovementEvent extends Event {
-    Hitbox getCoord();
+    Hitbox getHitbox();
 }

@@ -87,7 +87,8 @@ public final class Events {
      * @return
      *                  The {@link BallMovementEvent} instance.
      */
-    public static BallMovementEvent newBallMovementEvent(final int id, final Hitbox hitbox) {
+    public static BallMovementEvent newBallMovementEvent(final int id, final Hitbox hitbox,
+                                                         final Optional<Integer> dmg) {
         return new BallMovementEvent() {
             @Override
             public int getBallId() {
@@ -95,7 +96,12 @@ public final class Events {
             }
 
             @Override
-            public Hitbox getCoord() {
+            public Optional<Integer> getDamage() {
+                return dmg;
+            }
+
+            @Override
+            public Hitbox getHitbox() {
                 return hitbox;
             }
         };
