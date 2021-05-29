@@ -19,7 +19,7 @@ public class BrickImpl extends AbstractElement implements Brick {
 
     @Override
     public void update(final int delta) {
-        throw new UnsupportedOperationException("Operation not implemented yet");
+        throw new UnsupportedOperationException("You can't call update on a brick");
     }
 
     @Override
