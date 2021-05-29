@@ -70,7 +70,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Override
     public void update(final int dt) {
         this.calculateNewCoord(dt);
-        EventBus.getDefault().post(Events.newBallMovementEvent(this.id, this.getHitbox()));
+        EventBus.getDefault().post(Events.newBallMovementEvent(this.id, this.getHitbox(), this.getType().getDamage()));
         this.getHitbox().setPosition(this.getPosition());
     }
 
