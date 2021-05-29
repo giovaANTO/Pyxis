@@ -1,7 +1,6 @@
 package it.unibo.pyxis.model.element.ball;
 
 import it.unibo.pyxis.model.element.AbstractElement;
-import it.unibo.pyxis.model.event.Event;
 import it.unibo.pyxis.model.event.collision.BrickCollisionEvent;
 import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.model.event.Events;
@@ -18,7 +17,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     private static final Dimension DIMENSION = new DimensionImpl(1, 1);
     private static final Coord STARTING_POSITION = new CoordImpl(1, 1);
-    private static final Hitbox HITBOX = new CircleHitbox(STARTING_POSITION,1.0);
+    private static final Hitbox HITBOX = new CircleHitbox(STARTING_POSITION, 1.0);
     private BallType type;
     private Vector pace;
     private final int id;
