@@ -74,7 +74,6 @@ public final class ArenaImpl implements Arena {
     public void handlePowerupActivation(final PowerupActivationEvent event) {
         this.powerupHandler.addPowerup(event.getPowerup().getType().getEffect());
         this.powerupSet.remove(event.getPowerup());
-
     }
 
     @Override

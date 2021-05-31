@@ -8,6 +8,7 @@ import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
         super(inputDimension, inputPosition, new RectHitbox(inputPosition, inputDimension));
         this.brickType = type;
         this.durability = type.getDurability();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -28,6 +30,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
     }
 
     @Override
+    @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Hitbox ballHitbox = movementEvent.getHitbox();
         if (ballHitbox.isCollidingWithOtherHB(this.getHitbox())) {
@@ -44,7 +47,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
      */
     private void handleIncomingDamage(final Optional<Integer> incomingDamage) {
        this.decreaseDurability(incomingDamage);
-       if (this.durability == 0) {
+       if (this.durability == 0 && !this.getBrickType().isIndestructible()) {
            EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
            EventBus.getDefault().unregister(this);
        }
