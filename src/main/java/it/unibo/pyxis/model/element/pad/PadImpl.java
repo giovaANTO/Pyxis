@@ -9,6 +9,7 @@ import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class PadImpl extends AbstractElement implements Pad {
 
@@ -25,15 +26,17 @@ public class PadImpl extends AbstractElement implements Pad {
 
     @Override
     public void update(final int dt) {
-
+        throw new UnsupportedOperationException("Operation not implemented yet");
     }
 
     @Override
+    @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
 
     }
 
     @Override
+    @Subscribe
     public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {
 
     }
