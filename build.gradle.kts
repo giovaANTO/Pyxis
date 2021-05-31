@@ -59,7 +59,7 @@ tasks.withType<Test> {
 
 application {
     // Define the main class for the application
-    mainClass.set("it.unibo.pyxis.app.App")
+    mainClass.set("it.unibo.samplejavafx.App")
 
     /*
      * mainClassName was deprecated by Gradle, but it is still required by John Engelman's Shadow plugin.
