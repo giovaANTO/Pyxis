@@ -2,7 +2,8 @@ package it.unibo.pyxis.model.level.loader;
 
 import it.unibo.pyxis.model.level.Level;
 
-import java.net.URI;
+import java.io.File;
+import java.net.URL;
 
 public interface LevelLoader {
     /**
@@ -10,14 +11,17 @@ public interface LevelLoader {
      * @return
      *          The integer indicating the number of files present in the configuration directory.
      */
-    int getCount();
+    default int getFilesCount() {
+        final File configDir = new File(this.getConfigurationDir().getPath());
+        return configDir.listFiles(f -> f.getName().endsWith(".yaml") || f.getName().endsWith(".yml")).length;
+    }
 
     /**
-     * Return the {@link URI} of the directory where the {@link LevelLoader} is currently working on.
+     * Return the {@link URL} of the directory where the {@link LevelLoader} is currently working on.
      * @return
-     *          An {@link URI} indicating the absolute.
+     *          An {@link URL} indicating the absolute.
      */
-    URI getConfigurationDir();
+    URL getConfigurationDir();
 
     /**
      * Generate a new {@link Level} from a configuration yml file.
