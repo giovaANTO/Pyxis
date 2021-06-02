@@ -45,7 +45,11 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
 
+    // Event bus
     implementation("org.greenrobot:eventbus:3.2.0")
+
+    // Configuration reader
+    implementation("org.yaml:snakeyaml:1.8")
 }
 
 tasks.withType<JavaCompile> {
