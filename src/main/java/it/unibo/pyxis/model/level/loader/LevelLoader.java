@@ -4,6 +4,7 @@ import it.unibo.pyxis.model.level.Level;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Objects;
 
 public interface LevelLoader {
     /**
@@ -12,8 +13,10 @@ public interface LevelLoader {
      *          The integer indicating the number of files present in the configuration directory.
      */
     default int getFilesCount() {
-        final File configDir = new File(this.getConfigurationDir().getPath());
-        return configDir.listFiles(f -> f.getName().endsWith(".yaml") || f.getName().endsWith(".yml")).length;
+        final File dir = new File(this.getConfigurationDir().getPath());
+        return Objects.requireNonNull(
+                dir.listFiles(f -> f.getName().endsWith(".yaml") || f.getName().endsWith(".yml"))
+        ).length;
     }
 
     /**
