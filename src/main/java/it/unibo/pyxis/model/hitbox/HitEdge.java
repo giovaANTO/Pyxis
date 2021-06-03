@@ -4,6 +4,7 @@ public enum HitEdge {
     
     HORIZONTAL,
     VERTICAL,
-    CORNER;
+    CORNER,
+    CIRCLE;
 
 }

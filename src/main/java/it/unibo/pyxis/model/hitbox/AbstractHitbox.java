@@ -79,15 +79,57 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
-    public abstract boolean isCollidingWithPoint(Coord position);
+    public abstract boolean isCollidingWithPoint(final Coord position);
 
     @Override
-    public abstract boolean isCollidingWithOtherHB(Hitbox hitbox);
+    public abstract boolean isCollidingWithPoint(final double px, final double py);
 
     @Override
-    public abstract boolean isCollidingWithSameHB(Hitbox hitbox);
+    public abstract boolean isCollidingWithHB(final Hitbox hitbox);
 
     @Override
-    public abstract Optional<HitEdge> collidingEdgeWithOtherHB(Hitbox hitbox);
+    public abstract Optional<HitEdge> collidingEdgeWithHB(final Hitbox hitbox);
+
+    /**
+     * Checks for a collision with the same {@link Hitbox}.
+     * @param 
+     *          hitbox
+     * @return 
+     *          TRUE if the two {@link Hitbox} are the same and colliding, otherwise FALSE.
+     */
+    protected boolean isCollidingWithSameHB(final Hitbox hitbox) {
+        return collidingEdgeWithSameHB(hitbox).isPresent();
+    }
+
+    /**
+     * Checks for a collision with the same {@link Hitbox}.
+     * @param 
+     *          hitbox
+     * @return 
+     *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
+     *          an EMPTY {@link Optional} if they are different or not colliding.
+     */
+    protected abstract Optional<HitEdge> collidingEdgeWithSameHB(final Hitbox hitbox);
+
+    /**
+     * Checks for a collision with the different {@link Hitbox}.
+     * @param 
+     *          hitbox
+     * @return 
+     *          TRUE if the two {@link Hitbox} are different and colliding, otherwise FALSE.
+     */
+    protected boolean isCollidingWithOtherHB(final Hitbox hitbox) {
+        return collidingEdgeWithOtherHB(hitbox).isPresent();
+    }
+
+    /**
+     * Checks for a collision with the different {@link Hitbox}.
+     * @param 
+     *          hitbox
+     * @return 
+     *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
+     *          an EMPTY {@link Optional} if they are the same or not colliding.
+     */
+    protected abstract Optional<HitEdge> collidingEdgeWithOtherHB(final Hitbox hitbox);
 
 }
