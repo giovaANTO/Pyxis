@@ -26,21 +26,35 @@ public class CircleHitbox extends AbstractHitbox {
     }
 
     @Override
-    public boolean isCollidingWithSameHB(final Hitbox hitbox) {
-        return hitbox instanceof CircleHitbox
-                && getPosition().distance(hitbox.getPosition()) <= getRadius() + ((CircleHitbox) hitbox).getRadius();
+    public boolean isCollidingWithPoint(final double px, final double py) {
+        return getPosition().distance(px, py) <= getRadius();
     }
 
     @Override
-    public boolean isCollidingWithOtherHB(final Hitbox hitbox) {
+    public boolean isCollidingWithHB(final Hitbox hitbox) {
+        return hitbox instanceof CircleHitbox
+                ? isCollidingWithSameHB(hitbox)
+                : isCollidingWithOtherHB(hitbox);
+    }
+
+    @Override
+    public Optional<HitEdge> collidingEdgeWithHB(final Hitbox hitbox) {
+        return hitbox instanceof CircleHitbox
+                ? collidingEdgeWithSameHB(hitbox)
+                : collidingEdgeWithOtherHB(hitbox);
+    }
+
+    protected Optional<HitEdge> collidingEdgeWithSameHB(final Hitbox hitbox) {
+        return getPosition().distance(hitbox.getPosition()) <= getRadius() + ((CircleHitbox) hitbox).getRadius()
+                ? Optional.of(HitEdge.CIRCLE)
+                : Optional.empty();
+    }
+
+    protected boolean isCollidingWithOtherHB(final Hitbox hitbox) {
         return collidingEdgeWithOtherHB(hitbox).isPresent();
     }
 
-    @Override
-    public Optional<HitEdge> collidingEdgeWithOtherHB(final Hitbox hitbox) {
-        if (hitbox instanceof CircleHitbox) {
-            return Optional.empty();
-        }
+    protected Optional<HitEdge> collidingEdgeWithOtherHB(final Hitbox hitbox) {
 
         double closestPointX;
         double closestPointY;
@@ -59,17 +73,26 @@ public class CircleHitbox extends AbstractHitbox {
 
         if (closestPointX != cHBCenterX && closestPointY != cHBCenterY) {
             hitEdge = HitEdge.CORNER;
-        } else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY) {
-            hitEdge = HitEdge.HORIZONTAL;
-        } else {
+        } else if (closestPointX != cHBCenterX && closestPointY == cHBCenterY) {
             hitEdge = HitEdge.VERTICAL;
+        } else {
+            hitEdge = HitEdge.HORIZONTAL;
         }
 
-        return getPosition().distance(closestPointX, closestPointY) < getRadius()
+        return isCollidingWithPoint(closestPointX, closestPointY)
                 ? Optional.of(hitEdge)
                 : Optional.empty();
     }
 
+    /**
+     * Checks what's the closest point of the {@link RectHitbox} to the center of the {@link CircleHitbox}.
+     * @param cHBCenterCoord
+     * @param rHBCenterCoord
+     * @param rHBEdgeLength
+     * @return
+     *          cHBCenterCoord if the center of the {@link CircleHitbox} is inside the {@link RectHitbox},
+     *          the Coordinate of the closest edge of the {@link RectHitbox} otherwise.
+     */
     private double closestPointCalculation(final double cHBCenterCoord, final double rHBCenterCoord,
                                            final double rHBEdgeLength) {
         return cHBCenterCoord < rHBCenterCoord - rHBEdgeLength / 2

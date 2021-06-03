@@ -42,31 +42,32 @@ public interface Hitbox {
     boolean isCollidingWithPoint(Coord position);
 
     /**
-     * Checks for a collision with the different {@link Hitbox}.
-     * @param 
-     *          hitbox
-     * @return 
-     *          TRUE if the two {@link Hitbox} are different and colliding, otherwise FALSE.
+     * Checks for a collision with a {@link Coord} of coordinates (px, py).
+     * 
+     * @param px
+     * @param py
+     * @return
+     *          TRUE is the point is situated inside the {@link Hitbox}, otherwise FALSE.
      */
-    boolean isCollidingWithOtherHB(Hitbox hitbox);
+    boolean isCollidingWithPoint(double px, double py);
 
     /**
-     * Checks for a collision with the same {@link Hitbox}.
+     * Checks for a collision with a {@link Hitbox}.
      * @param 
      *          hitbox
      * @return 
-     *          TRUE if the two {@link Hitbox} are the same and colliding, otherwise FALSE.
+     *          TRUE if the two {@link Hitbox} are colliding, otherwise FALSE.
      */
-    boolean isCollidingWithSameHB(Hitbox hitbox);
+    boolean isCollidingWithHB(Hitbox hitbox);
 
     /**
-     * Checks for a collision with the different {@link Hitbox}.
-     * @param 
-     *          hitbox
-     * @return 
-     *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with, an EMPTY {@link Optional} if they are the same or not colliding.
+     * Checks for a collision with a {@link Hitbox}.
+     * @param hitbox
+     * @return
+     *          An {@link Optional} with the specified {@link HitEdge} the {@link Hitbox} is colliding with,
+     *          an empty {@link Optional} if they are not colliding.
      */
-    Optional<HitEdge> collidingEdgeWithOtherHB(Hitbox hitbox);
+    Optional<HitEdge> collidingEdgeWithHB(Hitbox hitbox);
 
     /**
      * Checks for a collision with the right, left and upper edge of a {@link RectHitbox}.
