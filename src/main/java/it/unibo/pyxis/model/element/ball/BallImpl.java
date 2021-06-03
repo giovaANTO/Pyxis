@@ -5,7 +5,6 @@ import it.unibo.pyxis.model.event.collision.BrickCollisionEvent;
 import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CircleHitbox;
-import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.*;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -17,13 +16,13 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     private static final Dimension DIMENSION = new DimensionImpl(1, 1);
     private static final Coord STARTING_POSITION = new CoordImpl(1, 1);
-    private static final Hitbox HITBOX = new CircleHitbox(STARTING_POSITION, 1.0);
     private BallType type;
     private Vector pace;
     private final int id;
 
     private BallImpl(final Vector inputPace, final int inputId) {
-        super(DIMENSION, STARTING_POSITION, HITBOX);
+        super(DIMENSION, STARTING_POSITION);
+        this.setHitbox(new CircleHitbox(this));
         this.type = BallType.NORMAL_BALL;
         this.pace = inputPace;
         this.id = inputId;
@@ -71,7 +70,6 @@ public final class BallImpl extends AbstractElement implements Ball {
     public void update(final int dt) {
         this.calculateNewCoord(dt);
         EventBus.getDefault().post(Events.newBallMovementEvent(this.id, this.getHitbox(), this.getType().getDamage()));
-        this.getHitbox().setPosition(this.getPosition());
     }
 
     private void calculateNewCoord(final int dt) {

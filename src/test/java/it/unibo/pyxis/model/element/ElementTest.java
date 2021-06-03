@@ -22,8 +22,8 @@ class ElementTest {
     void setUp() {
         this.startingDimension = new DimensionImpl(4.0, 5.0);
         this.startingPosition = new CoordImpl(4.0, 5.0);
-        this.hitbox = new RectHitbox(startingPosition,startingDimension);
-        this.element1 = new ToTestElement(startingDimension.copyOf(), startingPosition.copyOf(), hitbox);
+        this.element1 = new ToTestElement(startingDimension.copyOf(), startingPosition.copyOf());
+        this.hitbox = element1.getHitbox();
     }
 
     @Test

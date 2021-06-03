@@ -18,7 +18,8 @@ public final class BrickImpl extends AbstractElement implements Brick {
     private int durability;
 
     public BrickImpl(final BrickType type, final Dimension inputDimension, final Coord inputPosition) {
-        super(inputDimension, inputPosition, new RectHitbox(inputPosition, inputDimension));
+        super(inputDimension, inputPosition);
+        this.setHitbox(new RectHitbox(this));
         this.brickType = type;
         this.durability = type.getDurability();
         EventBus.getDefault().register(this);

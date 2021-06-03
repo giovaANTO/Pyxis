@@ -26,24 +26,24 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
-    public Optional<HitEdge> collidingEdgeWithBorder(final Hitbox border) {
+    public Optional<HitEdge> collidingEdgeWithBorder(final Dimension borderDimension) {
 
         final double cHBCenterX = getPosition().getX();
         final double cHBCenterY = getPosition().getY();
         final double cHBHalvedHeight = getDimension().getHeight() / 2;
         final double cHBHalvedWidth = getDimension().getWidth() / 2;
-        final double rHBCenterX = border.getPosition().getX();
-        final double rHBCenterY = border.getPosition().getY();
-        final double rHBWidth   = border.getDimension().getWidth();
-        final double rHBHeight  = border.getDimension().getHeight();
+        final double bHBWidth   = borderDimension.getWidth();
+        final double bHBHeight  = borderDimension.getHeight();
+        final double bHBCenterX = bHBWidth / 2;
+        final double bHBCenterY = bHBHeight / 2;
 
         HitEdge hitEdge = null;
 
-        if (checkBC(cHBCenterX, rHBCenterX, rHBWidth, cHBHalvedWidth)
-                || checkBC(rHBCenterX, cHBCenterX, rHBWidth, cHBHalvedWidth)) {
+        if (checkBC(cHBCenterX, bHBCenterX, bHBWidth, cHBHalvedWidth)
+                || checkBC(bHBCenterX, cHBCenterX, bHBWidth, cHBHalvedWidth)) {
             hitEdge = HitEdge.VERTICAL;
         }
-        if (checkBC(cHBCenterY, rHBCenterY, rHBHeight, cHBHalvedHeight)) {
+        if (checkBC(cHBCenterY, bHBCenterY, bHBHeight, cHBHalvedHeight)) {
             hitEdge = Objects.isNull(hitEdge) 
                     ? HitEdge.HORIZONTAL
                     : HitEdge.CORNER;
@@ -52,9 +52,9 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
-    public boolean isCollidingWithLowerBorder(final Hitbox border) {
-        return checkBC(border.getPosition().getY(), getPosition().getY(),
-                border.getDimension().getHeight(), getDimension().getHeight() / 2);
+    public boolean isCollidingWithLowerBorder(final Dimension borderDimension) {
+        return checkBC(borderDimension.getHeight() / 2, getPosition().getY(),
+                borderDimension.getHeight(), getDimension().getHeight() / 2);
     }
 
     /**
