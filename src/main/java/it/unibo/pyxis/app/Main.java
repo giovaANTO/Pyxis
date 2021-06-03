@@ -11,5 +11,6 @@ public class Main {
         final LevelLoader loader = new LevelLoaderImpl(ClassLoader.getSystemResource("config"));
         Level loadedLevel = loader.fromFile("level1.yaml");
         loadedLevel.getArena().getBrickStream().forEach(b -> System.out.println(b.getPosition().getX() + " " + b.getPosition().getY()));
+        System.out.println(loadedLevel.getArena().getPad().getPosition().getX() + " " + loadedLevel.getArena().getPad().getPosition().getY());
     }
 }

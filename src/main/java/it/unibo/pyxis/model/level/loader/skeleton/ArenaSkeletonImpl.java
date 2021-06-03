@@ -9,10 +9,11 @@ public final class ArenaSkeletonImpl implements ArenaSkeleton {
     private double height;
 
     /**
-     * Direct implementation of BrickSkeleton interface as type variable
+     * Direct implementation of interfaces is
      * required for working with SnakeYAML library.
      */
     private Set<BrickSkeletonImpl> brickSkeletonSet;
+    private PadSkeletonImpl padSkeleton;
 
     @Override
     public int getLives() {
@@ -52,5 +53,15 @@ public final class ArenaSkeletonImpl implements ArenaSkeleton {
     @Override
     public void setBrickSkeletonSet(final Set<BrickSkeletonImpl> inputBrickSkeletonSet) {
         this.brickSkeletonSet = inputBrickSkeletonSet;
+    }
+
+    @Override
+    public PadSkeletonImpl getPadSkeleton() {
+        return this.padSkeleton;
+    }
+
+    @Override
+    public void setPadSkeleton(final PadSkeletonImpl inputPadSkeleton) {
+        this.padSkeleton = inputPadSkeleton;
     }
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
 
-    private final static  Dimension DIMENSION = new DimensionImpl(1, 1);
+    private static final Dimension DIMENSION = new DimensionImpl(1, 1);
     private final BrickType brickType;
     private int durability;
 

@@ -58,4 +58,18 @@ public interface ArenaSkeleton {
      *           {@link Set} of {@link BrickSkeletonImpl}
      */
     void setBrickSkeletonSet(Set<BrickSkeletonImpl> brickSkeletonSet);
+
+    /**
+     * Return a {@link PadSkeletonImpl} linked to this {@link ArenaSkeleton}.
+     * @return
+     *           A {@link PadSkeletonImpl} instance
+     */
+    PadSkeletonImpl getPadSkeleton();
+
+    /**
+     * Set a {@link PadSkeletonImpl}.
+     * @param padSkeleton
+     *             Instance of {@link PadSkeletonImpl}
+     */
+    void setPadSkeleton(PadSkeletonImpl padSkeleton);
 }

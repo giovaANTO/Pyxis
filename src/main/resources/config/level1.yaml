@@ -2,6 +2,9 @@
 lives: 3
 width: 100
 height: 100
+padSkeleton:
+  x: 20
+  y: 10
 brickSkeletonSet:
     - x: 1
       y: 1
