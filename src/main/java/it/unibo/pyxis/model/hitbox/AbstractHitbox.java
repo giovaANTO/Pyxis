@@ -3,27 +3,26 @@ package it.unibo.pyxis.model.hitbox;
 import java.util.Objects;
 import java.util.Optional;
 
+import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
 public abstract class AbstractHitbox implements Hitbox {
 
-    private Coord position;
-    private final Dimension dimension;
+    private final Element element;
 
-    public AbstractHitbox(final Coord position, final Dimension dimension) {
-        this.position = position;
-        this.dimension = dimension;
+    public AbstractHitbox(final Element element) {
+        this.element = element;
     }
 
     @Override
     public Coord getPosition() {
-        return this.position;
+        return element.getPosition();
     }
 
     @Override
     public Dimension getDimension() {
-        return this.dimension;
+        return element.getDimension();
     }
 
     @Override
