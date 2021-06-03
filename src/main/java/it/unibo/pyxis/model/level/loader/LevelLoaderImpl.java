@@ -1,14 +1,27 @@
 package it.unibo.pyxis.model.level.loader;
 
+import it.unibo.pyxis.model.arena.Arena;
+import it.unibo.pyxis.model.arena.ArenaImpl;
+import it.unibo.pyxis.model.element.brick.Brick;
+import it.unibo.pyxis.model.element.brick.BrickImpl;
+import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.level.Level;
+import it.unibo.pyxis.model.level.LevelImpl;
+import it.unibo.pyxis.model.level.loader.skeleton.ArenaSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.ArenaSkeletonImpl;
+import it.unibo.pyxis.model.level.loader.skeleton.BrickSkeleton;
+import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.CoordImpl;
+import it.unibo.pyxis.model.util.DimensionImpl;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.*;
 import java.net.URL;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.Objects;
 
-public class LevelLoaderImpl implements LevelLoader {
+public final class LevelLoaderImpl implements LevelLoader {
 
     private final URL configurationDirectory;
 
@@ -29,18 +42,25 @@ public class LevelLoaderImpl implements LevelLoader {
 
     @Override
     public Level fromFile(final String filename) {
-        this.openFile(filename);
-        return null;
+        final ArenaSkeleton arenaSkeleton = this.skeletonFromFile(filename);
+        return new LevelImpl(arenaSkeleton.getLives(), this.arenaFromSkeleton(arenaSkeleton));
     }
 
-
-    private Map<String, Object> openFile(final String filename) {
+    /**
+     * Create a skeleton file from a yaml source.
+     * @param filename
+     *                  The yaml file name used for loading the level
+     * @return
+     *          A {@link ArenaSkeleton} object with the loaded data.
+     */
+    private ArenaSkeleton skeletonFromFile(final String filename) {
         try (InputStream stream = new BufferedInputStream(new FileInputStream(this.getFile(filename)))) {
-            final Yaml yamlConfLoader = new Yaml();
+            final Yaml yamlConfLoader = new Yaml(new Constructor(ArenaSkeletonImpl.class));
+            return (ArenaSkeleton) yamlConfLoader.load(stream);
         } catch (final Exception e) {
             e.printStackTrace();
         }
-        return  null;
+        return new ArenaSkeletonImpl();
     }
 
     /**
@@ -54,10 +74,28 @@ public class LevelLoaderImpl implements LevelLoader {
      */
     private File getFile(final String filename) throws IllegalArgumentException {
         final File filePath = new File(this.configurationDirectory.getPath(), filename);
-        if (!filePath.exists() || !filePath.canRead()) {
+        if (!(filePath.exists() || filePath.canRead())) {
             throw new IllegalArgumentException("File : " + filename + " doesn't exists or isn't readable");
         }
         return filePath;
     }
 
+    private Arena arenaFromSkeleton(final ArenaSkeleton skeleton) {
+        final Arena outputArena = new ArenaImpl(new DimensionImpl(skeleton.getWidth(), skeleton.getHeight()));
+        skeleton.getBrickSkeletonSet().forEach(bs -> outputArena.addBrick(this.brickFromSkeleton(bs)));
+        return outputArena;
+    }
+
+    private Brick brickFromSkeleton(final BrickSkeleton skeleton) {
+        final Coord brickCoord = new CoordImpl(skeleton.getX(), skeleton.getY());
+        final BrickType brickType = this.getBrickType(skeleton.getType());
+        return new BrickImpl(brickType, brickCoord);
+    }
+
+    private BrickType getBrickType(final String typeString) {
+        return Arrays.stream(BrickType.values())
+                .filter(t -> t.getTypeString().equals(typeString))
+                .findFirst()
+                .orElseThrow();
+    }
 }

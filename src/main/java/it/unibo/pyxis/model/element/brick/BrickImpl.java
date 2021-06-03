@@ -7,6 +7,7 @@ import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -14,11 +15,12 @@ import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
 
+    private final static  Dimension DIMENSION = new DimensionImpl(1, 1);
     private final BrickType brickType;
     private int durability;
 
-    public BrickImpl(final BrickType type, final Dimension inputDimension, final Coord inputPosition) {
-        super(inputDimension, inputPosition, new RectHitbox(inputPosition, inputDimension));
+    public BrickImpl(final BrickType type, final Coord inputPosition) {
+        super(DIMENSION, inputPosition, new RectHitbox(inputPosition, DIMENSION));
         this.brickType = type;
         this.durability = type.getDurability();
         EventBus.getDefault().register(this);

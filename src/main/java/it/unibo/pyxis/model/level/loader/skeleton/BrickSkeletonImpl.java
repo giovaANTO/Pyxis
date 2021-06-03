@@ -1,21 +1,10 @@
 package it.unibo.pyxis.model.level.loader.skeleton;
 
-import it.unibo.pyxis.model.util.Coord;
-
 public final class BrickSkeletonImpl implements BrickSkeleton {
 
-    private Coord coord;
+    private double x;
+    private double y;
     private String type;
-
-    @Override
-    public Coord getCoord() {
-        return this.coord;
-    }
-
-    @Override
-    public void setCoord(final Coord coord) {
-        this.coord = coord;
-    }
 
     @Override
     public String getType() {
@@ -23,7 +12,27 @@ public final class BrickSkeletonImpl implements BrickSkeleton {
     }
 
     @Override
-    public void setType(final String type) {
-        this.type = type;
+    public void setType(final String inputType) {
+        this.type = inputType;
+    }
+
+    @Override
+    public double getX() {
+        return this.x;
+    }
+
+    @Override
+    public void setX(final double inputX) {
+        this.x = inputX;
+    }
+
+    @Override
+    public double getY() {
+        return this.y;
+    }
+
+    @Override
+    public void setY(final double inputY) {
+        this.y = inputY;
     }
 }

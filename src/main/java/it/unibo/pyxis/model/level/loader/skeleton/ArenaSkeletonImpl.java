@@ -1,13 +1,18 @@
 package it.unibo.pyxis.model.level.loader.skeleton;
 
-import it.unibo.pyxis.model.util.Dimension;
 import java.util.Set;
 
 public final class ArenaSkeletonImpl implements ArenaSkeleton {
 
     private int lives;
-    private Dimension dimension;
-    private Set<BrickSkeleton> brickSkeletonSet;
+    private double width;
+    private double height;
+
+    /**
+     * Direct implementation of BrickSkeleton interface as type variable
+     * required for working with SnakeYAML library.
+     */
+    private Set<BrickSkeletonImpl> brickSkeletonSet;
 
     @Override
     public int getLives() {
@@ -15,27 +20,37 @@ public final class ArenaSkeletonImpl implements ArenaSkeleton {
     }
 
     @Override
-    public void setLives(final int lives) {
-        this.lives = lives;
+    public void setLives(final int inputLives) {
+        this.lives = inputLives;
     }
 
     @Override
-    public Dimension getDimension() {
-        return this.dimension;
+    public double getWidth() {
+        return this.width;
     }
 
     @Override
-    public void setDimension(final Dimension dimension) {
-        this.dimension = dimension;
+    public double getHeight() {
+        return this.height;
     }
 
     @Override
-    public Set<BrickSkeleton> getBrickSkeletonSet() {
+    public void setWidth(final double inputWidth) {
+        this.width = inputWidth;
+    }
+
+    @Override
+    public void setHeight(final double inputHeight) {
+        this.height = inputHeight;
+    }
+
+    @Override
+    public Set<BrickSkeletonImpl> getBrickSkeletonSet() {
         return this.brickSkeletonSet;
     }
 
     @Override
-    public void setBrickSkeletonSet(final Set<BrickSkeleton> brickSkeletonSet) {
-        this.brickSkeletonSet = brickSkeletonSet;
+    public void setBrickSkeletonSet(final Set<BrickSkeletonImpl> inputBrickSkeletonSet) {
+        this.brickSkeletonSet = inputBrickSkeletonSet;
     }
 }
