@@ -35,7 +35,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Hitbox ballHitbox = movementEvent.getHitbox();
-        if (ballHitbox.isCollidingWithOtherHB(this.getHitbox())) {
+        if (ballHitbox.isCollidingWithHB(this.getHitbox())) {
             this.handleIncomingDamage(movementEvent.getDamage());
         }
     }
