@@ -15,13 +15,6 @@ public interface Hitbox {
     Coord getPosition();
 
     /**
-     * Set the position of the {@link Hitbox}
-     * @param
-     *          position
-     */
-    void setPosition(Coord position);
-
-    /**
      * Return the dimension of the {@link Hitbox}.
      *
      * @return

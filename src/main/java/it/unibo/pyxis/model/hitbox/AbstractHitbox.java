@@ -27,11 +27,6 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
-    public void setPosition(final Coord position) {
-        this.position = position;
-    }
-
-    @Override
     public Optional<HitEdge> collidingEdgeWithBorder(final Hitbox border) {
 
         final double cHBCenterX = getPosition().getX();
