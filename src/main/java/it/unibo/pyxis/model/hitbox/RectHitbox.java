@@ -2,13 +2,13 @@ package it.unibo.pyxis.model.hitbox;
 
 import java.util.Optional;
 
+import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.util.Coord;
-import it.unibo.pyxis.model.util.Dimension;
 
 public class RectHitbox extends AbstractHitbox {
 
-    public RectHitbox(final Coord position, final Dimension dimension) {
-        super(position, dimension);
+    public RectHitbox(final Element element) {
+        super(element);
     }
 
     @Override

@@ -15,13 +15,6 @@ public interface Hitbox {
     Coord getPosition();
 
     /**
-     * Set the position of the {@link Hitbox}
-     * @param
-     *          position
-     */
-    void setPosition(Coord position);
-
-    /**
      * Return the dimension of the {@link Hitbox}.
      *
      * @return
@@ -70,23 +63,21 @@ public interface Hitbox {
     Optional<HitEdge> collidingEdgeWithHB(Hitbox hitbox);
 
     /**
-     * Checks for a collision with the right, left and upper edge of a {@link RectHitbox}.
-     * @param 
-     *          borderPosition
+     * Checks for a collision with the right, left and upper edge of a border with the parameter {@link Dimension}.
      * @param 
      *          borderDimension
      * @return 
      *          An {@link Optional} with the specified colliding {@link HitEdge} of the border, an EMPTY {@link Optional} if they are not colliding.
      */
-    Optional<HitEdge> collidingEdgeWithBorder(Hitbox border);
+    Optional<HitEdge> collidingEdgeWithBorder(Dimension borderDimension);
 
     /**
-     * Checks for a collision with the lower edge of a {@link RectHitbox}.
+     * Checks for a collision with the lower edge of a border with the parameter {@link Dimension}.
      * @param 
-     *          border
+     *          borderDimension
      * @return 
      *          TRUE if there is a collision, otherwise FALSE.
      */
-    boolean isCollidingWithLowerBorder(Hitbox border);
+    boolean isCollidingWithLowerBorder(Dimension borderDimension);
     
 }

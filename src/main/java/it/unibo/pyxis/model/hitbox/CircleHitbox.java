@@ -2,13 +2,13 @@ package it.unibo.pyxis.model.hitbox;
 
 import java.util.Optional;
 
+import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.util.Coord;
-import it.unibo.pyxis.model.util.DimensionImpl;
 
 public class CircleHitbox extends AbstractHitbox {
 
-    public CircleHitbox(final Coord position, final Double diameter) {
-        super(position, new DimensionImpl(diameter, diameter));
+    public CircleHitbox(final Element element) {
+        super(element);
     }
 
     /**

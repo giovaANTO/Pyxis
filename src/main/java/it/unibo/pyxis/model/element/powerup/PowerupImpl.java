@@ -16,7 +16,8 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     private final PowerupType type;
 
     public PowerupImpl(final PowerupType inputType, final Coord inputCoord) {
-        super(DIMENSION, inputCoord, new RectHitbox(inputCoord, DIMENSION));
+        super(DIMENSION, inputCoord);
+        this.setHitbox(new RectHitbox(this));
         this.type = inputType;
     }
 
@@ -39,7 +40,6 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     public void update(final int dt) {
         this.calculateNewCoord(dt);
         EventBus.getDefault().post(Events.newPowerupMovementEvent(this.getHitbox()));
-        this.getHitbox().setPosition(this.getPosition());
     }
 
     private void calculateNewCoord(final int dt) {

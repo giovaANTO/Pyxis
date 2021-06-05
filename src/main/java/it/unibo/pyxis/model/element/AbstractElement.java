@@ -11,12 +11,11 @@ public abstract class AbstractElement implements Element {
     private static final double UPDATE_TIME_MULTIPLIER = 0.001;
     private final Dimension dimension;
     private final Coord position;
-    private final Hitbox hitbox;
+    private Hitbox hitbox;
 
-    public AbstractElement(final Dimension inputDimension, final Coord inputPosition, final Hitbox inputHitbox) {
+    public AbstractElement(final Dimension inputDimension, final Coord inputPosition) {
         this.dimension = inputDimension;
         this.position = inputPosition;
-        this.hitbox = inputHitbox;
     }
 
     @Override
@@ -32,6 +31,15 @@ public abstract class AbstractElement implements Element {
     @Override
     public final double getUpdateTimeMultiplier() {
         return UPDATE_TIME_MULTIPLIER;
+    }
+
+    /**
+     * Sets the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
+     * @param 
+     *          hitbox
+     */
+    protected void setHitbox(final Hitbox hitbox) {
+        this.hitbox = hitbox;
     }
 
     @Override
