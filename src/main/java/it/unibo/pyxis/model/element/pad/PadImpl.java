@@ -10,7 +10,7 @@ import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class PadImpl extends AbstractElement implements Pad {
+public final class PadImpl extends AbstractElement implements Pad {
 
     private static final Dimension DIMENSION = new DimensionImpl(1, 1);
 
@@ -22,7 +22,6 @@ public class PadImpl extends AbstractElement implements Pad {
 
     public PadImpl(final Coord inputPosition) {
         super(DIMENSION, inputPosition);
-        this.setHitbox(new RectHitbox(this));
     }
 
     @Override

@@ -11,6 +11,7 @@ import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
@@ -78,5 +79,22 @@ public final class BrickImpl extends AbstractElement implements Brick {
     @Override
     public BrickType getBrickType() {
         return this.brickType;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof BrickImpl)) {
+            return false;
+        }
+        BrickImpl brick = (BrickImpl) o;
+        return getDurability() == brick.getDurability() && getBrickType() == brick.getBrickType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBrickType(), getDurability());
     }
 }

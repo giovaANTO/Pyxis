@@ -75,4 +75,24 @@ public abstract class AbstractElement implements Element {
 
     @Override
     public abstract void update(int dt);
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o)  {
+            return true;
+        }
+        if (!(o instanceof AbstractElement)) {
+            return false;
+        }
+        AbstractElement that = (AbstractElement) o;
+        final boolean testDimensions = Objects.equals(getDimension(), that.getDimension());
+        final boolean testPositions = Objects.equals(getPosition(), that.getPosition());
+        final boolean testHitbox = Objects.equals(getHitbox(), that.getHitbox());
+        return testDimensions && testPositions && testHitbox;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDimension(), getPosition(), getHitbox());
+    }
 }
