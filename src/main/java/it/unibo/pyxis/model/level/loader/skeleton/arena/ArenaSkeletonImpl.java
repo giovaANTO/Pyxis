@@ -1,4 +1,7 @@
-package it.unibo.pyxis.model.level.loader.skeleton;
+package it.unibo.pyxis.model.level.loader.skeleton.arena;
+
+import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeletonImpl;
+import it.unibo.pyxis.model.level.loader.skeleton.pad.PadSkeletonImpl;
 
 import java.util.Set;
 

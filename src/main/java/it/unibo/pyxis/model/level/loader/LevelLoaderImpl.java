@@ -3,8 +3,9 @@ package it.unibo.pyxis.model.level.loader;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.loader.assistant.LoaderAssistant;
 import it.unibo.pyxis.model.level.loader.assistant.LoaderAssistantImpl;
-import it.unibo.pyxis.model.level.loader.skeleton.ArenaSkeleton;
-import it.unibo.pyxis.model.level.loader.skeleton.ArenaSkeletonImpl;
+import it.unibo.pyxis.model.level.loader.skeleton.arena.ArenaSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.arena.ArenaSkeletonImpl;
+import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 

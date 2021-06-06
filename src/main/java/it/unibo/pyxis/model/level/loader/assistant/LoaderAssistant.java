@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.level.loader.assistant;
 
 import it.unibo.pyxis.model.level.Level;
-import it.unibo.pyxis.model.level.loader.skeleton.ArenaSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.arena.ArenaSkeleton;
 
 public interface LoaderAssistant {
     /**

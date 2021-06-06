@@ -1,11 +1,20 @@
-package it.unibo.pyxis.model.level.loader.skeleton;
+package it.unibo.pyxis.model.level.loader.skeleton.brick;
 
-public final class PadSkeletonImpl implements PadSkeleton {
+public final class BrickSkeletonImpl implements BrickSkeleton {
 
     private double x;
     private double y;
-    private double height;
-    private double width;
+    private String type;
+
+    @Override
+    public String getType() {
+        return this.type;
+    }
+
+    @Override
+    public void setType(final String inputType) {
+        this.type = inputType;
+    }
 
     @Override
     public double getX() {

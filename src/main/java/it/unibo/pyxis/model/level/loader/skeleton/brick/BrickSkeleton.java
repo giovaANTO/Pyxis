@@ -1,4 +1,4 @@
-package it.unibo.pyxis.model.level.loader.skeleton;
+package it.unibo.pyxis.model.level.loader.skeleton.brick;
 
 
 public interface BrickSkeleton {
