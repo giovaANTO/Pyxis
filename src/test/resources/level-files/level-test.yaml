@@ -6,13 +6,12 @@ padSkeleton:
   x: 20
   y: 10
 brickSkeletonSet:
-    - x: 1
-      y: 1
-      type: "BLUE"
-    - x: 2
-      y: 2
-      type: "RED"
-    - x: 1
-      y: 4
-      type: "GREEN"
-
+  - x: 1
+    y: 1
+    type: "BLUE"
+  - x: 2
+    y: 2
+    type: "RED"
+  - x: 1
+    y: 4
+    type: "GREEN"
