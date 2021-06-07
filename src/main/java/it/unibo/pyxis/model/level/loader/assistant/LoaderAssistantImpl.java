@@ -35,8 +35,8 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
      */
     private Arena arenaFromSkeleton(final ArenaSkeleton skeleton) {
         final Arena outputArena = new ArenaImpl(new DimensionImpl(skeleton.getWidth(), skeleton.getHeight()));
-        skeleton.getBrickSkeletonSet().forEach(bs -> outputArena.addBrick(this.brickFromSkeleton(bs)));
-        outputArena.setPad(this.padFromSkeleton(skeleton.getPadSkeleton()));
+        skeleton.getBricks().forEach(bs -> outputArena.addBrick(this.brickFromSkeleton(bs)));
+        outputArena.setPad(this.padFromSkeleton(skeleton.getPad()));
         return outputArena;
     }
 
