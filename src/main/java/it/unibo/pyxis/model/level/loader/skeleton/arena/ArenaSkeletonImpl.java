@@ -15,8 +15,8 @@ public final class ArenaSkeletonImpl implements ArenaSkeleton {
      * Direct implementation of interfaces is
      * required for working with SnakeYAML library.
      */
-    private Set<BrickSkeletonImpl> brickSkeletonSet;
-    private PadSkeletonImpl padSkeleton;
+    private Set<BrickSkeletonImpl> bricks;
+    private PadSkeletonImpl pad;
 
     @Override
     public int getLives() {
@@ -49,22 +49,22 @@ public final class ArenaSkeletonImpl implements ArenaSkeleton {
     }
 
     @Override
-    public Set<BrickSkeletonImpl> getBrickSkeletonSet() {
-        return this.brickSkeletonSet;
+    public Set<BrickSkeletonImpl> getBricks() {
+        return this.bricks;
     }
 
     @Override
-    public void setBrickSkeletonSet(final Set<BrickSkeletonImpl> inputBrickSkeletonSet) {
-        this.brickSkeletonSet = inputBrickSkeletonSet;
+    public void setBricks(final Set<BrickSkeletonImpl> inputBrickSkeletonSet) {
+        this.bricks = inputBrickSkeletonSet;
     }
 
     @Override
-    public PadSkeletonImpl getPadSkeleton() {
-        return this.padSkeleton;
+    public PadSkeletonImpl getPad() {
+        return this.pad;
     }
 
     @Override
-    public void setPadSkeleton(final PadSkeletonImpl inputPadSkeleton) {
-        this.padSkeleton = inputPadSkeleton;
+    public void setPad(final PadSkeletonImpl inputPadSkeleton) {
+        this.pad = inputPadSkeleton;
     }
 }
