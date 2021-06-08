@@ -4,12 +4,18 @@ import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.loader.LevelLoader;
 import it.unibo.pyxis.model.level.loader.LevelLoaderImpl;
 
+import java.net.URL;
 import java.util.Iterator;
 
 public final class LevelIterator implements Iterator<Level> {
 
     private final LevelLoader loader;
     private int currentLevel;
+
+    public  LevelIterator(final URL confDirUrl, final int startingLevel) {
+        this.loader = new LevelLoaderImpl(confDirUrl);
+        this.currentLevel = startingLevel;
+    }
 
     public LevelIterator(final String levelDirectory, final int startingLevel) {
         this.loader = new LevelLoaderImpl(ClassLoader.getSystemResource(levelDirectory));

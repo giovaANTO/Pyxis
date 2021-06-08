@@ -1,0 +1,17 @@
+!!it.unibo.model.level.loader.skeleton.ArenaSkeletonImpl
+lives: 3
+width: 1000
+height: 1000
+pad:
+  x: 11
+  y: 10
+bricks:
+  - x: 3
+    y: 4
+    type: "RED"
+  - x: 3
+    y: 7
+    type: "RED"
+  - x: 3
+    y: 5
+    type: "RED"
