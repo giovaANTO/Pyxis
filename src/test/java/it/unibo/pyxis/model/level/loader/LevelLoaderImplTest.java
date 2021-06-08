@@ -47,7 +47,7 @@ class LevelLoaderImplTest {
         assertEquals(1, this.loader.getFilesCount());
 
         final Level loadedLevel = loader.fromFile("level-test.yaml");
-        final Set<Brick> brickSet = loadedLevel.getArena().getBrickStream().collect(Collectors.toSet());
+        final Set<Brick> brickSet = loadedLevel.getArena().getBricks().stream().collect(Collectors.toSet());
         assertEquals(3, brickSet.size());
 
         assertTrue(brickSet.contains(new BrickImpl(BrickType.BLUE, new CoordImpl(1,1))));

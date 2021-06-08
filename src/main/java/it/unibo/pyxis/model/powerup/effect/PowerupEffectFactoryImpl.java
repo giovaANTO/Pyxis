@@ -47,8 +47,8 @@ public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
     public PowerupEffect atomicBallEffect(final int applicationTime) {
         return this.createEffect(
                 BALL_POWERUP,
-                arena -> arena.getBallStream().forEach(b -> b.setType(BallType.ATOMIC_BALL)),
-                arena -> arena.getBallStream().forEach(b -> b.setType(BallType.NORMAL_BALL)),
+                arena -> arena.getBalls().forEach(b -> b.setType(BallType.ATOMIC_BALL)),
+                arena -> arena.getBalls().forEach(b -> b.setType(BallType.NORMAL_BALL)),
                 applicationTime
         );
     }
@@ -57,8 +57,8 @@ public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
     public PowerupEffect steelBall(final int applicationTime) {
         return this.createEffect(
                 BALL_POWERUP,
-                arena -> arena.getBallStream().forEach(b -> b.setType(BallType.ATOMIC_BALL)),
-                arena -> arena.getBallStream().forEach(b -> b.setType(BallType.NORMAL_BALL)),
+                arena -> arena.getBalls().forEach(b -> b.setType(BallType.ATOMIC_BALL)),
+                arena -> arena.getBalls().forEach(b -> b.setType(BallType.NORMAL_BALL)),
                 applicationTime
         );
     }

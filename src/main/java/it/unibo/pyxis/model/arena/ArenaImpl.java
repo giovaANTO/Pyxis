@@ -86,18 +86,18 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    public Stream<Ball> getBallStream() {
-        return this.ballSet.stream();
+    public Set<Ball> getBalls() {
+        return Set.copyOf(this.ballSet);
     }
 
     @Override
-    public Stream<Brick> getBrickStream() {
-        return this.brickMap.values().stream();
+    public Set<Brick> getBricks() {
+        return new HashSet<>(this.brickMap.values());
     }
 
     @Override
-    public Stream<Powerup> getPowerupStream() {
-        return this.powerupSet.stream();
+    public Set<Powerup> getPowerups() {
+        return Set.copyOf(this.powerupSet);
     }
 
     @Override
