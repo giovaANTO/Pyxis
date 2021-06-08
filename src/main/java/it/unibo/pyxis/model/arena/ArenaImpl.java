@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
+import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.element.powerup.PowerupImpl;
@@ -86,18 +87,18 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    public Stream<Ball> getBallStream() {
-        return this.ballSet.stream();
+    public Set<Ball> getBalls() {
+        return Set.copyOf(this.ballSet);
     }
 
     @Override
-    public Stream<Brick> getBrickStream() {
-        return this.brickMap.values().stream();
+    public Set<Brick> getBricks() {
+        return new HashSet<>(this.brickMap.values());
     }
 
     @Override
-    public Stream<Powerup> getPowerupStream() {
-        return this.powerupSet.stream();
+    public Set<Powerup> getPowerups() {
+        return Set.copyOf(this.powerupSet);
     }
 
     @Override
@@ -123,5 +124,10 @@ public final class ArenaImpl implements Arena {
     @Override
     public void addPowerup(final Powerup powerup) {
         this.powerupSet.add(powerup);
+    }
+
+    @Override
+    public boolean isCleared() {
+        return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
     }
 }

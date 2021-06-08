@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.arena;
 
-import java.util.stream.Stream;
+import java.util.Set;
 
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.util.Dimension;
@@ -42,28 +42,28 @@ public interface Arena {
     Dimension getDimension();
 
     /**
-     * Return a {@link Stream} of {@link Ball} that are currently present in
+     * Return a {@link java.util.Set} of {@link Ball} that are currently present in
      * the {@link Arena}.
      * @return
-     *          A {@link Stream} of {@link Ball}.
+     *          A {@link java.util.Set} of {@link Ball}.
      */
-    Stream<Ball> getBallStream();
+    Set<Ball> getBalls();
 
     /**
-     * Return a {@link Stream} of {@link Brick} that are currently present in
+     * Return a {@link java.util.Set} of {@link Brick} that are currently present in
      * the {@link Arena}.
      * @return
-     *          A {@link Stream} of {@link Brick}.
+     *          A {@link java.util.Set} of {@link Brick}.
      */
-    Stream<Brick> getBrickStream();
+    Set<Brick> getBricks();
 
     /**
-     * Return a {@link Stream} of {@link Powerup} that are currently present in
+     * Return a {@link java.util.Set} of {@link Powerup} that are currently present in
      * the {@link Arena}.
      * @return
-     *          A {@link Stream} of {@link Powerup}.
+     *          A {@link java.util.Set} of {@link Powerup}.
      */
-    Stream<Powerup> getPowerupStream();
+    Set<Powerup> getPowerups();
 
     /**
      * Get the current {@link Pad} in the {@link Arena}.
@@ -99,4 +99,12 @@ public interface Arena {
  *               The {@link Powerup} to add.
      */
     void addPowerup(Powerup powerup);
+
+    /**
+     * Check if the {@link Arena} is cleared, or rather, there aren't any bricks left except for the ones
+     * of indestructible type.
+     * @return
+     *          True if the {@link Arena} is cleared, False otherwise.
+     */
+    boolean isCleared();
 }

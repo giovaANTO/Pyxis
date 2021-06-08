@@ -10,14 +10,14 @@ public class Main {
         final Iterator<Level> levelIterator = new LevelIterator();
         final Level firstLevel = levelIterator.next();
 
-        firstLevel.getArena().getBrickStream().forEach(b -> {
+        firstLevel.getArena().getBricks().forEach(b -> {
             System.out.println("Brick type: {" + b.getBrickType() + "} x:" + b.getPosition().getX() + " y: " + b.getPosition().getY());
         });
 
         System.out.println(levelIterator.hasNext());
 
         final Level secondLevel = levelIterator.next();
-        secondLevel.getArena().getBrickStream().forEach(b -> {
+        secondLevel.getArena().getBricks().forEach(b -> {
             System.out.println("Brick type: {" + b.getBrickType() + "} x:" + b.getPosition().getX() + " y: " + b.getPosition().getY());
         });
 
