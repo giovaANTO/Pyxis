@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
+import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.element.powerup.PowerupImpl;
@@ -127,6 +128,6 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public boolean isCleared() {
-        return false;
+        return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
     }
 }
