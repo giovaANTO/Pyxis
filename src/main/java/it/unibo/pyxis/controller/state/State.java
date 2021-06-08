@@ -1,4 +1,4 @@
-package it.unibo.pyxis.model.state;
+package it.unibo.pyxis.controller.state;
 
 public enum State {
     /**

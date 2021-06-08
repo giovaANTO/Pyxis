@@ -1,4 +1,4 @@
-package it.unibo.pyxis.model.state;
+package it.unibo.pyxis.controller.state;
 
 import it.unibo.pyxis.model.level.Level;
 
@@ -22,7 +22,7 @@ public interface GameState {
      * @return
      *          The currently state of the game.
      */
-    State getGameStatus();
+    State getGameState();
 
     /**
      * Set the game in a new state.
