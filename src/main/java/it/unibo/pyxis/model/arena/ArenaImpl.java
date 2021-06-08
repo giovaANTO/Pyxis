@@ -124,4 +124,9 @@ public final class ArenaImpl implements Arena {
     public void addPowerup(final Powerup powerup) {
         this.powerupSet.add(powerup);
     }
+
+    @Override
+    public boolean isCleared() {
+        return false;
+    }
 }

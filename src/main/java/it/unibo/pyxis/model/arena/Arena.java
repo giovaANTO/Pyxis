@@ -99,4 +99,12 @@ public interface Arena {
  *               The {@link Powerup} to add.
      */
     void addPowerup(Powerup powerup);
+
+    /**
+     * Check if the {@link Arena} is cleared, or rather, there aren't any bricks left except for the ones
+     * of indestructible type.
+     * @return
+     *          True if the {@link Arena} is cleared, False otherwise.
+     */
+    boolean isCleared();
 }
