@@ -3,7 +3,6 @@ package it.unibo.pyxis.model.level.loader;
 import it.unibo.pyxis.model.level.Level;
 
 import java.io.File;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 
@@ -34,5 +33,5 @@ public interface LevelLoader {
      * @return
      *                  A new {@link Level} from a configuration file.
      */
-    Level fromFile(String filename) throws URISyntaxException;
+    Level fromFile(String filename);
 }
