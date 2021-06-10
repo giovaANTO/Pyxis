@@ -1,4 +1,4 @@
-package it.unibo.pyxis.controller.state;
+package it.unibo.pyxis.model.state;
 
 import it.unibo.pyxis.model.level.Level;
 
@@ -26,5 +26,10 @@ public final class GameStateImpl implements GameState {
     @Override
     public void setState(final State state) {
         this.gameState = state;
+    }
+
+    @Override
+    public void update(final int delta) {
+        this.getCurrentLevel().update(delta);
     }
 }

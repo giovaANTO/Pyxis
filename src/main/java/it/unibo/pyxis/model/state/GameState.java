@@ -1,4 +1,4 @@
-package it.unibo.pyxis.controller.state;
+package it.unibo.pyxis.model.state;
 
 import it.unibo.pyxis.model.level.Level;
 
@@ -30,4 +30,11 @@ public interface GameState {
      *           The new state of the game.
      */
     void setState(State state);
+
+    /**
+     * Update the game.
+     * @param delta
+     *              The passed time.
+     */
+    void update(int delta);
 }
