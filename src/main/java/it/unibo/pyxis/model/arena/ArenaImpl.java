@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.stream.Stream;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickType;
@@ -129,5 +128,15 @@ public final class ArenaImpl implements Arena {
     @Override
     public boolean isCleared() {
         return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
+    }
+
+    @Override
+    public void cleanup() {
+        final EventBus bus = EventBus.getDefault();
+        this.getBalls().forEach(bus::unregister);
+        this.getBricks().forEach(bus::unregister);
+        bus.unregister(this.getPad());
+        this.powerupHandler.stop();
+        this.powerupHandler.shutdown();
     }
 }

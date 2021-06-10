@@ -55,6 +55,7 @@ public final class LevelImpl implements Level {
     public void update(final int delta) {
         this.arena.update(delta);
         if (this.arena.isCleared()) {
+            this.arena.cleanup();
             EventBus.getDefault().post(Events.newLevelStoppedEvent(this.score));
         }
     }

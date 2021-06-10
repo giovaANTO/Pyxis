@@ -107,4 +107,9 @@ public interface Arena {
      *          True if the {@link Arena} is cleared, False otherwise.
      */
     boolean isCleared();
+
+    /**
+     * Procedure of cleanup.
+     */
+    void cleanup();
 }
