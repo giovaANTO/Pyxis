@@ -30,5 +30,12 @@ public interface Level {
      */
     Arena getArena();
 
+    /**
+     * Call an un update on the level updating the elements on the arena and check its status.
+     * @param delta
+     *              The time gap intercurred between an update
+     */
+    void update(int delta);
+
     void handleDecreaseLife(DecreaseLifeEvent event);
 }

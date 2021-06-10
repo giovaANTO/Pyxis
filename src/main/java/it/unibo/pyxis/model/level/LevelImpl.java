@@ -7,7 +7,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Objects;
 
-public class LevelImpl implements Level {
+public final class LevelImpl implements Level {
 
     private int lives;
     private int score;
@@ -48,6 +48,11 @@ public class LevelImpl implements Level {
     @Override
     public Arena getArena() {
         return this.arena;
+    }
+
+    @Override
+    public void update(final int delta) {
+        this.arena.update(delta);
     }
 
     @Override

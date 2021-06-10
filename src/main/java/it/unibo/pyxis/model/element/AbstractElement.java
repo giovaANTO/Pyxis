@@ -35,8 +35,7 @@ public abstract class AbstractElement implements Element {
 
     /**
      * Sets the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
-     * @param 
-     *          hitbox
+     * @param hitbox
      */
     protected void setHitbox(final Hitbox hitbox) {
         this.hitbox = hitbox;
