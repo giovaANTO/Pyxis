@@ -1,12 +1,21 @@
 package it.unibo.pyxis.model.state;
 
 import it.unibo.pyxis.model.level.Level;
+import it.unibo.pyxis.model.level.iterator.LevelIterator;
 
 public final class GameStateImpl implements GameState {
 
+    private final LevelIterator iterator;
     private Level currentLevel;
     private int score;
     private State gameState;
+
+    public GameStateImpl() {
+        this.iterator = new LevelIterator();
+        this.currentLevel = this.iterator.next();
+        this.score = 0;
+        this.gameState = State.RUN;
+    }
 
     @Override
     public Level getCurrentLevel() {
