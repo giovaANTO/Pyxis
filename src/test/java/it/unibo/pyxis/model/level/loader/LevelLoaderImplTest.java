@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -47,16 +48,11 @@ class LevelLoaderImplTest {
         assertEquals(1, this.loader.getFilesCount());
 
         final Level loadedLevel = loader.fromFile("level-test.yaml");
-        final Set<Brick> brickSet = loadedLevel.getArena().getBricks().stream().collect(Collectors.toSet());
+        final Set<Brick> brickSet = new HashSet<>(loadedLevel.getArena().getBricks());
         assertEquals(3, brickSet.size());
 
         assertTrue(brickSet.contains(new BrickImpl(BrickType.BLUE, new CoordImpl(1,1))));
         assertTrue(brickSet.contains(new BrickImpl(BrickType.RED, new CoordImpl(2,2))));
         assertTrue(brickSet.contains(new BrickImpl(BrickType.GREEN, new CoordImpl(1,4))));
-
-        final Pad loadedPad = loadedLevel.getArena().getPad();
-
-        assertEquals(loadedPad.getPosition().getX(), 20);
-        assertEquals(loadedPad.getPosition().getY(), 10);
     }
 }

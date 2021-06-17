@@ -2,9 +2,6 @@
 lives: 3
 width: 1000
 height: 1000
-pad:
-  x: 11
-  y: 10
 bricks:
   - x: 3
     y: 4

@@ -1,8 +1,6 @@
 package it.unibo.pyxis.model.level.loader.skeleton.arena;
 
 import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeletonImpl;
-import it.unibo.pyxis.model.level.loader.skeleton.pad.PadSkeletonImpl;
-
 import java.util.Set;
 
 public final class ArenaSkeletonImpl implements ArenaSkeleton {
@@ -16,7 +14,6 @@ public final class ArenaSkeletonImpl implements ArenaSkeleton {
      * required for working with SnakeYAML library.
      */
     private Set<BrickSkeletonImpl> bricks;
-    private PadSkeletonImpl pad;
 
     @Override
     public int getLives() {
@@ -56,15 +53,5 @@ public final class ArenaSkeletonImpl implements ArenaSkeleton {
     @Override
     public void setBricks(final Set<BrickSkeletonImpl> inputBrickSkeletonSet) {
         this.bricks = inputBrickSkeletonSet;
-    }
-
-    @Override
-    public PadSkeletonImpl getPad() {
-        return this.pad;
-    }
-
-    @Override
-    public void setPad(final PadSkeletonImpl inputPadSkeleton) {
-        this.pad = inputPadSkeleton;
     }
 }

@@ -5,13 +5,10 @@ import it.unibo.pyxis.model.arena.ArenaImpl;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickImpl;
 import it.unibo.pyxis.model.element.brick.BrickType;
-import it.unibo.pyxis.model.element.pad.Pad;
-import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.LevelImpl;
 import it.unibo.pyxis.model.level.loader.skeleton.arena.ArenaSkeleton;
 import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeleton;
-import it.unibo.pyxis.model.level.loader.skeleton.pad.PadSkeleton;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.DimensionImpl;
@@ -36,7 +33,6 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
     private Arena arenaFromSkeleton(final ArenaSkeleton skeleton) {
         final Arena outputArena = new ArenaImpl(new DimensionImpl(skeleton.getWidth(), skeleton.getHeight()));
         skeleton.getBricks().forEach(bs -> outputArena.addBrick(this.brickFromSkeleton(bs)));
-        outputArena.setPad(this.padFromSkeleton(skeleton.getPad()));
         return outputArena;
     }
 
@@ -52,18 +48,6 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
         final Coord brickCoord = new CoordImpl(skeleton.getX(), skeleton.getY());
         final BrickType brickType = this.getBrickType(skeleton.getType());
         return new BrickImpl(brickType, brickCoord);
-    }
-
-    /**
-     * Create a {@link Pad} instance from a skeleton.
-     * @param skeleton
-     *                A {@link PadSkeleton} object that contains the information about the {@link Pad}
-     *                that should be created.
-     * @return
-     *                An instance of {@link Pad}
-     */
-    private Pad padFromSkeleton(final PadSkeleton skeleton) {
-        return new PadImpl(new CoordImpl(skeleton.getX(), skeleton.getY()));
     }
 
     /**

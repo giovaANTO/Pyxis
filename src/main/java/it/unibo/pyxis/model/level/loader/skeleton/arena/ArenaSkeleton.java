@@ -1,8 +1,6 @@
 package it.unibo.pyxis.model.level.loader.skeleton.arena;
 
 import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeletonImpl;
-import it.unibo.pyxis.model.level.loader.skeleton.pad.PadSkeletonImpl;
-
 import java.util.Set;
 
 public interface ArenaSkeleton {
@@ -61,18 +59,4 @@ public interface ArenaSkeleton {
      *           {@link Set} of {@link BrickSkeletonImpl}
      */
     void setBricks(Set<BrickSkeletonImpl> brickSkeletonSet);
-
-    /**
-     * Return a {@link PadSkeletonImpl} linked to this {@link ArenaSkeleton}.
-     * @return
-     *           A {@link PadSkeletonImpl} instance
-     */
-    PadSkeletonImpl getPad();
-
-    /**
-     * Set a {@link PadSkeletonImpl}.
-     * @param padSkeleton
-     *             Instance of {@link PadSkeletonImpl}
-     */
-    void setPad(PadSkeletonImpl padSkeleton);
 }

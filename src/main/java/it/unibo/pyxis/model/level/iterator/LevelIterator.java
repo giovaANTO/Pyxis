@@ -9,6 +9,8 @@ import java.util.Iterator;
 
 public final class LevelIterator implements Iterator<Level> {
 
+    private static final int STARTING_LEVEL = 1;
+
     private final LevelLoader loader;
     private int currentLevel;
 
@@ -23,12 +25,13 @@ public final class LevelIterator implements Iterator<Level> {
     }
 
     public LevelIterator() {
-        this(Config.LEVEL_RESOURCE_FOLDER.getValue(), 1);
+        this(Config.LEVEL_RESOURCE_FOLDER.getValue(), STARTING_LEVEL);
     }
 
     @Override
     public boolean hasNext() {
-        return this.currentLevel <= loader.getFilesCount();
+        System.out.println(this.loader.getFilesCount());
+        return this.currentLevel <= this.loader.getFilesCount();
     }
 
     @Override
