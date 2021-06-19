@@ -9,6 +9,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
 
     private static final long UPDATING_FREQUENCY = 10;
     private final GameState gameState;
+    private long showStatsTimer;
     private int fps = 0;
     private int ups = 0;
 
@@ -20,23 +21,28 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     public void run() {
         this.gameState.setState(StateEnum.RUN);
         long lastUpdate = System.currentTimeMillis();
-        long showStatsTimer = System.currentTimeMillis() + 1000;
+        this.showStatsTimer = System.currentTimeMillis() + 1000;
         while (this.gameState.getGameState() == StateEnum.RUN) {
             long current = System.currentTimeMillis();
             long lastRenderingTime = (current - lastUpdate);
             this.processInput();
             this.update(lastRenderingTime);
             this.render();
-            if (System.currentTimeMillis() >= showStatsTimer) {
-                System.out.print("\r FPS: " + this.fps + " UPS: " + this.ups);
-                this.fps = 0;
-                this.ups = 0;
-                showStatsTimer = System.currentTimeMillis() + 1000;
-            }
+            this.showStats();
             this.waitForNextFrame(current);
             lastUpdate = current;
         }
     }
+
+    private void showStats() {
+        if (System.currentTimeMillis() >= showStatsTimer) {
+            System.out.print("\r FPS: " + this.fps + " UPS: " + this.ups);
+            this.fps = 0;
+            this.ups = 0;
+            this.showStatsTimer = System.currentTimeMillis() + 1000;
+        }
+    }
+
 
     private void waitForNextFrame(final long current) {
         long delta = System.currentTimeMillis() - current;
