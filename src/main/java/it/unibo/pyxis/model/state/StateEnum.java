@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.state;
 
-public enum State {
+public enum StateEnum {
     /**
      * The game is currently running.
      */

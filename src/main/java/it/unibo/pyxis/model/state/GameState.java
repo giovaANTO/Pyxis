@@ -23,14 +23,14 @@ public interface GameState {
      * @return
      *          The currently state of the game.
      */
-    State getGameState();
+    StateEnum getGameState();
 
     /**
      * Set the game in a new state.
-     * @param state
+     * @param stateEnum
      *           The new state of the game.
      */
-    void setState(State state);
+    void setState(StateEnum stateEnum);
 
     /**
      * Update the game.

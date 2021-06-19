@@ -9,13 +9,13 @@ public final class GameStateImpl implements GameState {
     private final LevelIterator iterator;
     private Level currentLevel;
     private int score;
-    private State gameState;
+    private StateEnum gameStateEnum;
 
     public GameStateImpl() {
         this.iterator = new LevelIterator();
         this.currentLevel = this.iterator.next();
         this.score = 0;
-        this.gameState = State.RUN;
+        this.gameStateEnum = StateEnum.PAUSE;
     }
 
     @Override
@@ -29,13 +29,13 @@ public final class GameStateImpl implements GameState {
     }
 
     @Override
-    public State getGameState() {
-        return this.gameState;
+    public StateEnum getGameState() {
+        return this.gameStateEnum;
     }
 
     @Override
-    public void setState(final State state) {
-        this.gameState = state;
+    public void setState(final StateEnum stateEnum) {
+        this.gameStateEnum = stateEnum;
     }
 
     @Override
@@ -45,13 +45,13 @@ public final class GameStateImpl implements GameState {
 
     @Override
     public void handleLevelStoppedEvent(final LevelStoppedEvent event) {
-        this.setState(State.PAUSE);
+        this.setState(StateEnum.PAUSE);
         this.score += event.getLevelScore();
         if (this.iterator.hasNext()) {
             this.currentLevel = this.iterator.next();
-            this.setState(State.RUN);
+            this.setState(StateEnum.RUN);
         } else {
-            this.setState(State.STOP);
+            this.setState(StateEnum.STOP);
         }
     }
 }
