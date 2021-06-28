@@ -1,8 +1,8 @@
 package it.unibo.pyxis.model.state;
 
-import it.unibo.pyxis.model.event.notify.LevelStoppedEvent;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.iterator.LevelIterator;
+import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public final class GameStateImpl implements GameState {
 
@@ -39,9 +39,23 @@ public final class GameStateImpl implements GameState {
     }
 
     @Override
-    public void handleLevelStoppedEvent(final LevelStoppedEvent event) {
+    public void update(final int delta) {
+        this.getCurrentLevel().update(delta);
+        final LevelStatus levelStatus = this.currentLevel.getLevelStatus();
+        if (levelStatus == LevelStatus.SUCCESSFULLY_COMPLETED) {
+           this.switchLevel();
+        } else if (levelStatus == LevelStatus.GAME_OVER) {
+            this.setState(State.STOP);
+        }
+    }
+
+    /**
+     * Change the current playing {@link Level}.
+     * If no other levels are aviable set the {@link GameState} in a stopped mode.
+     */
+    private void switchLevel() {
         this.setState(State.PAUSE);
-        this.score += event.getLevelScore();
+        this.score += this.currentLevel.getScore();
         if (this.iterator.hasNext()) {
             this.currentLevel = this.iterator.next();
             this.setState(State.RUN);
