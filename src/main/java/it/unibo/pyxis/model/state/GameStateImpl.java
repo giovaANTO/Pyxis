@@ -15,7 +15,7 @@ public final class GameStateImpl implements GameState {
         this.iterator = new LevelIterator();
         this.currentLevel = this.iterator.next();
         this.score = 0;
-        this.gameState = State.RUN;
+        this.gameState = State.PAUSE;
     }
 
     @Override
