@@ -49,6 +49,10 @@ public final class GameStateImpl implements GameState {
         }
     }
 
+    /**
+     * Change the current playing {@link Level}.
+     * If no other levels are aviable set the {@link GameState} in a stopped mode.
+     */
     private void switchLevel() {
         this.setState(State.PAUSE);
         this.score += this.currentLevel.getScore();
