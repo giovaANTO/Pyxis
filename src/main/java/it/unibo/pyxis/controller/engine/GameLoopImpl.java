@@ -7,7 +7,7 @@ import it.unibo.pyxis.model.state.StateEnum;
 
 public final class GameLoopImpl extends Thread implements GameLoop {
 
-    private static final long UPDATING_FREQUENCY = 10;
+    private static final long UPDATING_FREQUENCY = 4;
     private final GameState gameState;
     private long showStatsTimer;
     private int fps = 0;
