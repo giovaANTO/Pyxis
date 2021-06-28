@@ -37,7 +37,9 @@ public interface GameState {
      * @param delta
      *              The passed time.
      */
-    void update(int delta);
+    default void update(int delta) {
+        this.getCurrentLevel().update(delta);
+    }
 
     /**
      * Handle a {@link LevelStoppedEvent}.

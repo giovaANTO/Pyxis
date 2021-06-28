@@ -39,11 +39,6 @@ public final class GameStateImpl implements GameState {
     }
 
     @Override
-    public void update(final int delta) {
-        this.getCurrentLevel().update(delta);
-    }
-
-    @Override
     public void handleLevelStoppedEvent(final LevelStoppedEvent event) {
         this.setState(StateEnum.PAUSE);
         this.score += event.getLevelScore();
