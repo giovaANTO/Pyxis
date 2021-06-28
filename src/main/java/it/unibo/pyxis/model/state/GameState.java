@@ -1,6 +1,5 @@
 package it.unibo.pyxis.model.state;
 
-import it.unibo.pyxis.model.event.notify.LevelStoppedEvent;
 import it.unibo.pyxis.model.level.Level;
 
 public interface GameState {
@@ -37,14 +36,5 @@ public interface GameState {
      * @param delta
      *              The passed time.
      */
-    default void update(int delta) {
-        this.getCurrentLevel().update(delta);
-    }
-
-    /**
-     * Handle a {@link LevelStoppedEvent}.
-     * @param event
-     *              The instance of {@link LevelStoppedEvent}
-     */
-    void handleLevelStoppedEvent(LevelStoppedEvent event);
+     void update(int delta);
 }

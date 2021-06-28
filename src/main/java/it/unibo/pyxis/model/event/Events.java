@@ -7,7 +7,6 @@ import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
-import it.unibo.pyxis.model.event.notify.LevelStoppedEvent;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.hitbox.Hitbox;
@@ -131,16 +130,5 @@ public final class Events {
      */
     public static DecreaseLifeEvent newDecreaseLifeEvent(final Optional<Integer> score) {
         return () -> score;
-    }
-
-    /**
-     * Create a new {@link LevelStoppedEvent} instance passing an integer indicating the total score gained.
-     * @param score
-     *              The score gained
-     * @return
-     *              The {@link LevelStoppedEvent} instance.
-     */
-    public static LevelStoppedEvent newLevelStoppedEvent(final int score) {
-        return  () -> score;
     }
 }

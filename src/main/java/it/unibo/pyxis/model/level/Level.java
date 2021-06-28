@@ -2,6 +2,7 @@ package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
+import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public interface Level {
     /**
@@ -37,5 +38,17 @@ public interface Level {
      */
     void update(int delta);
 
+    /**
+     * Handle a {@link DecreaseLifeEvent}.
+     * @param event
+     *              The instance of {@link DecreaseLifeEvent}.
+     */
     void handleDecreaseLife(DecreaseLifeEvent event);
+
+    /**
+     * Return the current {@link LevelStatus} of the {@link Level}.
+     * @return
+     *          The value of {@link LevelStatus}
+     */
+    LevelStatus getLevelStatus();
 }
