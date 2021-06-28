@@ -1,7 +1,6 @@
 package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
-import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,7 +55,6 @@ public final class LevelImpl implements Level {
         this.arena.update(delta);
         if (this.arena.isCleared()) {
             this.arena.cleanup();
-            EventBus.getDefault().post(Events.newLevelStoppedEvent(this.score));
         }
     }
 

@@ -1,6 +1,5 @@
 package it.unibo.pyxis.model.state;
 
-import it.unibo.pyxis.model.event.notify.LevelStoppedEvent;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.iterator.LevelIterator;
 
@@ -38,10 +37,9 @@ public final class GameStateImpl implements GameState {
         this.gameState = state;
     }
 
-    @Override
-    public void handleLevelStoppedEvent(final LevelStoppedEvent event) {
+    private void switchLevel() {
         this.setState(State.PAUSE);
-        this.score += event.getLevelScore();
+        this.score += this.currentLevel.getScore();
         if (this.iterator.hasNext()) {
             this.currentLevel = this.iterator.next();
             this.setState(State.RUN);
