@@ -2,6 +2,7 @@ package it.unibo.pyxis.model.state;
 
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.iterator.LevelIterator;
+import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public final class GameStateImpl implements GameState {
 
@@ -35,6 +36,17 @@ public final class GameStateImpl implements GameState {
     @Override
     public void setState(final State state) {
         this.gameState = state;
+    }
+
+    @Override
+    public void update(final int delta) {
+        this.getCurrentLevel().update(delta);
+        final LevelStatus levelStatus = this.currentLevel.getLevelStatus();
+        if (levelStatus == LevelStatus.SUCCESSFULLY_COMPLETED) {
+           this.switchLevel();
+        } else if (levelStatus == LevelStatus.GAME_OVER) {
+            this.setState(State.STOP);
+        }
     }
 
     private void switchLevel() {
