@@ -5,7 +5,11 @@ import it.unibo.pyxis.model.event.collision.BrickCollisionEvent;
 import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CircleHitbox;
-import it.unibo.pyxis.model.util.*;
+import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.CoordImpl;
+import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.DimensionImpl;
+import it.unibo.pyxis.model.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -80,9 +84,9 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     /**
-     * Builder of the {@link Ball}.
+     * Builder of the {@link it.unibo.pyxis.model.element.ball.Ball}.
      */
-    public static final class BallBuilderImpl implements BallBuilder {
+    public static final class Builder implements BallBuilder {
 
         private Optional<Vector> pace = Optional.empty();
         private Optional<Integer> id = Optional.empty();
@@ -105,7 +109,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         }
 
         @Override
-        public Ball build() {
+        public it.unibo.pyxis.model.element.ball.Ball build() {
             return new BallImpl(this.pace.orElseThrow(), this.id.orElseThrow());
         }
     }
@@ -125,5 +129,10 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Override
     public int hashCode() {
         return Objects.hash(type, pace);
+    }
+
+    @Override
+    public String toString() {
+        return "BallImpl{" + "type=" + type + ", pace=" + pace + ", id=" + id + "}";
     }
 }
