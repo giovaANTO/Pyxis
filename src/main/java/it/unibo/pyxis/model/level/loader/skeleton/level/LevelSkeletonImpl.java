@@ -1,9 +1,9 @@
-package it.unibo.pyxis.model.level.loader.skeleton.arena;
+package it.unibo.pyxis.model.level.loader.skeleton.level;
 
 import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeletonImpl;
 import java.util.Set;
 
-public final class ArenaSkeletonImpl implements ArenaSkeleton {
+public final class LevelSkeletonImpl implements LevelSkeleton {
 
     private int lives;
     private double width;

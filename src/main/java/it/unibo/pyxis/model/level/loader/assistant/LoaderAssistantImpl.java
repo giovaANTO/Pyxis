@@ -7,7 +7,7 @@ import it.unibo.pyxis.model.element.brick.BrickImpl;
 import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.LevelImpl;
-import it.unibo.pyxis.model.level.loader.skeleton.arena.ArenaSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.level.LevelSkeleton;
 import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeleton;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
@@ -18,19 +18,19 @@ import java.util.Arrays;
 public final class LoaderAssistantImpl implements LoaderAssistant {
 
     @Override
-    public Level createLevel(final ArenaSkeleton skeleton) {
+    public Level createLevel(final LevelSkeleton skeleton) {
         return new LevelImpl(skeleton.getLives(), this.arenaFromSkeleton(skeleton));
     }
 
     /**
      * Create an {@link Arena} instance from a skeleton.
      * @param skeleton
-     *                  An {@link ArenaSkeleton} object that contains the information about the {@link Arena}
+     *                  An {@link LevelSkeleton} object that contains the information about the {@link Arena}
      *                  that should be created.
      * @return
      *                  An instance of {@link Arena}
      */
-    private Arena arenaFromSkeleton(final ArenaSkeleton skeleton) {
+    private Arena arenaFromSkeleton(final LevelSkeleton skeleton) {
         final Arena outputArena = new ArenaImpl(new DimensionImpl(skeleton.getWidth(), skeleton.getHeight()));
         skeleton.getBricks().forEach(bs -> outputArena.addBrick(this.brickFromSkeleton(bs)));
         return outputArena;

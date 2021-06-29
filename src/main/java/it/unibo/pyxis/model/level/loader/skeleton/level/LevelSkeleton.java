@@ -1,9 +1,9 @@
-package it.unibo.pyxis.model.level.loader.skeleton.arena;
+package it.unibo.pyxis.model.level.loader.skeleton.level;
 
 import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeletonImpl;
 import java.util.Set;
 
-public interface ArenaSkeleton {
+public interface LevelSkeleton {
     /**
      * Return the number of lives of the {@link it.unibo.pyxis.model.arena.Arena}.
      * @return
@@ -47,7 +47,7 @@ public interface ArenaSkeleton {
     void setHeight(double height);
 
     /**
-     * Return a {@link Set} of {@link BrickSkeletonImpl} linked to this {@link ArenaSkeleton}.
+     * Return a {@link Set} of {@link BrickSkeletonImpl} linked to this {@link LevelSkeleton}.
      * @return
      *          {@link Set} of {@link BrickSkeletonImpl}
      */

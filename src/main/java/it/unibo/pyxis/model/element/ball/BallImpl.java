@@ -24,13 +24,17 @@ public final class BallImpl extends AbstractElement implements Ball {
     private Vector pace;
     private final int id;
 
-    private BallImpl(final Vector inputPace, final int inputId) {
-        super(DIMENSION, STARTING_POSITION);
+    private BallImpl(final Vector inputPace, final Coord position, final BallType type, final int inputId) {
+        super(DIMENSION, position);
         this.setHitbox(new CircleHitbox(this));
-        this.type = BallType.NORMAL_BALL;
+        this.type = type;
         this.pace = inputPace;
         this.id = inputId;
         EventBus.getDefault().register(this);
+    }
+
+    private BallImpl(final Vector inputPace, final int inputId) {
+        this(inputPace, STARTING_POSITION, BallType.NORMAL_BALL, inputId);
     }
 
     @Override
