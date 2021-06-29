@@ -40,12 +40,12 @@ public final class BallSkeletonImpl implements BallSkeleton {
     }
 
     @Override
-    public int getID() {
+    public int getId() {
         return this.id;
     }
 
     @Override
-    public void setID(final int inputId) {
+    public void setId(final int inputId) {
         this.id = inputId;
     }
 

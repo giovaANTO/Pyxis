@@ -48,14 +48,14 @@ public interface BallSkeleton {
      * @return
      *          The integer representing the {@link it.unibo.pyxis.model.element.ball.Ball} ID
      */
-    int getID();
+    int getId();
 
     /**
      * Set the ID of the {@link it.unibo.pyxis.model.element.ball.Ball}.
      * @param id
      *            The ID of the ball
      */
-    void setID(int id);
+    void setId(int id);
 
     /**
      * Return the x coordinate of the {@link it.unibo.pyxis.model.element.ball.Ball} pace.

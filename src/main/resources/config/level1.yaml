@@ -2,6 +2,13 @@
 lives: 3
 width: 100
 height: 100
+balls:
+  - x : 10
+    y : 2
+    paceX: 20
+    paceY: 10
+    ballType: "NORMAL"
+    id: 1
 bricks:
   - x: 1
     y: 1

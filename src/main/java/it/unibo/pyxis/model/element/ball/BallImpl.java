@@ -94,6 +94,8 @@ public final class BallImpl extends AbstractElement implements Ball {
 
         private Optional<Vector> pace = Optional.empty();
         private Optional<Integer> id = Optional.empty();
+        private Optional<Coord> position = Optional.empty();
+        private Optional<BallType> type = Optional.empty();
 
         private void check(final Object inputObject) {
             Objects.requireNonNull(inputObject);
@@ -113,8 +115,25 @@ public final class BallImpl extends AbstractElement implements Ball {
         }
 
         @Override
-        public it.unibo.pyxis.model.element.ball.Ball build() {
-            return new BallImpl(this.pace.orElseThrow(), this.id.orElseThrow());
+        public BallBuilder initialPosition(final Coord position) {
+            this.check(position);
+            this.position = Optional.of(position);
+            return this;
+        }
+
+        @Override
+        public BallBuilder ballType(final BallType type) {
+            this.check(type);
+            this.type = Optional.of(type);
+            return this;
+        }
+
+        @Override
+        public Ball build() {
+            return new BallImpl(this.pace.orElseThrow(),
+                    this.position.orElseThrow(),
+                    this.type.orElseThrow(),
+                    this.id.orElseThrow());
         }
     }
 

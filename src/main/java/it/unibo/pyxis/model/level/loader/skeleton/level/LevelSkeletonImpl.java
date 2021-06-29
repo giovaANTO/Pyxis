@@ -1,6 +1,7 @@
 package it.unibo.pyxis.model.level.loader.skeleton.level;
 
-import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeletonImpl;
+import it.unibo.pyxis.model.level.loader.skeleton.ball.BallSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeleton;
 import java.util.Set;
 
 public final class LevelSkeletonImpl implements LevelSkeleton {
@@ -8,12 +9,8 @@ public final class LevelSkeletonImpl implements LevelSkeleton {
     private int lives;
     private double width;
     private double height;
-
-    /**
-     * Direct implementation of interfaces is
-     * required for working with SnakeYAML library.
-     */
-    private Set<BrickSkeletonImpl> bricks;
+    private Set<BrickSkeleton> bricks;
+    private Set<BallSkeleton> balls;
 
     @Override
     public int getLives() {
@@ -46,12 +43,22 @@ public final class LevelSkeletonImpl implements LevelSkeleton {
     }
 
     @Override
-    public Set<BrickSkeletonImpl> getBricks() {
+    public Set<BrickSkeleton> getBricks() {
         return this.bricks;
     }
 
     @Override
-    public void setBricks(final Set<BrickSkeletonImpl> inputBrickSkeletonSet) {
+    public void setBricks(final Set<BrickSkeleton> inputBrickSkeletonSet) {
         this.bricks = inputBrickSkeletonSet;
+    }
+
+    @Override
+    public Set<BallSkeleton> getBalls() {
+        return this.balls;
+    }
+
+    @Override
+    public void setBalls(final Set<BallSkeleton> ballSkeletonSet) {
+        this.balls = ballSkeletonSet;
     }
 }
