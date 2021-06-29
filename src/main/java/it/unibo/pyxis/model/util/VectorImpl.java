@@ -11,8 +11,8 @@ public final class VectorImpl implements Vector {
         this.components = initialComponents;
     }
 
-    public VectorImpl(final double firstComponent, final double secondComponent) {
-        this(new PairImpl<Double>(firstComponent, secondComponent));
+    public VectorImpl(final double paceX, final double paceY) {
+        this(new PairImpl<Double>(paceX, paceY));
     }
 
     @Override
