@@ -19,6 +19,8 @@ import it.unibo.pyxis.model.util.DimensionImpl;
 import it.unibo.pyxis.model.util.VectorImpl;
 
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.Set;
 
 public final class LoaderAssistantImpl implements LoaderAssistant {
 
@@ -37,8 +39,14 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
      */
     private Arena arenaFromSkeleton(final LevelSkeleton skeleton) {
         final Arena outputArena = new ArenaImpl(new DimensionImpl(skeleton.getWidth(), skeleton.getHeight()));
-        skeleton.getBricks().forEach(bs -> outputArena.addBrick(this.brickFromSkeleton(bs)));
-        skeleton.getBalls().forEach(bls -> outputArena.addBall(this.ballFromSkeleton(bls)));
+        final Set<BrickSkeleton> brickSkeletonSet = skeleton.getBricks();
+        final Set<BallSkeleton> ballSkeletonSet = skeleton.getBalls();
+        if (!Objects.isNull(brickSkeletonSet)) {
+            brickSkeletonSet.forEach(bs -> outputArena.addBrick(this.brickFromSkeleton(bs)));
+        }
+        if (!Objects.isNull(ballSkeletonSet)) {
+           ballSkeletonSet.forEach(bls -> outputArena.addBall(this.ballFromSkeleton(bls)));
+        }
         return outputArena;
     }
 

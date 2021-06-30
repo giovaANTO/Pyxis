@@ -1,5 +1,6 @@
 package it.unibo.pyxis.model.element.Ball;
 
+import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.util.*;
@@ -7,13 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BuilderTest {
 
-    private it.unibo.pyxis.model.element.ball.Ball ball1;
+    private Ball ball1;
     private Vector startingPace;
+    private Coord startingCoord;
     private int dt;
 
     /**
@@ -23,9 +24,12 @@ public class BuilderTest {
     @BeforeEach
     private void setUp() {
         this.startingPace = new VectorImpl(new PairImpl<Double>(2.0, 5.0));
+        this.startingCoord = new CoordImpl(2.0, 5.0);
         this.dt = 200;
         this.ball1 = new BallImpl.Builder()
-                        .pace(this.startingPace.copyOf())
+                        .pace(this.startingPace)
+                        .initialPosition(this.startingCoord)
+                        .ballType(BallType.NORMAL_BALL)
                         .id(0)
                         .build();
     }
@@ -79,11 +83,15 @@ public class BuilderTest {
         assertDoesNotThrow(() -> {
             new BallImpl.Builder()
                     .pace(this.startingPace)
+                    .initialPosition(this.startingCoord)
+                    .ballType(BallType.NORMAL_BALL)
                     .id(1)
                     .build();
         });
         final it.unibo.pyxis.model.element.ball.Ball testBall = new BallImpl.Builder()
                 .pace(this.startingPace)
+                .initialPosition(this.startingCoord)
+                .ballType(BallType.NORMAL_BALL)
                 .id(2)
                 .build();
         assertEquals(testBall.getPace(), this.startingPace);
