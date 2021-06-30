@@ -7,9 +7,11 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import it.unibo.pyxis.model.element.ball.Ball;
+import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.pad.Pad;
+import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.element.powerup.PowerupImpl;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
@@ -19,6 +21,7 @@ import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerPolicy;
 import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.element.powerup.PowerupType;
 import it.unibo.pyxis.model.event.Events;
@@ -27,6 +30,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public final class ArenaImpl implements Arena {
+    private final Coord startingPadPosition;
+    private final Coord startingBallPosition;
 
     private final Dimension dimension;
     private final Map<Coord, Brick> brickMap;
@@ -40,6 +45,8 @@ public final class ArenaImpl implements Arena {
         this.ballSet = new HashSet<>();
         this.powerupSet = new HashSet<>();
         this.dimension = inputDimension;
+        this.startingPadPosition = new CoordImpl(inputDimension.getWidth() / 2, inputDimension.getHeight() * 0.8);
+        this.startingBallPosition = new CoordImpl(inputDimension.getWidth() / 2, inputDimension.getHeight() * 0.7);
         // Configuring the powerup handler.
         final PowerupHandlerPolicy policy = (type, map) -> {
             if (type == PowerupEffectType.BALL_POWERUP) {
@@ -49,6 +56,8 @@ public final class ArenaImpl implements Arena {
         this.powerupHandler = new PowerupHandlerImpl(policy, this);
         // Register the Arena to the event bus
         EventBus.getDefault().register(this);
+
+        this.resetStartingPosition();
     }
 
     /**
@@ -74,7 +83,7 @@ public final class ArenaImpl implements Arena {
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
-        brickMap.remove(event.getBrickCoord());
+        this.brickMap.remove(event.getBrickCoord());
     }
 
     @Override
@@ -92,6 +101,7 @@ public final class ArenaImpl implements Arena {
                 this.ballSet.remove(b);
                 if (this.ballSet.isEmpty()) {
                     //EventBus.getDefault().post(Events.newDecreaseLifeEvent());
+                    resetStartingPosition();
                 }
             }
             else {
@@ -106,6 +116,15 @@ public final class ArenaImpl implements Arena {
                 this.powerupSet.remove(p);
             }
         }
+    }
+
+    /**
+     * resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
+     */
+    private void resetStartingPosition() {
+        this.powerupHandler.stop();
+        this.pad = new PadImpl(startingPadPosition);
+        //this.ballSet.add(new BallImpl());
     }
 
     @Override
