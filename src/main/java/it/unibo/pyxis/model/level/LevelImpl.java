@@ -1,8 +1,8 @@
 package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
-import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
+import it.unibo.pyxis.model.level.status.LevelStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -12,12 +12,14 @@ public final class LevelImpl implements Level {
 
     private int lives;
     private int score;
+    private LevelStatus levelStatus;
     private final Arena arena;
 
     public LevelImpl(final int inputLives, final Arena inputArena) {
         Objects.requireNonNull(inputArena, "You must pass an instance of Arena");
         this.lives = inputLives;
         this.score = 0;
+        this.levelStatus = LevelStatus.PLAYING;
         this.arena = inputArena;
         EventBus.getDefault().register(this);
     }
@@ -55,8 +57,8 @@ public final class LevelImpl implements Level {
     public void update(final int delta) {
         this.arena.update(delta);
         if (this.arena.isCleared()) {
+            this.levelStatus = LevelStatus.SUCCESSFULLY_COMPLETED;
             this.arena.cleanup();
-            EventBus.getDefault().post(Events.newLevelStoppedEvent(this.score));
         }
     }
 
@@ -64,5 +66,14 @@ public final class LevelImpl implements Level {
     @Subscribe
     public void handleDecreaseLife(final DecreaseLifeEvent event) {
         event.getScore().ifPresent(this::increaseScore);
+        this.decreaseLife();
+        if (this.lives <= 0) {
+            this.levelStatus = LevelStatus.GAME_OVER;
+        }
+    }
+
+    @Override
+    public LevelStatus getLevelStatus() {
+        return this.levelStatus;
     }
 }
