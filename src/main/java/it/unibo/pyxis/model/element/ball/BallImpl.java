@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.element.ball;
 
 import it.unibo.pyxis.model.element.AbstractElement;
-import it.unibo.pyxis.model.event.collision.BrickCollisionEvent;
+import it.unibo.pyxis.model.event.collision.CollisionEvent;
 import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CircleHitbox;
@@ -31,7 +31,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     @Subscribe
-    public void handleBrickCollision(final BrickCollisionEvent collisionEvent) {
+    public void handleBrickCollision(final CollisionEvent collisionEvent) {
 
     }
 

@@ -3,6 +3,7 @@ package it.unibo.pyxis.model.arena;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import it.unibo.pyxis.model.element.ball.Ball;
@@ -12,6 +13,7 @@ import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.element.powerup.PowerupImpl;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
+import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
@@ -19,6 +21,7 @@ import it.unibo.pyxis.model.powerup.handler.PowerupHandlerPolicy;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.element.powerup.PowerupType;
+import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -71,6 +74,7 @@ public final class ArenaImpl implements Arena {
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
+        brickMap.remove(event.getBrickCoord());
     }
 
     @Override
@@ -78,6 +82,30 @@ public final class ArenaImpl implements Arena {
     public void handlePowerupActivation(final PowerupActivationEvent event) {
         this.powerupHandler.addPowerup(event.getPowerup().getType().getEffect());
         this.powerupSet.remove(event.getPowerup());
+    }
+
+    @Override
+    @Subscribe
+    public void checkBorderCollision() {
+        for (final Ball b: getBalls()) {
+            if (b.getHitbox().isCollidingWithLowerBorder(getDimension())) {
+                this.ballSet.remove(b);
+                if (this.ballSet.isEmpty()) {
+                    //EventBus.getDefault().post(Events.newDecreaseLifeEvent());
+                }
+            }
+            else {
+                final Optional<HitEdge> hitEdge = b.getHitbox().collidingEdgeWithBorder(getDimension());
+                if (hitEdge.isPresent()) {
+                    EventBus.getDefault().post(Events.newCollisionEvent(hitEdge.get()));
+                }
+            }
+        }
+        for (final Powerup p: getPowerups()) {
+            if (p.getHitbox().isCollidingWithLowerBorder(getDimension())) {
+                this.powerupSet.remove(p);
+            }
+        }
     }
 
     @Override
@@ -139,4 +167,5 @@ public final class ArenaImpl implements Arena {
         this.powerupHandler.stop();
         this.powerupHandler.shutdown();
     }
+
 }
