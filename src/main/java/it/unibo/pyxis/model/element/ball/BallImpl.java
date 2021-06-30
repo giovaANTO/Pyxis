@@ -6,7 +6,6 @@ import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CircleHitbox;
 import it.unibo.pyxis.model.util.Coord;
-import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import it.unibo.pyxis.model.util.Vector;
@@ -19,7 +18,6 @@ import java.util.Optional;
 public final class BallImpl extends AbstractElement implements Ball {
 
     private static final Dimension DIMENSION = new DimensionImpl(1, 1);
-    private static final Coord STARTING_POSITION = new CoordImpl(1, 1);
     private BallType type;
     private Vector pace;
     private final int id;
@@ -33,9 +31,6 @@ public final class BallImpl extends AbstractElement implements Ball {
         EventBus.getDefault().register(this);
     }
 
-    private BallImpl(final Vector inputPace, final int inputId) {
-        this(inputPace, STARTING_POSITION, BallType.NORMAL_BALL, inputId);
-    }
 
     @Override
     @Subscribe
@@ -95,7 +90,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         private Optional<Vector> pace = Optional.empty();
         private Optional<Integer> id = Optional.empty();
         private Optional<Coord> position = Optional.empty();
-        private Optional<BallType> type = Optional.empty();
+        private BallType type = BallType.NORMAL_BALL;
 
         private void check(final Object inputObject) {
             Objects.requireNonNull(inputObject);
@@ -124,7 +119,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         @Override
         public BallBuilder ballType(final BallType type) {
             this.check(type);
-            this.type = Optional.of(type);
+            this.type = type;
             return this;
         }
 
@@ -132,7 +127,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         public Ball build() {
             return new BallImpl(this.pace.orElseThrow(),
                     this.position.orElseThrow(),
-                    this.type.orElseThrow(),
+                    this.type,
                     this.id.orElseThrow());
         }
     }
