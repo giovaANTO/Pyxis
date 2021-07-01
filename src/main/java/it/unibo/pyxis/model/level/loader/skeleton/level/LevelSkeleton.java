@@ -1,9 +1,11 @@
-package it.unibo.pyxis.model.level.loader.skeleton.arena;
+package it.unibo.pyxis.model.level.loader.skeleton.level;
 
-import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeletonImpl;
+import it.unibo.pyxis.model.level.loader.skeleton.ball.BallSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeleton;
+
 import java.util.Set;
 
-public interface ArenaSkeleton {
+public interface LevelSkeleton {
     /**
      * Return the number of lives of the {@link it.unibo.pyxis.model.arena.Arena}.
      * @return
@@ -47,16 +49,30 @@ public interface ArenaSkeleton {
     void setHeight(double height);
 
     /**
-     * Return a {@link Set} of {@link BrickSkeletonImpl} linked to this {@link ArenaSkeleton}.
+     * Return a {@link Set} of {@link BrickSkeleton} linked to this {@link LevelSkeleton}.
      * @return
-     *          {@link Set} of {@link BrickSkeletonImpl}
+     *          {@link Set} of {@link BrickSkeleton}
      */
-    Set<BrickSkeletonImpl> getBricks();
+    Set<BrickSkeleton> getBricks();
 
     /**
-     * Set a new {@link Set} of {@link BrickSkeletonImpl}.
+     * Set a new {@link Set} of {@link BrickSkeleton}.
      * @param brickSkeletonSet
-     *           {@link Set} of {@link BrickSkeletonImpl}
+     *           {@link Set} of {@link BrickSkeleton}
      */
-    void setBricks(Set<BrickSkeletonImpl> brickSkeletonSet);
+    void setBricks(Set<BrickSkeleton> brickSkeletonSet);
+
+    /**
+     * Return a {@link Set} of {@link BallSkeleton} linked to this {@link LevelSkeleton}.
+     * @return
+     *          {@link Set} of {@link BallSkeleton}
+     */
+    Set<BallSkeleton> getBalls();
+
+    /**
+     * Set a new {@link Set} of {@link BallSkeleton}.
+     * @param ballSkeletonSet
+     *           {@link Set} of {@link BallSkeleton}
+     */
+    void setBalls(Set<BallSkeleton> ballSkeletonSet);
 }

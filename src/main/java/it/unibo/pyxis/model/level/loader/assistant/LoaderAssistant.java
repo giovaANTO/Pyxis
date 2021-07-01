@@ -1,16 +1,16 @@
 package it.unibo.pyxis.model.level.loader.assistant;
 
 import it.unibo.pyxis.model.level.Level;
-import it.unibo.pyxis.model.level.loader.skeleton.arena.ArenaSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.level.LevelSkeleton;
 
 public interface LoaderAssistant {
     /**
-     * Create a new {@link Level} instance from an {@link ArenaSkeleton}.
+     * Create a new {@link Level} instance from an {@link LevelSkeleton}.
      * @param skeleton
-     *                  The input {@link ArenaSkeleton}
+     *                  The input {@link LevelSkeleton}
      * @return
      *                  An instance of the {@link Level}
      */
-    Level createLevel(ArenaSkeleton skeleton);
+    Level createLevel(LevelSkeleton skeleton);
 }
 

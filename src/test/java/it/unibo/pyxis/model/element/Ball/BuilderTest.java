@@ -8,13 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BallTest {
+public class BuilderTest {
 
     private Ball ball1;
     private Vector startingPace;
+    private Coord startingCoord;
     private int dt;
 
     /**
@@ -24,9 +24,12 @@ public class BallTest {
     @BeforeEach
     private void setUp() {
         this.startingPace = new VectorImpl(new PairImpl<Double>(2.0, 5.0));
+        this.startingCoord = new CoordImpl(2.0, 5.0);
         this.dt = 200;
-        this.ball1 = new BallImpl.BallBuilderImpl()
-                        .pace(this.startingPace.copyOf())
+        this.ball1 = new BallImpl.Builder()
+                        .pace(this.startingPace)
+                        .initialPosition(this.startingCoord)
+                        .ballType(BallType.NORMAL_BALL)
                         .id(0)
                         .build();
     }
@@ -70,21 +73,25 @@ public class BallTest {
     public void testBuilder() {
         System.out.println("testBuilder");
         assertThrows(NoSuchElementException.class, () -> {
-            new BallImpl.BallBuilderImpl().build();
+            new BallImpl.Builder().build();
         });
         assertThrows(NullPointerException.class, () -> {
-            new BallImpl.BallBuilderImpl()
+            new BallImpl.Builder()
                     .pace(null)
                     .build();
         });
         assertDoesNotThrow(() -> {
-            new BallImpl.BallBuilderImpl()
+            new BallImpl.Builder()
                     .pace(this.startingPace)
+                    .initialPosition(this.startingCoord)
+                    .ballType(BallType.NORMAL_BALL)
                     .id(1)
                     .build();
         });
-        final Ball testBall = new BallImpl.BallBuilderImpl()
+        final it.unibo.pyxis.model.element.ball.Ball testBall = new BallImpl.Builder()
                 .pace(this.startingPace)
+                .initialPosition(this.startingCoord)
+                .ballType(BallType.NORMAL_BALL)
                 .id(2)
                 .build();
         assertEquals(testBall.getPace(), this.startingPace);
