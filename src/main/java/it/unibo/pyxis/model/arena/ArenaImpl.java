@@ -84,6 +84,10 @@ public final class ArenaImpl implements Arena {
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
         this.brickMap.remove(event.getBrickCoord());
+        Random rand = new Random();
+        if (rand.nextInt(10) == 0) {
+            this.powerupSet.add(new PowerupImpl(PowerupType.values()[rand.nextInt(PowerupType.values().length)], event.getBrickCoord()));
+        }
     }
 
     @Override
