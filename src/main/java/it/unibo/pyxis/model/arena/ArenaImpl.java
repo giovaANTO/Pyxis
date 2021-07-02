@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public final class ArenaImpl implements Arena {
+
     private final int powerupSpawnProbabilityBound = 10;
     private Coord startingPadPosition;
     private Coord startingBallPosition;
@@ -249,4 +250,16 @@ public final class ArenaImpl implements Arena {
         this.powerupHandler.shutdown();
     }
 
+    @Override
+    public String toString() {
+        final int ballsNumber = this.getBalls().size();
+        final int powerupsNumber = this.getPowerups().size();
+        final int brickNumbers = this.getBricks().size();
+        final int totalElements = ballsNumber + powerupsNumber + brickNumbers;
+        return "Arena[Total elements : " + totalElements
+                + ", #Ball : " + ballsNumber
+                + ", #Powerup : " + powerupsNumber
+                + ", #Brick : " + brickNumbers
+                + "]";
+    }
 }
