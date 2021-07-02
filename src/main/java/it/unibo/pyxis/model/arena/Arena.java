@@ -37,7 +37,8 @@ public interface Arena {
      * Check if {@link Ball} or {@link Powerup} is colliding with a border.
      * 
      * Removes the {@link Ball} or {@link Powerup} colliding with the bottom border,
-     * Otherwise sends a {@link CollisionEvent} with the edge the {@link Ball} is colliding with.
+     * Otherwise sends a {@link it.unibo.pyxis.model.event.collision.CollisionEvent}
+     * with the edge the {@link Ball} is colliding with.
      */
     void checkBorderCollision();
 
@@ -97,9 +98,14 @@ public interface Arena {
     /**
      * Add a {@link Ball} in the {@link Arena}.
      * @param ball
- *              The {@link Ball} to add.
+     *           The {@link Ball} to add.
      */
     void addBall(Ball ball);
+
+    /**
+     * Add a default {@link Ball} to the {@link Arena}.
+     */
+    void addDefaultBall();
 
     /**
      * Add a new {@link Powerup} in the {@link Arena}.
