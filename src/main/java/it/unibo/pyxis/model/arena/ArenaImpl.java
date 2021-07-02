@@ -65,7 +65,6 @@ public final class ArenaImpl implements Arena {
         this.powerupHandler = new PowerupHandlerImpl(policy, this);
         // Register the Arena to the event bus
         EventBus.getDefault().register(this);
-        this.resetStartingPosition();
     }
 
     /**
@@ -153,18 +152,15 @@ public final class ArenaImpl implements Arena {
      *          in the {@link Arena}
      */
     private int getLastBallId() {
-        if (this.ballSet.isEmpty()) {
-            return 0;
-        }
         return this.ballSet.stream()
                 .mapToInt(Ball::getId)
                 .max()
-                .orElseThrow(NoSuchElementException::new);
+                .orElse(0);
     }
 
     @Override
     public Dimension getDimension() {
-        return this.dimension;
+        return this.dimension.copyOf();
     }
 
     @Override
