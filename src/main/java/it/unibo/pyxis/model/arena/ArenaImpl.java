@@ -49,8 +49,6 @@ public final class ArenaImpl implements Arena {
     private final Random rng;
 
     public ArenaImpl(final Dimension inputDimension) {
-        this.startingPadPosition = new CoordImpl(inputDimension.getWidth() / 2, inputDimension.getHeight() * 0.8);
-        this.startingBallPosition = new CoordImpl(inputDimension.getWidth() / 2, inputDimension.getHeight() * 0.7);
         this.brickMap = new HashMap<>();
         this.ballSet = new HashSet<>();
         this.powerupSet = new HashSet<>();
