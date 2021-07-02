@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import it.unibo.pyxis.model.element.ball.Ball;
-import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.pad.Pad;
@@ -84,10 +83,7 @@ public final class ArenaImpl implements Arena {
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
         this.brickMap.remove(event.getBrickCoord());
-        Random rand = new Random();
-        if (rand.nextInt(10) == 0) {
-            this.powerupSet.add(new PowerupImpl(PowerupType.values()[rand.nextInt(PowerupType.values().length)], event.getBrickCoord()));
-        }
+        this.spawnPowerup(event.getBrickCoord());
     }
 
     @Override
@@ -107,12 +103,9 @@ public final class ArenaImpl implements Arena {
                     //EventBus.getDefault().post(Events.newDecreaseLifeEvent());
                     resetStartingPosition();
                 }
-            }
-            else {
+            } else {
                 final Optional<HitEdge> hitEdge = b.getHitbox().collidingEdgeWithBorder(getDimension());
-                if (hitEdge.isPresent()) {
-                    EventBus.getDefault().post(Events.newCollisionEvent(hitEdge.get()));
-                }
+                hitEdge.ifPresent(edge -> EventBus.getDefault().post(Events.newCollisionEvent(edge)));
             }
         }
         for (final Powerup p: getPowerups()) {
@@ -127,7 +120,7 @@ public final class ArenaImpl implements Arena {
      */
     private void resetStartingPosition() {
         this.powerupHandler.stop();
-        this.pad = new PadImpl(startingPadPosition);
+        this.getPad().setPosition(this.startingPadPosition);
         //this.ballSet.add(new BallImpl());
     }
 
