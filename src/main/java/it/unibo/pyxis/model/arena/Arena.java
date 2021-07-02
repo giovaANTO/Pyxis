@@ -89,6 +89,11 @@ public interface Arena {
     void setPad(Pad inputPad);
 
     /**
+     * Set a default {@link Pad} in the {@link Arena}.
+     */
+    void setDefaultPad();
+
+    /**
      * Add a {@link Brick} in the {@link Arena}.
      * @param brick
  *              The {@link Brick} to add.

@@ -8,6 +8,7 @@ import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.pad.Pad;
+import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.element.powerup.PowerupImpl;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
@@ -42,7 +43,6 @@ public final class ArenaImpl implements Arena {
         this.ballSet = new HashSet<>();
         this.powerupSet = new HashSet<>();
         this.dimension = inputDimension;
-        this.startingPadPosition = new CoordImpl(inputDimension.getWidth() / 2, inputDimension.getHeight() * 0.8);
         // Configuring the powerup handler.
         final PowerupHandlerPolicy policy = (type, map) -> {
             if (type == PowerupEffectType.BALL_POWERUP) {
@@ -163,7 +163,18 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public void setPad(final Pad inputPad) {
+        if (Objects.isNull(this.startingPadPosition)) {
+            this.startingPadPosition = inputPad.getPosition();
+        }
         this.pad = inputPad;
+    }
+
+    @Override
+    public void setDefaultPad() {
+        final double posX = this.getDimension().getWidth() / 2;
+        final double posY = this.getDimension().getHeight() * 0.7;
+        final Pad defaultPad = new PadImpl(new CoordImpl(posX, posY));
+        this.setPad(defaultPad);
     }
 
     @Override
