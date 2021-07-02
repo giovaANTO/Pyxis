@@ -29,6 +29,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public final class ArenaImpl implements Arena {
+    private final int powerupSpawnProbabilityBound = 10;
     private final Coord startingPadPosition;
     private final Coord startingBallPosition;
 
@@ -39,13 +40,17 @@ public final class ArenaImpl implements Arena {
     private final PowerupHandler powerupHandler;
     private Pad pad;
 
+    private final Random rng;
+
     public ArenaImpl(final Dimension inputDimension) {
+        this.startingPadPosition = new CoordImpl(inputDimension.getWidth() / 2, inputDimension.getHeight() * 0.8);
+        this.startingBallPosition = new CoordImpl(inputDimension.getWidth() / 2, inputDimension.getHeight() * 0.7);
         this.brickMap = new HashMap<>();
         this.ballSet = new HashSet<>();
         this.powerupSet = new HashSet<>();
+        this.pad = new PadImpl(startingPadPosition);
+        this.rng = new Random();
         this.dimension = inputDimension;
-        this.startingPadPosition = new CoordImpl(inputDimension.getWidth() / 2, inputDimension.getHeight() * 0.8);
-        this.startingBallPosition = new CoordImpl(inputDimension.getWidth() / 2, inputDimension.getHeight() * 0.7);
         // Configuring the powerup handler.
         final PowerupHandlerPolicy policy = (type, map) -> {
             if (type == PowerupEffectType.BALL_POWERUP) {
@@ -67,8 +72,7 @@ public final class ArenaImpl implements Arena {
      *                  The starting position of newly created {@link Powerup}.
      */
     private void spawnPowerup(final Coord spawnCoord) {
-        final Random rand = new Random();
-        final PowerupType selectedType = PowerupType.values()[rand.nextInt(PowerupType.values().length)];
+        final PowerupType selectedType = PowerupType.values()[rngNextInt(PowerupType.values().length)];
         final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
         this.addPowerup(powerup);
     }
@@ -83,7 +87,9 @@ public final class ArenaImpl implements Arena {
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
         this.brickMap.remove(event.getBrickCoord());
-        this.spawnPowerup(event.getBrickCoord());
+        if (rngNextInt(powerupSpawnProbabilityBound).equals(0)) {
+            this.spawnPowerup(event.getBrickCoord());
+        }
     }
 
     @Override
@@ -122,6 +128,18 @@ public final class ArenaImpl implements Arena {
         this.powerupHandler.stop();
         this.getPad().setPosition(this.startingPadPosition);
         //this.ballSet.add(new BallImpl());
+    }
+
+    /**
+     * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive). 
+     * @param 
+     *          upperBound
+     * @return
+     *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
+     *          from the {@link Random} rng sequence.
+     */
+    private Integer rngNextInt(final int upperBound) {
+        return rng.nextInt(upperBound);
     }
 
     @Override
