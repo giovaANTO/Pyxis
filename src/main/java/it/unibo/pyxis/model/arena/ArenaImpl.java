@@ -36,7 +36,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 public final class ArenaImpl implements Arena {
 
-    private final int powerupSpawnProbabilityBound = 10;
     private Coord startingPadPosition;
     private Coord startingBallPosition;
 
@@ -53,7 +52,6 @@ public final class ArenaImpl implements Arena {
         this.brickMap = new HashMap<>();
         this.ballSet = new HashSet<>();
         this.powerupSet = new HashSet<>();
-        this.pad = new PadImpl(startingPadPosition);
         this.rng = new Random();
         this.dimension = inputDimension;
         // Configuring the powerup handler.
@@ -90,6 +88,7 @@ public final class ArenaImpl implements Arena {
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
         this.brickMap.remove(event.getBrickCoord());
+        final int powerupSpawnProbabilityBound = 10;
         if (rangeNextInt(powerupSpawnProbabilityBound).equals(0)) {
             this.spawnPowerup(event.getBrickCoord());
         }
@@ -240,7 +239,9 @@ public final class ArenaImpl implements Arena {
     public void cleanup() {
         final EventBus bus = EventBus.getDefault();
         this.getBalls().forEach(bus::unregister);
+        this.ballSet.clear();
         this.getBricks().forEach(bus::unregister);
+        this.brickMap.clear();
         bus.unregister(this.getPad());
         this.powerupHandler.stop();
         this.powerupHandler.shutdown();
