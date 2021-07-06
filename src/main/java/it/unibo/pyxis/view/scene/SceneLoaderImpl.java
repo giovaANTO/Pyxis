@@ -2,12 +2,13 @@ package it.unibo.pyxis.view.scene;
 
 import it.unibo.pyxis.view.model.Model;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SceneLoaderImpl implements SceneLoader {
 
-    final SceneFactory sceneFactory;
-    final Model model;
+    private final SceneFactory sceneFactory;
+    private final Model model;
 
     SceneLoaderImpl(final Stage inputStage, final SceneType inputSceneType, final Model inputModel) {
         this.sceneFactory = new SceneFactoryImpl();
@@ -15,11 +16,14 @@ public class SceneLoaderImpl implements SceneLoader {
     }
 
     @Override
-    public void switchScene(final Stage inputStage, final SceneType inputSceneType) {
-
+    public final void switchScene(final Stage inputStage, final SceneType inputSceneType) {
+        Scene newScene = this.loadNewScene(inputSceneType);
+        inputStage.setScene(newScene);
+        inputStage.show();
     }
 
-    private Parent loadNewScene(final SceneType inputSceneType) {
-
+    private Scene loadNewScene(final SceneType inputSceneType) {
+        Parent root = this.sceneFactory.getScene(inputSceneType);
+        return new Scene(root);
     }
 }

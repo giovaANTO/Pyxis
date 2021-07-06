@@ -1,6 +1,7 @@
 package it.unibo.pyxis.view.views;
 
-import it.unibo.pyxis.view.controllers.Controller;
+
+import it.unibo.pyxis.controller.controllers.Controller;
 
 public interface View {
 

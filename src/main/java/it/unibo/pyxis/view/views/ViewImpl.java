@@ -1,18 +1,19 @@
 package it.unibo.pyxis.view.views;
 
-import it.unibo.pyxis.view.controllers.Controller;
+
+import it.unibo.pyxis.controller.controllers.Controller;
 
 public abstract class ViewImpl implements View {
 
     private Controller controller;
 
     @Override
-    public Controller getController() {
+    public final Controller getController() {
         return this.controller;
     }
 
     @Override
-    public void setController(final Controller inputController) {
+    public final void setController(final Controller inputController) {
         this.controller = inputController;
     }
 }

@@ -1,54 +1,32 @@
 package it.unibo.pyxis.view.scene;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
+import java.io.IOException;
 
 public class SceneFactoryImpl implements SceneFactory {
 
+    private static final String FIRST_PATH = "layouts/scenebuilder/";
+    private static final String SECOND_PATH = ".fxml";
+    private Parent root;
+
     @Override
     public final Parent getScene(final SceneType inputSceneType) {
+        return getAScene(inputSceneType);
+    }
 
-        switch (inputSceneType) {
-            case MENU_SCENE:
-                return this.getMenuScene();
-            case SETTINGS_SCENE:
-                return this.getSettingsScene();
-            case SELECT_LEVEL_SCENE:
-                return this.getSelectLevelScene();
-            case GAME_SCENE:
-                return this.getGameScene();
-            case END_LEVEL_SCENE:
-                return this.getEndLevelScene();
-            case QUITTING_SCENE:
-                return this.getQuittingScene();
-            default:
-                return this.getPauseScene();
+    private Parent getAScene(final SceneType inputScene) {
+        try {
+            this.root = FXMLLoader.load(ClassLoader.
+                    getSystemResource(FIRST_PATH + inputScene.getName() + SECOND_PATH));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return this.root;
     }
 
     private void loadController() {
-
-    }
-
-    private Parent getMenuScene() {
-
-    }
-    private Parent getSettingsScene() {
-
-    }
-    private Parent getSelectLevelScene() {
-
-    }
-    private Parent getGameScene() {
-
-    }
-
-    private Parent getEndLevelScene() {
-
-    }
-    private Parent getQuittingScene() {
-
-    }
-    private Parent getPauseScene() {
 
     }
 }
