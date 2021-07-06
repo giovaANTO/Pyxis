@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.event;
 
 import it.unibo.pyxis.model.element.powerup.Powerup;
-import it.unibo.pyxis.model.event.collision.BrickCollisionEvent;
+import it.unibo.pyxis.model.event.collision.CollisionEvent;
 import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
@@ -32,13 +32,14 @@ public final class Events {
     }
 
     /**
-     * Create a new {@link BrickCollisionEvent} instance passing a {@link HitEdge}.
+     * Create a new {@link CollisionEvent} instance passing a {@link HitEdge}.
      * @param hitEdge
-     *                  The edge of the {@link it.unibo.pyxis.model.element.brick.Brick} that has been hit.
+     *                  The edge of the {@link it.unibo.pyxis.model.element.brick.Brick} 
+     *                  or border of the {@link it.unibo.pyxis.model.Arena} that has been hit.
      * @return
-     *         The {@link BrickCollisionEvent} instance.
+     *         The {@link CollisionEvent} instance.
      */
-    public static BrickCollisionEvent newBrickCollisionEvent(final HitEdge hitEdge) {
+    public static CollisionEvent newCollisionEvent(final HitEdge hitEdge) {
         return () -> hitEdge;
     }
 

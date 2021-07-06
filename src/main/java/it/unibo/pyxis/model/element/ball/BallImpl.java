@@ -1,11 +1,14 @@
 package it.unibo.pyxis.model.element.ball;
 
 import it.unibo.pyxis.model.element.AbstractElement;
-import it.unibo.pyxis.model.event.collision.BrickCollisionEvent;
+import it.unibo.pyxis.model.event.collision.CollisionEvent;
 import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CircleHitbox;
-import it.unibo.pyxis.model.util.*;
+import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.DimensionImpl;
+import it.unibo.pyxis.model.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -15,23 +18,23 @@ import java.util.Optional;
 public final class BallImpl extends AbstractElement implements Ball {
 
     private static final Dimension DIMENSION = new DimensionImpl(1, 1);
-    private static final Coord STARTING_POSITION = new CoordImpl(1, 1);
     private BallType type;
     private Vector pace;
     private final int id;
 
-    private BallImpl(final Vector inputPace, final int inputId) {
-        super(DIMENSION, STARTING_POSITION);
+    private BallImpl(final Vector inputPace, final Coord position, final BallType type, final int inputId) {
+        super(DIMENSION, position);
         this.setHitbox(new CircleHitbox(this));
-        this.type = BallType.NORMAL_BALL;
+        this.type = type;
         this.pace = inputPace;
         this.id = inputId;
         EventBus.getDefault().register(this);
     }
 
+
     @Override
     @Subscribe
-    public void handleBrickCollision(final BrickCollisionEvent collisionEvent) {
+    public void handleBrickCollision(final CollisionEvent collisionEvent) {
 
     }
 
@@ -80,12 +83,14 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     /**
-     * Builder of the {@link Ball}.
+     * Builder of the {@link it.unibo.pyxis.model.element.ball.Ball}.
      */
-    public static final class BallBuilderImpl implements BallBuilder {
+    public static final class Builder implements BallBuilder {
 
         private Optional<Vector> pace = Optional.empty();
         private Optional<Integer> id = Optional.empty();
+        private Optional<Coord> position = Optional.empty();
+        private BallType type = BallType.NORMAL_BALL;
 
         private void check(final Object inputObject) {
             Objects.requireNonNull(inputObject);
@@ -105,8 +110,25 @@ public final class BallImpl extends AbstractElement implements Ball {
         }
 
         @Override
+        public BallBuilder initialPosition(final Coord position) {
+            this.check(position);
+            this.position = Optional.of(position);
+            return this;
+        }
+
+        @Override
+        public BallBuilder ballType(final BallType type) {
+            this.check(type);
+            this.type = type;
+            return this;
+        }
+
+        @Override
         public Ball build() {
-            return new BallImpl(this.pace.orElseThrow(), this.id.orElseThrow());
+            return new BallImpl(this.pace.orElseThrow(),
+                    this.position.orElseThrow(),
+                    this.type,
+                    this.id.orElseThrow());
         }
     }
 
@@ -125,5 +147,10 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Override
     public int hashCode() {
         return Objects.hash(type, pace);
+    }
+
+    @Override
+    public String toString() {
+        return "BallImpl{" + "type=" + type + ", pace=" + pace + ", id=" + id + "}";
     }
 }

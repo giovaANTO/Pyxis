@@ -3,8 +3,12 @@ package it.unibo.pyxis.model.element.powerup;
 import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
-import it.unibo.pyxis.model.util.*;
 
+import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.DimensionImpl;
+import it.unibo.pyxis.model.util.Vector;
+import it.unibo.pyxis.model.util.VectorImpl;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Objects;

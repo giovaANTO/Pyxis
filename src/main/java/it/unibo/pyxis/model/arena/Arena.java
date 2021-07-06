@@ -34,6 +34,15 @@ public interface Arena {
     void handlePowerupActivation(PowerupActivationEvent event);
 
     /**
+     * Check if {@link Ball} or {@link Powerup} is colliding with a border.
+     * 
+     * Removes the {@link Ball} or {@link Powerup} colliding with the bottom border,
+     * Otherwise sends a {@link it.unibo.pyxis.model.event.collision.CollisionEvent}
+     * with the edge the {@link Ball} is colliding with.
+     */
+    void checkBorderCollision();
+
+    /**
      * Returns the dimensions of the {@link Arena}.
      *
      * @return
@@ -80,6 +89,11 @@ public interface Arena {
     void setPad(Pad inputPad);
 
     /**
+     * Set a default {@link Pad} in the {@link Arena}.
+     */
+    void setDefaultPad();
+
+    /**
      * Add a {@link Brick} in the {@link Arena}.
      * @param brick
  *              The {@link Brick} to add.
@@ -89,9 +103,14 @@ public interface Arena {
     /**
      * Add a {@link Ball} in the {@link Arena}.
      * @param ball
- *              The {@link Ball} to add.
+     *           The {@link Ball} to add.
      */
     void addBall(Ball ball);
+
+    /**
+     * Add a default {@link Ball} to the {@link Arena}.
+     */
+    void addDefaultBall();
 
     /**
      * Add a new {@link Powerup} in the {@link Arena}.

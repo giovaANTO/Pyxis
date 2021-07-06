@@ -3,8 +3,11 @@ package it.unibo.pyxis.model.level.loader;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.loader.assistant.LoaderAssistant;
 import it.unibo.pyxis.model.level.loader.assistant.LoaderAssistantImpl;
-import it.unibo.pyxis.model.level.loader.skeleton.arena.ArenaSkeleton;
-import it.unibo.pyxis.model.level.loader.skeleton.arena.ArenaSkeletonImpl;
+import it.unibo.pyxis.model.level.loader.skeleton.ball.BallSkeletonImpl;
+import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeletonImpl;
+import it.unibo.pyxis.model.level.loader.skeleton.level.LevelSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.level.LevelSkeletonImpl;
+import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -46,16 +49,21 @@ public final class LevelLoaderImpl implements LevelLoader {
      * @param filename
      *                 The yaml file name used for loading the level
      * @return
-     *                 A {@link ArenaSkeleton} object with the loaded data.
+     *                 A {@link LevelSkeleton} object with the loaded data.
      */
-    private ArenaSkeleton skeletonFromFile(final String filename) {
+    private LevelSkeleton skeletonFromFile(final String filename) {
         try (InputStream stream = new BufferedInputStream(new FileInputStream(this.getFile(filename)))) {
-            final Yaml yamlConfLoader = new Yaml(new Constructor(ArenaSkeletonImpl.class));
-            return (ArenaSkeleton) yamlConfLoader.load(stream);
+            final Constructor yamlConstructor = new Constructor(LevelSkeletonImpl.class);
+            final TypeDescription constructorDescriptor = new TypeDescription(LevelSkeletonImpl.class);
+            constructorDescriptor.putListPropertyType("balls", BallSkeletonImpl.class);
+            constructorDescriptor.putListPropertyType("bricks", BrickSkeletonImpl.class);
+            yamlConstructor.addTypeDescription(constructorDescriptor);
+            final Yaml yamlConfLoader = new Yaml(yamlConstructor);
+            return (LevelSkeleton) yamlConfLoader.load(stream);
         } catch (final Exception e) {
             e.printStackTrace();
         }
-        return new ArenaSkeletonImpl();
+        return new LevelSkeletonImpl();
     }
 
     /**
