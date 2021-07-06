@@ -1,4 +1,4 @@
-package it.unibo.pyxis.view.viewimpl;
+package it.unibo.pyxis.view.views;
 
 public class PauseSceneView  extends ViewImpl {
 

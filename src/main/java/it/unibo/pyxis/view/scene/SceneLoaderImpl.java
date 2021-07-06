@@ -1,5 +1,6 @@
 package it.unibo.pyxis.view.scene;
 
+import it.unibo.pyxis.view.model.Model;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 

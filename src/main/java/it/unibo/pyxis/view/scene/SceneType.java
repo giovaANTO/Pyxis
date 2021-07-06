@@ -1,8 +1,10 @@
 package it.unibo.pyxis.view.scene;
 
-import it.unibo.pyxis.view.Controller;
+import it.unibo.pyxis.view.controllers.Controller;
 
 public enum SceneType {
+
+    private final static String startingPath =
 
     MENU_SCENE(null, null),
     SETTINGS_SCENE(null, null),

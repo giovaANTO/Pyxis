@@ -1,6 +1,7 @@
-package it.unibo.pyxis.view;
+package it.unibo.pyxis.view.controllers;
 
-import it.unibo.pyxis.view.viewimpl.View;
+import it.unibo.pyxis.view.model.Model;
+import it.unibo.pyxis.view.views.View;
 
 public class ControllerImpl implements Controller {
 

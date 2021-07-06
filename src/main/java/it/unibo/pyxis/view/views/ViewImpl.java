@@ -1,6 +1,6 @@
-package it.unibo.pyxis.view.viewimpl;
+package it.unibo.pyxis.view.views;
 
-import it.unibo.pyxis.view.Controller;
+import it.unibo.pyxis.view.controllers.Controller;
 
 public abstract class ViewImpl implements View {
 
