@@ -1,5 +1,7 @@
 package it.unibo.pyxis.view;
 
+import it.unibo.pyxis.view.viewimpl.View;
+
 public interface Controller {
 
     Model getModel();

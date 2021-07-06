@@ -1,4 +1,6 @@
-package it.unibo.pyxis.view;
+package it.unibo.pyxis.view.viewimpl;
+
+import it.unibo.pyxis.view.Controller;
 
 public interface View {
 

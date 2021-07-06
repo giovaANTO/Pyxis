@@ -25,6 +25,10 @@ public class SceneFactoryImpl implements SceneFactory {
         }
     }
 
+    private void loadController() {
+
+    }
+
     private Parent getMenuScene() {
 
     }
