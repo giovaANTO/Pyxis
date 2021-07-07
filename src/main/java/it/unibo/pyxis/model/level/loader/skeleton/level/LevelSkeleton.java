@@ -2,6 +2,8 @@ package it.unibo.pyxis.model.level.loader.skeleton.level;
 
 import it.unibo.pyxis.model.level.loader.skeleton.ball.BallSkeleton;
 import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.pad.PadSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.pad.PadSkeletonImpl;
 
 import java.util.Set;
 
@@ -75,4 +77,18 @@ public interface LevelSkeleton {
      *           {@link Set} of {@link BallSkeleton}
      */
     void setBalls(Set<BallSkeleton> ballSkeletonSet);
+
+    /**
+     * Set a new {@link PadSkeletonImpl}.
+     * @param padSkeleton
+     *            The {@link PadSkeletonImpl} to set
+     */
+    void setPad(PadSkeletonImpl padSkeleton);
+
+    /**
+     * Return the {@link PadSkeleton} linked to this {@link LevelSkeleton}.
+     * @return
+     *          The {@link PadSkeletonImpl}
+     */
+    PadSkeleton getPad();
 }
