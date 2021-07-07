@@ -40,9 +40,4 @@ public final class PadImpl extends AbstractElement implements Pad {
     public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {
 
     }
-
-    @Override
-    public String toString() {
-        return "PadImpl{}";
-    }
 }

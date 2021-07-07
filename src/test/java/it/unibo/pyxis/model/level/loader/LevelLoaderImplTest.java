@@ -6,6 +6,8 @@ import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickImpl;
 import it.unibo.pyxis.model.element.brick.BrickType;
+import it.unibo.pyxis.model.element.pad.Pad;
+import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.VectorImpl;
@@ -57,7 +59,7 @@ class LevelLoaderImplTest {
         assertTrue(brickSet.contains(new BrickImpl(BrickType.RED, new CoordImpl(2,2))));
         assertTrue(brickSet.contains(new BrickImpl(BrickType.GREEN, new CoordImpl(1,4))));
 
-        final Set<Ball> ballSet = new HashSet<>(loadedLevel.getArena().getBalls());
+        final Set<Ball> ballSet = loadedLevel.getArena().getBalls();
         final Ball checkBall = new BallImpl.Builder()
                 .initialPosition(new CoordImpl(10,2))
                 .pace(new VectorImpl(20,10))
@@ -67,5 +69,10 @@ class LevelLoaderImplTest {
 
         assertEquals(1, ballSet.size());
         assertTrue(ballSet.contains(checkBall));
+
+        final Pad arenaPad = loadedLevel.getArena().getPad();
+        final Pad checkPad = new PadImpl(new CoordImpl(20,13));
+
+        assertEquals(arenaPad,checkPad);
     }
 }
