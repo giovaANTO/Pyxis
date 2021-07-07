@@ -24,17 +24,6 @@ public class MenuSceneView extends ViewImpl {
 
     @Override
     public void init() {
-        this.stage = new Stage();
-        try {
-            this.root = FXMLLoader.load(ClassLoader.
-                    getSystemResource("layouts/scenebuilder/MenuScene.fxml"));
-            this.scene = new Scene(this.root);
-            this.stage.setTitle("Pyxis");
-            this.stage.setScene(this.scene);
-            this.stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }

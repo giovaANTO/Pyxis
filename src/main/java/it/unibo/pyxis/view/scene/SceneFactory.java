@@ -4,6 +4,17 @@ import javafx.scene.Parent;
 
 public interface SceneFactory {
 
-    Parent getScene(SceneType sceneType);
+    Parent getMenuScene();
 
+    Parent getSettingsScene();
+
+    Parent getSelectLevelScene();
+
+    Parent getGameScene();
+
+    Parent getPauseScene();
+
+    Parent getEndLevelScene();
+
+    Parent getQuittingScene();
 }

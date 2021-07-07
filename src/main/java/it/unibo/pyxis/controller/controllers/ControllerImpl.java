@@ -1,26 +1,25 @@
 package it.unibo.pyxis.controller.controllers;
 
-import it.unibo.pyxis.view.model.Model;
+import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.view.views.View;
 
-public class ControllerImpl implements Controller {
+public abstract class ControllerImpl implements Controller {
 
-    private Model model;
+    private Level level;
     private View view;
 
-    ControllerImpl(final Model inputModel, final View inputView) {
-        this.model = inputModel;
+    ControllerImpl(final View inputView) {
         this.view = inputView;
     }
 
     @Override
-    public final Model getModel() {
-        return this.model;
+    public final Level getLevel() {
+        return this.level;
     }
 
     @Override
-    public final void setModel(final Model inputModel) {
-        this.model = inputModel;
+    public final void setLevel(final Level inputLevel) {
+        this.level = inputLevel;
     }
 
     @Override

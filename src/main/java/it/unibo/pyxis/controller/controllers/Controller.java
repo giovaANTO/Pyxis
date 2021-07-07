@@ -1,13 +1,13 @@
 package it.unibo.pyxis.controller.controllers;
 
-import it.unibo.pyxis.view.model.Model;
+import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.view.views.View;
 
 public interface Controller {
 
-    Model getModel();
+    Level getLevel();
 
-    void setModel(Model model);
+    void setLevel(Level level);
 
     View getView();
 
