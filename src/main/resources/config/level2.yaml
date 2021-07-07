@@ -2,8 +2,8 @@ lives: 3
 width: 1000
 height: 1000
 pad:
-    x: 1
-    y: 2
+  x: 1
+  y: 2
 balls:
   - x: 10
     y: 2
