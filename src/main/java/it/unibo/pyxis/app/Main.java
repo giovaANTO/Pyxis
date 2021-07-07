@@ -1,13 +1,14 @@
 package it.unibo.pyxis.app;
 
-
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.iterator.LevelIterator;
+
 import java.util.Iterator;
 
 public class Main {
     public static void main(final String[] args) {
+
         final Iterator<Level> levelIterator = new LevelIterator();
         final Level firstLevel = levelIterator.next();
 
@@ -17,9 +18,17 @@ public class Main {
 
         final Pad pad = firstLevel.getArena().getPad();
         System.out.println("Pad x:" + pad.getPosition().getX() + " y:" + pad.getPosition().getY());
+        /*final Iterator<Level> levelIterator = new LevelIterator();
+        final Level firstLevel = levelIterator.next();
+
+
+
+        final Pad pad = firstLevel.getArena().getPad();
+        System.out.println("Pad x:" + pad.getPosition().getX() + " y:" + pad.getPosition().getY());
 
         firstLevel.getArena().getBalls().forEach(System.out::println);
-
+        levelIterator.hasNext();
+        */
         /*
         System.out.println(levelIterator.hasNext());
 

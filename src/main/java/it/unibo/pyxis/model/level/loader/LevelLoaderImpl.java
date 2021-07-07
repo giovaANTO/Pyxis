@@ -11,31 +11,21 @@ import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.Objects;
 
 public final class LevelLoaderImpl implements LevelLoader {
 
-    private final URL configurationDirectory;
+    private final String configurationDirectory;
     private final LoaderAssistant loaderAssistant;
 
-    public LevelLoaderImpl(final URL configurationDirectory) {
-        if (!Objects.isNull(configurationDirectory)) {
-            final File file = new File(configurationDirectory.getPath());
-            if (!(file.exists() || file.isDirectory())) {
-                throw new IllegalArgumentException("Invalid Url to directory");
-            }
-        }
+    public LevelLoaderImpl(final String configurationDirectory) {
         this.configurationDirectory = configurationDirectory;
         this.loaderAssistant = new LoaderAssistantImpl();
     }
 
     @Override
-    public URL getConfigurationDir() {
+    public String getConfigurationDir() {
         return this.configurationDirectory;
     }
 
@@ -52,7 +42,7 @@ public final class LevelLoaderImpl implements LevelLoader {
      *                 A {@link LevelSkeleton} object with the loaded data.
      */
     private LevelSkeleton skeletonFromFile(final String filename) {
-        try (InputStream stream = new BufferedInputStream(new FileInputStream(this.getFile(filename)))) {
+        try (InputStream stream = this.getClass().getResourceAsStream(this.getFilePath(filename))) {
             final Constructor yamlConstructor = new Constructor(LevelSkeletonImpl.class);
             final TypeDescription constructorDescriptor = new TypeDescription(LevelSkeletonImpl.class);
             constructorDescriptor.putListPropertyType("balls", BallSkeletonImpl.class);
@@ -66,20 +56,7 @@ public final class LevelLoaderImpl implements LevelLoader {
         return new LevelSkeletonImpl();
     }
 
-    /**
-     * Get a configuration file from the config directory.
-     * @param filename
-     *                  The name of the file that should be opened with the relative extension.
-     * @return
-     *                  A new {@link File} instance.
-     * @throws IllegalArgumentException
-     *                  If file doesn't exists or isn't readable
-     */
-    private File getFile(final String filename) throws IllegalArgumentException {
-        final File filePath = new File(this.configurationDirectory.getPath(), filename);
-        if (!(filePath.exists() || filePath.canRead())) {
-            throw new IllegalArgumentException("File : " + filename + " doesn't exists or isn't readable");
-        }
-        return filePath;
+    private String getFilePath(final String filename) {
+        return "/" + this.getConfigurationDir() + "/" + filename;
     }
 }
