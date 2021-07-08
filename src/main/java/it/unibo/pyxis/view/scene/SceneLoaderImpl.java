@@ -1,7 +1,6 @@
 package it.unibo.pyxis.view.scene;
 
 import it.unibo.pyxis.model.level.Level;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,9 +10,9 @@ public class SceneLoaderImpl implements SceneLoader {
     private final SceneFactory sceneFactory;
     private Level level;
 
-    SceneLoaderImpl(final Stage inputStage, final SceneType inputSceneType, final Level inputLevel) {
-        this.sceneFactory = new SceneFactoryImpl();
+    public SceneLoaderImpl(final Stage inputStage, final SceneType inputSceneType, final Level inputLevel) {
         this.level = inputLevel;
+        this.sceneFactory = new SceneFactoryImpl(inputLevel);
     }
 
     @Override
@@ -26,6 +25,7 @@ public class SceneLoaderImpl implements SceneLoader {
     @Override
     public final void setLevel(final Level inputLevel) {
         this.level = inputLevel;
+        this.sceneFactory.setLevel(this.level);
     }
 
     private Scene loadNewScene(final SceneType inputSceneType) {
