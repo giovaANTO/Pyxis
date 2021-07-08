@@ -18,4 +18,9 @@ public interface GameLoop {
      * Process the next command sent by the user to the application.
      */
     void processInput();
+
+    /**
+     * Start the game loop
+     */
+    void start();
 }

@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 public class Main {
     public static void main(final String[] args) {
-        // new GameLoopImpl().start();
         final Iterator<Level> levelIterator = new LevelIterator();
         final Level firstLevel = levelIterator.next();
 
