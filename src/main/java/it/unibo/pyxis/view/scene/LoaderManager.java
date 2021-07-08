@@ -1,16 +1,10 @@
 package it.unibo.pyxis.view.scene;
 
-public final class LoaderManager {
+import it.unibo.pyxis.model.level.Level;
 
-    private final SceneLoader sceneLoader;
+public interface LoaderManager {
 
-    private LoaderManager() { }
+    void setInstance(Level level);
 
-    public SceneLoader getInstance() {
-        if (this.sceneLoader != null) {
-            return this.sceneLoader;
-        } else {
-            this.sceneLoader = new SceneLoaderImpl()
-        }
-    }
+    SceneLoader getInstance();
 }

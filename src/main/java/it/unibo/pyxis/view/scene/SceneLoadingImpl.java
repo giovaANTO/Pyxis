@@ -12,6 +12,7 @@ public class SceneLoadingImpl implements SceneLoading {
     private static final String FIRST_ROOT_PATH = "layouts/scenebuilder/";
     private static final String SECOND_ROOT_PATH = ".fxml";
     private Level level;
+    private Controller currentController;
 
     public SceneLoadingImpl(final Level inputLevel) {
         this.level = inputLevel;
@@ -29,8 +30,17 @@ public class SceneLoadingImpl implements SceneLoading {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.setLevelAndController(loader.getController(), inputSceneType.getController());
+        this.currentController = inputSceneType.getController();
+        this.setLevelAndController(loader.getController(), this.currentController);
         return root;
+    }
+
+    @Override
+    public final Controller getCurrentController() {
+        if (this.currentController == null) {
+            throw new IllegalAccessError();
+        }
+        return this.currentController;
     }
 
     private FXMLLoader getFxLoader(final SceneType inputScene) {
