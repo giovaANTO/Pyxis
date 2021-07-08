@@ -1,5 +1,5 @@
 package it.unibo.pyxis.controller.controllers;
 
-public class GameSceneController extends ControllerImpl {
+public class GameSceneController extends AbstractController {
 
 }

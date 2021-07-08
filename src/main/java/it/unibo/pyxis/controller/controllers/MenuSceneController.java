@@ -1,5 +1,5 @@
 package it.unibo.pyxis.controller.controllers;
 
-public class MenuSceneController extends ControllerImpl {
+public class MenuSceneController extends AbstractController {
 
 }

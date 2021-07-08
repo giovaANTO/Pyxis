@@ -3,7 +3,7 @@ package it.unibo.pyxis.controller.controllers;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.view.views.View;
 
-public abstract class ControllerImpl implements Controller {
+public abstract class AbstractController implements Controller {
 
     private Level level;
     private View view;

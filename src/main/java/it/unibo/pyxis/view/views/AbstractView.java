@@ -3,7 +3,7 @@ package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.Controller;
 
-public abstract class ViewImpl implements View {
+public abstract class AbstractView implements View {
 
     private Controller controller;
 

@@ -1,4 +1,4 @@
 package it.unibo.pyxis.controller.controllers;
 
-public class EndLevelSceneController extends ControllerImpl {
+public class EndLevelSceneController extends AbstractController {
 }
