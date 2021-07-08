@@ -1,5 +1,7 @@
 package it.unibo.samplejavafx;
 
+import it.unibo.pyxis.view.linker.Linker;
+import it.unibo.pyxis.view.linker.LinkerImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,13 +14,8 @@ public class JavaFXAppWithFXML extends Application {
 
     @Override
     public final void start(final Stage primaryStage) throws Exception {
-        final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/SimpleGui.fxml"));
-        final Scene scene = new Scene(root, 1000, 800);
-        final Label lbl = (Label) scene.lookup("#myLabel");
-        lbl.setText(".........................");
-        primaryStage.setTitle("App FXML");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        Linker linker = new LinkerImpl(primaryStage);
+        linker.start();
     }
 
     public static void run(final String[] args) {

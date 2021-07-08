@@ -16,5 +16,5 @@ public interface Controller {
 
     void setLinker(Linker linker);
 
-    void render(Level level);
+    Linker getLinker();
 }
