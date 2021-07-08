@@ -21,6 +21,20 @@ public class SceneFactoryImpl implements SceneFactory {
         this.level = inputLevel;
     }
 
+    public final Parent getScene(final SceneType inputSceneType) {
+        FXMLLoader loader = this.getFxLoader(inputSceneType);
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        loader.<View>getController().
+                setController(inputSceneType.getController());
+        this.setControllerLevel(loader.<View>getController().getController());
+        return root;
+    }
+
     @Override
     public final Parent getMenuScene() {
         FXMLLoader loader = this.getScene(SceneType.MENU_SCENE);
@@ -126,7 +140,7 @@ public class SceneFactoryImpl implements SceneFactory {
         return root;
     }
 
-    private FXMLLoader getScene(final SceneType inputScene) {
+    private FXMLLoader getFxLoader(final SceneType inputScene) {
         return new FXMLLoader(ClassLoader.
                 getSystemResource(FIRST_ROOT_PATH + inputScene.getName()
                         + SECOND_ROOT_PATH));

@@ -7,17 +7,5 @@ public interface SceneFactory {
 
     void setLevel(Level level);
 
-    Parent getMenuScene();
-
-    Parent getSettingsScene();
-
-    Parent getSelectLevelScene();
-
-    Parent getGameScene();
-
-    Parent getPauseScene();
-
-    Parent getEndLevelScene();
-
-    Parent getQuittingScene();
+    Parent getScene(SceneType sceneType);
 }
