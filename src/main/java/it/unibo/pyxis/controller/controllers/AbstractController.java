@@ -34,4 +34,9 @@ public abstract class AbstractController implements Controller {
     public final void setLinker(final Linker inputLinker) {
         this.linker = inputLinker;
     }
+
+    @Override
+    public final Linker getLinker() {
+        return linker;
+    }
 }

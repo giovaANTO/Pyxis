@@ -4,6 +4,9 @@ package it.unibo.pyxis.view.views;
 import it.unibo.pyxis.controller.controllers.Controller;
 import it.unibo.pyxis.model.level.Level;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public abstract class AbstractView implements View {
 
     private Controller controller;
@@ -20,4 +23,5 @@ public abstract class AbstractView implements View {
 
     @Override
     public void render(final Level inputLevel) { }
+
 }

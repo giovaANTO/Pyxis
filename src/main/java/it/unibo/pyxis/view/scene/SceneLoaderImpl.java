@@ -8,15 +8,17 @@ import javafx.stage.Stage;
 public class SceneLoaderImpl implements SceneLoader {
 
     private final SceneLoading sceneLoading;
+    private final Stage stage;
 
-    public SceneLoaderImpl(final Level inputLevel) {
+    public SceneLoaderImpl(final Stage inputStage, final Level inputLevel) {
         this.sceneLoading = new SceneLoadingImpl(inputLevel);
+        this.stage = inputStage;
     }
 
     @Override
-    public final void switchScene(final Stage inputStage, final SceneType inputSceneType) {
-        inputStage.setScene(this.loadNewScene(inputSceneType));
-        inputStage.show();
+    public final void switchScene(final SceneType inputSceneType) {
+        this.stage.setScene(this.loadNewScene(inputSceneType));
+        this.stage.show();
     }
 
     @Override
@@ -30,6 +32,7 @@ public class SceneLoaderImpl implements SceneLoader {
     }
 
     private Scene loadNewScene(final SceneType inputSceneType) {
+        System.out.println(inputSceneType);
         return new Scene(this.sceneLoading.getScene(inputSceneType));
     }
 }

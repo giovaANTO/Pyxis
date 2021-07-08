@@ -3,6 +3,7 @@ package it.unibo.pyxis.view.linker;
 import it.unibo.pyxis.controller.controllers.Controller;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.view.scene.SceneLoader;
+import it.unibo.pyxis.view.scene.SceneType;
 
 public interface Linker {
 
@@ -15,6 +16,8 @@ public interface Linker {
     void endGame();
 
     void run();
+
+    void switchScene(SceneType sceneType);
 
     void createGameState();
 

@@ -44,6 +44,8 @@ public class SceneLoadingImpl implements SceneLoading {
     }
 
     private FXMLLoader getFxLoader(final SceneType inputScene) {
+        System.out.println(FIRST_ROOT_PATH + inputScene.getName()
+                + SECOND_ROOT_PATH);
         return new FXMLLoader(ClassLoader.
                 getSystemResource(FIRST_ROOT_PATH + inputScene.getName()
                         + SECOND_ROOT_PATH));
