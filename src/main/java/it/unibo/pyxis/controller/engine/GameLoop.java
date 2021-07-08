@@ -20,7 +20,7 @@ public interface GameLoop {
     void processInput();
 
     /**
-     * Start the game loop
+     * Start the game loop.
      */
     void start();
 }
