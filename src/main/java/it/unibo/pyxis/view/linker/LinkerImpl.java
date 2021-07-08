@@ -21,9 +21,9 @@ public class LinkerImpl implements Linker {
     private Controller currentController;
     private final Stage stage;
 
-    public LinkerImpl() {
+    public LinkerImpl(final Stage inputStage) {
         this.loaderManager = new LoaderManagerImpl();
-        this.stage = new Stage();
+        this.stage = inputStage;
     }
 
     @Override
@@ -103,7 +103,7 @@ public class LinkerImpl implements Linker {
 
     @Override
     public final void render() {
-        this.currentController.render(this.gameState.getCurrentLevel());
+        this.currentController.getView().render(this.gameState.getCurrentLevel());
     }
 
     @Override

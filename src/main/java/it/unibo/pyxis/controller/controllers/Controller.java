@@ -15,6 +15,4 @@ public interface Controller {
     void setView(View view);
 
     void setLinker(Linker linker);
-
-    void render(Level level);
 }

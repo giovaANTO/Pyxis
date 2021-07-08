@@ -10,10 +10,6 @@ import javafx.stage.Stage;
 
 public class MenuSceneView extends AbstractView {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
     @FXML
     private AnchorPane menuPane;
     @FXML
@@ -23,6 +19,18 @@ public class MenuSceneView extends AbstractView {
 
     @Override
     public void init() {
-    }
 
+    }
+    public final void startNewGame() {
+        System.out.println("Start new game");
+    }
+    public final void showSettings() {
+        System.out.println("See settings");
+    }
+    public final void selectLevels() {
+        System.out.println("Choose levels");
+    }
+    public final void quit() {
+        System.out.println("Quitting");
+    }
 }
