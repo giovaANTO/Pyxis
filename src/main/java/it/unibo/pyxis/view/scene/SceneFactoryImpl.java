@@ -5,7 +5,6 @@ import it.unibo.pyxis.view.views.View;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import it.unibo.pyxis.controller.controllers.*;
-
 import java.io.IOException;
 
 public class SceneFactoryImpl implements SceneFactory {
@@ -32,7 +31,7 @@ public class SceneFactoryImpl implements SceneFactory {
             e.printStackTrace();
         }
         loader.<View>getController().
-                setController(new MenuSceneController(loader.getController()));
+                setController(SceneType.MENU_SCENE.getController());
         this.setControllerLevel(loader.<View>getController().getController());
         return root;
     }
@@ -47,7 +46,7 @@ public class SceneFactoryImpl implements SceneFactory {
             e.printStackTrace();
         }
         loader.<View>getController().
-                setController(new SettingsSceneController(loader.getController()));
+                setController(SceneType.SETTINGS_SCENE.getController());
         this.setControllerLevel(loader.<View>getController().getController());
         return root;
     }
@@ -62,7 +61,7 @@ public class SceneFactoryImpl implements SceneFactory {
             e.printStackTrace();
         }
         loader.<View>getController().
-                setController(new SelectLevelSceneController(loader.getController()));
+                setController(SceneType.SELECT_LEVEL_SCENE.getController());
         this.setControllerLevel(loader.<View>getController().getController());
         return root;
     }
@@ -77,7 +76,7 @@ public class SceneFactoryImpl implements SceneFactory {
             e.printStackTrace();
         }
         loader.<View>getController().
-                setController(new GameSceneController(loader.getController()));
+                setController(SceneType.GAME_SCENE.getController());
         this.setControllerLevel(loader.<View>getController().getController());
         return root;
     }
@@ -92,7 +91,7 @@ public class SceneFactoryImpl implements SceneFactory {
             e.printStackTrace();
         }
         loader.<View>getController().
-                setController(new PauseSceneController(loader.getController()));
+                setController(SceneType.PAUSE_SCENE.getController());
         this.setControllerLevel(loader.<View>getController().getController());
         return root;
     }
@@ -107,7 +106,7 @@ public class SceneFactoryImpl implements SceneFactory {
             e.printStackTrace();
         }
         loader.<View>getController().
-                setController(new EndLevelSceneController(loader.getController()));
+                setController(SceneType.END_LEVEL_SCENE.getController());
         this.setControllerLevel(loader.<View>getController().getController());
         return root;
     }
@@ -122,7 +121,7 @@ public class SceneFactoryImpl implements SceneFactory {
             e.printStackTrace();
         }
         loader.<View>getController().
-                setController(new QuittingSceneController(loader.getController()));
+                setController(SceneType.QUITTING_SCENE.getController());
         this.setControllerLevel(loader.<View>getController().getController());
         return root;
     }

@@ -1,17 +1,16 @@
 package it.unibo.pyxis.view.scene;
 
-
-import it.unibo.pyxis.controller.controllers.Controller;
+import it.unibo.pyxis.controller.controllers.*;
 
 public enum SceneType {
 
-    MENU_SCENE("MenuScene", null),
-    SETTINGS_SCENE("SettingsScene", null),
-    SELECT_LEVEL_SCENE("SelectLevelScene", null),
-    GAME_SCENE("GameScene", null),
-    PAUSE_SCENE("PauseScene", null),
-    END_LEVEL_SCENE("EndLevelScene", null),
-    QUITTING_SCENE("QuittingScene", null);
+    MENU_SCENE("MenuScene", new MenuSceneController()),
+    SETTINGS_SCENE("SettingsScene", new SettingsSceneController()),
+    SELECT_LEVEL_SCENE("SelectLevelScene", new SelectLevelSceneController()),
+    GAME_SCENE("GameScene", new GameSceneController()),
+    PAUSE_SCENE("PauseScene", new PauseSceneController()),
+    END_LEVEL_SCENE("EndLevelScene", new EndLevelSceneController()),
+    QUITTING_SCENE("QuittingScene", new QuittingSceneController());
 
     private final String name;
     private final Controller controller;

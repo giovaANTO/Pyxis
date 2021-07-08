@@ -13,6 +13,7 @@ public class SceneLoaderImpl implements SceneLoader {
     public SceneLoaderImpl(final Stage inputStage, final SceneType inputSceneType, final Level inputLevel) {
         this.level = inputLevel;
         this.sceneFactory = new SceneFactoryImpl(inputLevel);
+        this.switchScene(inputStage, inputSceneType);
     }
 
     @Override
@@ -55,7 +56,6 @@ public class SceneLoaderImpl implements SceneLoader {
             default:
                 throw new IllegalArgumentException();
         }
-        //Dobbiamo capire come legare il livello al controller della view di questa scena.
         return new Scene(root);
     }
 }

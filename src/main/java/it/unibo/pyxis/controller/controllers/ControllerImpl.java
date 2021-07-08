@@ -8,10 +8,6 @@ public abstract class ControllerImpl implements Controller {
     private Level level;
     private View view;
 
-    ControllerImpl(final View inputView) {
-        this.view = inputView;
-    }
-
     @Override
     public final Level getLevel() {
         return this.level;
