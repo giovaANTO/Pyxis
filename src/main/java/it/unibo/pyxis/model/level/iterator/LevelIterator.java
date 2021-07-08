@@ -4,23 +4,18 @@ import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.loader.LevelLoader;
 import it.unibo.pyxis.model.level.loader.LevelLoaderImpl;
 
-import java.net.URL;
 import java.util.Iterator;
 
 public final class LevelIterator implements Iterator<Level> {
 
     private static final int STARTING_LEVEL = 1;
+    private static final int FINAL_LEVEL = 2;
 
     private final LevelLoader loader;
     private int currentLevel;
-
-    public  LevelIterator(final URL confDirUrl, final int startingLevel) {
-        this.loader = new LevelLoaderImpl(confDirUrl);
-        this.currentLevel = startingLevel;
-    }
-
+    
     public LevelIterator(final String levelDirectory, final int startingLevel) {
-        this.loader = new LevelLoaderImpl(ClassLoader.getSystemResource(levelDirectory));
+        this.loader = new LevelLoaderImpl(levelDirectory);
         this.currentLevel = startingLevel;
     }
 
@@ -30,8 +25,7 @@ public final class LevelIterator implements Iterator<Level> {
 
     @Override
     public boolean hasNext() {
-        System.out.println(this.loader.getFilesCount());
-        return this.currentLevel <= this.loader.getFilesCount();
+        return this.currentLevel <= FINAL_LEVEL;
     }
 
     @Override
