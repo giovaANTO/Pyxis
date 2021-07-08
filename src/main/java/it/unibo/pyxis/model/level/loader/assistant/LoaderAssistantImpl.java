@@ -8,11 +8,14 @@ import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickImpl;
 import it.unibo.pyxis.model.element.brick.BrickType;
+import it.unibo.pyxis.model.element.pad.Pad;
+import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.LevelImpl;
 import it.unibo.pyxis.model.level.loader.skeleton.ball.BallSkeleton;
 import it.unibo.pyxis.model.level.loader.skeleton.level.LevelSkeleton;
 import it.unibo.pyxis.model.level.loader.skeleton.brick.BrickSkeleton;
+import it.unibo.pyxis.model.level.loader.skeleton.pad.PadSkeleton;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.DimensionImpl;
@@ -46,8 +49,19 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
         }
         if (!Objects.isNull(ballSkeletonSet)) {
            ballSkeletonSet.forEach(bls -> outputArena.addBall(this.ballFromSkeleton(bls)));
+        } else {
+            outputArena.addDefaultBall();
+        }
+        if (!Objects.isNull(skeleton.getPad())) {
+            outputArena.setPad(this.padFromSkeleton(skeleton.getPad()));
+        } else {
+            outputArena.setDefaultPad();
         }
         return outputArena;
+    }
+
+    private Pad padFromSkeleton(final PadSkeleton skeleton) {
+        return new PadImpl(new CoordImpl(skeleton.getX(), skeleton.getY()));
     }
 
     /**
