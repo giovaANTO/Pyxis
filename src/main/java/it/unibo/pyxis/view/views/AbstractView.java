@@ -22,6 +22,6 @@ public abstract class AbstractView implements View {
     }
 
     @Override
-    public void render(final Level inputLevel) { }
+    public void render() { }
 
 }

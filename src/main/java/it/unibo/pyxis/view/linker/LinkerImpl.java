@@ -103,7 +103,7 @@ public class LinkerImpl implements Linker {
 
     @Override
     public final void render() {
-        this.currentController.getView().render(this.gameState.getCurrentLevel());
+        this.currentController.getView().render();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.Controller;
-import it.unibo.pyxis.model.level.Level;
 
 public interface View {
 
@@ -11,5 +10,5 @@ public interface View {
 
     void init();
 
-    void render(Level level);
+    void render();
 }
