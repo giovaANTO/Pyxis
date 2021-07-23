@@ -7,10 +7,22 @@ import javafx.stage.Stage;
 
 public class SceneLoaderImpl implements SceneLoader {
 
-    private final SceneLoading sceneLoading;
-    private final Stage stage;
+    private SceneLoading sceneLoading;
+    private Stage stage;
 
-    public SceneLoaderImpl(final Stage inputStage, final Level inputLevel) {
+    private SceneLoaderImpl() {
+    }
+
+    public static SceneLoader getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    private static final class Holder {
+        private static final SceneLoader INSTANCE = new SceneLoaderImpl();
+    }
+
+    @Override
+    public void init(final Stage inputStage, final Level inputLevel) {
         this.sceneLoading = new SceneLoadingImpl(inputLevel);
         this.stage = inputStage;
     }
