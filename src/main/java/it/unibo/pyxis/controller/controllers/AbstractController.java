@@ -1,7 +1,7 @@
 package it.unibo.pyxis.controller.controllers;
 
 import it.unibo.pyxis.model.level.Level;
-import it.unibo.pyxis.view.linker.Linker;
+import it.unibo.pyxis.controller.linker.Linker;
 import it.unibo.pyxis.view.views.View;
 
 public abstract class AbstractController implements Controller {

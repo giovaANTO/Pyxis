@@ -32,7 +32,6 @@ public class SceneLoaderImpl implements SceneLoader {
     }
 
     private Scene loadNewScene(final SceneType inputSceneType) {
-        System.out.println(inputSceneType);
         return new Scene(this.sceneLoading.getScene(inputSceneType));
     }
 }

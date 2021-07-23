@@ -1,4 +1,4 @@
-package it.unibo.pyxis.view.linker;
+package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.controllers.Controller;
 import it.unibo.pyxis.controller.engine.GameLoop;
@@ -59,12 +59,12 @@ public class LinkerImpl implements Linker {
         this.gameState.setState(StateEnum.RUN);
     }
 
+    @Override
     public final void switchScene(final SceneType inputSceneType) {
         this.sceneLoader.switchScene(inputSceneType);
         this.setCurrentController();
     }
 
-    @Override
     public final void createGameState() {
         this.gameState = new GameStateImpl();
     }
@@ -74,24 +74,16 @@ public class LinkerImpl implements Linker {
         return this.gameState;
     }
 
-    @Override
-    public final void createGameLoop() {
+    private void createGameLoop() {
         this.gameLoop = new GameLoopImpl();
         this.gameLoop.start();
     }
 
-    @Override
     public final void createSceneLoader() {
         this.sceneLoader = this.loaderManager.getInstance();
     }
 
-    @Override
-    public final SceneLoader getSceneLoader() {
-        return this.sceneLoader;
-    }
-
-    @Override
-    public final void setCurrentController() {
+    private void setCurrentController() {
         this.currentController = this.sceneLoader.getCurrentController();
         this.currentController.setLinker(this);
     }
