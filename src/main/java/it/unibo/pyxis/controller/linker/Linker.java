@@ -26,5 +26,5 @@ public interface Linker {
 
     void handleCommandControl();
 
-    void handleFastCommand();
+    void handleApplicationCommand();
 }
