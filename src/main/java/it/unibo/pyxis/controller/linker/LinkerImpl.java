@@ -6,10 +6,7 @@ import it.unibo.pyxis.controller.engine.GameLoopImpl;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
-import it.unibo.pyxis.view.scene.LoaderManager;
-import it.unibo.pyxis.view.scene.LoaderManagerImpl;
-import it.unibo.pyxis.view.scene.SceneLoader;
-import it.unibo.pyxis.view.scene.SceneType;
+import it.unibo.pyxis.view.scene.*;
 import javafx.stage.Stage;
 
 public class LinkerImpl implements Linker {
@@ -17,12 +14,10 @@ public class LinkerImpl implements Linker {
     private GameState gameState;
     private GameLoop gameLoop;
     private SceneLoader sceneLoader;
-    private final LoaderManager loaderManager;
     private Controller currentController;
     private final Stage stage;
 
     public LinkerImpl(final Stage inputStage) {
-        this.loaderManager = new LoaderManagerImpl();
         this.stage = inputStage;
     }
 
@@ -30,8 +25,8 @@ public class LinkerImpl implements Linker {
     public final void start() {
         this.createGameState();
         this.createGameLoop();
-        this.loaderManager.setInstance(this.stage, this.gameState.getCurrentLevel());
-        this.createSceneLoader();
+        this.sceneLoader = SceneLoaderImpl.getInstance();
+        this.sceneLoader.init(this.stage, this.gameState.getCurrentLevel());
         this.switchScene(SceneType.MENU_SCENE);
         this.stage.setOnCloseRequest(event -> {
             this.quit();
@@ -82,10 +77,6 @@ public class LinkerImpl implements Linker {
     private void createGameLoop() {
         this.gameLoop = new GameLoopImpl(this.gameState);
         this.gameLoop.start();
-    }
-
-    public final void createSceneLoader() {
-        this.sceneLoader = this.loaderManager.getInstance();
     }
 
     private void setCurrentController() {
