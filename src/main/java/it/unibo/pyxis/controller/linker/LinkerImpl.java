@@ -34,7 +34,6 @@ public class LinkerImpl implements Linker {
         this.createSceneLoader();
         this.switchScene(SceneType.MENU_SCENE);
         this.stage.setOnCloseRequest(event -> {
-            // Save file
             this.quit();
         });
     }
