@@ -6,7 +6,9 @@ import it.unibo.pyxis.controller.engine.GameLoopImpl;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
-import it.unibo.pyxis.view.scene.*;
+import it.unibo.pyxis.view.scene.SceneLoader;
+import it.unibo.pyxis.view.scene.SceneLoaderImpl;
+import it.unibo.pyxis.view.scene.SceneType;
 import javafx.stage.Stage;
 
 public class LinkerImpl implements Linker {
