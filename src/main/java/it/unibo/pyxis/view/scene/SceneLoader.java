@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 
 public interface SceneLoader {
 
+    void init(Stage inputStage, Level inputLevel);
+
     void switchScene(SceneType sceneType);
 
     void setLevel(Level level);

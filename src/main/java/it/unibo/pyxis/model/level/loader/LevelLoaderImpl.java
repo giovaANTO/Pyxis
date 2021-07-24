@@ -12,6 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.InputStream;
+import java.util.Formatter;
 
 public final class LevelLoaderImpl implements LevelLoader {
 
@@ -22,8 +23,7 @@ public final class LevelLoaderImpl implements LevelLoader {
         this.configurationDirectory = configurationDirectory;
         this.loaderAssistant = new LoaderAssistantImpl();
     }
-
-
+    
     @Override
     public Level fromFile(final String filename) {
         return loaderAssistant.createLevel(this.skeletonFromFile(filename));
@@ -52,7 +52,7 @@ public final class LevelLoaderImpl implements LevelLoader {
     }
 
     private String getFilePath(final String filename) {
-        final String separator = System.getProperty("file.separator");
-        return  separator + this.configurationDirectory + separator + filename;
+        final Formatter formatter = new Formatter();
+        return formatter.format("/%s/%s", this.configurationDirectory, filename).toString();
     }
 }

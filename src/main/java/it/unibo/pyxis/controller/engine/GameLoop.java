@@ -1,5 +1,7 @@
 package it.unibo.pyxis.controller.engine;
 
+import it.unibo.pyxis.controller.command.GameCommand;
+
 public interface GameLoop {
     /**
      * Refresh the current graphic view drawing the {@link it.unibo.pyxis.model.element.Element}
@@ -23,4 +25,11 @@ public interface GameLoop {
      * Start the game loop.
      */
     void start();
+
+    /**
+     * Add a command in the queue.
+     * @param command
+     *                The command to add in the queue.
+     */
+    void addCommand(GameCommand command);
 }

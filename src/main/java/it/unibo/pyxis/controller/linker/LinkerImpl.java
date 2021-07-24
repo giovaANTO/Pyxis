@@ -1,4 +1,4 @@
-package it.unibo.pyxis.view.linker;
+package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.controllers.Controller;
 import it.unibo.pyxis.controller.engine.GameLoop;
@@ -6,9 +6,8 @@ import it.unibo.pyxis.controller.engine.GameLoopImpl;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
-import it.unibo.pyxis.view.scene.LoaderManager;
-import it.unibo.pyxis.view.scene.LoaderManagerImpl;
 import it.unibo.pyxis.view.scene.SceneLoader;
+import it.unibo.pyxis.view.scene.SceneLoaderImpl;
 import it.unibo.pyxis.view.scene.SceneType;
 import javafx.stage.Stage;
 
@@ -17,12 +16,10 @@ public class LinkerImpl implements Linker {
     private GameState gameState;
     private GameLoop gameLoop;
     private SceneLoader sceneLoader;
-    private final LoaderManager loaderManager;
     private Controller currentController;
     private final Stage stage;
 
     public LinkerImpl(final Stage inputStage) {
-        this.loaderManager = new LoaderManagerImpl();
         this.stage = inputStage;
     }
 
@@ -30,9 +27,12 @@ public class LinkerImpl implements Linker {
     public final void start() {
         this.createGameState();
         this.createGameLoop();
-        this.loaderManager.setInstance(this.stage, this.gameState.getCurrentLevel());
-        this.createSceneLoader();
+        this.sceneLoader = SceneLoaderImpl.getInstance();
+        this.sceneLoader.init(this.stage, this.gameState.getCurrentLevel());
         this.switchScene(SceneType.MENU_SCENE);
+        this.stage.setOnCloseRequest(event -> {
+            this.quit();
+        });
     }
 
     @Override
@@ -44,6 +44,8 @@ public class LinkerImpl implements Linker {
     @Override
     public final void quit() {
         this.gameState.setState(StateEnum.STOP);
+        this.gameState.getCurrentLevel().getArena().cleanup();
+        this.stage.close();
     }
 
     @Override
@@ -59,12 +61,12 @@ public class LinkerImpl implements Linker {
         this.gameState.setState(StateEnum.RUN);
     }
 
+    @Override
     public final void switchScene(final SceneType inputSceneType) {
         this.sceneLoader.switchScene(inputSceneType);
         this.setCurrentController();
     }
 
-    @Override
     public final void createGameState() {
         this.gameState = new GameStateImpl();
     }
@@ -74,24 +76,12 @@ public class LinkerImpl implements Linker {
         return this.gameState;
     }
 
-    @Override
-    public final void createGameLoop() {
-        this.gameLoop = new GameLoopImpl();
+    private void createGameLoop() {
+        this.gameLoop = new GameLoopImpl(this.gameState);
         this.gameLoop.start();
     }
 
-    @Override
-    public final void createSceneLoader() {
-        this.sceneLoader = this.loaderManager.getInstance();
-    }
-
-    @Override
-    public final SceneLoader getSceneLoader() {
-        return this.sceneLoader;
-    }
-
-    @Override
-    public final void setCurrentController() {
+    private void setCurrentController() {
         this.currentController = this.sceneLoader.getCurrentController();
         this.currentController.setLinker(this);
     }
@@ -103,7 +93,7 @@ public class LinkerImpl implements Linker {
 
     @Override
     public final void render() {
-        this.currentController.getView().render(this.gameState.getCurrentLevel());
+        this.currentController.getView().render();
     }
 
     @Override
@@ -112,7 +102,7 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public void handleFastCommand() {
+    public void handleApplicationCommand() {
 
     }
 }

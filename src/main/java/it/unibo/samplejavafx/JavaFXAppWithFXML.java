@@ -1,10 +1,8 @@
 package it.unibo.samplejavafx;
 
-import it.unibo.pyxis.view.linker.Linker;
-import it.unibo.pyxis.view.linker.LinkerImpl;
+import it.unibo.pyxis.controller.linker.Linker;
+import it.unibo.pyxis.controller.linker.LinkerImpl;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

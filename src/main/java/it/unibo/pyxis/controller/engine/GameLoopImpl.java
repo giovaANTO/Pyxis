@@ -2,9 +2,7 @@ package it.unibo.pyxis.controller.engine;
 
 import it.unibo.pyxis.controller.command.GameCommand;
 import it.unibo.pyxis.model.state.GameState;
-import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
-
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -19,8 +17,8 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     private int fps = 0;
     private int ups = 0;
 
-    public GameLoopImpl() {
-        this.gameState = new GameStateImpl();
+    public GameLoopImpl(final GameState inputGameState) {
+        this.gameState = inputGameState;
         this.commandQueue = new ArrayBlockingQueue<GameCommand>(MAX_COMMANDS);
     }
 
@@ -78,5 +76,10 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             final GameCommand nextCommand = this.commandQueue.poll();
             nextCommand.execute(this.gameState.getCurrentLevel());
         }
+    }
+
+    @Override
+    public void addCommand(final GameCommand command) {
+        this.commandQueue.add(command);
     }
 }

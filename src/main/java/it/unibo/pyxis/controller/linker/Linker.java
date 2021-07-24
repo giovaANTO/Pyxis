@@ -1,8 +1,7 @@
-package it.unibo.pyxis.view.linker;
+package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.controllers.Controller;
 import it.unibo.pyxis.model.state.GameState;
-import it.unibo.pyxis.view.scene.SceneLoader;
 import it.unibo.pyxis.view.scene.SceneType;
 
 public interface Linker {
@@ -19,17 +18,7 @@ public interface Linker {
 
     void switchScene(SceneType sceneType);
 
-    void createGameState();
-
     GameState getGameState();
-
-    void createGameLoop();
-
-    void createSceneLoader();
-
-    SceneLoader getSceneLoader();
-
-    void setCurrentController();
 
     Controller getCurrentController();
 
@@ -37,5 +26,5 @@ public interface Linker {
 
     void handleCommandControl();
 
-    void handleFastCommand();
+    void handleApplicationCommand();
 }
