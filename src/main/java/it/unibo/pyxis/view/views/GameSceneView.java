@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.*;
-public class GameSceneView extends AbstractView {
+public class GameSceneView extends AbstractJavaFXView {
 
     @FXML
     private AnchorPane mainPane;

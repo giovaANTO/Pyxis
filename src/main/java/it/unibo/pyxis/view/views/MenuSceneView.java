@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MenuSceneView extends AbstractView {
+public class MenuSceneView extends AbstractJavaFXView {
 
     @FXML
     private AnchorPane menuPane;

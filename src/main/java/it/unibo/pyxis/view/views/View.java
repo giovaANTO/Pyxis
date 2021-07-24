@@ -1,9 +1,8 @@
 package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.Controller;
-import javafx.fxml.Initializable;
 
-public interface View extends Initializable {
+public interface View {
 
     Controller getController();
 
