@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class MenuSceneView extends AbstractView {
 
     @FXML
@@ -15,9 +18,6 @@ public class MenuSceneView extends AbstractView {
     @FXML
     private ImageView menuImageView;
 
-    @Override
-    public final void init() {
-    }
 
     public final void startNewGame() {
         MenuSceneController controller = (MenuSceneController) this.getController();
@@ -34,5 +34,10 @@ public class MenuSceneView extends AbstractView {
     public final void quit() {
         MenuSceneController controller = (MenuSceneController) this.getController();
         controller.quit();
+    }
+
+    @Override
+    public void initialize(final URL location, final ResourceBundle resources) {
+
     }
 }
