@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="menuPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.pyxis.view.views.MenuSceneView">
+<AnchorPane fx:id="menuPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.pyxis.view.views.MenuSceneView">
    <children>
       <Button fx:id="newGameButton" layoutX="70.0" layoutY="250.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="26.0" prefWidth="191.0" text="New Game" textFill="#1a00ff" />
       <Button fx:id="settingsButton" layoutX="70.0" layoutY="318.0" mnemonicParsing="false" onAction="#showSettings" prefHeight="26.0" prefWidth="191.0" text="Settings" textFill="#1a00ff" />
