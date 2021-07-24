@@ -1,11 +1,15 @@
 package it.unibo.pyxis.view.views;
 
+
 import it.unibo.pyxis.controller.controllers.SettingsSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
-public class SettingsSceneView extends AbstractView {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class SettingsSceneView extends AbstractJavaFXView {
 
     @FXML
     private AnchorPane menuPane;
@@ -13,7 +17,8 @@ public class SettingsSceneView extends AbstractView {
     private Button backButton;
 
     @Override
-    public final void init() {
+    public void initialize(final URL location, final ResourceBundle resources) {
+
     }
 
     public final void backToMainMenu() {
