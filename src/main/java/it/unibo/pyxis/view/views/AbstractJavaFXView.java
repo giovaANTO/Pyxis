@@ -1,9 +1,9 @@
 package it.unibo.pyxis.view.views;
 
-
 import it.unibo.pyxis.controller.controllers.Controller;
+import javafx.fxml.Initializable;
 
-public abstract class AbstractView implements View {
+public abstract class AbstractJavaFXView implements View, Initializable {
 
     private Controller controller;
 
@@ -19,5 +19,4 @@ public abstract class AbstractView implements View {
 
     @Override
     public void render() { }
-
 }

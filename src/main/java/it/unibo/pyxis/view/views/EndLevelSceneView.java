@@ -1,9 +1,12 @@
 package it.unibo.pyxis.view.views;
 
-public class EndLevelSceneView  extends AbstractView {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class EndLevelSceneView  extends AbstractJavaFXView {
 
     @Override
-    public void init() {
+    public void initialize(final URL location, final ResourceBundle resources) {
 
     }
 }

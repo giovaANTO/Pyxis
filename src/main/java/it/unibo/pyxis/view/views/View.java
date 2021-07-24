@@ -8,7 +8,5 @@ public interface View {
 
     void setController(Controller controller);
 
-    void init();
-
     void render();
 }

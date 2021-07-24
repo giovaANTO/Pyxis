@@ -1,9 +1,12 @@
 package it.unibo.pyxis.view.views;
 
-public class PauseSceneView  extends AbstractView {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PauseSceneView  extends AbstractJavaFXView {
 
     @Override
-    public void init() {
+    public void initialize(final URL location, final ResourceBundle resources) {
 
     }
 }
