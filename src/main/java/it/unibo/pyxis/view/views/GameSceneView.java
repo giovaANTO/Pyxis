@@ -1,9 +1,23 @@
 package it.unibo.pyxis.view.views;
 
-public class GameSceneView  extends AbstractView {
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+
+public class GameSceneView extends AbstractView {
+
+    @FXML
+    private AnchorPane mainPane;
+
+    @FXML
+    private AnchorPane gamePane;
+
+    @FXML
+    private Label livesText, currentLives, scoreText, currentScore, levelText, currentLevel;
 
     @Override
-    public void init() {
-
+    public final void init() {
     }
+
+
 }
