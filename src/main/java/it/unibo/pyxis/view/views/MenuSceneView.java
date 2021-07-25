@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MenuSceneView extends AbstractJavaFXView {
+public class MenuSceneView extends AbstractJavaFXView<MenuSceneController> {
 
     private static final Double SCALE_FACTOR = 1.5;
 
@@ -43,20 +43,16 @@ public class MenuSceneView extends AbstractJavaFXView {
     }
 
     public final void startNewGame() {
-        MenuSceneController controller = (MenuSceneController) this.getController();
-        controller.startNewGame();
+        this.getController().startNewGame();
     }
     public final void showSettings() {
-        MenuSceneController controller = (MenuSceneController) this.getController();
-        controller.showSettings();
+        this.getController().showSettings();
     }
     public final void selectLevels() {
-        MenuSceneController controller = (MenuSceneController) this.getController();
-        controller.selectLevel();
+        this.getController().selectLevel();
     }
     public final void quit() {
-        MenuSceneController controller = (MenuSceneController) this.getController();
-        controller.quit();
+        this.getController().quit();
     }
 
 

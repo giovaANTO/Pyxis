@@ -3,17 +3,17 @@ package it.unibo.pyxis.view.views;
 import it.unibo.pyxis.controller.controllers.Controller;
 import javafx.fxml.Initializable;
 
-public abstract class AbstractJavaFXView implements View, Initializable {
+public abstract class AbstractJavaFXView<C extends Controller> implements View<C>, Initializable {
 
-    private Controller controller;
+    private C controller;
 
     @Override
-    public final Controller getController() {
+    public final C getController() {
         return this.controller;
     }
 
     @Override
-    public final void setController(final Controller inputController) {
+    public final void setController(final C inputController) {
         this.controller = inputController;
     }
 

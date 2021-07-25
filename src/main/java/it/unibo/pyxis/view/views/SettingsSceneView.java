@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SettingsSceneView extends AbstractJavaFXView {
+public class SettingsSceneView extends AbstractJavaFXView<SettingsSceneController> {
 
     @FXML
     private AnchorPane menuPane;
@@ -18,11 +18,9 @@ public class SettingsSceneView extends AbstractJavaFXView {
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-
     }
 
     public final void backToMainMenu() {
-        SettingsSceneController controller = (SettingsSceneController) this.getController();
-        controller.backToMainMenu();
+        this.getController().backToMainMenu();
     }
 }
