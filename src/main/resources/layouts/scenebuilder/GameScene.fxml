@@ -5,11 +5,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.pyxis.view.views.GameSceneView">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.pyxis.view.views.GameSceneView">
    <children>
       <AnchorPane layoutX="125.0" prefHeight="400.0" prefWidth="350.0">
          <children>
-            <Canvas fx:id="canvas"  height="400.0" width="350.0" />
+            <Canvas fx:id="canvas" height="400.0" width="350.0" />
          </children>
       </AnchorPane>
       <Label layoutX="497.0" layoutY="332.0" text="CURRENT LIVES" />
@@ -18,5 +18,7 @@
       <Label layoutX="44.0" layoutY="41.0" text="NN" />
       <Label layoutX="496.0" layoutY="23.0" text="CURRENT LEVEL" />
       <Label layoutX="529.0" layoutY="41.0" text="NM" />
+      <Button layoutX="27.0" layoutY="217.0" mnemonicParsing="false" onAction="#render" text="Render" />
+      <Button layoutX="28.0" layoutY="174.0" mnemonicParsing="false" onAction="#initBottone" prefHeight="26.0" prefWidth="54.0" text="Init" />
    </children>
 </AnchorPane>
