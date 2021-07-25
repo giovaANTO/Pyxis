@@ -29,10 +29,8 @@ public class MenuSceneView extends AbstractJavaFXView<MenuSceneController> {
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-
         vBox.prefWidthProperty().bind(mainPane.prefWidthProperty());
         vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
-
 
         newGameButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);
         settingsButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);

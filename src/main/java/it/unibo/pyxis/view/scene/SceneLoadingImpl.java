@@ -55,7 +55,7 @@ public class SceneLoadingImpl implements SceneLoading {
                         + SECOND_ROOT_PATH));
     }
 
-    private void setLevelAndController(final View inputView, final Controller inputController) {
+    private <C extends Controller> void setLevelAndController(final View<C> inputView, final C inputController) {
         inputController.setView(inputView);
         inputController.setLevel(this.level);
         inputView.setController(inputController);
