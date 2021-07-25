@@ -7,7 +7,7 @@ import it.unibo.pyxis.view.views.View;
 public abstract class AbstractController implements Controller {
 
     private Level level;
-    private View view;
+    private Object view;
     private Linker linker;
 
     @Override
@@ -21,12 +21,12 @@ public abstract class AbstractController implements Controller {
     }
 
     @Override
-    public final View getView() {
-        return this.view;
+    public final View<? extends Controller> getView() {
+        return (View<?>) this.view;
     }
 
     @Override
-    public final void setView(final View inputView) {
+    public final void setView(final View<? extends  Controller> inputView) {
         this.view = inputView;
     }
 
