@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.*;
 
-public class GameSceneView extends AbstractJavaFXView<GameSceneController> {
+public final class GameSceneView extends AbstractJavaFXView<GameSceneController> {
 
     @FXML
     private AnchorPane mainPane;

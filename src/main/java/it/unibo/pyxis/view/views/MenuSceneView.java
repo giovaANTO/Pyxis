@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MenuSceneView extends AbstractJavaFXView<MenuSceneController> {
+public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController> {
 
     private static final Double SCALE_FACTOR = 1.5;
 
