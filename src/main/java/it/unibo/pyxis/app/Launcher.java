@@ -20,7 +20,7 @@ public final class Launcher extends Application {
         primaryStage.setHeight(height / WINDOW_SCALE_FACTOR);
         primaryStage.setWidth(width / WINDOW_SCALE_FACTOR);
         Linker linker = new LinkerImpl(primaryStage);
-        linker.start();
+        linker.init();
     }
 
     public static void run(final String[] args) {
