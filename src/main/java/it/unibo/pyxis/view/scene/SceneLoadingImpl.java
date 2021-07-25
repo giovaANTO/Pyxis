@@ -5,11 +5,15 @@ import it.unibo.pyxis.view.views.View;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import it.unibo.pyxis.controller.controllers.*;
+
+import java.io.File;
 import java.io.IOException;
 
 public class SceneLoadingImpl implements SceneLoading {
 
-    private static final String FIRST_ROOT_PATH = "layouts/scenebuilder/";
+    private static final String SEPARATOR = File.separator;
+    private static final String FIRST_ROOT_PATH = "layouts" + SEPARATOR + "scenebuilder"
+            + SEPARATOR;
     private static final String SECOND_ROOT_PATH = ".fxml";
     private Level level;
     private Controller currentController;
@@ -44,6 +48,8 @@ public class SceneLoadingImpl implements SceneLoading {
     }
 
     private FXMLLoader getFxLoader(final SceneType inputScene) {
+        System.out.println(FIRST_ROOT_PATH + inputScene.getName()
+                + SECOND_ROOT_PATH);
         return new FXMLLoader(ClassLoader.
                 getSystemResource(FIRST_ROOT_PATH + inputScene.getName()
                         + SECOND_ROOT_PATH));
