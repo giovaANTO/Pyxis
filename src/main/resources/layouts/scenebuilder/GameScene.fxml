@@ -19,6 +19,5 @@
       <Label layoutX="496.0" layoutY="23.0" text="CURRENT LEVEL" />
       <Label layoutX="529.0" layoutY="41.0" text="NM" />
       <Button layoutX="27.0" layoutY="217.0" mnemonicParsing="false" onAction="#render" text="Render" />
-      <Button layoutX="28.0" layoutY="174.0" mnemonicParsing="false" onAction="#initBottone" prefHeight="26.0" prefWidth="54.0" text="Init" />
    </children>
 </AnchorPane>
