@@ -4,29 +4,30 @@ import it.unibo.pyxis.controller.controllers.GameSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import it.unibo.pyxis.view.drawer.GameCanvasDrawer;
+import it.unibo.pyxis.view.drawer.GameArenaDrawer;
 
 public final class GameSceneView extends AbstractJavaFXView<GameSceneController> implements RenderableView {
 
     @FXML
-    private Canvas canvas;
+    private AnchorPane arenaPane;
 
     @FXML
     private Label currentLives, currentScore, currentLevel;
 
-    private GameCanvasDrawer drawer;
+    private GameArenaDrawer drawer;
 
     public GameSceneView(final GameSceneController inputController) {
         super(inputController);
     }
 
     public void initialize(final URL location, final ResourceBundle resources) {
-        this.drawer = new GameCanvasDrawer(this.canvas.getGraphicsContext2D(),
-                    this.canvas.getWidth() / this.getController().getArenaWidth(),
-                    this.canvas.getHeight() / this.getController().getArenaHeight());
+        this.drawer = new GameArenaDrawer(arenaPane,
+                    this.arenaPane.getPrefWidth() / this.getController().getArenaWidth(),
+                    this.arenaPane.getPrefHeight() / this.getController().getArenaHeight());
     }
 
     public void back() {
@@ -42,5 +43,8 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.drawer.fillPad(this.getController().getPad());
     }
 
+    public void clear() {
+        arenaPane.getChildren().clear();
+    }
 
 }

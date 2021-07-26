@@ -1,5 +1,7 @@
 package it.unibo.pyxis.view.drawer;
 
+import java.io.File;
+
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.pad.Pad;
@@ -8,16 +10,24 @@ import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
-public class GameCanvasDrawer {
+public class GameArenaDrawer {
 
-    private final GraphicsContext gc;
+    private static final String SEPARATOR = File.separator;
+    private static final String SPRITES_PATH = "sprites" + SEPARATOR;
+    private static final String BRICK_END_PATH = "BRICK.png";
+    private static final String BALL_END_PATH = "BALL.png";
+
+    private final AnchorPane arenaPane;
     private final double xCanvasScaleFactor;
     private final double yCanvasScaleFactor;
 
-    public GameCanvasDrawer(final GraphicsContext gc, final double xCanvasScaleFactor, final double yCanvasScaleFactor) {
-        this.gc = gc;
+    public GameArenaDrawer(final AnchorPane arenaPane, final double xCanvasScaleFactor, final double yCanvasScaleFactor) {
+        this.arenaPane = arenaPane;
         this.xCanvasScaleFactor = xCanvasScaleFactor;
         this.yCanvasScaleFactor = yCanvasScaleFactor;
     }
@@ -26,24 +36,29 @@ public class GameCanvasDrawer {
         final Coord scaledPosition = modelToViewPositionScale(position, dimension);
         final Dimension scaledDimension = modelToViewDimensionScale(dimension);
 
-        gc.setFill(Color.valueOf(type.getTypeString()));
-        gc.fillRect(scaledPosition.getX(), scaledPosition.getY(), scaledDimension.getWidth(), scaledDimension.getHeight());
+        final ImageView imageView = new ImageView(new Image(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + type.getTypeString() + BRICK_END_PATH)));
+        imageView.setX(scaledPosition.getX());
+        imageView.setY(scaledPosition.getY());
+        imageView.setFitWidth(scaledDimension.getWidth());
+        imageView.setFitHeight(scaledDimension.getHeight());
+        arenaPane.getChildren().add(imageView);
     }
 
     public void fillBall(final Coord position, final Dimension dimension, final BallType type) {
         final Coord scaledPosition = modelToViewPositionScale(position, dimension);
         final Dimension scaledDimension = modelToViewDimensionScale(dimension);
 
-        gc.setFill(Color.AQUA);
-        gc.fillOval(scaledPosition.getX(), scaledPosition.getY(), scaledDimension.getWidth(), scaledDimension.getHeight());
+        final ImageView imageView = new ImageView(new Image(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + type.getType() + BALL_END_PATH)));
+        imageView.setX(scaledPosition.getX());
+        imageView.setY(scaledPosition.getY());
+        imageView.setFitWidth(scaledDimension.getWidth());
+        imageView.setFitHeight(scaledDimension.getHeight());
+        arenaPane.getChildren().add(imageView);
     }
 
     public void fillPad(final Pad pad) {
         final Coord scaledPosition = modelToViewPositionScale(pad.getPosition(), pad.getDimension());
         final Dimension scaledDimension = modelToViewDimensionScale(pad.getDimension());
-
-        gc.setFill(Color.BLACK);
-        gc.fillRect(scaledPosition.getX(), scaledPosition.getY(), scaledDimension.getWidth(), scaledDimension.getHeight());
     }
 
     private Coord modelToViewPositionScale(final Coord position, final Dimension dimension) {
