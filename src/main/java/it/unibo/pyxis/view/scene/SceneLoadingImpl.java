@@ -33,7 +33,8 @@ public class SceneLoadingImpl implements SceneLoading {
         loader.setControllerFactory(param -> {
             Object viewController;
             try {
-                viewController = param.getConstructor(this.currentController.getClass()).newInstance(this.currentController);
+                Class<?> currentControllerClass = this.currentController.getClass();
+                viewController = param.getConstructor(currentControllerClass).newInstance(this.currentController);
             } catch (ReflectiveOperationException ex) {
                 throw new RuntimeException(ex);
             }
