@@ -9,31 +9,31 @@ import it.unibo.pyxis.model.element.pad.Pad;
 public class GameSceneController extends AbstractController {
 
     public final Set<Brick> getBricks() {
-        return this.getLevel().getArena().getBricks();
+        return this.getLinker().getGameState().getCurrentLevel().getArena().getBricks();
     }
 
     public final Set<Ball> getBalls() {
-        return this.getLevel().getArena().getBalls();
+        return this.getLinker().getGameState().getCurrentLevel().getArena().getBalls();
     }
 
     public final Pad getPad() {
-        return this.getLevel().getArena().getPad();
+        return this.getLinker().getGameState().getCurrentLevel().getArena().getPad();
     }
 
     public final Double getArenaWidth() {
-        return this.getLevel().getArena().getDimension().getWidth();
+        return this.getLinker().getGameState().getCurrentLevel().getArena().getDimension().getWidth();
     }
 
     public final Double getArenaHeight() {
-        return this.getLevel().getArena().getDimension().getHeight();
+        return this.getLinker().getGameState().getCurrentLevel().getArena().getDimension().getHeight();
     }
 
     public final Integer getLives() {
-        return this.getLevel().getLives();
+        return this.getLinker().getGameState().getCurrentLevel().getLives();
     }
 
     public final Integer getScore() {
-        return this.getLevel().getScore();
+        return this.getLinker().getGameState().getCurrentLevel().getScore();
     }
 
 //    public final Integer getLevelNumber() {
