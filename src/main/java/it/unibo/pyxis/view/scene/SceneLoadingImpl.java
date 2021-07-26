@@ -1,7 +1,6 @@
 package it.unibo.pyxis.view.scene;
 
 import it.unibo.pyxis.controller.controllers.Controller;
-import it.unibo.pyxis.controller.controllers.MenuSceneController;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.view.views.View;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +45,7 @@ public class SceneLoadingImpl implements SceneLoading {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.setLevelAndController(loader.getController(), this.currentController);
+        this.setupController(loader.getController(), this.currentController);
         return root;
     }
 
@@ -64,9 +63,8 @@ public class SceneLoadingImpl implements SceneLoading {
                         + SECOND_ROOT_PATH));
     }
 
-    private <C extends Controller> void setLevelAndController(final View<C> inputView, final C inputController) {
+    private <C extends Controller> void setupController(final View<C> inputView, final C inputController) {
         inputController.setView(inputView);
         inputController.setLevel(this.level);
-        inputView.setController(inputController);
     }
 }
