@@ -15,4 +15,8 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
     public void initialize(final URL location, final ResourceBundle resources) {
 
     }
+
+    public void back() {
+        this.getController().back();
+    }
 }

@@ -5,6 +5,7 @@ import java.util.Set;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.pad.Pad;
+import it.unibo.pyxis.view.scene.SceneType;
 
 public class GameSceneController extends AbstractController {
 
@@ -34,6 +35,10 @@ public class GameSceneController extends AbstractController {
 
     public final Integer getScore() {
         return this.getLinker().getGameState().getCurrentLevel().getScore();
+    }
+
+    public final void back() {
+        this.getLinker().switchScene(SceneType.MENU_SCENE);
     }
 
 //    public final Integer getLevelNumber() {

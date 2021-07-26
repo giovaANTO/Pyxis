@@ -24,21 +24,22 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     }
 
     public void initialize(final URL location, final ResourceBundle resources) {
-        final GameSceneController controller = this.getController();
         this.drawer = new GameCanvasDrawer(this.canvas.getGraphicsContext2D(),
-                    this.canvas.getWidth() / controller.getArenaWidth(),
-                    this.canvas.getHeight() / controller.getArenaHeight());
+                    this.canvas.getWidth() / this.getController().getArenaWidth(),
+                    this.canvas.getHeight() / this.getController().getArenaHeight());
+    }
+
+    public void back() {
+        this.getController().back();
     }
 
     @Override
     public void render() {
-        final GameSceneController controller = this.getController();
-
-        this.currentLives.setText(controller.getLives().toString());
-        this.currentScore.setText(controller.getScore().toString());
-        controller.getBricks().forEach(b -> this.drawer.fillBrick(b.getPosition(), b.getDimension(), b.getBrickType()));
-        controller.getBalls().forEach(b -> this.drawer.fillBall(b.getPosition(), b.getDimension(), b.getType()));
-        this.drawer.fillPad(controller.getPad());
+        this.currentLives.setText(this.getController().getLives().toString());
+        this.currentScore.setText(this.getController().getScore().toString());
+        this.getController().getBricks().forEach(b -> this.drawer.fillBrick(b.getPosition(), b.getDimension(), b.getBrickType()));
+        this.getController().getBalls().forEach(b -> this.drawer.fillBall(b.getPosition(), b.getDimension(), b.getType()));
+        this.drawer.fillPad(this.getController().getPad());
     }
 
 
