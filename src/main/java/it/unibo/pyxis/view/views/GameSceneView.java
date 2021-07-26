@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.*;
 
-public final class GameSceneView extends AbstractJavaFXView<GameSceneController> {
+public final class GameSceneView extends AbstractJavaFXView<GameSceneController> implements RenderableView {
 
     @FXML
     private AnchorPane mainPane;
@@ -36,5 +36,10 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(BLACK);
         gc.fillRect(50, 50, 100, 100);
+    }
+
+    @Override
+    public void render() {
+        // Render something in sync with the gameloop
     }
 }

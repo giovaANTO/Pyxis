@@ -9,6 +9,7 @@ import it.unibo.pyxis.model.state.StateEnum;
 import it.unibo.pyxis.view.scene.SceneLoader;
 import it.unibo.pyxis.view.scene.SceneLoaderImpl;
 import it.unibo.pyxis.view.scene.SceneType;
+import it.unibo.pyxis.view.views.RenderableView;
 import javafx.stage.Stage;
 
 public class LinkerImpl implements Linker {
@@ -97,7 +98,9 @@ public class LinkerImpl implements Linker {
 
     @Override
     public final void render() {
-        this.currentController.getView().render();
+        if (this.currentController.getView() instanceof RenderableView) {
+            ((RenderableView) this.currentController.getView()).render();
+        }
     }
 
     @Override
