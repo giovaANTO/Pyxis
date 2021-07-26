@@ -1,6 +1,7 @@
 package it.unibo.pyxis.view.drawer;
 
 import java.io.File;
+import java.io.InputStream;
 
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.BrickType;
@@ -20,6 +21,8 @@ public class GameArenaDrawer {
     private static final String SPRITES_PATH = "sprites" + SEPARATOR;
     private static final String BRICK_END_PATH = "BRICK.png";
     private static final String BALL_END_PATH = "BALL.png";
+    private static final String POWERUP_END_PATH = "POWERUP.png";
+    private static final String PAD_END_PATH = "PAD.png";
 
     private final AnchorPane arenaPane;
     private final double xCanvasScaleFactor;
@@ -32,32 +35,29 @@ public class GameArenaDrawer {
     }
 
     public final void fillBrick(final Coord position, final Dimension dimension, final BrickType type) {
-        final ImageView imageView = new ImageView(new Image(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + type.getTypeString() + BRICK_END_PATH)));
-
+        final ImageView imageView = loadImageView(type.getTypeString() + BRICK_END_PATH);
         this.setupImageView(imageView, modelToViewPositionScale(position, dimension), modelToViewDimensionScale(dimension));
-
         this.arenaPane.getChildren().add(imageView);
     }
 
     public final void fillBall(final Coord position, final Dimension dimension, final BallType type) {
-        final ImageView imageView = new ImageView(new Image(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + type.getType() + BALL_END_PATH)));
-
+        final ImageView imageView = loadImageView(type.getType() + BALL_END_PATH);
         this.setupImageView(imageView, modelToViewPositionScale(position, dimension), modelToViewDimensionScale(dimension));
-
-        arenaPane.getChildren().add(imageView);
+        this.arenaPane.getChildren().add(imageView);
     }
 
     public final void fillPowerup(final Coord position, final Dimension dimension, final PowerupType type) {
-//        final ImageView imageView = new ImageView(new Image(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + type.getTypeString() + BALL_END_PATH)));
-//
+//        final ImageView imageView = loadImageViewtype.getType() + POWERUP_END_PATH);
 //        this.setupImageView(imageView, modelToViewPositionScale(position, dimension), modelToViewDimensionScale(dimension));
-//
-//        arenaPane.getChildren().add(imageView);
+//        this.arenaPane.getChildren().add(imageView);
     }
 
     public final void fillPad(final Pad pad) {
-        final Coord scaledPosition = modelToViewPositionScale(pad.getPosition(), pad.getDimension());
-        final Dimension scaledDimension = modelToViewDimensionScale(pad.getDimension());
+//        final ImageView imageView = loadImageView(PAD_END_PATH);
+//        this.setupImageView(imageView, 
+//                                modelToViewPositionScale(pad.getPosition(), pad.getDimension()),
+//                                modelToViewDimensionScale(pad.getDimension()));
+//        this.arenaPane.getChildren().add(imageView);
     }
 
     /**
@@ -93,6 +93,16 @@ public class GameArenaDrawer {
      */
     private Dimension modelToViewDimensionScale(final Dimension dimension) {
         return new DimensionImpl(dimension.getWidth() * this.xCanvasScaleFactor, dimension.getHeight() * this.yCanvasScaleFactor);
+    }
+
+    /**
+     * Returns the {@link InputStream} for the requested Image.
+     * @param endPath
+     * @return
+     *          the {@link InputStream} for the requested Image.
+     */
+    private ImageView loadImageView(final String endPath) {
+        return new ImageView(new Image(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + endPath)));
     }
 
 }

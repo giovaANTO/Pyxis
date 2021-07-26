@@ -45,7 +45,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     }
 
     public void clear() {
-        arenaPane.getChildren().clear();
+        this.arenaPane.getChildren().clear();
     }
 
 }
