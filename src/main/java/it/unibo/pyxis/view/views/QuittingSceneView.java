@@ -7,6 +7,10 @@ import java.util.ResourceBundle;
 
 public final class QuittingSceneView extends AbstractJavaFXView<QuittingSceneController> {
 
+    public QuittingSceneView(final QuittingSceneController inputController) {
+        super(inputController);
+    }
+
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
 

@@ -27,8 +27,13 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     @FXML
     private Button quitButton;
 
+    public MenuSceneView(final MenuSceneController inputController) {
+        super(inputController);
+    }
+
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+        System.out.println(this.getController());
         vBox.prefWidthProperty().bind(mainPane.prefWidthProperty());
         vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
 
@@ -40,16 +45,16 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
         StackPane.setAlignment(vBox, Pos.CENTER);
     }
 
-    public final void startNewGame() {
+    public void startNewGame() {
         this.getController().startNewGame();
     }
-    public final void showSettings() {
+    public void showSettings() {
         this.getController().showSettings();
     }
-    public final void selectLevels() {
+    public void selectLevels() {
         this.getController().selectLevel();
     }
-    public final void quit() {
+    public void quit() {
         this.getController().quit();
     }
 

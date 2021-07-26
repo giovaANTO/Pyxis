@@ -16,6 +16,10 @@ public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneCon
     @FXML
     private Button backButton;
 
+    public SettingsSceneView(final SettingsSceneController inputController) {
+        super(inputController);
+    }
+
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
     }

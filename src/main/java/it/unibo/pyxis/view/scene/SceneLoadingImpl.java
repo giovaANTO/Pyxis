@@ -1,10 +1,11 @@
 package it.unibo.pyxis.view.scene;
 
+import it.unibo.pyxis.controller.controllers.Controller;
+import it.unibo.pyxis.controller.controllers.MenuSceneController;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.view.views.View;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import it.unibo.pyxis.controller.controllers.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,14 +28,23 @@ public class SceneLoadingImpl implements SceneLoading {
     }
 
     public final Parent getScene(final SceneType inputSceneType) {
+        this.currentController = inputSceneType.getController();
         FXMLLoader loader = this.getFxLoader(inputSceneType);
+        loader.setControllerFactory(param -> {
+            Object viewController;
+            try {
+                viewController = param.getConstructor(this.currentController.getClass()).newInstance(this.currentController);
+            } catch (ReflectiveOperationException ex) {
+                throw new RuntimeException(ex);
+            }
+            return viewController;
+        });
         Parent root = null;
         try {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.currentController = inputSceneType.getController();
         this.setLevelAndController(loader.getController(), this.currentController);
         return root;
     }
@@ -48,8 +58,6 @@ public class SceneLoadingImpl implements SceneLoading {
     }
 
     private FXMLLoader getFxLoader(final SceneType inputScene) {
-        System.out.println(FIRST_ROOT_PATH + inputScene.getName()
-                + SECOND_ROOT_PATH);
         return new FXMLLoader(ClassLoader.
                 getSystemResource(FIRST_ROOT_PATH + inputScene.getName()
                         + SECOND_ROOT_PATH));

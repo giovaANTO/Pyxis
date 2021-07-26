@@ -7,6 +7,10 @@ import java.util.ResourceBundle;
 
 public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelSceneController> {
 
+    public SelectLevelSceneView(final SelectLevelSceneController inputController) {
+        super(inputController);
+    }
+
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
 

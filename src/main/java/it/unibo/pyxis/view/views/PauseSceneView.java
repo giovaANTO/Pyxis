@@ -7,6 +7,10 @@ import java.util.ResourceBundle;
 
 public final class PauseSceneView  extends AbstractJavaFXView<PauseSceneController> {
 
+    public PauseSceneView(final PauseSceneController inputController) {
+        super(inputController);
+    }
+
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
 

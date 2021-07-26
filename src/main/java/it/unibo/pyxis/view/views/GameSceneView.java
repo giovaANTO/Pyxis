@@ -26,8 +26,13 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     @FXML
     private Label livesText, currentLives, scoreText, currentScore, levelText, currentLevel;
 
+    public GameSceneView(final GameSceneController inputController) {
+        super(inputController);
+    }
+
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+        System.out.println(this.getController());
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(BLACK);
         gc.fillRect(50, 50, 100, 100);
