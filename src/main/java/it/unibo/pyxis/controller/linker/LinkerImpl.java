@@ -1,13 +1,12 @@
 package it.unibo.pyxis.controller.linker;
 
-import it.unibo.pyxis.controller.controllers.Controller;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
-import it.unibo.pyxis.view.scene.SceneLoader;
-import it.unibo.pyxis.view.scene.SceneLoaderImpl;
+import it.unibo.pyxis.view.scene.SceneHandler;
+import it.unibo.pyxis.view.scene.SceneHandlerImpl;
 import it.unibo.pyxis.view.scene.SceneType;
 import javafx.stage.Stage;
 
@@ -15,19 +14,13 @@ public class LinkerImpl implements Linker {
 
     private GameState gameState;
     private GameLoop gameLoop;
-    private SceneLoader sceneLoader;
-    private Controller currentController;
-    private final Stage stage;
+    private SceneHandler sceneHandler;
 
     public LinkerImpl(final Stage inputStage) {
-        this.stage = inputStage;
         this.createGameState();
         this.createGameLoop();
-        this.createSceneLoader();
+        this.createSceneLoader(inputStage);
         this.switchScene(SceneType.MENU_SCENE);
-        this.stage.setOnCloseRequest(event -> {
-            this.quit();
-        });
     }
     
     @Override
@@ -40,7 +33,7 @@ public class LinkerImpl implements Linker {
     public final void quit() {
         this.gameState.setState(StateEnum.STOP);
         this.gameState.getCurrentLevel().getArena().cleanup();
-        this.stage.close();
+        this.sceneHandler.close();
     }
 
     @Override
@@ -58,8 +51,7 @@ public class LinkerImpl implements Linker {
 
     @Override
     public final void switchScene(final SceneType inputSceneType) {
-        this.sceneLoader.switchScene(inputSceneType);
-        this.setCurrentController();
+        this.sceneHandler.switchScene(inputSceneType);
     }
 
     private void createGameState() {
@@ -76,24 +68,13 @@ public class LinkerImpl implements Linker {
         this.gameLoop.start();
     }
 
-    private void createSceneLoader() {
-        this.sceneLoader = SceneLoaderImpl.getInstance();
-        this.sceneLoader.init(this.stage, this.gameState.getCurrentLevel());
-    }
-
-    private void setCurrentController() {
-        this.currentController = this.sceneLoader.getCurrentController();
-        this.currentController.setLinker(this);
-    }
-
-    @Override
-    public final Controller getCurrentController() {
-        return this.currentController;
+    private void createSceneLoader(final Stage inputStage) {
+        this.sceneHandler = new SceneHandlerImpl(inputStage, this);
     }
 
     @Override
     public final void render() {
-        this.currentController.getView().render();
+        this.sceneHandler.getCurrentController().getView().render();
     }
 
     @Override

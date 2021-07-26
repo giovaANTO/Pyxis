@@ -18,8 +18,6 @@ public interface Linker {
 
     GameState getGameState();
 
-    Controller getCurrentController();
-
     void render();
 
     void handleCommandControl();
