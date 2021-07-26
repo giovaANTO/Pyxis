@@ -32,7 +32,7 @@ public class GameArenaDrawer {
         this.yCanvasScaleFactor = yCanvasScaleFactor;
     }
 
-    public void fillBrick(final Coord position, final Dimension dimension, final BrickType type) {
+    public final void fillBrick(final Coord position, final Dimension dimension, final BrickType type) {
         final Coord scaledPosition = modelToViewPositionScale(position, dimension);
         final Dimension scaledDimension = modelToViewDimensionScale(dimension);
 
@@ -44,7 +44,7 @@ public class GameArenaDrawer {
         arenaPane.getChildren().add(imageView);
     }
 
-    public void fillBall(final Coord position, final Dimension dimension, final BallType type) {
+    public final void fillBall(final Coord position, final Dimension dimension, final BallType type) {
         final Coord scaledPosition = modelToViewPositionScale(position, dimension);
         final Dimension scaledDimension = modelToViewDimensionScale(dimension);
 
@@ -56,18 +56,18 @@ public class GameArenaDrawer {
         arenaPane.getChildren().add(imageView);
     }
 
-    public void fillPad(final Pad pad) {
+    public final void fillPad(final Pad pad) {
         final Coord scaledPosition = modelToViewPositionScale(pad.getPosition(), pad.getDimension());
         final Dimension scaledDimension = modelToViewDimensionScale(pad.getDimension());
     }
 
     private Coord modelToViewPositionScale(final Coord position, final Dimension dimension) {
-        return new CoordImpl((position.getX() - dimension.getWidth() / 2) * xCanvasScaleFactor,
-                             (position.getY() - dimension.getHeight() / 2) * yCanvasScaleFactor);
+        return new CoordImpl((position.getX() - dimension.getWidth() / 2) * this.xCanvasScaleFactor,
+                             (position.getY() - dimension.getHeight() / 2) * this.yCanvasScaleFactor);
     }
 
     private Dimension modelToViewDimensionScale(final Dimension dimension) {
-        return new DimensionImpl(dimension.getWidth() * xCanvasScaleFactor, dimension.getHeight() * yCanvasScaleFactor);
+        return new DimensionImpl(dimension.getWidth() * this.xCanvasScaleFactor, dimension.getHeight() * this.yCanvasScaleFactor);
     }
 
 }
