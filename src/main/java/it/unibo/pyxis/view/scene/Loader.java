@@ -4,11 +4,7 @@ import it.unibo.pyxis.controller.controllers.Controller;
 import it.unibo.pyxis.model.level.Level;
 import javafx.scene.Parent;
 
-public interface SceneLoading {
+public interface Loader {
 
-    void setLevel(Level level);
-
-    Parent getScene(SceneType sceneType);
-
-    Controller getCurrentController();
+    Parent getScene(SceneType sceneType, Controller controller);
 }

@@ -20,7 +20,4 @@ public abstract class AbstractJavaFXView<C extends Controller> implements View<C
     public final void setController(final C inputController) {
         this.controller = inputController;
     }
-
-    @Override
-    public void render() { }
 }

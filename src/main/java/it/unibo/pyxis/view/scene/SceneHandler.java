@@ -4,13 +4,11 @@ import it.unibo.pyxis.controller.controllers.Controller;
 import it.unibo.pyxis.model.level.Level;
 import javafx.stage.Stage;
 
-public interface SceneLoader {
-
-    void init(Stage inputStage, Level inputLevel);
+public interface SceneHandler {
 
     void switchScene(SceneType sceneType);
 
-    void setLevel(Level level);
+    void close();
 
     Controller getCurrentController();
 }
