@@ -2,6 +2,8 @@ package it.unibo.pyxis.view.drawer;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.BrickType;
@@ -35,29 +37,25 @@ public class GameArenaDrawer {
     }
 
     public final void fillBrick(final Coord position, final Dimension dimension, final BrickType type) {
-        final ImageView imageView = loadImageView(type.getTypeString() + BRICK_END_PATH);
-        this.setupImageView(imageView, modelToViewPositionScale(position, dimension), modelToViewDimensionScale(dimension));
-        this.arenaPane.getChildren().add(imageView);
+        this.addImageView(position, dimension, type.getTypeString() + BRICK_END_PATH);
     }
 
     public final void fillBall(final Coord position, final Dimension dimension, final BallType type) {
-        final ImageView imageView = loadImageView(type.getType() + BALL_END_PATH);
-        this.setupImageView(imageView, modelToViewPositionScale(position, dimension), modelToViewDimensionScale(dimension));
-        this.arenaPane.getChildren().add(imageView);
+        this.addImageView(position, dimension, type.getType() + BALL_END_PATH);
     }
 
     public final void fillPowerup(final Coord position, final Dimension dimension, final PowerupType type) {
-//        final ImageView imageView = loadImageViewtype.getType() + POWERUP_END_PATH);
-//        this.setupImageView(imageView, modelToViewPositionScale(position, dimension), modelToViewDimensionScale(dimension));
-//        this.arenaPane.getChildren().add(imageView);
+//        this.addImageView(position, dimension, POWERUP_END_PATH);
     }
 
     public final void fillPad(final Pad pad) {
-//        final ImageView imageView = loadImageView(PAD_END_PATH);
-//        this.setupImageView(imageView, 
-//                                modelToViewPositionScale(pad.getPosition(), pad.getDimension()),
-//                                modelToViewDimensionScale(pad.getDimension()));
-//        this.arenaPane.getChildren().add(imageView);
+//        this.addImageView(pad.getPosition(), pad.getDimension(), PAD_END_PATH);
+    }
+
+    private void addImageView(final Coord position, final Dimension dimension, final String endPath) {
+        final ImageView imageView = loadImageView(endPath);
+        this.setupImageView(imageView, modelToViewPositionScale(position, dimension), modelToViewDimensionScale(dimension));
+        this.arenaPane.getChildren().add(imageView);
     }
 
     /**
