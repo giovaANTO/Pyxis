@@ -13,11 +13,11 @@
          </children>
       </AnchorPane>
       <Label layoutX="497.0" layoutY="332.0" text="CURRENT LIVES" />
-      <Label layoutX="534.0" layoutY="350.0" text="N" />
+      <Label fx:id="currentLives" layoutX="534.0" layoutY="350.0" text="N" />
       <Label layoutX="35.0" layoutY="23.0" text="SCORE" />
-      <Label layoutX="44.0" layoutY="41.0" text="NN" />
+      <Label fx:id="currentScore" layoutX="44.0" layoutY="41.0" text="NN" />
       <Label layoutX="496.0" layoutY="23.0" text="CURRENT LEVEL" />
-      <Label layoutX="529.0" layoutY="41.0" text="NM" />
+      <Label fx:id="currentLevel" layoutX="529.0" layoutY="41.0" text="NM" />
       <Button layoutX="27.0" layoutY="217.0" mnemonicParsing="false" onAction="#render" text="Render" />
    </children>
 </AnchorPane>

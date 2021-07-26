@@ -28,18 +28,19 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
 
     public void initialize(final URL location, final ResourceBundle resources) {
         final GameSceneController controller = this.getController();
-        drawer = new GameCanvasDrawer(this.canvas.getGraphicsContext2D(),
-                this.canvas.getWidth() / controller.getArenaWidth(),
-                this.canvas.getHeight() / controller.getArenaHeight());
+        this.drawer = new GameCanvasDrawer(this.canvas.getGraphicsContext2D(),
+                    this.canvas.getWidth() / controller.getArenaWidth(),
+                    this.canvas.getHeight() / controller.getArenaHeight());
     }
 
     public void render() {
-        System.out.println("K");
         final GameSceneController controller = this.getController();
 
-        controller.getBricks().stream().forEach(b -> drawer.fillBrick(b.getPosition(), b.getDimension(), b.getBrickType()));
-        controller.getBalls().stream().forEach(b -> drawer.fillBall(b.getPosition(), b.getDimension(), b.getType()));
-        drawer.fillPad(controller.getPad());
+        this.currentLives.setText(controller.getLives().toString());
+        this.currentScore.setText(controller.getScore().toString());
+        controller.getBricks().stream().forEach(b -> this.drawer.fillBrick(b.getPosition(), b.getDimension(), b.getBrickType()));
+        controller.getBalls().stream().forEach(b -> this.drawer.fillBall(b.getPosition(), b.getDimension(), b.getType()));
+        this.drawer.fillPad(controller.getPad());
     }
 
 }

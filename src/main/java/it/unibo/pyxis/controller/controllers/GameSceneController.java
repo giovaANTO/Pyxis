@@ -20,12 +20,24 @@ public class GameSceneController extends AbstractController {
         return this.getLevel().getArena().getPad();
     }
 
-    public final double getArenaWidth() {
+    public final Double getArenaWidth() {
         return this.getLevel().getArena().getDimension().getWidth();
     }
 
-    public final double getArenaHeight() {
+    public final Double getArenaHeight() {
         return this.getLevel().getArena().getDimension().getHeight();
     }
+
+    public final Integer getLives() {
+        return this.getLevel().getLives();
+    }
+
+    public final Integer getScore() {
+        return this.getLevel().getScore();
+    }
+
+//    public final Integer getLevelNumber() {
+//        return this.getLevel().getNumber();
+//    }
 
 }
