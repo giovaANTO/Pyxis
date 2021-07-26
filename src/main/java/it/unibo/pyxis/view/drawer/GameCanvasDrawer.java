@@ -22,37 +22,37 @@ public class GameCanvasDrawer {
         this.yCanvasScaleFactor = yCanvasScaleFactor;
     }
 
-    public void fillBrick(final Coord position, final Dimension dimension, final BrickType type) {
+    public final void fillBrick(final Coord position, final Dimension dimension, final BrickType type) {
         final Coord scaledPosition = modelToViewPositionScale(position, dimension);
         final Dimension scaledDimension = modelToViewDimensionScale(dimension);
 
-        gc.setFill(Color.valueOf(type.getTypeString()));
-        gc.fillRect(scaledPosition.getX(), scaledPosition.getY(), scaledDimension.getWidth(), scaledDimension.getHeight());
+        this.gc.setFill(Color.valueOf(type.getTypeString()));
+        this.gc.fillRect(scaledPosition.getX(), scaledPosition.getY(), scaledDimension.getWidth(), scaledDimension.getHeight());
     }
 
-    public void fillBall(final Coord position, final Dimension dimension, final BallType type) {
+    public final void fillBall(final Coord position, final Dimension dimension, final BallType type) {
         final Coord scaledPosition = modelToViewPositionScale(position, dimension);
         final Dimension scaledDimension = modelToViewDimensionScale(dimension);
 
-        gc.setFill(Color.AQUA);
-        gc.fillOval(scaledPosition.getX(), scaledPosition.getY(), scaledDimension.getWidth(), scaledDimension.getHeight());
+        this.gc.setFill(Color.AQUA);
+        this.gc.fillOval(scaledPosition.getX(), scaledPosition.getY(), scaledDimension.getWidth(), scaledDimension.getHeight());
     }
 
-    public void fillPad(final Pad pad) {
+    public final void fillPad(final Pad pad) {
         final Coord scaledPosition = modelToViewPositionScale(pad.getPosition(), pad.getDimension());
         final Dimension scaledDimension = modelToViewDimensionScale(pad.getDimension());
 
-        gc.setFill(Color.BLACK);
-        gc.fillRect(scaledPosition.getX(), scaledPosition.getY(), scaledDimension.getWidth(), scaledDimension.getHeight());
+        this.gc.setFill(Color.BLACK);
+        this.gc.fillRect(scaledPosition.getX(), scaledPosition.getY(), scaledDimension.getWidth(), scaledDimension.getHeight());
     }
 
     private Coord modelToViewPositionScale(final Coord position, final Dimension dimension) {
-        return new CoordImpl((position.getX() - dimension.getWidth() / 2) * xCanvasScaleFactor,
-                             (position.getY() - dimension.getHeight() / 2) * yCanvasScaleFactor);
+        return new CoordImpl((position.getX() - dimension.getWidth() / 2) * this.xCanvasScaleFactor,
+                             (position.getY() - dimension.getHeight() / 2) * this.yCanvasScaleFactor);
     }
 
     private Dimension modelToViewDimensionScale(final Dimension dimension) {
-        return new DimensionImpl(dimension.getWidth() * xCanvasScaleFactor, dimension.getHeight() * yCanvasScaleFactor);
+        return new DimensionImpl(dimension.getWidth() * this.xCanvasScaleFactor, dimension.getHeight() * this.yCanvasScaleFactor);
     }
 
 }

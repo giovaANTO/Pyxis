@@ -41,6 +41,4 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.getController().getBalls().forEach(b -> this.drawer.fillBall(b.getPosition(), b.getDimension(), b.getType()));
         this.drawer.fillPad(this.getController().getPad());
     }
-
-
 }
