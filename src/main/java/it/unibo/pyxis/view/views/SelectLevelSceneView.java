@@ -1,9 +1,15 @@
 package it.unibo.pyxis.view.views;
 
+import it.unibo.pyxis.controller.controllers.SelectLevelSceneController;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SelectLevelSceneView  extends AbstractJavaFXView {
+public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelSceneController> {
+
+    public SelectLevelSceneView(final SelectLevelSceneController inputController) {
+        super(inputController);
+    }
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {

@@ -2,11 +2,11 @@ package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.Controller;
 
-public interface View {
+public interface View<C extends Controller> {
 
-    Controller getController();
+    C getController();
 
-    void setController(Controller controller);
+    void setController(C controller);
 
     void render();
 }

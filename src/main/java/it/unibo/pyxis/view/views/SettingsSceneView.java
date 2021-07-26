@@ -7,19 +7,23 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
-public class SettingsSceneView extends AbstractJavaFXView {
+public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneController> {
 
     @FXML
     private AnchorPane menuPane;
     @FXML
     private Button backButton;
 
+    public SettingsSceneView(final SettingsSceneController inputController) {
+        super(inputController);
+    }
+
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
     }
 
-    public final void backToMainMenu() {
-        SettingsSceneController controller = (SettingsSceneController) this.getController();
-        controller.backToMainMenu();
+    public void backToMainMenu() {
+        this.getController().backToMainMenu();
     }
+
 }

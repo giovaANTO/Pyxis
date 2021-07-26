@@ -10,9 +10,9 @@ public interface Controller {
 
     void setLevel(Level level);
 
-    View getView();
+    View<? extends Controller> getView();
 
-    void setView(View view);
+    void setView(View<? extends  Controller>  view);
 
     void setLinker(Linker linker);
 

@@ -1,17 +1,18 @@
 package it.unibo.pyxis.view.views;
 
+import it.unibo.pyxis.controller.controllers.GameSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import it.unibo.pyxis.controller.controllers.GameSceneController;
 import it.unibo.pyxis.view.drawer.GameCanvasDrawer;
+import static javafx.scene.paint.Color.*;
 
-
-public class GameSceneView extends AbstractJavaFXView {
+public final class GameSceneView extends AbstractJavaFXView<GameSceneController> {
 
     @FXML
     private Canvas canvas;
@@ -21,9 +22,15 @@ public class GameSceneView extends AbstractJavaFXView {
 
     private GameCanvasDrawer drawer;
 
-    @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
+    public GameSceneView(final GameSceneController inputController) {
+        super(inputController);
+    }
 
+    public void initialize(final URL location, final ResourceBundle resources) {
+        System.out.println(this.getController());
+        final GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFill(BLACK);
+        gc.fillRect(50, 50, 100, 100);
     }
 
     public void initBottone() {

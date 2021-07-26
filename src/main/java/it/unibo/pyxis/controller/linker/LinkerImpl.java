@@ -24,11 +24,10 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public final void start() {
+    public final void init() {
         this.createGameState();
         this.createGameLoop();
-        this.sceneLoader = SceneLoaderImpl.getInstance();
-        this.sceneLoader.init(this.stage, this.gameState.getCurrentLevel());
+        this.createSceneLoader();
         this.switchScene(SceneType.MENU_SCENE);
         this.stage.setOnCloseRequest(event -> {
             this.quit();
@@ -36,7 +35,7 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public final void stop() {
+    public final void pause() {
         this.gameState.setState(StateEnum.PAUSE);
         this.switchScene(SceneType.PAUSE_SCENE);
     }
@@ -67,7 +66,7 @@ public class LinkerImpl implements Linker {
         this.setCurrentController();
     }
 
-    public final void createGameState() {
+    private void createGameState() {
         this.gameState = new GameStateImpl();
     }
 
@@ -79,6 +78,11 @@ public class LinkerImpl implements Linker {
     private void createGameLoop() {
         this.gameLoop = new GameLoopImpl(this.gameState);
         this.gameLoop.start();
+    }
+
+    private void createSceneLoader() {
+        this.sceneLoader = SceneLoaderImpl.getInstance();
+        this.sceneLoader.init(this.stage, this.gameState.getCurrentLevel());
     }
 
     private void setCurrentController() {

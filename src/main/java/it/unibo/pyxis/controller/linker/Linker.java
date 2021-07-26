@@ -6,9 +6,9 @@ import it.unibo.pyxis.view.scene.SceneType;
 
 public interface Linker {
 
-    void start();
+    void init();
 
-    void stop();
+    void pause();
 
     void quit();
 
