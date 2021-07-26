@@ -6,8 +6,6 @@ import it.unibo.pyxis.view.scene.SceneType;
 
 public interface Linker {
 
-    void init();
-
     void pause();
 
     void quit();
@@ -19,8 +17,6 @@ public interface Linker {
     void switchScene(SceneType sceneType);
 
     GameState getGameState();
-
-    Controller getCurrentController();
 
     void render();
 

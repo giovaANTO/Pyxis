@@ -7,6 +7,4 @@ public interface View<C extends Controller> {
     C getController();
 
     void setController(C controller);
-
-    void render();
 }
