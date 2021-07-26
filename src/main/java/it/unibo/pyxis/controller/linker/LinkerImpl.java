@@ -29,7 +29,7 @@ public class LinkerImpl implements Linker {
             this.quit();
         });
     }
-
+    
     @Override
     public final void pause() {
         this.gameState.setState(StateEnum.PAUSE);
