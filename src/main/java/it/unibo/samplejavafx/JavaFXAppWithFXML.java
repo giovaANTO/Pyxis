@@ -13,7 +13,6 @@ public class JavaFXAppWithFXML extends Application {
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         Linker linker = new LinkerImpl(primaryStage);
-        linker.init();
     }
 
     public static void run(final String[] args) {

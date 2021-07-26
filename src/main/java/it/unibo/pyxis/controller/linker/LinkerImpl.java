@@ -21,10 +21,6 @@ public class LinkerImpl implements Linker {
 
     public LinkerImpl(final Stage inputStage) {
         this.stage = inputStage;
-    }
-
-    @Override
-    public final void init() {
         this.createGameState();
         this.createGameLoop();
         this.createSceneLoader();
