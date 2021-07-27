@@ -23,7 +23,7 @@ public final class LevelLoaderImpl implements LevelLoader {
         this.configurationDirectory = configurationDirectory;
         this.loaderAssistant = new LoaderAssistantImpl();
     }
-    
+
     @Override
     public Level fromFile(final String filename) {
         return loaderAssistant.createLevel(this.skeletonFromFile(filename));
