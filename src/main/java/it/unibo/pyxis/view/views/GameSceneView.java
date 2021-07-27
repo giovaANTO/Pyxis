@@ -2,6 +2,7 @@ package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 
 import java.net.URL;
@@ -40,5 +41,4 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.getController().getPowerups().forEach(p -> this.drawer.fillPowerup(p.getPosition(), p.getDimension(), p.getType()));
         this.drawer.fillPad(this.getController().getPad());
     }
-
 }
