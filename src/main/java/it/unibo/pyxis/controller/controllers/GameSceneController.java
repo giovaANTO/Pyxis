@@ -6,6 +6,7 @@ import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
+import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.view.scene.SceneType;
 
 public class GameSceneController extends AbstractController {
@@ -26,12 +27,8 @@ public class GameSceneController extends AbstractController {
         return this.getLinker().getGameState().getCurrentLevel().getArena().getPad();
     }
 
-    public final Double getArenaWidth() {
-        return this.getLinker().getGameState().getCurrentLevel().getArena().getDimension().getWidth();
-    }
-
-    public final Double getArenaHeight() {
-        return this.getLinker().getGameState().getCurrentLevel().getArena().getDimension().getHeight();
+    public final Dimension getArenaDimension() {
+        return this.getLinker().getGameState().getCurrentLevel().getArena().getDimension();
     }
 
     public final Integer getLives() {
