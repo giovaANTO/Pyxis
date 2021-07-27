@@ -46,7 +46,6 @@ public class LinkerImpl implements Linker {
     @Override
     public final void run() {
         this.switchScene(SceneType.GAME_SCENE);
-        this.render();
         this.gameState.setState(StateEnum.RUN);
     }
 

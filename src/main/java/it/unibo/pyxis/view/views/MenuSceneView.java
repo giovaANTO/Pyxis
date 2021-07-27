@@ -57,5 +57,4 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
         this.getController().quit();
     }
 
-
 }

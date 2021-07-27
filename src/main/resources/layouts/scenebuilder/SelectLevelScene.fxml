@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.pyxis.view.views.SelectLevelSceneView">
+<AnchorPane fx:id="mainPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.pyxis.view.views.SelectLevelSceneView">
    <children>
-      <Label alignment="CENTER" prefHeight="400.0" prefWidth="600.0" text="SELECT_LEVEL_SCENE" />
-      <Button fx:id="backButton" layoutX="49.0" layoutY="231.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button fx:id="backButton" layoutX="24.0" layoutY="37.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button fx:id="button1" layoutX="84.0" layoutY="63.0" mnemonicParsing="false" onAction="#level1" prefHeight="50.0" prefWidth="54.0" text="1" />
+      <Button fx:id="button2" layoutX="273.0" layoutY="63.0" mnemonicParsing="false" onAction="#level2" prefHeight="50.0" prefWidth="54.0" text="2" />
+      <Button fx:id="button3" layoutX="449.0" layoutY="63.0" mnemonicParsing="false" onAction="#level3" prefHeight="50.0" prefWidth="54.0" text="3" />
+      <Button fx:id="button4" layoutX="84.0" layoutY="175.0" mnemonicParsing="false" onAction="#level4" prefHeight="50.0" prefWidth="54.0" text="4" />
+      <Button fx:id="button5" layoutX="273.0" layoutY="175.0" mnemonicParsing="false" onAction="#level5" prefHeight="50.0" prefWidth="54.0" text="5" />
+      <Button fx:id="button6" layoutX="449.0" layoutY="175.0" mnemonicParsing="false" onAction="#level6" prefHeight="50.0" prefWidth="54.0" text="6" />
+      <Button fx:id="button7" layoutX="84.0" layoutY="299.0" mnemonicParsing="false" onAction="#level7" prefHeight="50.0" prefWidth="54.0" text="7" />
+      <Button fx:id="button8" layoutX="273.0" layoutY="299.0" mnemonicParsing="false" onAction="#level8" prefHeight="50.0" prefWidth="54.0" text="8" />
+      <Button fx:id="button9" layoutX="449.0" layoutY="299.0" mnemonicParsing="false" onAction="#level9" prefHeight="50.0" prefWidth="54.0" text="9" />
    </children>
 </AnchorPane>
