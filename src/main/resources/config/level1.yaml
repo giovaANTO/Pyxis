@@ -22,3 +22,9 @@ bricks:
   - x: 15
     y: 5
     type: "YELLOW"
+  - x: 1
+    y: 4
+    type: "GREEN"
+  - x: 100
+    y: 100
+    type: "RED"

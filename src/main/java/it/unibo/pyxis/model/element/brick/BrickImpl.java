@@ -90,7 +90,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
             return false;
         }
         BrickImpl brick = (BrickImpl) o;
-        return getDurability() == brick.getDurability() && getBrickType() == brick.getBrickType();
+        return super.equals(o) && getDurability() == brick.getDurability() && getBrickType() == brick.getBrickType();
     }
 
     @Override
