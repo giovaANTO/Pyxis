@@ -3,8 +3,8 @@ lives: 3
 width: 100
 height: 100
 pad:
-    x: 1
-    y: 2
+  x: 1
+  y: 2
 balls:
   - x: 10
     y: 2
@@ -25,4 +25,3 @@ bricks:
   - x: 100
     y: 100
     type: "RED"
-
