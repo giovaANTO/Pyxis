@@ -13,4 +13,12 @@ public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelSceneCon
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
     }
+
+    public void menu() {
+
+    }
+
+    public void nextLevel() {
+
+    }
 }

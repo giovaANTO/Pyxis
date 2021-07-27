@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane fx:id="mainPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.pyxis.view.views.SelectLevelSceneView">
+
+<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.pyxis.view.views.SelectLevelSceneView">
    <children>
-      <Button fx:id="backButton" layoutX="24.0" layoutY="37.0" mnemonicParsing="false" onAction="#back" text="Back" />
-      <Button fx:id="button1" layoutX="84.0" layoutY="63.0" mnemonicParsing="false" onAction="#level1" prefHeight="50.0" prefWidth="54.0" text="1" />
-      <Button fx:id="button2" layoutX="273.0" layoutY="63.0" mnemonicParsing="false" onAction="#level2" prefHeight="50.0" prefWidth="54.0" text="2" />
-      <Button fx:id="button3" layoutX="449.0" layoutY="63.0" mnemonicParsing="false" onAction="#level3" prefHeight="50.0" prefWidth="54.0" text="3" />
-      <Button fx:id="button4" layoutX="84.0" layoutY="175.0" mnemonicParsing="false" onAction="#level4" prefHeight="50.0" prefWidth="54.0" text="4" />
-      <Button fx:id="button5" layoutX="273.0" layoutY="175.0" mnemonicParsing="false" onAction="#level5" prefHeight="50.0" prefWidth="54.0" text="5" />
-      <Button fx:id="button6" layoutX="449.0" layoutY="175.0" mnemonicParsing="false" onAction="#level6" prefHeight="50.0" prefWidth="54.0" text="6" />
-      <Button fx:id="button7" layoutX="84.0" layoutY="299.0" mnemonicParsing="false" onAction="#level7" prefHeight="50.0" prefWidth="54.0" text="7" />
-      <Button fx:id="button8" layoutX="273.0" layoutY="299.0" mnemonicParsing="false" onAction="#level8" prefHeight="50.0" prefWidth="54.0" text="8" />
-      <Button fx:id="button9" layoutX="449.0" layoutY="299.0" mnemonicParsing="false" onAction="#level9" prefHeight="50.0" prefWidth="54.0" text="9" />
+      <HBox fx:id="hBox" prefHeight="100.0" prefWidth="200.0" />
    </children>
-</AnchorPane>
+</StackPane>

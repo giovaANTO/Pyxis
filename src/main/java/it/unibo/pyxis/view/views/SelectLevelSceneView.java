@@ -2,19 +2,22 @@ package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.SelectLevelSceneController;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelSceneController> {
 
     @FXML
-    private AnchorPane mainPane;
+    private StackPane stackPane;
+    @FXML
+    private HBox hBox;
+    private int numLevel = 7;
 
     public SelectLevelSceneView(final SelectLevelSceneController inputController) {
         super(inputController);
@@ -22,37 +25,32 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        List<Button> levelButtons = new ArrayList<>();
-        for (Node node: this.mainPane.getChildren()) {
-            if (node instanceof Button) {
-                levelButtons.add((Button) node);
-            }
+
+        GridPane gridPane = new GridPane();
+        this.hBox.prefWidthProperty().bind(stackPane.prefWidthProperty());
+        this.hBox.prefHeightProperty().bind(stackPane.prefHeightProperty());
+
+        int col = (int) Math.ceil(Math.sqrt(this.numLevel));
+
+        int countX = 0;
+        int countY = 0;
+
+        for (int i = 0; i < this.numLevel; i++) {
+            Button butt = new Button(String.valueOf(i + 1));
+            butt.setOnAction(event -> {
+                this.getLevel(Integer.parseInt(butt.getText()));
+            });
+            gridPane.add(butt, countY, countX, 1, 1);
+            countY = countY == col - 1 ? 0 : countY + 1;
+            countX = countY == 0 ? countX + 1 : countX;
         }
-        double propX = Math.ceil(Math.sqrt(levelButtons.size()));
-        double propY = Math.floor(Math.sqrt(levelButtons.size()));
-        int countX = 1;
-        int countY = 1;
-        for (int i = 0; i < levelButtons.size(); i++) {
-            levelButtons.get(i).setLayoutX(this.mainPane.getPrefWidth() * (countX / propX));
-            levelButtons.get(i).setLayoutY(this.mainPane.getPrefHeight() * (countY / propY));
-            countX = countX + 1 == (int) propX + 1 ? 1 : countX + 1;
-            if (countX == 1) {
-                countY++;
-            }
-        }
+
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        this.hBox.getChildren().add(gridPane);
+        this.hBox.fillHeightProperty();
+        StackPane.setAlignment(this.hBox, Pos.CENTER);
     }
 
-    public void back() {
-        this.getController().back();
-    }
-
-    public void level1() { }
-    public void level2() { }
-    public void level3() { }
-    public void level4() { }
-    public void level5() { }
-    public void level6() { }
-    public void level7() { }
-    public void level8() { }
-    public void level9() { }
+    public void getLevel(final int level) { }
 }
