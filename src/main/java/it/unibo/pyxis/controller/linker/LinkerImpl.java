@@ -83,6 +83,6 @@ public class LinkerImpl implements Linker {
 
     @Override
     public void insertCommand(final Command<Level> levelCommand) {
-
+        levelCommand.execute(this.gameState.getCurrentLevel());
     }
 }

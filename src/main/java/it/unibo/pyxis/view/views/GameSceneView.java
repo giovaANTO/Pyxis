@@ -2,12 +2,8 @@ package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
 import it.unibo.pyxis.controller.linker.Linker;
-import it.unibo.pyxis.model.state.StateEnum;
-import it.unibo.pyxis.model.util.VectorImpl;
-import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -53,13 +49,19 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         final Linker linker = this.getController().getLinker();
         EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
             if (keyEvent.getCode() == KeyCode.A) {
-                System.out.println("Premuto A");
+                linker.insertCommand(level -> {
+                    System.out.println("Pressed A");
+                });
             }
             if (keyEvent.getCode() == KeyCode.D) {
-                System.out.println("Premuto D");
+                linker.insertCommand(level -> {
+                    System.out.println("Pressed D");
+                });
             }
             if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                System.out.println("Premuto ESC");
+                linker.insertCommand(level -> {
+                    System.out.println("Pressed ESC");
+                });
             }
         };
         this.mainPane.addEventHandler(KeyEvent.KEY_PRESSED, keyEventEventHandler);
