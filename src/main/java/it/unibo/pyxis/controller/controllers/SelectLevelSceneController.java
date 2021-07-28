@@ -8,16 +8,4 @@ public class SelectLevelSceneController extends AbstractController {
         this.getLinker().switchScene(SceneType.MENU_SCENE);
     }
 
-    public final void play() {
-
-    }
-
-    public final void nextLevel() {
-
-    }
-
-    public final void backLevel() {
-
-    }
-
 }

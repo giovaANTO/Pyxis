@@ -2,13 +2,11 @@ package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.SelectLevelSceneController;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 
 import java.io.File;
 import java.net.URL;
@@ -18,12 +16,12 @@ import java.util.ResourceBundle;
 public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelSceneController> {
 
     @FXML
-    private StackPane mainPane;
+    private AnchorPane mainPane;
     @FXML
-    private HBox hBox;
+    private Button backButton;
 
-    private final int numLevel = 24;
-    private final int levelsDone = 0;
+    private final int numLevel = 25;
+    private final int levelsDone = 25;
     private static final String SEPARATOR = File.separator;
     private static final String STARTING_PATH = "images" + SEPARATOR;
     private static final String LOCKER_PATH = STARTING_PATH + "Lucchetto.png";
@@ -35,10 +33,22 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
 
-        GridPane gridPane = new GridPane();
+        GridPane gridPane = this.populateButton();
 
-        this.hBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
-        this.hBox.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
+        this.mainPane.getChildren().add(gridPane);
+        
+        AnchorPane.setRightAnchor(gridPane, 0.0);
+        AnchorPane.setLeftAnchor(gridPane, 0.0);
+        AnchorPane.setBottomAnchor(gridPane, 0.0);
+        AnchorPane.setTopAnchor(gridPane, this.backButton.getPrefHeight() + 10);
+
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+    }
+
+    private GridPane populateButton() {
+
+        GridPane gridPane = new GridPane();
 
         int col = (int) Math.ceil(Math.sqrt(this.numLevel));
 
@@ -65,16 +75,11 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
                 countX++;
             }
         }
-
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        this.hBox.getChildren().add(gridPane);
-        StackPane.setAlignment(this.hBox, Pos.CENTER);
-
+        return gridPane;
     }
 
     public void getLevel(final int level) {
-
+        System.out.println("Lvl" + level);
     }
 
     public void back() {
