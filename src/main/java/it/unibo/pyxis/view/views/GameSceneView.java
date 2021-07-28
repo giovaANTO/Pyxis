@@ -1,11 +1,17 @@
 package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
+import it.unibo.pyxis.controller.linker.Linker;
+import it.unibo.pyxis.model.state.StateEnum;
+import it.unibo.pyxis.model.util.VectorImpl;
 import javafx.beans.binding.Bindings;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -44,6 +50,19 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
                 mainPane.getPrefWidth(), mainPane.getPrefHeight(),
                 arenaCanvas.widthProperty(), arenaCanvas.heightProperty(),
                 arenaCanvas.getWidth(), arenaCanvas.getHeight());
+        final Linker linker = this.getController().getLinker();
+        EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.A) {
+                System.out.println("Premuto A");
+            }
+            if (keyEvent.getCode() == KeyCode.D) {
+                System.out.println("Premuto D");
+            }
+            if (keyEvent.getCode() == KeyCode.ESCAPE) {
+                System.out.println("Premuto ESC");
+            }
+        };
+        this.mainPane.addEventHandler(KeyEvent.KEY_PRESSED, keyEventEventHandler);
     }
 
     public void back() {
