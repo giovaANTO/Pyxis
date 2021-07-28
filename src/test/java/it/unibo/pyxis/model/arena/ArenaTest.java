@@ -7,6 +7,7 @@ import it.unibo.pyxis.model.element.brick.BrickImpl;
 import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.pad.PadImpl;
+import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
@@ -14,12 +15,14 @@ import it.unibo.pyxis.model.util.VectorImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArenaTest {
 
     private Arena testArena;
-    private final Dimension inputDimensions = new DimensionImpl(10, 10);
+    private final Dimension inputDimensions = new DimensionImpl(500, 500);
 
     private void createDefaultArena() {
         this.testArena = new ArenaImpl(this.inputDimensions);
