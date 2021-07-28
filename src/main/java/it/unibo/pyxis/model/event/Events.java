@@ -1,5 +1,7 @@
 package it.unibo.pyxis.model.event;
 
+import it.unibo.pyxis.model.element.Element;
+import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.collision.BallCollisionEvent;
 import it.unibo.pyxis.model.event.collision.CollisionEvent;
@@ -99,37 +101,21 @@ public final class Events {
      * @return
      *                  The {@link BallMovementEvent} instance.
      */
-    public static BallMovementEvent newBallMovementEvent(final int id, final Hitbox hitbox,
-                                                         final Optional<Integer> dmg) {
-        return new BallMovementEvent() {
-            @Override
-            public int getBallId() {
-                return id;
-            }
-
-            @Override
-            public Optional<Integer> getDamage() {
-                return dmg;
-            }
-
-            @Override
-            public Hitbox getHitbox() {
-                return hitbox;
-            }
-        };
+    public static BallMovementEvent newBallMovementEvent(final Ball ball) {
+        return () -> ball;
     }
 
     /**
      * Create a new {@link PowerupMovementEvent} instance passing a {@link Coord} representing the current position
      * of the {@link it.unibo.pyxis.model.element.powerup.Powerup} inside the {@link it.unibo.pyxis.model.arena.Arena}.
      *
-     * @param hitbox
+     * @param powerup
      *               The {@link it.unibo.pyxis.model.element.powerup.Powerup}'s {@link Coord} position.
      * @return
      *               The {@link PowerupMovementEvent} instance.
      */
-    public static PowerupMovementEvent newPowerupMovementEvent(final Hitbox hitbox) {
-        return () -> hitbox;
+    public static PowerupMovementEvent newPowerupMovementEvent(final Powerup powerup) {
+        return () -> powerup;
     }
 
     /**

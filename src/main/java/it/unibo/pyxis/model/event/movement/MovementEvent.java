@@ -1,5 +1,6 @@
 package it.unibo.pyxis.model.event.movement;
 
+import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.event.Event;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 
@@ -8,5 +9,5 @@ import it.unibo.pyxis.model.hitbox.Hitbox;
  */
 @FunctionalInterface
 public interface MovementEvent extends Event {
-    Hitbox getHitbox();
+    Element getElement();
 }
