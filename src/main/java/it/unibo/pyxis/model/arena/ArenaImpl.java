@@ -45,6 +45,7 @@ public final class ArenaImpl implements Arena {
     private final PowerupHandler powerupHandler;
     private Pad pad;
 
+    private static final double POWERUP_SPAWN_PROBABILITY = (3.0 / 10);
     private final Random rng;
 
     public ArenaImpl(final Dimension inputDimension) {
@@ -87,10 +88,16 @@ public final class ArenaImpl implements Arena {
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
         this.brickMap.remove(event.getBrickCoord());
-        final int powerupSpawnProbabilityBound = 10;
-        if (rangeNextInt(powerupSpawnProbabilityBound).equals(0)) {
+        if (calculateSpawnPowerup()) {
             this.spawnPowerup(event.getBrickCoord());
         }
+    }
+
+    private boolean calculateSpawnPowerup() {
+        final int multiplier = 100;
+        int randNum = rangeNextInt(multiplier);
+        System.out.println(randNum + " <= " + Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY) + " ? " + (randNum <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY)));
+        return randNum <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
     }
 
     @Override
