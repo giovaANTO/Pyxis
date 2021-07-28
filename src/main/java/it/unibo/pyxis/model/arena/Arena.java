@@ -17,7 +17,7 @@ public interface Arena {
      * @param delta
      *              The passed time.
      */
-    void update(int delta);
+    void update(double delta);
 
     /**
      * Handle a {@link BrickDestructionEvent}.
@@ -92,6 +92,16 @@ public interface Arena {
      * Set a default {@link Pad} in the {@link Arena}.
      */
     void setDefaultPad();
+
+    /**
+     * Move pad to the left of the {@link Arena}.
+     */
+    void movePadLeft();
+
+    /**
+     * Move pad to the rigth of the {@link Arena}.
+     */
+    void movePadRigth();
 
     /**
      * Add a {@link Brick} in the {@link Arena}.

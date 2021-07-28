@@ -54,7 +54,7 @@ public final class LevelImpl implements Level {
     }
 
     @Override
-    public void update(final int delta) {
+    public void update(final double delta) {
         this.arena.update(delta);
         if (this.arena.isCleared()) {
             this.levelStatus = LevelStatus.SUCCESSFULLY_COMPLETED;

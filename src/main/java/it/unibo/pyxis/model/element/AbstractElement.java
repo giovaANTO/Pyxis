@@ -73,7 +73,7 @@ public abstract class AbstractElement implements Element {
     }
 
     @Override
-    public abstract void update(int dt);
+    public abstract void update(double dt);
 
     @Override
     public boolean equals(final Object o) {

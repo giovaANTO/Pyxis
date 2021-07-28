@@ -30,14 +30,14 @@ public final class BrickImpl extends AbstractElement implements Brick {
     }
 
     @Override
-    public void update(final int delta) {
+    public void update(final double delta) {
         throw new UnsupportedOperationException("You can't call update on a brick");
     }
 
     @Override
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
-        final Optional<HitEdge> hitEdge = movementEvent.getHitbox().collidingEdgeWithBorder(this.getDimension());
+        final Optional<HitEdge> hitEdge = movementEvent.getHitbox().collidingEdgeWithHB(this.getHitbox());
         hitEdge.ifPresent(edge -> {
             this.handleIncomingDamage(movementEvent.getDamage());
             EventBus.getDefault().post(Events.newBallCollisionEvent(movementEvent.getBallId(), edge));

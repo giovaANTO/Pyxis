@@ -13,6 +13,7 @@ import it.unibo.pyxis.model.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -30,7 +31,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.setHitbox(new CircleHitbox(this));
         this.type = type;
         this.pace = inputPace;
-        this.edgesHit = Set.of();
+        this.edgesHit = new HashSet<>(Set.of());
         this.id = inputId;
         EventBus.getDefault().register(this);
     }
@@ -98,13 +99,13 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     @Override
-    public void update(final int dt) {
+    public void update(final double dt) {
         this.applyBorderAndBrickCollision();
         this.calculateNewCoord(dt);
         EventBus.getDefault().post(Events.newBallMovementEvent(this.id, this.getHitbox(), this.getType().getDamage()));
     }
 
-    private void calculateNewCoord(final int dt) {
+    private void calculateNewCoord(final double dt) {
         final Coord updatedCoord = this.getPosition();
         updatedCoord.sumVector(this.getPace(),
                 this.getType().getPaceMultiplier() * dt * this.getUpdateTimeMultiplier());
