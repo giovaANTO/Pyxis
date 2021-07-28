@@ -7,26 +7,21 @@ public class CanvasPropertyBinder {
 
     private final ReadOnlyDoubleProperty wC;
     private final ReadOnlyDoubleProperty hC;
-    private final DoubleProperty wN;
-    private final DoubleProperty hN;
     private final Double aspectRatio;
     private final Double xScaleFactor;
     private final Double yScaleFactor;
 
     public CanvasPropertyBinder(final ReadOnlyDoubleProperty containerWidthProperty, final ReadOnlyDoubleProperty containerHeightProperty,
                         final Double containerStartWidth, final Double containerStartHeight,
-                        final DoubleProperty nodeWidthProperty, final DoubleProperty nodeHeightProperty,
                         final Double nodeWidth, final Double nodeHeight) {
         this.wC = containerWidthProperty;
         this.hC = containerHeightProperty;
-        this.wN = nodeWidthProperty;
-        this.hN = nodeHeightProperty;
         this.aspectRatio = nodeWidth / nodeHeight;
         this.xScaleFactor = nodeWidth / containerStartWidth;
         this.yScaleFactor = nodeHeight / containerStartHeight;
     }
 
-    public void bindWithRatioToContainer() {
+    public void bindWithRatioToContainer(final DoubleProperty wN, final DoubleProperty hN) {
         if (wC.get() * xScaleFactor > hC.get() * yScaleFactor * aspectRatio) {
             hN.bind(hC.multiply(yScaleFactor));
             wN.bind(hN.multiply(aspectRatio));

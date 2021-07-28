@@ -22,16 +22,12 @@ public class GameArenaDrawer {
     private static final String POWERUP_END_PATH = "POWERUP.png";
     private static final String PAD_END_PATH = "PAD.png";
 
-    private final GraphicsContext gc;
+    private GraphicsContext gc;
     private final Dimension arenaDimension;
 
     public GameArenaDrawer(final GraphicsContext gc, final Dimension arenaDimension) {
         this.gc = gc;
         this.arenaDimension = arenaDimension;
-    }
-
-    public final void clearCanvas() {
-        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
 
     public final void fillBrick(final Coord position, final Dimension dimension, final BrickType type) {
@@ -95,6 +91,10 @@ public class GameArenaDrawer {
      */
     private Image loadImage(final String endPath) {
         return new Image(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + endPath));
+    }
+
+    public void setGc(final GraphicsContext gc) {
+        this.gc = gc;
     }
 
 }
