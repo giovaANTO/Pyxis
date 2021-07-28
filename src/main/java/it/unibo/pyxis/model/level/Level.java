@@ -36,7 +36,7 @@ public interface Level {
      * @param delta
      *              The time gap intercurred between an update
      */
-    void update(int delta);
+    void update(double delta);
 
     /**
      * Handle a {@link DecreaseLifeEvent}.

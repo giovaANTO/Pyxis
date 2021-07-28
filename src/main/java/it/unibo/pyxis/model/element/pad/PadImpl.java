@@ -25,7 +25,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     }
 
     @Override
-    public void update(final int dt) {
+    public void update(final double dt) {
         throw new UnsupportedOperationException("Operation not implemented yet");
     }
 

@@ -3,7 +3,6 @@ package it.unibo.pyxis.model.arena;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
@@ -79,7 +78,7 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    public void update(final int delta) {
+    public void update(final double delta) {
         this.ballSet.forEach(b -> b.update(delta));
         this.powerupSet.forEach(p -> p.update(delta));
     }

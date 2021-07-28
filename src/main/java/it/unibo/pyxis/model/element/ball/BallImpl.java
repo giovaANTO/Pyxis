@@ -70,12 +70,12 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     @Override
-    public void update(final int dt) {
+    public void update(final double dt) {
         this.calculateNewCoord(dt);
         EventBus.getDefault().post(Events.newBallMovementEvent(this.id, this.getHitbox(), this.getType().getDamage()));
     }
 
-    private void calculateNewCoord(final int dt) {
+    private void calculateNewCoord(final double dt) {
         Coord updatedCoord = this.getPosition();
         updatedCoord.sumVector(this.getPace(),
                 this.getType().getPaceMultiplier() * dt * this.getUpdateTimeMultiplier());
