@@ -23,10 +23,14 @@ import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerPolicy;
-import it.unibo.pyxis.model.util.*;
 import it.unibo.pyxis.model.element.powerup.PowerupType;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
+import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.CoordImpl;
+import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.Vector;
+import it.unibo.pyxis.model.util.VectorImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -92,6 +96,12 @@ public final class ArenaImpl implements Arena {
                 .mapToInt(Ball::getId)
                 .max()
                 .orElse(0);
+    }
+
+    private Coord calcPadNewCoord(final Vector directionalVector) {
+        final Coord updatedCoord = this.pad.getPosition();
+        updatedCoord.sumVector(directionalVector);
+        return updatedCoord;
     }
 
     /**
@@ -195,13 +205,18 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    public void movePad(final Vector movementVector) {
-        final Pad currentPad = this.getPad();
-        final Dimension padDimension = this.getPad().getDimension();
-        final Coord padPosition = this.getPad().getPosition();
-        if (padPosition.getX() != 0 && padPosition.getX() + padDimension.getWidth() != this.getDimension().getWidth()) {
-            currentPad.getPosition().sumVector(movementVector);
-            System.out.println(currentPad.getPosition().getX() + " " + currentPad.getPosition().getY());
+    public void movePadLeft() {
+        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-3, 0));
+        if (newPosition.getX() >= 0) {
+            this.getPad().setPosition(newPosition);
+        }
+    }
+
+    @Override
+    public void movePadRigth() {
+        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(3, 0));
+        if (newPosition.getX() <= this.getPad().getPosition().getX() + this.getDimension().getWidth()) {
+            this.getPad().setPosition(newPosition);
         }
     }
 

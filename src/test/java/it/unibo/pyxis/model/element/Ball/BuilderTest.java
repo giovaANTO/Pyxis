@@ -59,15 +59,13 @@ public class BuilderTest {
     @Test
     public void testUpdate() {
         System.out.println("testUpdate");
-        final Coord coordinates = this.ball1.getPosition().copyOf();
+        final Coord coordinates = this.ball1.getPosition();
         assertEquals(this.ball1.getPosition(), coordinates);
         this.ball1.update(this.dt);
         final double multiplier = this.ball1.getType().getPaceMultiplier();
         final double modX = coordinates.getX() + (this.ball1.getPace().getX() * multiplier * this.dt * this.ball1.getUpdateTimeMultiplier());
         final double modY = coordinates.getY() + (this.ball1.getPace().getY() * multiplier * this.dt * this.ball1.getUpdateTimeMultiplier());
         Coord updatedCoordinates = new CoordImpl(modX, modY);
-        System.out.println(this.ball1.getPosition().getX() + " " + this.ball1.getPosition().getY());
-        System.out.println(updatedCoordinates.getX() + " " + updatedCoordinates.getY());
         assertEquals(this.ball1.getPosition(), updatedCoordinates);
     }
 

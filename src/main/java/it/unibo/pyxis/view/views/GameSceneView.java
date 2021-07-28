@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -48,20 +47,18 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
                 arenaCanvas.getWidth(), arenaCanvas.getHeight());
         final Linker linker = this.getController().getLinker();
         EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.A) {
-                linker.insertCommand(level -> {
-                    System.out.println("Pressed A");
-                });
-            }
-            if (keyEvent.getCode() == KeyCode.D) {
-                linker.insertCommand(level -> {
-                    System.out.println("Pressed D");
-                });
-            }
-            if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                linker.insertCommand(level -> {
-                    System.out.println("Pressed ESC");
-                });
+            switch (keyEvent.getCode()) {
+                case A:
+                    linker.insertCommand(level -> level.getArena().movePadLeft());
+                    break;
+                case D:
+                    linker.insertCommand(level -> level.getArena().movePadRigth());
+                    break;
+                case ESCAPE:
+                    System.out.println("ESC");
+                    break;
+                default:
+                    break;
             }
         };
         this.mainPane.addEventHandler(KeyEvent.KEY_PRESSED, keyEventEventHandler);

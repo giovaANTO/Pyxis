@@ -9,7 +9,6 @@ import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
-import it.unibo.pyxis.model.util.Vector;
 
 public interface Arena {
 
@@ -95,11 +94,14 @@ public interface Arena {
     void setDefaultPad();
 
     /**
-     * Move the {@link Pad} in a specific direction.
-     * @param movementVector
-     *                       The {@link Vector} that specify the direction where the pad should move.
+     * Move pad to the left of the {@link Arena}.
      */
-    void movePad(Vector movementVector);
+    void movePadLeft();
+
+    /**
+     * Move pad to the rigth of the {@link Arena}.
+     */
+    void movePadRigth();
 
     /**
      * Add a {@link Brick} in the {@link Arena}.

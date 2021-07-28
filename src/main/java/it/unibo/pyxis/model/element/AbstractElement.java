@@ -20,12 +20,12 @@ public abstract class AbstractElement implements Element {
 
     @Override
     public final synchronized Dimension getDimension() {
-        return this.dimension;
+        return this.dimension.copyOf();
     }
 
     @Override
     public final synchronized Coord getPosition() {
-        return this.position;
+        return this.position.copyOf();
     }
 
     @Override
