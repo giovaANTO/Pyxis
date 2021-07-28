@@ -21,7 +21,7 @@ public class GameArenaDrawer {
     private static final String BRICK_END_PATH = "BRICK.png";
     private static final String BALL_END_PATH = "BALL.png";
     private static final String POWERUP_END_PATH = "POWERUP.png";
-    private static final String PAD_END_PATH = "PAD.jpg";
+    private static final String PAD_END_PATH = "PAD.png";
 
     private final GraphicsContext gc;
     private final Dimension arenaDimension;
