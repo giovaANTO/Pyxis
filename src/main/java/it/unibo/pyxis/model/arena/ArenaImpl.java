@@ -98,6 +98,13 @@ public final class ArenaImpl implements Arena {
                 .orElse(0);
     }
 
+    /**
+     * Calculate the new position of the {@link Pad}.
+     * @param directionalVector
+     *                          The directional {@link Vector} used for setting the new {@link Coord}.
+     * @return
+     *          The new position of the {@link Pad}
+     */
     private Coord calcPadNewCoord(final Vector directionalVector) {
         final Coord updatedCoord = this.pad.getPosition();
         updatedCoord.sumVector(directionalVector);
