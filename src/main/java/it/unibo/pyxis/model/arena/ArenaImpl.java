@@ -36,15 +36,15 @@ import org.greenrobot.eventbus.Subscribe;
 
 public final class ArenaImpl implements Arena {
 
+    private Pad pad;
     private Coord startingPadPosition;
-    private Coord startingBallPosition;
-
-    private final Dimension dimension;
-    private final Map<Coord, Brick> brickMap;
     private final Set<Ball> ballSet;
+    private Coord startingBallPosition;
+    private Vector startingBallPace;
+    private final Map<Coord, Brick> brickMap;
     private final Set<Powerup> powerupSet;
     private final PowerupHandler powerupHandler;
-    private Pad pad;
+    private final Dimension dimension;
 
     private static final double POWERUP_SPAWN_PROBABILITY = (3.0 / 10);
     private final Random rng;
@@ -71,7 +71,14 @@ public final class ArenaImpl implements Arena {
      */
     private void resetStartingPosition() {
         this.getPad().setPosition(this.startingPadPosition);
-        //this.ballSet.add(new BallImpl());
+        final Ball newBall = new BallImpl.Builder()
+                .initialPosition(this.startingBallPosition)
+                .pace(this.startingBallPace)
+                .ballType(BallType.NORMAL_BALL)
+                .id(1)
+                .build();
+        this.ballSet.clear();
+        this.ballSet.add(newBall);
     }
 
     /**
@@ -125,9 +132,19 @@ public final class ArenaImpl implements Arena {
         this.addPowerup(powerup);
     }
 
+    /**
+     * Determine if a {@link Powerup} should be created.
+     * @return
+     *          True if the {@link Powerup} can be created false otherwise.
+     */
+    private boolean calculateSpawnPowerup() {
+        final int multiplier = 100;
+        return rangeNextInt(multiplier) <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
+    }
+
     @Override
     public void update(final double delta) {
-        checkBorderCollision();
+        this.checkBorderCollision();
         this.ballSet.forEach(b -> b.update(delta));
         this.powerupSet.forEach(p -> p.update(delta));
     }
@@ -139,12 +156,6 @@ public final class ArenaImpl implements Arena {
         if (this.calculateSpawnPowerup()) {
             this.spawnPowerup(event.getBrickCoord());
         }
-    }
-
-    private boolean calculateSpawnPowerup() {
-        final int multiplier = 100;
-        return rangeNextInt(multiplier)
-                <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
     }
 
     @Override
@@ -243,6 +254,7 @@ public final class ArenaImpl implements Arena {
     public void addBall(final Ball ball) {
         if (Objects.isNull(this.startingBallPosition)) {
             this.startingBallPosition = ball.getPosition();
+            this.startingBallPace = ball.getPace();
         }
         this.ballSet.add(ball);
     }

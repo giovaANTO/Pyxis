@@ -55,11 +55,9 @@ public final class BallImpl extends AbstractElement implements Ball {
         if (edgesHit.contains(HitEdge.HORIZONTAL) && edgesHit.contains(HitEdge.VERTICAL) || edgesHit.contains(HitEdge.CORNER)) {
             this.invertPaceX();
             this.invertPaceY();
-        }
-        else if (edgesHit.contains(HitEdge.HORIZONTAL)) {
+        } else if (edgesHit.contains(HitEdge.HORIZONTAL)) {
             this.invertPaceY();
-        }
-        else if (edgesHit.contains(HitEdge.VERTICAL)) {
+        } else if (edgesHit.contains(HitEdge.VERTICAL)) {
             this.invertPaceX();
         }
         this.edgesHit.clear();
