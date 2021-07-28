@@ -23,13 +23,10 @@ import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerPolicy;
-import it.unibo.pyxis.model.util.Coord;
-import it.unibo.pyxis.model.util.CoordImpl;
-import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.*;
 import it.unibo.pyxis.model.element.powerup.PowerupType;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
-import it.unibo.pyxis.model.util.VectorImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -62,6 +59,39 @@ public final class ArenaImpl implements Arena {
         this.powerupHandler = new PowerupHandlerImpl(policy, this);
         // Register the Arena to the event bus
         EventBus.getDefault().register(this);
+    }
+
+    /**
+     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
+     */
+    private void resetStartingPosition() {
+        this.getPad().setPosition(this.startingPadPosition);
+        //this.ballSet.add(new BallImpl());
+    }
+
+    /**
+     * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive).
+     * @param upperBound
+     *                   The upper bound of the range.
+     * @return
+     *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
+     *          from the {@link Random} rng sequence.
+     */
+    private Integer rangeNextInt(final int upperBound) {
+        return rng.nextInt(upperBound);
+    }
+
+    /**
+     * Return the last {@link Ball} id inserted in the {@link Arena}.
+     * @return
+     *          The integer representing the last id inserted
+     *          in the {@link Arena}
+     */
+    private int getLastBallId() {
+        return this.ballSet.stream()
+                .mapToInt(Ball::getId)
+                .max()
+                .orElse(0);
     }
 
     /**
@@ -123,39 +153,6 @@ public final class ArenaImpl implements Arena {
         }
     }
 
-    /**
-     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
-     */
-    private void resetStartingPosition() {
-        this.getPad().setPosition(this.startingPadPosition);
-        //this.ballSet.add(new BallImpl());
-    }
-
-    /**
-     * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive). 
-     * @param upperBound
-     *                   The upper bound of the range.
-     * @return
-     *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
-     *          from the {@link Random} rng sequence.
-     */
-    private Integer rangeNextInt(final int upperBound) {
-        return rng.nextInt(upperBound);
-    }
-
-    /**
-     * Return the last {@link Ball} id inserted in the {@link Arena}.
-     * @return
-     *          The integer representing the last id inserted
-     *          in the {@link Arena}
-     */
-    private int getLastBallId() {
-        return this.ballSet.stream()
-                .mapToInt(Ball::getId)
-                .max()
-                .orElse(0);
-    }
-
     @Override
     public Dimension getDimension() {
         return this.dimension.copyOf();
@@ -195,6 +192,17 @@ public final class ArenaImpl implements Arena {
         final double posY = this.getDimension().getHeight() * 0.7;
         final Pad defaultPad = new PadImpl(new CoordImpl(posX, posY));
         this.setPad(defaultPad);
+    }
+
+    @Override
+    public void movePad(final Vector movementVector) {
+        final Pad currentPad = this.getPad();
+        final Dimension padDimension = this.getPad().getDimension();
+        final Coord padPosition = this.getPad().getPosition();
+        if (padPosition.getX() != 0 && padPosition.getX() + padDimension.getWidth() != this.getDimension().getWidth()) {
+            currentPad.getPosition().sumVector(movementVector);
+            System.out.println(currentPad.getPosition().getX() + " " + currentPad.getPosition().getY());
+        }
     }
 
     @Override
