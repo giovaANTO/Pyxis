@@ -1,6 +1,7 @@
 package it.unibo.pyxis.controller.engine;
 
-import it.unibo.pyxis.controller.command.GameCommand;
+import it.unibo.pyxis.controller.command.Command;
+import it.unibo.pyxis.model.level.Level;
 
 public interface GameLoop {
     /**
@@ -31,5 +32,5 @@ public interface GameLoop {
      * @param command
      *                The command to add in the queue.
      */
-    void addCommand(GameCommand command);
+    void addCommand(Command<Level> command);
 }

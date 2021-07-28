@@ -1,6 +1,7 @@
 package it.unibo.pyxis.controller.linker;
 
-import it.unibo.pyxis.controller.controllers.Controller;
+import it.unibo.pyxis.controller.command.Command;
+import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.view.scene.SceneType;
 
@@ -20,7 +21,5 @@ public interface Linker {
 
     void render();
 
-    void handleCommandControl();
-
-    void handleApplicationCommand();
+    void insertCommand(Command<Level> levelCommand);
 }
