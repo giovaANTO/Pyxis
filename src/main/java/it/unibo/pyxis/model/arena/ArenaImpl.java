@@ -88,16 +88,15 @@ public final class ArenaImpl implements Arena {
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
         this.brickMap.remove(event.getBrickCoord());
-        if (calculateSpawnPowerup()) {
+        if (this.calculateSpawnPowerup()) {
             this.spawnPowerup(event.getBrickCoord());
         }
     }
 
     private boolean calculateSpawnPowerup() {
         final int multiplier = 100;
-        int randNum = rangeNextInt(multiplier);
-        System.out.println(randNum + " <= " + Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY) + " ? " + (randNum <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY)));
-        return randNum <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
+        return rangeNextInt(multiplier)
+                <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
     }
 
     @Override
