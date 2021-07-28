@@ -1,7 +1,9 @@
 package it.unibo.pyxis.controller.linker;
 
+import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
+import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
@@ -80,12 +82,7 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public void handleCommandControl() {
-
-    }
-
-    @Override
-    public void handleApplicationCommand() {
-
+    public void insertCommand(final Command<Level> levelCommand) {
+        levelCommand.execute(this.gameState.getCurrentLevel());
     }
 }

@@ -1,6 +1,7 @@
 package it.unibo.pyxis.view.drawer;
 
 import java.io.File;
+import java.util.Objects;
 
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.BrickType;
@@ -43,7 +44,7 @@ public class GameArenaDrawer {
     }
 
     public final void fillPad(final Pad pad) {
-//        this.fillImage(pad.getPosition(), pad.getDimension(), PAD_END_PATH);
+        this.fillImage(pad.getPosition(), pad.getDimension(), PAD_END_PATH);
     }
 
     private void fillImage(final Coord position, final Dimension dimension, final String endPath) {
@@ -90,7 +91,7 @@ public class GameArenaDrawer {
      *          the {@link Image} for the requested sprite path.
      */
     private Image loadImage(final String endPath) {
-        return new Image(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + endPath));
+        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + endPath)));
     }
 
     public void setGc(final GraphicsContext gc) {

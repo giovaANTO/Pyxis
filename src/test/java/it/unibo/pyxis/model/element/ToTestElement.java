@@ -12,7 +12,7 @@ public class ToTestElement extends AbstractElement{
     }
 
     @Override
-    public void update(final int dt) {
+    public void update(final double dt) {
         throw new UnsupportedOperationException("Method isn't implemented yet");
     }
 }

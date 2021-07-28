@@ -1,10 +1,13 @@
 package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
+import it.unibo.pyxis.controller.linker.Linker;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -42,10 +45,31 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.canvasToMainPaneBinder = new CanvasPropertyBinder(mainPane.widthProperty(), mainPane.heightProperty(),
                 mainPane.getPrefWidth(), mainPane.getPrefHeight(),
                 arenaCanvas.getWidth(), arenaCanvas.getHeight());
+        final Linker linker = this.getController().getLinker();
+        EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case A:
+                    linker.insertCommand(level -> level.getArena().movePadLeft());
+                    break;
+                case D:
+                    linker.insertCommand(level -> level.getArena().movePadRigth());
+                    break;
+                case ESCAPE:
+                    System.out.println("ESC");
+                    break;
+                default:
+                    break;
+            }
+        };
+        this.mainPane.addEventHandler(KeyEvent.KEY_PRESSED, keyEventEventHandler);
     }
 
     public void back() {
         this.getController().back();
+    }
+
+    public void update() {
+        this.getController().getLinker().getGameState().getCurrentLevel().update(500.0);
     }
 
     @Override

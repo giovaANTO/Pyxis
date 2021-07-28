@@ -3,7 +3,6 @@ package it.unibo.pyxis.model.arena;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
@@ -24,12 +23,13 @@ import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerPolicy;
-import it.unibo.pyxis.model.util.Coord;
-import it.unibo.pyxis.model.util.CoordImpl;
-import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.element.powerup.PowerupType;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
+import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.CoordImpl;
+import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.Vector;
 import it.unibo.pyxis.model.util.VectorImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,6 +46,7 @@ public final class ArenaImpl implements Arena {
     private final PowerupHandler powerupHandler;
     private Pad pad;
 
+    private static final double POWERUP_SPAWN_PROBABILITY = (3.0 / 10);
     private final Random rng;
 
     public ArenaImpl(final Dimension inputDimension) {
@@ -66,6 +67,52 @@ public final class ArenaImpl implements Arena {
     }
 
     /**
+     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
+     */
+    private void resetStartingPosition() {
+        this.getPad().setPosition(this.startingPadPosition);
+        //this.ballSet.add(new BallImpl());
+    }
+
+    /**
+     * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive).
+     * @param upperBound
+     *                   The upper bound of the range.
+     * @return
+     *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
+     *          from the {@link Random} rng sequence.
+     */
+    private Integer rangeNextInt(final int upperBound) {
+        return rng.nextInt(upperBound);
+    }
+
+    /**
+     * Return the last {@link Ball} id inserted in the {@link Arena}.
+     * @return
+     *          The integer representing the last id inserted
+     *          in the {@link Arena}
+     */
+    private int getLastBallId() {
+        return this.ballSet.stream()
+                .mapToInt(Ball::getId)
+                .max()
+                .orElse(0);
+    }
+
+    /**
+     * Calculate the new position of the {@link Pad}.
+     * @param directionalVector
+     *                          The directional {@link Vector} used for setting the new {@link Coord}.
+     * @return
+     *          The new position of the {@link Pad}
+     */
+    private Coord calcPadNewCoord(final Vector directionalVector) {
+        final Coord updatedCoord = this.pad.getPosition();
+        updatedCoord.sumVector(directionalVector);
+        return updatedCoord;
+    }
+
+    /**
      * Spawn a new {@link Powerup} in a specified position.
      * Add a new instance of {@link Powerup} inside the set of powerups.
      *
@@ -79,7 +126,8 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    public void update(final int delta) {
+    public void update(final double delta) {
+        checkBorderCollision();
         this.ballSet.forEach(b -> b.update(delta));
         this.powerupSet.forEach(p -> p.update(delta));
     }
@@ -88,10 +136,15 @@ public final class ArenaImpl implements Arena {
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
         this.brickMap.remove(event.getBrickCoord());
-        final int powerupSpawnProbabilityBound = 10;
-        if (rangeNextInt(powerupSpawnProbabilityBound).equals(0)) {
+        if (this.calculateSpawnPowerup()) {
             this.spawnPowerup(event.getBrickCoord());
         }
+    }
+
+    private boolean calculateSpawnPowerup() {
+        final int multiplier = 100;
+        return rangeNextInt(multiplier)
+                <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
     }
 
     @Override
@@ -114,7 +167,7 @@ public final class ArenaImpl implements Arena {
                 }
             } else {
                 final Optional<HitEdge> hitEdge = b.getHitbox().collidingEdgeWithBorder(this.getDimension());
-                hitEdge.ifPresent(edge -> EventBus.getDefault().post(Events.newCollisionEvent(edge)));
+                hitEdge.ifPresent(edge -> EventBus.getDefault().post(Events.newBallCollisionEvent(b.getId(), edge)));
             }
         }
         for (final Powerup p: getPowerups()) {
@@ -122,39 +175,6 @@ public final class ArenaImpl implements Arena {
                 this.powerupSet.remove(p);
             }
         }
-    }
-
-    /**
-     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
-     */
-    private void resetStartingPosition() {
-        this.getPad().setPosition(this.startingPadPosition);
-        //this.ballSet.add(new BallImpl());
-    }
-
-    /**
-     * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive). 
-     * @param upperBound
-     *                   The upper bound of the range.
-     * @return
-     *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
-     *          from the {@link Random} rng sequence.
-     */
-    private Integer rangeNextInt(final int upperBound) {
-        return rng.nextInt(upperBound);
-    }
-
-    /**
-     * Return the last {@link Ball} id inserted in the {@link Arena}.
-     * @return
-     *          The integer representing the last id inserted
-     *          in the {@link Arena}
-     */
-    private int getLastBallId() {
-        return this.ballSet.stream()
-                .mapToInt(Ball::getId)
-                .max()
-                .orElse(0);
     }
 
     @Override
@@ -196,6 +216,22 @@ public final class ArenaImpl implements Arena {
         final double posY = this.getDimension().getHeight() * 0.7;
         final Pad defaultPad = new PadImpl(new CoordImpl(posX, posY));
         this.setPad(defaultPad);
+    }
+
+    @Override
+    public void movePadLeft() {
+        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-3, 0));
+        if (newPosition.getX() >= this.pad.getDimension().getWidth() / 2) {
+            this.getPad().setPosition(newPosition);
+        }
+    }
+
+    @Override
+    public void movePadRigth() {
+        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(3, 0));
+        if (newPosition.getX() <= this.getDimension().getWidth() - this.pad.getDimension().getWidth() / 2) {
+            this.getPad().setPosition(newPosition);
+        }
     }
 
     @Override

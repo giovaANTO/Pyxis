@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 public final class PadImpl extends AbstractElement implements Pad {
 
-    private static final Dimension DIMENSION = new DimensionImpl(1, 1);
+    private static final Dimension DIMENSION = new DimensionImpl(100, 18);
 
     public PadImpl(final Dimension inputDimension, final Coord inputPosition) {
         super(inputDimension, inputPosition);
@@ -25,7 +25,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     }
 
     @Override
-    public void update(final int dt) {
+    public void update(final double dt) {
         throw new UnsupportedOperationException("Operation not implemented yet");
     }
 

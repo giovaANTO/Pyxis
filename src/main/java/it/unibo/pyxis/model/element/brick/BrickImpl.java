@@ -3,6 +3,7 @@ package it.unibo.pyxis.model.element.brick;
 import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
+import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
 
-    private static final Dimension DIMENSION = new DimensionImpl(30, 10);
+    private static final Dimension DIMENSION = new DimensionImpl(60, 25);
     private final BrickType brickType;
     private int durability;
 
@@ -29,17 +30,18 @@ public final class BrickImpl extends AbstractElement implements Brick {
     }
 
     @Override
-    public void update(final int delta) {
+    public void update(final double delta) {
         throw new UnsupportedOperationException("You can't call update on a brick");
     }
 
     @Override
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
-        final Hitbox ballHitbox = movementEvent.getHitbox();
-        if (ballHitbox.isCollidingWithHB(this.getHitbox())) {
+        final Optional<HitEdge> hitEdge = movementEvent.getHitbox().collidingEdgeWithHB(this.getHitbox());
+        hitEdge.ifPresent(edge -> {
             this.handleIncomingDamage(movementEvent.getDamage());
-        }
+            EventBus.getDefault().post(Events.newBallCollisionEvent(movementEvent.getBallId(), edge));
+        });
     }
 
     /**
