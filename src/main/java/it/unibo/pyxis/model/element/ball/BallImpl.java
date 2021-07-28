@@ -100,7 +100,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public void update(final double dt) {
         this.applyBorderAndBrickCollision();
         this.calculateNewCoord(dt);
-        EventBus.getDefault().post(Events.newBallMovementEvent(this.id, this.getHitbox(), this.getType().getDamage()));
+        EventBus.getDefault().post(Events.newBallMovementEvent(this));
     }
 
     private void calculateNewCoord(final double dt) {

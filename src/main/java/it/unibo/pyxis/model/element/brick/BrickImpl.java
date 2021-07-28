@@ -1,6 +1,7 @@
 package it.unibo.pyxis.model.element.brick;
 
 import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.hitbox.HitEdge;
@@ -37,10 +38,11 @@ public final class BrickImpl extends AbstractElement implements Brick {
     @Override
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
-        final Optional<HitEdge> hitEdge = movementEvent.getHitbox().collidingEdgeWithHB(this.getHitbox());
+        final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         hitEdge.ifPresent(edge -> {
-            this.handleIncomingDamage(movementEvent.getDamage());
-            EventBus.getDefault().post(Events.newBallCollisionEvent(movementEvent.getBallId(), edge));
+            Ball ball = (Ball) movementEvent.getElement();
+            this.handleIncomingDamage(ball.getType().getDamage());
+            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), edge));
         });
     }
 

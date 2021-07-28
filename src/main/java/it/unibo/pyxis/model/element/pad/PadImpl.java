@@ -1,14 +1,21 @@
 package it.unibo.pyxis.model.element.pad;
 
 import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.element.ball.Ball;
+import it.unibo.pyxis.model.element.powerup.Powerup;
+import it.unibo.pyxis.model.element.powerup.PowerupImpl;
+import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
+import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.Optional;
 
 public final class PadImpl extends AbstractElement implements Pad {
 
@@ -32,12 +39,21 @@ public final class PadImpl extends AbstractElement implements Pad {
     @Override
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
-
+        final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
+        hitEdge.ifPresent(edge -> {
+            Ball ball = (Ball) movementEvent.getElement();
+            EventBus.getDefault().post(Events.newPadCollisionEvent(edge, this.getDimension().getWidth()));
+        });
     }
 
     @Override
     @Subscribe
     public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {
-
+        final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
+        hitEdge.ifPresent(edge -> {
+            Powerup powerup = (Powerup) movementEvent.getElement();
+            powerup.apply();
+            EventBus.getDefault().post(Events.newPowerupActivationEvent(powerup));
+        });
     }
 }
