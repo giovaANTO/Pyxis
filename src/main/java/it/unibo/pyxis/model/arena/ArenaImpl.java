@@ -127,6 +127,7 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public void update(final double delta) {
+        checkBorderCollision();
         this.ballSet.forEach(b -> b.update(delta));
         this.powerupSet.forEach(p -> p.update(delta));
     }
@@ -166,7 +167,7 @@ public final class ArenaImpl implements Arena {
                 }
             } else {
                 final Optional<HitEdge> hitEdge = b.getHitbox().collidingEdgeWithBorder(this.getDimension());
-                hitEdge.ifPresent(edge -> EventBus.getDefault().post(Events.newCollisionEvent(edge)));
+                hitEdge.ifPresent(edge -> EventBus.getDefault().post(Events.newBallCollisionEvent(b.getId(), edge)));
             }
         }
         for (final Powerup p: getPowerups()) {
