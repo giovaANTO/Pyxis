@@ -20,7 +20,7 @@ public class GameArenaDrawer {
     private static final String BRICK_END_PATH = "BRICK.png";
     private static final String BALL_END_PATH = "BALL.png";
     private static final String POWERUP_END_PATH = "POWERUP.png";
-    private static final String PAD_END_PATH = "PAD.png";
+    private static final String PAD_END_PATH = "PAD.jpg";
 
     private final GraphicsContext gc;
     private final Dimension arenaDimension;
@@ -47,7 +47,7 @@ public class GameArenaDrawer {
     }
 
     public final void fillPad(final Pad pad) {
-//        this.fillImage(pad.getPosition(), pad.getDimension(), PAD_END_PATH);
+        this.fillImage(pad.getPosition(), pad.getDimension(), PAD_END_PATH);
     }
 
     private void fillImage(final Coord position, final Dimension dimension, final String endPath) {
