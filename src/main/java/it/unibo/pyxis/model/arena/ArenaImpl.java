@@ -214,7 +214,7 @@ public final class ArenaImpl implements Arena {
     @Override
     public void movePadLeft() {
         final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-3, 0));
-        if (newPosition.getX() >= 0) {
+        if (newPosition.getX() >= this.pad.getDimension().getWidth() / 2) {
             this.getPad().setPosition(newPosition);
         }
     }
@@ -222,7 +222,7 @@ public final class ArenaImpl implements Arena {
     @Override
     public void movePadRigth() {
         final Coord newPosition = this.calcPadNewCoord(new VectorImpl(3, 0));
-        if (newPosition.getX() <= this.getPad().getPosition().getX() + this.getDimension().getWidth()) {
+        if (newPosition.getX() <= this.getDimension().getWidth() - this.pad.getDimension().getWidth() / 2) {
             this.getPad().setPosition(newPosition);
         }
     }
