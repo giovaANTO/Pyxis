@@ -1,8 +1,8 @@
 package it.unibo.pyxis.controller.engine;
 
 import it.unibo.pyxis.controller.command.Command;
+import it.unibo.pyxis.controller.linker.Linker;
 import it.unibo.pyxis.model.level.Level;
-import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.StateEnum;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -11,72 +11,57 @@ import java.util.concurrent.BlockingQueue;
 
 public final class GameLoopImpl extends Thread implements GameLoop {
 
-    private static final int MAX_COMMANDS = 300;
-    private static final long UPDATING_FREQUENCY = 4;
-    private final GameState gameState;
+    private static final int COMMAND_QUEUE_DIMENSION = 100;
+    private final long period = 1000;
+    private final Linker linker;
     private final BlockingQueue<Command<Level>> commandQueue;
-    private long showStatsTimer;
-    private int fps = 0;
-    private int ups = 0;
 
-    public GameLoopImpl(final GameState inputGameState) {
-        this.gameState = inputGameState;
-        this.commandQueue = new ArrayBlockingQueue<Command<Level>>(MAX_COMMANDS);
+
+    public GameLoopImpl(final Linker linker) {
+        this.linker = linker;
+        this.commandQueue = new ArrayBlockingQueue<Command<Level>>(COMMAND_QUEUE_DIMENSION);
     }
 
     @Override
     public void run() {
-        this.gameState.setState(StateEnum.RUN);
-        long lastUpdate = System.currentTimeMillis();
-        this.showStatsTimer = System.currentTimeMillis() + 1000;
-        while (this.gameState.getGameState() == StateEnum.RUN) {
+        long lastTime = System.currentTimeMillis();
+        while (this.linker.getGameState().getGameState() != StateEnum.STOP) {
             long current = System.currentTimeMillis();
-            long lastRenderingTime = (current - lastUpdate);
+            int elapsed = (int) (current - lastTime);
             this.processInput();
-            this.update(lastRenderingTime);
-            this.render();
-            this.showStats();
+            this.update(elapsed);
+            render();
             this.waitForNextFrame(current);
-            lastUpdate = current;
+            lastTime = current;
         }
     }
-
-    private void showStats() {
-        if (System.currentTimeMillis() >= showStatsTimer) {
-            //System.out.print("\r FPS: " + this.fps + " UPS: " + this.ups);
-            this.fps = 0;
-            this.ups = 0;
-            this.showStatsTimer = System.currentTimeMillis() + 1000;
-        }
-    }
-
 
     private void waitForNextFrame(final long current) {
-        long delta = System.currentTimeMillis() - current;
-        if (delta < UPDATING_FREQUENCY) {
+        long dt = System.currentTimeMillis() - current;
+        if (dt < period) {
             try {
-                Thread.sleep(UPDATING_FREQUENCY - delta);
+                Thread.sleep(period - dt);
             } catch (Exception ex) {
-                Thread.currentThread().interrupt();
+                System.out.println(ex.getMessage());
             }
         }
     }
 
     @Override
     public void render() {
-        this.fps++;
+        System.out.println("Render");
     }
 
     @Override
     public void update(final double elapsed) {
-        this.ups++;
+        System.out.println("Update");
     }
 
     @Override
     public void processInput() {
         if (!this.commandQueue.isEmpty()) {
             final Command<Level> nextCommand = this.commandQueue.poll();
-            nextCommand.execute(this.gameState.getCurrentLevel());
+            nextCommand.execute(this.linker.getGameState().getCurrentLevel());
         }
     }
 
