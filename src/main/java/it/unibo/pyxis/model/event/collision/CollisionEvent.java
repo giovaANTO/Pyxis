@@ -1,5 +1,6 @@
 package it.unibo.pyxis.model.event.collision;
 
+import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.hitbox.HitEdge;
 
 /**
@@ -12,5 +13,5 @@ public interface CollisionEvent {
      * @return
      *          the {@link HitEdge} that collided with the ball.
      */
-    HitEdge getCollidedEdge();
+    CollisionInformation getCollisionInformation();
 }

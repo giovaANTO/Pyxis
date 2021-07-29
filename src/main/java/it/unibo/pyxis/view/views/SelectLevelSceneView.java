@@ -26,17 +26,17 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
 
-        GridPane gridPane = new GridPane();
+        final GridPane gridPane = new GridPane();
         this.hBox.prefWidthProperty().bind(stackPane.prefWidthProperty());
         this.hBox.prefHeightProperty().bind(stackPane.prefHeightProperty());
 
-        int col = (int) Math.ceil(Math.sqrt(this.numLevel));
+        final int col = (int) Math.ceil(Math.sqrt(this.numLevel));
 
         int countX = 0;
         int countY = 0;
 
         for (int i = 0; i < this.numLevel; i++) {
-            Button butt = new Button(String.valueOf(i + 1));
+            final Button butt = new Button(String.valueOf(i + 1));
             butt.setOnAction(event -> {
                 this.getLevel(Integer.parseInt(butt.getText()));
             });

@@ -6,6 +6,7 @@ import java.util.Optional;
 import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.DimensionImpl;
 
 public abstract class AbstractHitbox implements Hitbox {
 
@@ -26,7 +27,7 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
-    public Optional<HitEdge> collidingEdgeWithBorder(final Dimension borderDimension) {
+    public Optional<CollisionInformation> collidingEdgeWithBorder(final Dimension borderDimension) {
 
         final double cHBCenterX = getPosition().getX();
         final double cHBCenterY = getPosition().getY();
@@ -35,17 +36,24 @@ public abstract class AbstractHitbox implements Hitbox {
         final double bHBWidth   = borderDimension.getWidth();
 
         HitEdge hitEdge = null;
+        final Dimension borderOffset = new DimensionImpl();
 
-        if (checkBC(cHBCenterX, cHBHalvedWidth)
-                || checkBC(bHBWidth - cHBCenterX, cHBHalvedWidth)) {
+        if (checkBC(cHBCenterX, cHBHalvedWidth)) {
+            borderOffset.setWidth(cHBCenterX);
+            hitEdge = HitEdge.VERTICAL;
+        } else if (checkBC(bHBWidth - cHBCenterX, cHBHalvedWidth)) {
+            borderOffset.setWidth(bHBWidth - cHBCenterX);
             hitEdge = HitEdge.VERTICAL;
         }
         if (checkBC(cHBCenterY, cHBHalvedHeight)) {
+            borderOffset.setHeight(cHBCenterY);
             hitEdge = Objects.isNull(hitEdge) 
                     ? HitEdge.HORIZONTAL
                     : HitEdge.CORNER;
         }
-        return Optional.ofNullable(hitEdge);
+        return !Objects.isNull(hitEdge)
+                ? Optional.of(new CollisionInformation(hitEdge, borderOffset))
+                : Optional.empty();
     }
 
     @Override
@@ -77,7 +85,7 @@ public abstract class AbstractHitbox implements Hitbox {
     public abstract boolean isCollidingWithHB(final Hitbox hitbox);
 
     @Override
-    public abstract Optional<HitEdge> collidingEdgeWithHB(final Hitbox hitbox);
+    public abstract Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox);
 
     /**
      * Checks for a collision with the same {@link Hitbox}.
@@ -98,7 +106,7 @@ public abstract class AbstractHitbox implements Hitbox {
      *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
      *          an EMPTY {@link Optional} if they are different or not colliding.
      */
-    protected abstract Optional<HitEdge> collidingEdgeWithSameHB(final Hitbox hitbox);
+    protected abstract Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox);
 
     /**
      * Checks for a collision with the different {@link Hitbox}.
@@ -119,6 +127,13 @@ public abstract class AbstractHitbox implements Hitbox {
      *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
      *          an EMPTY {@link Optional} if they are the same or not colliding.
      */
-    protected abstract Optional<HitEdge> collidingEdgeWithOtherHB(final Hitbox hitbox);
+    protected abstract Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox);
 
+    protected Double widthOffsetCalculation(final Double distanceFromCenter) {
+        return this.getDimension().getWidth() / 2 - distanceFromCenter;
+    }
+
+    protected Double heigthOffsetCalculation(final Double distanceFromCenter) {
+        return this.getDimension().getHeight() / 2 - distanceFromCenter;
+    }
 }

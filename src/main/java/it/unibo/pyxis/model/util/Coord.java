@@ -43,6 +43,31 @@ public interface Coord {
     }
 
     /**
+     * Sums the xValue to the internal X value of the {@link Coord}.
+     * @param xValue
+     */
+    void sumXValue(double xValue);
+
+    /**
+     * Sums the yValue to the internal Y value of the {@link Coord}.
+     * @param yValue
+     */
+    void sumYValue(double yValue);
+
+    /**
+     * Sums the xValue and the yValue to the internal values of the {@link Coord}.
+     * @param xValue
+     * @param yValue
+     */
+    void sumValues(double xValue, double yValue);
+
+    /**
+     * Sums the parameter values to the internal values of the {@link Coord}.
+     * @param coord
+     */
+    void sumCoord(Coord coord);
+
+    /**
      * Sums the x, y coordinates to the x, y, components of a
      * {@link Vector}.
      * @param vector

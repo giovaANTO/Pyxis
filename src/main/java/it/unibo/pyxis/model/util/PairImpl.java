@@ -40,7 +40,7 @@ public final class PairImpl<T> implements Pair<T> {
         if (!(o instanceof PairImpl)) {
             return false;
         }
-        PairImpl<?> pair = (PairImpl<?>) o;
+        final PairImpl<?> pair = (PairImpl<?>) o;
         return this.getFirst().equals(pair.getFirst()) && this.getSecond().equals(pair.getSecond());
     }
 

@@ -43,8 +43,8 @@ public final class VectorImpl implements Vector {
 
     @Override
     public Vector copyOf() {
-        double firstComponent = this.components.getFirst();
-        double secondComponent = this.components.getSecond();
+        final double firstComponent = this.components.getFirst();
+        final double secondComponent = this.components.getSecond();
         return new VectorImpl(firstComponent, secondComponent);
     }
 
@@ -56,7 +56,7 @@ public final class VectorImpl implements Vector {
         if (!(o instanceof VectorImpl)) {
             return false;
         }
-        VectorImpl vector = (VectorImpl) o;
+        final VectorImpl vector = (VectorImpl) o;
         return Objects.equals(components, vector.components);
     }
 
