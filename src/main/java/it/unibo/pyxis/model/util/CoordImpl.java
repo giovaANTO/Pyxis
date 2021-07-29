@@ -30,15 +30,34 @@ public final class CoordImpl implements Coord {
     }
 
     @Override
+    public void sumXValue(final double xValue) {
+        this.internalPair.setFirst(this.internalPair.getFirst() + xValue);
+    }
+
+    @Override
+    public void sumYValue(final double yValue) {
+        this.internalPair.setSecond(this.internalPair.getSecond() + yValue);
+    }
+
+    @Override
+    public void sumValues(final double xValue, final double yValue) {
+        this.sumXValue(xValue);
+        this.sumYValue(yValue);
+    }
+
+    @Override
+    public void sumCoord(final Coord coord) {
+        this.sumValues(coord.getX(), coord.getY());
+    }
+
+    @Override
     public void sumVector(final Vector inputVector) {
-        this.internalPair.setFirst(this.internalPair.getFirst() + inputVector.getX());
-        this.internalPair.setSecond(this.internalPair.getSecond() + inputVector.getY());
+        this.sumVector(inputVector, 1);
     }
 
     @Override
     public void sumVector(final Vector inputVector, final double multiplier) {
-        this.internalPair.setFirst(this.internalPair.getFirst() + inputVector.getX() * multiplier);
-        this.internalPair.setSecond(this.internalPair.getSecond() + inputVector.getY() * multiplier);
+        this.sumValues(inputVector.getX() * multiplier, inputVector.getY() * multiplier);
     }
 
     @Override
@@ -68,7 +87,7 @@ public final class CoordImpl implements Coord {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CoordImpl coord = (CoordImpl) o;
+        final CoordImpl coord = (CoordImpl) o;
         return internalPair.equals(coord.internalPair);
     }
 

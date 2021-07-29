@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.DimensionImpl;
 
 public class RectHitbox extends AbstractHitbox {
 
@@ -30,19 +32,20 @@ public class RectHitbox extends AbstractHitbox {
     }
 
     @Override
-    public Optional<HitEdge> collidingEdgeWithHB(final Hitbox hitbox) {
+    public Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox) {
         return hitbox instanceof RectHitbox
                 ? collidingEdgeWithSameHB(hitbox)
                 : collidingEdgeWithOtherHB(hitbox);
     }
 
     @Override
-    protected Optional<HitEdge> collidingEdgeWithSameHB(final Hitbox hitbox) {
+    protected Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox) {
 
         double closestPointX;
         double closestPointY;
 
         HitEdge hitEdge;
+        final Dimension borderOffset = new DimensionImpl();
 
         final double cHBCenterX = getPosition().getX();
         final double cHBCenterY = getPosition().getY();
@@ -55,16 +58,28 @@ public class RectHitbox extends AbstractHitbox {
         closestPointY = closestPointCalculation(cHBCenterY, rHBCenterY, rHBHeight);
 
         if (closestPointX != cHBCenterX && closestPointY != cHBCenterY) {
+            borderOffset.setWidth(widthOffsetCalculation(Math.abs(cHBCenterX - closestPointX)));
+            borderOffset.setHeight(heigthOffsetCalculation(Math.abs(cHBCenterY - closestPointY)));
             hitEdge = HitEdge.CORNER;
-        } else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY) {
+        } else if (closestPointX != cHBCenterX && closestPointY == cHBCenterY) {
+            borderOffset.setWidth(widthOffsetCalculation(Math.abs(cHBCenterX - closestPointX)));
+            hitEdge = HitEdge.VERTICAL;
+        } else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY){
+            borderOffset.setHeight(heigthOffsetCalculation(Math.abs(cHBCenterY - closestPointY)));
             hitEdge = HitEdge.HORIZONTAL;
         } else {
-            hitEdge = HitEdge.VERTICAL;
+            if (Math.min(cHBCenterX, rHBWidth - cHBCenterX) <= Math.min(cHBCenterY, rHBHeight - cHBCenterY)) {
+                borderOffset.setWidth(widthOffsetCalculation(Math.min(cHBCenterX, rHBWidth - cHBCenterX)));
+                hitEdge = HitEdge.VERTICAL;
+            } else {
+                borderOffset.setHeight(heigthOffsetCalculation(Math.min(cHBCenterY, rHBHeight - cHBCenterY)));
+                hitEdge = HitEdge.HORIZONTAL;
+            }
         }
 
         return isCollidingWithPoint(closestPointX, closestPointY)
-                    ? Optional.of(hitEdge)
-                    : Optional.empty();
+                ? Optional.of(new CollisionInformation(hitEdge, borderOffset))
+                : Optional.empty();
     }
 
     /**
@@ -84,7 +99,7 @@ public class RectHitbox extends AbstractHitbox {
     }
 
     @Override
-    protected Optional<HitEdge> collidingEdgeWithOtherHB(final Hitbox hitbox) {
+    protected Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox) {
         return !(hitbox instanceof RectHitbox)
                 ? hitbox.collidingEdgeWithHB(this)
                 : Optional.empty();

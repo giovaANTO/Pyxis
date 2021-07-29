@@ -18,7 +18,7 @@ import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.element.powerup.PowerupImpl;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
-import it.unibo.pyxis.model.hitbox.HitEdge;
+import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
@@ -46,14 +46,14 @@ public final class ArenaImpl implements Arena {
     private final PowerupHandler powerupHandler;
     private final Dimension dimension;
 
-    private static final double POWERUP_SPAWN_PROBABILITY = (3.0 / 10);
-    private final Random rng;
+    private static final double POWERUP_SPAWN_PROBABILITY = 3.0 / 10;
+    private final Random randomNumberGenerator;
 
     public ArenaImpl(final Dimension inputDimension) {
         this.brickMap = new HashMap<>();
         this.ballSet = new HashSet<>();
         this.powerupSet = new HashSet<>();
-        this.rng = new Random();
+        this.randomNumberGenerator = new Random();
         this.dimension = inputDimension;
         // Configuring the powerup handler.
         final PowerupHandlerPolicy policy = (type, map) -> {
@@ -90,7 +90,7 @@ public final class ArenaImpl implements Arena {
      *          from the {@link Random} rng sequence.
      */
     private Integer rangeNextInt(final int upperBound) {
-        return rng.nextInt(upperBound);
+        return randomNumberGenerator.nextInt(upperBound);
     }
 
     /**
@@ -170,8 +170,8 @@ public final class ArenaImpl implements Arena {
                     this.resetStartingPosition();
                 }
             } else {
-                final Optional<HitEdge> hitEdge = b.getHitbox().collidingEdgeWithBorder(this.getDimension());
-                hitEdge.ifPresent(edge -> EventBus.getDefault().post(Events.newBallCollisionEvent(b.getId(), edge)));
+                final Optional<CollisionInformation> collisionInformation = b.getHitbox().collidingEdgeWithBorder(this.getDimension());
+                collisionInformation.ifPresent(cI -> EventBus.getDefault().post(Events.newBallCollisionEvent(b.getId(), cI)));
             }
         }
         for (final Powerup p: getPowerups()) {

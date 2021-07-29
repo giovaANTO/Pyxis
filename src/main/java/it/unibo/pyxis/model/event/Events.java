@@ -9,6 +9,7 @@ import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
+import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.util.Coord;
 
@@ -39,7 +40,7 @@ public final class Events {
      * @return
      *         The {@link BallCollisionEvent} instance.
      */
-    public static BallCollisionEvent newBallCollisionEvent(final int id, final HitEdge hitEdge) {
+    public static BallCollisionEvent newBallCollisionEvent(final int id, final CollisionInformation collisionInformation) {
         return new BallCollisionEvent() {
             @Override
             public int getBallId() {
@@ -47,8 +48,8 @@ public final class Events {
             }
 
             @Override
-            public HitEdge getCollidedEdge() {
-                return hitEdge;
+            public CollisionInformation getCollisionInformation() {
+                return collisionInformation;
             }
         };
     }
@@ -62,7 +63,8 @@ public final class Events {
      * @return
      *           The {@link BallCollisionWithPadEvent} instance.
      */
-    public static BallCollisionWithPadEvent newBallCollisionWithPadEvent(final int id, final HitEdge hitEdge, final double padWidth) {
+    public static BallCollisionWithPadEvent newBallCollisionWithPadEvent(final int id, 
+            final CollisionInformation collisionInformation, final double padWidth) {
         return new BallCollisionWithPadEvent() {
             @Override
             public int getBallId() {
@@ -75,8 +77,8 @@ public final class Events {
             }
 
             @Override
-            public HitEdge getCollidedEdge() {
-                return hitEdge;
+            public CollisionInformation getCollisionInformation() {
+                return collisionInformation;
             }
         };
     }

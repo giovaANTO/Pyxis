@@ -46,7 +46,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
                 arenaCanvas.widthProperty(), arenaCanvas.heightProperty(),
                 arenaCanvas.getWidth(), arenaCanvas.getHeight());
         final Linker linker = this.getController().getLinker();
-        EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
+        final EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
             switch (keyEvent.getCode()) {
                 case A:
                     linker.insertCommand(level -> level.getArena().movePadLeft());

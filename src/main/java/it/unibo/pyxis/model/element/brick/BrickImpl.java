@@ -4,15 +4,13 @@ import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
-import it.unibo.pyxis.model.hitbox.HitEdge;
+import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.Objects;
 import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
@@ -37,10 +35,10 @@ public final class BrickImpl extends AbstractElement implements Brick {
     @Override
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
-        final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
-        hitEdge.ifPresent(edge -> {
+        final Optional<CollisionInformation> collisionInformation = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
+        collisionInformation.ifPresent(cI -> {
             final Ball ball = movementEvent.getElement();
-            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), edge));
+            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI));
             this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
         });
     }
@@ -83,7 +81,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
         if (!super.equals(o)) {
             return false;
         }
-        BrickImpl brick = (BrickImpl) o;
+        final BrickImpl brick = (BrickImpl) o;
         return this.getDurability() == brick.getDurability() && this.getBrickType() == brick.getBrickType();
     }
 

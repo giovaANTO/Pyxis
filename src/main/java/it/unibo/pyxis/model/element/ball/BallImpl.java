@@ -13,17 +13,17 @@ import it.unibo.pyxis.model.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 public final class BallImpl extends AbstractElement implements Ball {
 
     private static final Dimension DIMENSION = new DimensionImpl(20, 20);
     private BallType type;
     private Vector pace;
-    private final Set<HitEdge> edgesHit;
+    private final Map<HitEdge, Dimension> allCollisionInformations;
     private final int id;
 
     private BallImpl(final Vector inputPace, final Coord position, final BallType type, final int inputId) {
@@ -31,7 +31,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.setHitbox(new CircleHitbox(this));
         this.type = type;
         this.pace = inputPace;
-        this.edgesHit = new HashSet<>(Set.of());
+        this.allCollisionInformations = new HashMap<>(Map.of());
         this.id = inputId;
         EventBus.getDefault().register(this);
     }
@@ -41,7 +41,8 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Subscribe
     public void handleCollision(final BallCollisionEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
-            edgesHit.add(collisionEvent.getCollidedEdge());
+            allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
+                                        collisionEvent.getCollisionInformation().getBorderOffset());
         }
     }
 
@@ -49,23 +50,46 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Subscribe
     public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
-            edgesHit.add(collisionEvent.getCollidedEdge());
+            allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
+                                        collisionEvent.getCollisionInformation().getBorderOffset());
         }
     }
 
     private void applyBorderAndBrickCollision() {
-        if (edgesHit.contains(HitEdge.HORIZONTAL) && edgesHit.contains(HitEdge.VERTICAL)) {
+        if (allCollisionInformations.containsKey(HitEdge.HORIZONTAL) && allCollisionInformations.containsKey(HitEdge.VERTICAL)) {
             this.invertPaceX();
             this.invertPaceY();
-        } else if (edgesHit.contains(HitEdge.HORIZONTAL)) {
+            this.applyOffset(new DimensionImpl(allCollisionInformations.get(HitEdge.VERTICAL).getWidth(),
+                                                allCollisionInformations.get(HitEdge.HORIZONTAL).getHeight()));
+        } else if (allCollisionInformations.containsKey(HitEdge.HORIZONTAL)) {
             this.invertPaceY();
-        } else if (edgesHit.contains(HitEdge.VERTICAL)) {
+            this.applyOffset(allCollisionInformations.get(HitEdge.HORIZONTAL));
+        } else if (allCollisionInformations.containsKey(HitEdge.VERTICAL)) {
             this.invertPaceX();
-        } else if (edgesHit.contains(HitEdge.CORNER)) {
+            this.applyOffset(allCollisionInformations.get(HitEdge.VERTICAL));
+        } else if (allCollisionInformations.containsKey(HitEdge.CORNER)) {
             this.invertPaceX();
             this.invertPaceY();
+            this.applyOffset(allCollisionInformations.get(HitEdge.CORNER));
         }
-        this.edgesHit.clear();
+        this.allCollisionInformations.clear();
+    }
+
+    private void applyOffset(final Dimension borderOffset) {
+        final Coord updatedCoord = this.getPosition();
+        System.out.println("Offset: " + borderOffset.getWidth() + ", " + borderOffset.getHeight());
+        if (this.pace.getX() > 0) {
+            updatedCoord.sumXValue(borderOffset.getWidth());
+        } else {
+            updatedCoord.sumXValue(-borderOffset.getWidth());
+        }
+        if (this.pace.getY() > 0) {
+            updatedCoord.sumYValue(borderOffset.getHeight());
+        } else {
+            updatedCoord.sumYValue(-borderOffset.getHeight());
+        }
+        this.setPosition(updatedCoord);
+        System.out.println("posizione dopo: " + this.getPosition().getX() + ", " + this.getPosition().getY());
     }
 
     private void invertPaceX() {

@@ -13,14 +13,14 @@ balls:
     ballType: "NORMAL"
     id: 1
 bricks:
-  - x: 20
+  - x: 30
     y: 50
     type: "BLUE"
   - x: 90
     y: 50
     type: "RED"
-  - x: 160
-    y: 40
+  - x: 150
+    y: 50
     type: "YELLOW"
   - x: 100
     y: 150
