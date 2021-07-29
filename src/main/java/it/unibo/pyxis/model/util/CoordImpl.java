@@ -42,6 +42,20 @@ public final class CoordImpl implements Coord {
     }
 
     @Override
+    public double distance(final Coord position) {
+        final double px = position.getX() - this.getX();
+        final double py = position.getY() - this.getY();
+        return Math.sqrt(px * px + py * py);
+    }
+
+    @Override
+    public double distance(final double x, final double y) {
+        final double px = x - getX();
+        final double py = y - getY();
+        return Math.sqrt(px * px + py * py);
+    }
+
+    @Override
     public Coord copyOf() {
         return new CoordImpl(this.getX(), this.getY());
     }
@@ -61,17 +75,5 @@ public final class CoordImpl implements Coord {
     @Override
     public int hashCode() {
         return Objects.hash(internalPair);
-    }
-
-    public double distance(final Coord position) {
-        final double px = position.getX() - this.getX();
-        final double py = position.getY() - this.getY();
-        return Math.sqrt(px * px + py * py);
-    }
-
-    public double distance(final double x, final double y) {
-        final double px = x - getX();
-        final double py = y - getY();
-        return Math.sqrt(px * px + py * py);
     }
 }

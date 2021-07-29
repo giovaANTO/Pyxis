@@ -39,13 +39,9 @@ public final class BrickImpl extends AbstractElement implements Brick {
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         hitEdge.ifPresent(edge -> {
-
             final Ball ball = movementEvent.getElement();
-            System.out.println("CIAO" + this.getBrickType().getTypeString() + "--" + this.getPosition().getX() + ", " + this.getPosition().getY());
-            System.out.println("--" + ball.getPosition().getX() + ", " + ball.getPosition().getY());
-            System.out.println("--" + edge.toString());
-            this.handleIncomingDamage(ball.getType().getDamage());
             EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), edge));
+            this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
         });
     }
 
@@ -57,24 +53,12 @@ public final class BrickImpl extends AbstractElement implements Brick {
      *                         The {@link Optional} indicating the damage taken.
      */
     private void handleIncomingDamage(final Optional<Integer> incomingDamage) {
-       this.decreaseDurability(incomingDamage);
-       if (this.durability == 0 && !this.getBrickType().isIndestructible()) {
-           EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
-           EventBus.getDefault().unregister(this);
-       }
-    }
-
-    /**
-     * Decrease the durability of the brick.
-     * @param incomingDamage
-     *                        The {@link Optional} indicating the damage taken.
-     */
-    private void decreaseDurability(final Optional<Integer> incomingDamage) {
-        if (incomingDamage.isEmpty()) {
-            this.durability = 0;
-        } else {
-            final int damage = incomingDamage.get();
-            this.durability = Math.max(this.durability - damage, 0);
+        this.durability = incomingDamage.isEmpty() ? 0 : Math.max(this.durability - incomingDamage.get(), 0);
+        if (this.durability == 0 && !this.getBrickType().isIndestructible()) {
+            EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
+            if (EventBus.getDefault().isRegistered(this)) {
+                EventBus.getDefault().unregister(this);
+            }
         }
     }
 
@@ -96,12 +80,20 @@ public final class BrickImpl extends AbstractElement implements Brick {
         if (!(o instanceof BrickImpl)) {
             return false;
         }
-        final BrickImpl brick = (BrickImpl) o;
-        return super.equals(o) && getDurability() == brick.getDurability() && getBrickType() == brick.getBrickType();
+        if (!super.equals(o)) {
+            return false;
+        }
+        BrickImpl brick = (BrickImpl) o;
+        return this.getDurability() == brick.getDurability() && this.getBrickType() == brick.getBrickType();
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getBrickType(), getDurability());
+    public String toString() {
+        return "BrickImpl{"
+                + "Position X :" + this.getPosition().getX()
+                + ", Position Y :" + this.getPosition().getY()
+                + ", Type :" + this.getBrickType()
+                + ", Durability : " + this.getDurability()
+                + '}';
     }
 }
