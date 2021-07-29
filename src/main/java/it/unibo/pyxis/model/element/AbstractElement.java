@@ -77,18 +77,21 @@ public abstract class AbstractElement implements Element {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this == o)  {
             return true;
         }
         if (!(o instanceof AbstractElement)) {
             return false;
         }
         AbstractElement that = (AbstractElement) o;
-        return this.getDimension().equals(that.getDimension()) && this.getPosition().equals(that.getPosition());
+        final boolean testDimensions = Objects.equals(this.getDimension(), that.getDimension());
+        final boolean testPositions = Objects.equals(this.getPosition(), that.getPosition());
+        final boolean testHitbox = Objects.equals(this.getHitbox(), that.getHitbox());
+        return testDimensions && testPositions && testHitbox;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getDimension(), this.getPosition());
+        return Objects.hash(this.getDimension(), this.getPosition(), this.getHitbox());
     }
 }
