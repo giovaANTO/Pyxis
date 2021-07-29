@@ -10,7 +10,6 @@ import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.hitbox.HitEdge;
-import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 
 import java.util.Optional;
@@ -36,7 +35,7 @@ public final class Events {
      * Create a new {@link BallCollisionEvent} instance passing a {@link HitEdge}.
      * @param hitEdge
      *                  The edge of the {@link it.unibo.pyxis.model.element.brick.Brick} 
-     *                  or border of the {@link it.unibo.pyxis.model.Arena} that has been hit.
+     *                  or border of the {@link it.unibo.pyxis.model.arena.Arena} that has been hit.
      * @return
      *         The {@link BallCollisionEvent} instance.
      */
@@ -97,10 +96,8 @@ public final class Events {
      * Create a new {@link BallMovementEvent} instance passing a {@link Coord} representing the current position
      * of the {@link it.unibo.pyxis.model.element.ball.Ball} inside the {@link it.unibo.pyxis.model.arena.Arena}.
      *
-     * @param hitbox
-     *                  The {@link it.unibo.pyxis.model.element.ball.Ball}'s {@link Hitbox}.
-     * @param id
-     *                  The {@link it.unibo.pyxis.model.element.ball.Ball}'s identifier.
+     * @param ball
+     *                  The {@link Ball} moving
      * @return
      *                  The {@link BallMovementEvent} instance.
      */

@@ -143,15 +143,10 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    public void update(final double delta) {
-        this.checkBorderCollision();
-        this.ballSet.forEach(b -> b.update(delta));
-        this.powerupSet.forEach(p -> p.update(delta));
-    }
-
-    @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
+        final Brick brick = this.brickMap.get(event.getBrickCoord());
+        brick.test(brick);
         this.brickMap.remove(event.getBrickCoord());
         if (this.calculateSpawnPowerup()) {
             this.spawnPowerup(event.getBrickCoord());
@@ -186,6 +181,13 @@ public final class ArenaImpl implements Arena {
                 this.powerupSet.remove(p);
             }
         }
+    }
+
+    @Override
+    public void update(final double delta) {
+        this.checkBorderCollision();
+        this.ballSet.forEach(b -> b.update(delta));
+        this.powerupSet.forEach(p -> p.update(delta));
     }
 
     @Override
