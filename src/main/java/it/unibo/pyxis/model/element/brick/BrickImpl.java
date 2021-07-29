@@ -40,8 +40,10 @@ public final class BrickImpl extends AbstractElement implements Brick {
         final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         hitEdge.ifPresent(edge -> {
 
-            System.out.println("CIAO" + this.getBrickType().getTypeString() + "--" + this.getPosition().getX() + ", " + this.getPosition().getY());
             final Ball ball = movementEvent.getElement();
+            System.out.println("CIAO" + this.getBrickType().getTypeString() + "--" + this.getPosition().getX() + ", " + this.getPosition().getY());
+            System.out.println("--" + ball.getPosition().getX() + ", " + ball.getPosition().getY());
+            System.out.println("--" + edge.toString());
             this.handleIncomingDamage(ball.getType().getDamage());
             EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), edge));
         });

@@ -1,5 +1,6 @@
 package it.unibo.pyxis.model.hitbox;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import it.unibo.pyxis.model.element.Element;
@@ -75,8 +76,12 @@ public class CircleHitbox extends AbstractHitbox {
             hitEdge = HitEdge.CORNER;
         } else if (closestPointX != cHBCenterX && closestPointY == cHBCenterY) {
             hitEdge = HitEdge.VERTICAL;
-        } else {
+        } else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY){
             hitEdge = HitEdge.HORIZONTAL;
+        } else {
+            hitEdge = Math.min(cHBCenterX, rHBWidth - cHBCenterX) <= Math.min(cHBCenterY, rHBHeight - cHBCenterY)
+                    ? HitEdge.VERTICAL
+                    : HitEdge.HORIZONTAL;
         }
 
         return isCollidingWithPoint(closestPointX, closestPointY)
