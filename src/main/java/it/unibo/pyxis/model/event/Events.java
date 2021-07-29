@@ -3,7 +3,7 @@ package it.unibo.pyxis.model.event;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.collision.BallCollisionEvent;
-import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
@@ -55,16 +55,16 @@ public final class Events {
     }
 
     /**
-     * Create a new {@link PadCollisionEvent} instance passing a {@link HitEdge}.
+     * Create a new {@link BallCollisionWithPadEvent} instance passing a {@link HitEdge}.
      * @param hitEdge
      *                  The edge of the {@link it.unibo.pyxis.model.element.pad.Pad} that has been hit.
      * @param padWidth
      *                  The current width of the {@link it.unibo.pyxis.model.element.pad.Pad}
      * @return
-     *           The {@link PadCollisionEvent} instance.
+     *           The {@link BallCollisionWithPadEvent} instance.
      */
-    public static PadCollisionEvent newPadCollisionEvent(final int id, final HitEdge hitEdge, final double padWidth) {
-        return new PadCollisionEvent() {
+    public static BallCollisionWithPadEvent newBallCollisionWithPadEvent(final int id, final HitEdge hitEdge, final double padWidth) {
+        return new BallCollisionWithPadEvent() {
             @Override
             public int getBallId() {
                 return id;

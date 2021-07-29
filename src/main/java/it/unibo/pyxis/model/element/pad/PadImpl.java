@@ -1,9 +1,6 @@
 package it.unibo.pyxis.model.element.pad;
 
 import it.unibo.pyxis.model.element.AbstractElement;
-import it.unibo.pyxis.model.element.ball.Ball;
-import it.unibo.pyxis.model.element.powerup.Powerup;
-import it.unibo.pyxis.model.element.powerup.PowerupImpl;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
@@ -28,7 +25,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     }
 
     public PadImpl(final Coord inputPosition) {
-        super(DIMENSION, inputPosition);
+        this(DIMENSION, inputPosition);
     }
 
     @Override
@@ -41,7 +38,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         hitEdge.ifPresent(edge -> {
-            EventBus.getDefault().post(Events.newPadCollisionEvent(movementEvent.getElement().getId(), edge, this.getDimension().getWidth()));
+            EventBus.getDefault().post(Events.newBallCollisionWithPadEvent(movementEvent.getElement().getId(), edge, this.getDimension().getWidth()));
         });
     }
 

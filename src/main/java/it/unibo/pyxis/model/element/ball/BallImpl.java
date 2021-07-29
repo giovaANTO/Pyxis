@@ -2,7 +2,7 @@ package it.unibo.pyxis.model.element.ball;
 
 import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.event.collision.BallCollisionEvent;
-import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CircleHitbox;
 import it.unibo.pyxis.model.hitbox.HitEdge;
@@ -47,18 +47,23 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     @Subscribe
-    public void handlePadCollision(final PadCollisionEvent collisionEvent) {
-
+    public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
+        if (this.id == collisionEvent.getBallId()) {
+            edgesHit.add(collisionEvent.getCollidedEdge());
+        }
     }
 
     private void applyBorderAndBrickCollision() {
-        if (edgesHit.contains(HitEdge.HORIZONTAL) && edgesHit.contains(HitEdge.VERTICAL) || edgesHit.contains(HitEdge.CORNER)) {
+        if (edgesHit.contains(HitEdge.HORIZONTAL) && edgesHit.contains(HitEdge.VERTICAL)) {
             this.invertPaceX();
             this.invertPaceY();
         } else if (edgesHit.contains(HitEdge.HORIZONTAL)) {
             this.invertPaceY();
         } else if (edgesHit.contains(HitEdge.VERTICAL)) {
             this.invertPaceX();
+        } else if (edgesHit.contains(HitEdge.CORNER)) {
+            this.invertPaceX();
+            this.invertPaceY();
         }
         this.edgesHit.clear();
     }

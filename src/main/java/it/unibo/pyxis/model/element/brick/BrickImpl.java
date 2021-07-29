@@ -5,7 +5,6 @@ import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.hitbox.HitEdge;
-import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
@@ -40,6 +39,8 @@ public final class BrickImpl extends AbstractElement implements Brick {
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         hitEdge.ifPresent(edge -> {
+
+            System.out.println("CIAO" + this.getBrickType().getTypeString() + "--" + this.getPosition().getX() + ", " + this.getPosition().getY());
             final Ball ball = movementEvent.getElement();
             this.handleIncomingDamage(ball.getType().getDamage());
             EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), edge));
@@ -93,7 +94,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
         if (!(o instanceof BrickImpl)) {
             return false;
         }
-        BrickImpl brick = (BrickImpl) o;
+        final BrickImpl brick = (BrickImpl) o;
         return super.equals(o) && getDurability() == brick.getDurability() && getBrickType() == brick.getBrickType();
     }
 
