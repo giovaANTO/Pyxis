@@ -1,10 +1,8 @@
 package it.unibo.pyxis.model.event;
 
-import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.collision.BallCollisionEvent;
-import it.unibo.pyxis.model.event.collision.CollisionEvent;
 import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;

@@ -41,7 +41,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         hitEdge.ifPresent(edge -> {
-            Ball ball = (Ball) movementEvent.getElement();
+            final Ball ball = movementEvent.getElement();
             EventBus.getDefault().post(Events.newPadCollisionEvent(edge, this.getDimension().getWidth()));
         });
     }
@@ -51,7 +51,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {
         final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         hitEdge.ifPresent(edge -> {
-            Powerup powerup = (Powerup) movementEvent.getElement();
+            final Powerup powerup = movementEvent.getElement();
             powerup.apply();
             EventBus.getDefault().post(Events.newPowerupActivationEvent(powerup));
         });
