@@ -54,6 +54,9 @@ public class LinkerImpl implements Linker {
     @Override
     public final void switchScene(final SceneType inputSceneType) {
         this.sceneHandler.switchScene(inputSceneType);
+        if (inputSceneType == SceneType.MENU_SCENE) {
+            this.gameState.reset();
+        }
     }
 
     private void createGameState() {
@@ -82,7 +85,7 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public void insertCommand(final Command<Level> levelCommand) {
+    public final void insertCommand(final Command<Level> levelCommand) {
         levelCommand.execute(this.gameState.getCurrentLevel());
     }
 }

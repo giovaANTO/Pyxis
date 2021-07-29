@@ -6,16 +6,21 @@ import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public final class GameStateImpl implements GameState {
 
-    private final LevelIterator iterator;
+    private LevelIterator iterator;
     private Level currentLevel;
     private int score;
     private StateEnum gameStateEnum;
 
     public GameStateImpl() {
+        this.reset();
+    }
+
+    @Override
+    public void reset() {
+        this.gameStateEnum = StateEnum.PAUSE;
         this.iterator = new LevelIterator();
         this.currentLevel = this.iterator.next();
         this.score = 0;
-        this.gameStateEnum = StateEnum.PAUSE;
     }
 
     @Override
