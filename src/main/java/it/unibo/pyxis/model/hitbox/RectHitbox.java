@@ -59,20 +59,20 @@ public class RectHitbox extends AbstractHitbox {
 
         if (closestPointX != cHBCenterX && closestPointY != cHBCenterY) {
             borderOffset.setWidth(widthOffsetCalculation(Math.abs(cHBCenterX - closestPointX)));
-            borderOffset.setHeight(heigthOffsetCalculation(Math.abs(cHBCenterY - closestPointY)));
+            borderOffset.setHeight(heightOffsetCalculation(Math.abs(cHBCenterY - closestPointY)));
             hitEdge = HitEdge.CORNER;
         } else if (closestPointX != cHBCenterX && closestPointY == cHBCenterY) {
             borderOffset.setWidth(widthOffsetCalculation(Math.abs(cHBCenterX - closestPointX)));
             hitEdge = HitEdge.VERTICAL;
         } else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY){
-            borderOffset.setHeight(heigthOffsetCalculation(Math.abs(cHBCenterY - closestPointY)));
+            borderOffset.setHeight(heightOffsetCalculation(Math.abs(cHBCenterY - closestPointY)));
             hitEdge = HitEdge.HORIZONTAL;
         } else {
             if (Math.min(cHBCenterX, rHBWidth - cHBCenterX) <= Math.min(cHBCenterY, rHBHeight - cHBCenterY)) {
                 borderOffset.setWidth(widthOffsetCalculation(Math.min(cHBCenterX, rHBWidth - cHBCenterX)));
                 hitEdge = HitEdge.VERTICAL;
             } else {
-                borderOffset.setHeight(heigthOffsetCalculation(Math.min(cHBCenterY, rHBHeight - cHBCenterY)));
+                borderOffset.setHeight(heightOffsetCalculation(Math.min(cHBCenterY, rHBHeight - cHBCenterY)));
                 hitEdge = HitEdge.HORIZONTAL;
             }
         }

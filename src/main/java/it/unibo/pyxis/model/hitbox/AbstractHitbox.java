@@ -39,14 +39,14 @@ public abstract class AbstractHitbox implements Hitbox {
         final Dimension borderOffset = new DimensionImpl();
 
         if (checkBC(cHBCenterX, cHBHalvedWidth)) {
-            borderOffset.setWidth(cHBCenterX);
+            borderOffset.setWidth(widthOffsetCalculation(cHBCenterX));
             hitEdge = HitEdge.VERTICAL;
         } else if (checkBC(bHBWidth - cHBCenterX, cHBHalvedWidth)) {
-            borderOffset.setWidth(bHBWidth - cHBCenterX);
+            borderOffset.setWidth(widthOffsetCalculation(bHBWidth - cHBCenterX));
             hitEdge = HitEdge.VERTICAL;
         }
         if (checkBC(cHBCenterY, cHBHalvedHeight)) {
-            borderOffset.setHeight(cHBCenterY);
+            borderOffset.setHeight(heightOffsetCalculation(cHBCenterY));
             hitEdge = Objects.isNull(hitEdge) 
                     ? HitEdge.HORIZONTAL
                     : HitEdge.CORNER;
@@ -133,7 +133,7 @@ public abstract class AbstractHitbox implements Hitbox {
         return this.getDimension().getWidth() / 2 - distanceFromCenter;
     }
 
-    protected Double heigthOffsetCalculation(final Double distanceFromCenter) {
+    protected Double heightOffsetCalculation(final Double distanceFromCenter) {
         return this.getDimension().getHeight() / 2 - distanceFromCenter;
     }
 }
