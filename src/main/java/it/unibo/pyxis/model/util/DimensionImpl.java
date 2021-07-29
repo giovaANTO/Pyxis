@@ -54,7 +54,7 @@ public final class DimensionImpl implements Dimension {
             return false;
         }
         DimensionImpl dimension = (DimensionImpl) o;
-        return internalPair.equals(dimension.internalPair);
+        return Objects.equals(this.internalPair, dimension.internalPair);
     }
 
     @Override
