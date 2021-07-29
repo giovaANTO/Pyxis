@@ -4,6 +4,7 @@ import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.linker.Linker;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.state.StateEnum;
+import javafx.application.Platform;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -12,7 +13,7 @@ import java.util.concurrent.BlockingQueue;
 public final class GameLoopImpl extends Thread implements GameLoop {
 
     private static final int COMMAND_QUEUE_DIMENSION = 100;
-    private final long period = 1000;
+    private static final int PERIOD = 20;
     private final Linker linker;
     private final BlockingQueue<Command<Level>> commandQueue;
 
@@ -29,8 +30,8 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             long current = System.currentTimeMillis();
             int elapsed = (int) (current - lastTime);
             this.processInput();
-            this.update(elapsed);
-            render();
+            this.linker.getGameState().update(elapsed);
+            Platform.runLater(this.linker::render);
             this.waitForNextFrame(current);
             lastTime = current;
         }
@@ -38,9 +39,9 @@ public final class GameLoopImpl extends Thread implements GameLoop {
 
     private void waitForNextFrame(final long current) {
         long dt = System.currentTimeMillis() - current;
-        if (dt < period) {
+        if (dt < PERIOD) {
             try {
-                Thread.sleep(period - dt);
+                Thread.sleep(PERIOD - dt);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
@@ -49,12 +50,12 @@ public final class GameLoopImpl extends Thread implements GameLoop {
 
     @Override
     public void render() {
-        System.out.println("Render");
+        Platform.runLater(this.linker::render);
     }
 
     @Override
     public void update(final double elapsed) {
-        System.out.println("Update");
+        this.linker.getGameState().update(elapsed);
     }
 
     @Override
