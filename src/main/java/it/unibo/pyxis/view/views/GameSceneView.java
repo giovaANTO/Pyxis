@@ -72,6 +72,19 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.getController().getLinker().getGameState().getCurrentLevel().update(500.0);
     }
 
+    public void dofortenX() {
+        this.update();
+        this.update();
+        this.update();
+        this.update();
+        this.update();
+        this.update();
+        this.update();
+        this.update();
+        this.update();
+        this.update();
+    }
+
     @Override
     public void render() {
         canvasToMainPaneBinder.bindWithRatioToContainer();

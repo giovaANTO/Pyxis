@@ -29,6 +29,26 @@ public final class BrickImpl extends AbstractElement implements Brick {
         EventBus.getDefault().register(this);
     }
 
+    @Override
+    public void update(final double delta) {
+        throw new UnsupportedOperationException("You can't call update on a brick");
+    }
+
+    @Override
+    @Subscribe
+    public void handleBallMovement(final BallMovementEvent movementEvent) {
+        final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
+        hitEdge.ifPresent(edge -> {
+
+            final Ball ball = movementEvent.getElement();
+            System.out.println("CIAO" + this.getBrickType().getTypeString() + "--" + this.getPosition().getX() + ", " + this.getPosition().getY());
+            System.out.println("--" + ball.getPosition().getX() + ", " + ball.getPosition().getY());
+            System.out.println("--" + edge.toString());
+            this.handleIncomingDamage(ball.getType().getDamage());
+            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), edge));
+        });
+    }
+
     /**
      * Handle the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}.
      * If the durability of the {@link Brick} reaches the value 0 then the brick is destroyed.
@@ -56,22 +76,6 @@ public final class BrickImpl extends AbstractElement implements Brick {
             final int damage = incomingDamage.get();
             this.durability = Math.max(this.durability - damage, 0);
         }
-    }
-
-    @Override
-    public void update(final double delta) {
-        throw new UnsupportedOperationException("You can't call update on a brick");
-    }
-
-    @Override
-    @Subscribe
-    public void handleBallMovement(final BallMovementEvent movementEvent) {
-        final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
-        hitEdge.ifPresent(edge -> {
-            final Ball ball = movementEvent.getElement();
-            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), edge));
-            this.handleIncomingDamage(ball.getType().getDamage());
-        });
     }
 
     @Override

@@ -19,6 +19,7 @@
       <Label layoutX="496.0" layoutY="23.0" text="CURRENT LEVEL" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="20.0" />
       <Label fx:id="currentLevel" layoutX="529.0" layoutY="41.0" text="NM" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="40.0" />
       <Button layoutX="27.0" layoutY="217.0" mnemonicParsing="false" onAction="#render" text="Render" />
+      <Button layoutX="21.0" layoutY="180.0" mnemonicParsing="false" onAction="#dofortenX" text="Update x10" />
       <Button layoutX="27.0" layoutY="271.0" mnemonicParsing="false" onAction="#update" text="Update" />
       <Button fx:id="backButton" layoutX="29.0" layoutY="300.0" mnemonicParsing="false" onAction="#back" text="Back" />
    </children>

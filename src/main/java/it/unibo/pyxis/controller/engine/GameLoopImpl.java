@@ -43,7 +43,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
 
     private void showStats() {
         if (System.currentTimeMillis() >= showStatsTimer) {
-            System.out.print("\r FPS: " + this.fps + " UPS: " + this.ups);
+            //System.out.print("\r FPS: " + this.fps + " UPS: " + this.ups);
             this.fps = 0;
             this.ups = 0;
             this.showStatsTimer = System.currentTimeMillis() + 1000;

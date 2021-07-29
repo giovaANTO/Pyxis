@@ -33,17 +33,14 @@ public abstract class AbstractHitbox implements Hitbox {
         final double cHBHalvedHeight = getDimension().getHeight() / 2;
         final double cHBHalvedWidth = getDimension().getWidth() / 2;
         final double bHBWidth   = borderDimension.getWidth();
-        final double bHBHeight  = borderDimension.getHeight();
-        final double bHBCenterX = bHBWidth / 2;
-        final double bHBCenterY = bHBHeight / 2;
 
         HitEdge hitEdge = null;
 
-        if (checkBC(cHBCenterX, bHBCenterX, bHBWidth, cHBHalvedWidth)
-                || checkBC(bHBCenterX, cHBCenterX, bHBWidth, cHBHalvedWidth)) {
+        if (checkBC(cHBCenterX, cHBHalvedWidth)
+                || checkBC(bHBWidth - cHBCenterX, cHBHalvedWidth)) {
             hitEdge = HitEdge.VERTICAL;
         }
-        if (checkBC(cHBCenterY, bHBCenterY, bHBHeight, cHBHalvedHeight)) {
+        if (checkBC(cHBCenterY, cHBHalvedHeight)) {
             hitEdge = Objects.isNull(hitEdge) 
                     ? HitEdge.HORIZONTAL
                     : HitEdge.CORNER;
@@ -53,8 +50,7 @@ public abstract class AbstractHitbox implements Hitbox {
 
     @Override
     public boolean isCollidingWithLowerBorder(final Dimension borderDimension) {
-        return checkBC(borderDimension.getHeight() / 2, getPosition().getY(),
-                borderDimension.getHeight(), getDimension().getHeight() / 2);
+        return checkBC(borderDimension.getHeight() - this.getPosition().getY(), this.getDimension().getHeight() / 2);
     }
 
     /**
@@ -67,9 +63,8 @@ public abstract class AbstractHitbox implements Hitbox {
      *          TRUE if the calculation [addedValue - subtractedValue + addedHalvedValue/2] is less than or equal to [collisionDistance], 
      *          FALSE otherwise.
      */
-    private boolean checkBC(final double addedValue, final double subtractedValue,
-                            final double addedHalvedValue, final double collisionDistance) {
-        return addedValue - subtractedValue + addedHalvedValue/2 <= collisionDistance;
+    private boolean checkBC(final double distanceFromBorder, final double collisionDistance) {
+        return distanceFromBorder <= collisionDistance;
     }
 
     @Override
