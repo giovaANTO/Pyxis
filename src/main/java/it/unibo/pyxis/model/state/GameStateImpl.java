@@ -44,7 +44,7 @@ public final class GameStateImpl implements GameState {
     }
 
     @Override
-    public void update(final int delta) {
+    public void update(final double delta) {
         this.getCurrentLevel().update(delta);
         final LevelStatus levelStatus = this.currentLevel.getLevelStatus();
         if (levelStatus == LevelStatus.SUCCESSFULLY_COMPLETED) {

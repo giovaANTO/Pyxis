@@ -69,7 +69,7 @@ public class LinkerImpl implements Linker {
     }
 
     private void createGameLoop() {
-        this.gameLoop = new GameLoopImpl(this.gameState);
+        this.gameLoop = new GameLoopImpl(this);
         this.gameLoop.start();
     }
 
