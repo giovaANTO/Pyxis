@@ -48,4 +48,5 @@ public final class PairImpl<T> implements Pair<T> {
     public int hashCode() {
         return Objects.hash(getFirst(), getSecond());
     }
+
 }

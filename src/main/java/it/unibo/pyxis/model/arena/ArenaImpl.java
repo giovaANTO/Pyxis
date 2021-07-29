@@ -145,8 +145,6 @@ public final class ArenaImpl implements Arena {
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
-        final Brick brick = this.brickMap.get(event.getBrickCoord());
-        brick.test(brick);
         this.brickMap.remove(event.getBrickCoord());
         if (this.calculateSpawnPowerup()) {
             this.spawnPowerup(event.getBrickCoord());
