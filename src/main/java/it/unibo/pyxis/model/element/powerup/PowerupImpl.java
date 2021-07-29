@@ -26,11 +26,6 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     }
 
     @Override
-    public void apply() {
-        EventBus.getDefault().post(Events.newPowerupActivationEvent(this));
-    }
-
-    @Override
     public PowerupType getType() {
         return this.type;
     }

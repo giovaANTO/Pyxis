@@ -63,8 +63,13 @@ public final class Events {
      * @return
      *           The {@link PadCollisionEvent} instance.
      */
-    public static PadCollisionEvent newPadCollisionEvent(final HitEdge hitEdge, final double padWidth) {
+    public static PadCollisionEvent newPadCollisionEvent(final int id, final HitEdge hitEdge, final double padWidth) {
         return new PadCollisionEvent() {
+            @Override
+            public int getBallId() {
+                return id;
+            }
+
             @Override
             public double getPadWidth() {
                 return padWidth;
