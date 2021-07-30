@@ -53,6 +53,10 @@ public class LinkerImpl implements Linker {
     @Override
     public final void switchScene(final SceneType inputSceneType) {
         this.sceneHandler.switchScene(inputSceneType);
+        if (inputSceneType == SceneType.MENU_SCENE) {
+            this.gameState.getCurrentLevel().getArena().cleanup();
+            this.gameState.restart();
+        }
     }
 
     private void createGameState() {
