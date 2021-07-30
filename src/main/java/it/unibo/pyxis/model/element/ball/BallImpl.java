@@ -182,7 +182,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         @Override
         public BallBuilder pace(final Vector inputPace) {
             this.check(inputPace);
-            this.pace = Optional.of(inputPace.copyOf());
+            this.pace = Optional.of(inputPace);
             return this;
         }
 

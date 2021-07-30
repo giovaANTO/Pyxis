@@ -70,10 +70,10 @@ public final class ArenaImpl implements Arena {
      * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
      */
     private void resetStartingPosition() {
-        this.getPad().setPosition(this.startingPadPosition);
+        this.getPad().setPosition(this.startingPadPosition.copyOf());
         final Ball newBall = new BallImpl.Builder()
-                .initialPosition(this.startingBallPosition)
-                .pace(this.startingBallPace)
+                .initialPosition(this.startingBallPosition.copyOf())
+                .pace(this.startingBallPace.copyOf())
                 .ballType(BallType.NORMAL_BALL)
                 .id(1)
                 .build();
