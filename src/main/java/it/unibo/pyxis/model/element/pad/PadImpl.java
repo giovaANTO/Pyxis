@@ -51,7 +51,9 @@ public final class PadImpl extends AbstractElement implements Pad {
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Optional<CollisionInformation> collisionInformation = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         collisionInformation.ifPresent(cI -> {
-            EventBus.getDefault().post(Events.newBallCollisionWithPadEvent(movementEvent.getElement().getId(), cI, this.getDimension().getWidth()));
+            EventBus.getDefault().post(Events.newBallCollisionWithPadEvent(movementEvent.getElement().getId(), cI,
+                (this.getPosition().getX() + this.getDimension().getWidth() / 2 - movementEvent.getElement().getPosition().getX())
+                / this.getDimension().getWidth()));
         });
     }
 

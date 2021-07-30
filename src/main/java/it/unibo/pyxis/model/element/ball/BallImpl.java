@@ -21,6 +21,8 @@ import java.util.Optional;
 public final class BallImpl extends AbstractElement implements Ball {
 
     private static final Dimension DIMENSION = new DimensionImpl(20, 20);
+    private static final double MIN_PACE_LEFT_PERCENTAGE = 0.1;
+    private static final double MIN_PACE_RIGHT_PERCENTAGE = 0.9;
     private BallType type;
     private Vector pace;
     private final Map<HitEdge, Dimension> allCollisionInformations;
@@ -51,7 +53,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.pace.setY(-this.pace.getY());
     }
 
-    private void applyBorderAndBrickCollision() {
+    private void applyCollisions() {
         if (allCollisionInformations.containsKey(HitEdge.HORIZONTAL) && allCollisionInformations.containsKey(HitEdge.VERTICAL)) {
             this.invertPaceX();
             this.invertPaceY();
@@ -86,6 +88,13 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.setPosition(updatedCoord);
     }
 
+    private void applyPaceChange(final double padHitPercentage) {
+        final double angle = Math.PI * Math.min(Math.max(padHitPercentage, MIN_PACE_LEFT_PERCENTAGE), MIN_PACE_RIGHT_PERCENTAGE);
+        final double module = this.getPace().getModule();
+        this.pace.setX(Math.cos(angle) * module);
+        this.pace.setY(Math.sin(angle) * module);
+    }
+
     @Override
     @Subscribe
     public void handleCollision(final BallCollisionEvent collisionEvent) {
@@ -99,6 +108,9 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Subscribe
     public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
+            if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.HORIZONTAL) {
+                this.applyPaceChange(collisionEvent.getPadHitPercentage());
+            }
             allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
                     collisionEvent.getCollisionInformation().getBorderOffset());
         }
@@ -131,7 +143,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     public void update(final double dt) {
-        this.applyBorderAndBrickCollision();
+        this.applyCollisions();
         this.calculateNewCoord(dt);
         EventBus.getDefault().post(Events.newBallMovementEvent(this));
     }
@@ -147,7 +159,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         if (!super.equals(o)) {
             return false;
         }
-        BallImpl ball = (BallImpl) o;
+        final BallImpl ball = (BallImpl) o;
         final boolean testId = this.getId() == ball.getId();
         final boolean testType = this.getType() == ball.getType();
         return testId && testType && getPace().equals(ball.getPace());
