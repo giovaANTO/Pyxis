@@ -56,7 +56,7 @@ public class LinkerImpl implements Linker {
         this.sceneHandler.switchScene(inputSceneType);
         if (inputSceneType == SceneType.MENU_SCENE) {
             this.gameState.getCurrentLevel().getArena().cleanup();
-            this.gameState.restart();
+            this.gameState.reset();
         }
     }
 
