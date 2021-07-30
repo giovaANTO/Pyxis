@@ -12,15 +12,40 @@ public final class GameStateImpl implements GameState {
     private StateEnum gameStateEnum;
 
     public GameStateImpl() {
-        this.reset();
+        this.initialize();
     }
 
-    @Override
-    public void reset() {
+    /**
+     * Change the current playing {@link Level}.
+     * If no other levels are aviable set the {@link GameState} in a stopped mode.
+     */
+    private void switchLevel() {
+        this.setState(StateEnum.PAUSE);
+        this.score += this.currentLevel.getScore();
+        if (this.iterator.hasNext()) {
+            this.currentLevel = this.iterator.next();
+            this.setState(StateEnum.RUN);
+        } else {
+            this.setState(StateEnum.STOP);
+        }
+    }
+
+    /**
+     * Initialize the {@link GameState} setting the {@link LevelIterator}
+     * and the first {@link Level} to play. The score is also cleared on the
+     * call of this procedure.
+     */
+    private void initialize() {
         this.gameStateEnum = StateEnum.PAUSE;
         this.iterator = new LevelIterator();
         this.currentLevel = this.iterator.next();
         this.score = 0;
+    }
+
+    @Override
+    public void reset() {
+        this.getCurrentLevel().cleanUp();
+        this.initialize();
     }
 
     @Override
@@ -50,21 +75,6 @@ public final class GameStateImpl implements GameState {
         if (levelStatus == LevelStatus.SUCCESSFULLY_COMPLETED) {
            this.switchLevel();
         } else if (levelStatus == LevelStatus.GAME_OVER) {
-            this.setState(StateEnum.STOP);
-        }
-    }
-
-    /**
-     * Change the current playing {@link Level}.
-     * If no other levels are aviable set the {@link GameState} in a stopped mode.
-     */
-    private void switchLevel() {
-        this.setState(StateEnum.PAUSE);
-        this.score += this.currentLevel.getScore();
-        if (this.iterator.hasNext()) {
-            this.currentLevel = this.iterator.next();
-            this.setState(StateEnum.RUN);
-        } else {
             this.setState(StateEnum.STOP);
         }
     }

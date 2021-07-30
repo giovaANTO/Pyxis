@@ -35,7 +35,7 @@ public class LinkerImpl implements Linker {
     @Override
     public final void quit() {
         this.gameState.setState(StateEnum.STOP);
-        this.gameState.getCurrentLevel().getArena().cleanup();
+        this.gameState.getCurrentLevel().getArena().cleanUp();
         this.sceneHandler.close();
     }
 

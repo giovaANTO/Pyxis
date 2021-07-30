@@ -73,7 +73,6 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     private void applyOffset(final Dimension borderOffset) {
         final Coord updatedCoord = this.getPosition();
-        System.out.println("Offset: " + borderOffset.getWidth() + ", " + borderOffset.getHeight());
         if (this.pace.getX() > 0) {
             updatedCoord.sumXValue(borderOffset.getWidth());
         } else {
@@ -85,14 +84,12 @@ public final class BallImpl extends AbstractElement implements Ball {
             updatedCoord.sumYValue(-borderOffset.getHeight());
         }
         this.setPosition(updatedCoord);
-        System.out.println("posizione dopo: " + this.getPosition().getX() + ", " + this.getPosition().getY());
     }
 
     @Override
     @Subscribe
     public void handleCollision(final BallCollisionEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
-            System.out.println("Ball - Collision detected");
             allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
                     collisionEvent.getCollisionInformation().getBorderOffset());
         }
@@ -102,7 +99,6 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Subscribe
     public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
-            System.out.println("Ball - Pad collision detected");
             allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
                     collisionEvent.getCollisionInformation().getBorderOffset());
         }

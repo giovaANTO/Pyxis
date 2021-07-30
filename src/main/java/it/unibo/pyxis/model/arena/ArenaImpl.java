@@ -286,7 +286,7 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    public void cleanup() {
+    public void cleanUp() {
         final EventBus bus = EventBus.getDefault();
         this.getBalls().forEach(ball -> {
             if (bus.isRegistered(ball)) {
@@ -300,14 +300,20 @@ public final class ArenaImpl implements Arena {
             }
         });
         this.brickMap.clear();
+        this.powerupSet.forEach(powerup -> {
+            if (bus.isRegistered(powerup)) {
+                bus.unregister(powerup);
+            }
+        });
+        this.powerupSet.clear();
+        this.powerupHandler.stop();
+        this.powerupHandler.shutdown();
         if (bus.isRegistered(this.getPad())) {
             bus.unregister(this.getPad());
         }
         if (bus.isRegistered(this)) {
             bus.unregister(this);
         }
-        this.powerupHandler.stop();
-        this.powerupHandler.shutdown();
     }
 
     @Override

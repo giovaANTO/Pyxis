@@ -138,7 +138,9 @@ public interface Arena {
     boolean isCleared();
 
     /**
-     * Procedure of cleanup.
+     * Procedure of cleanup of the {@link Arena}.
+     * Unregister all the elements from the {@link org.greenrobot.eventbus.EventBus}
+     * and shutdown the {@link it.unibo.pyxis.model.powerup.handler.PowerupHandler}.
      */
-    void cleanup();
+    void cleanUp();
 }
