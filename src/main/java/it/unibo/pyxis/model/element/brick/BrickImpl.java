@@ -28,22 +28,6 @@ public final class BrickImpl extends AbstractElement implements Brick {
         EventBus.getDefault().register(this);
     }
 
-    @Override
-    public void update(final double delta) {
-        throw new UnsupportedOperationException("You can't call an update on a brick");
-    }
-
-    @Override
-    @Subscribe
-    public void handleBallMovement(final BallMovementEvent movementEvent) {
-        final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
-        hitEdge.ifPresent(edge -> {
-            final Ball ball = movementEvent.getElement();
-            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), edge));
-            this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
-        });
-    }
-
     /**
      * Handle the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}.
      * If the durability of the {@link Brick} reaches the value 0 then the brick is destroyed.
@@ -59,6 +43,22 @@ public final class BrickImpl extends AbstractElement implements Brick {
                 EventBus.getDefault().unregister(this);
             }
         }
+    }
+
+    @Override
+    public void update(final double delta) {
+        throw new UnsupportedOperationException("You can't call an update on a brick");
+    }
+
+    @Override
+    @Subscribe
+    public void handleBallMovement(final BallMovementEvent movementEvent) {
+        final Optional<HitEdge> hitEdge = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
+        hitEdge.ifPresent(edge -> {
+            final Ball ball = movementEvent.getElement();
+            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), edge));
+            this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
+        });
     }
 
     @Override
