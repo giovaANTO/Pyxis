@@ -7,6 +7,13 @@ import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
 public interface Pad extends Element {
 
     /**
+     * Set the tag name of the {@link Pad}.
+     * @return
+     *          The tag string of the {@link Pad}
+     */
+    String getTag();
+
+    /**
      * Handles the ball's movement event.
      * @param movementEvent
      */

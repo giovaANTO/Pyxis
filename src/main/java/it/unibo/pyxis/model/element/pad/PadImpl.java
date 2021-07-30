@@ -12,25 +12,38 @@ import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public final class PadImpl extends AbstractElement implements Pad {
 
+    private static final String DEFAULT_TAG = "DEFAULT_PAD";
     private static final Dimension DIMENSION = new DimensionImpl(100, 18);
+    private String tag;
 
-    public PadImpl(final Dimension inputDimension, final Coord inputPosition) {
+    public PadImpl(final Dimension inputDimension, final Coord inputPosition, final String inputTag) {
         super(inputDimension, inputPosition);
         this.setHitbox(new RectHitbox(this));
+        this.tag = inputTag;
         EventBus.getDefault().register(this);
     }
 
+    public PadImpl(final Dimension inputDimension, final Coord inputPosition) {
+        this(inputDimension, inputPosition, DEFAULT_TAG);
+    }
+
     public PadImpl(final Coord inputPosition) {
-        this(DIMENSION, inputPosition);
+        this(DIMENSION, inputPosition, DEFAULT_TAG);
     }
 
     @Override
     public void update(final double dt) {
-        throw new UnsupportedOperationException("Operation not implemented yet");
+        throw new UnsupportedOperationException("You can't call an update on the Pad");
+    }
+
+    @Override
+    public String getTag() {
+        return this.tag;
     }
 
     @Override
@@ -48,5 +61,25 @@ public final class PadImpl extends AbstractElement implements Pad {
         if (movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox()).isPresent()) {
             EventBus.getDefault().post(Events.newPowerupActivationEvent(movementEvent.getElement()));
         }
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PadImpl)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        PadImpl pad = (PadImpl) o;
+        return Objects.equals(this.getTag(), pad.getTag());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getTag());
     }
 }

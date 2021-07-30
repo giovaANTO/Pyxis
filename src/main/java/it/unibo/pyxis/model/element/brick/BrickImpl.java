@@ -11,6 +11,7 @@ import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
@@ -25,22 +26,6 @@ public final class BrickImpl extends AbstractElement implements Brick {
         this.brickType = type;
         this.durability = type.getDurability();
         EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void update(final double delta) {
-        throw new UnsupportedOperationException("You can't call update on a brick");
-    }
-
-    @Override
-    @Subscribe
-    public void handleBallMovement(final BallMovementEvent movementEvent) {
-        final Optional<CollisionInformation> collisionInformation = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
-        collisionInformation.ifPresent(cI -> {
-            final Ball ball = movementEvent.getElement();
-            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI));
-            this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
-        });
     }
 
     /**
@@ -58,6 +43,22 @@ public final class BrickImpl extends AbstractElement implements Brick {
                 EventBus.getDefault().unregister(this);
             }
         }
+    }
+
+    @Override
+    public void update(final double delta) {
+        throw new UnsupportedOperationException("You can't call update on a brick");
+    }
+
+    @Override
+    @Subscribe
+    public void handleBallMovement(final BallMovementEvent movementEvent) {
+        final Optional<CollisionInformation> collisionInformation = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
+        collisionInformation.ifPresent(cI -> {
+            final Ball ball = movementEvent.getElement();
+            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI));
+            this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
+        });
     }
 
     @Override
@@ -83,6 +84,11 @@ public final class BrickImpl extends AbstractElement implements Brick {
         }
         final BrickImpl brick = (BrickImpl) o;
         return this.getDurability() == brick.getDurability() && this.getBrickType() == brick.getBrickType();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override
