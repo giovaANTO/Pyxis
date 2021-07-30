@@ -25,7 +25,7 @@ public class LinkerImpl implements Linker {
         this.createSceneLoader(inputStage);
         this.switchScene(SceneType.MENU_SCENE);
     }
-    
+
     @Override
     public final void pause() {
         this.gameState.setState(StateEnum.PAUSE);

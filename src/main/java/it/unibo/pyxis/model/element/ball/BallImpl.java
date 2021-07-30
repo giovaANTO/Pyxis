@@ -170,15 +170,19 @@ public final class BallImpl extends AbstractElement implements Ball {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof BallImpl)) {
             return false;
         }
-        return this.id == ((BallImpl) o).getId();
+        if (!super.equals(o)) {
+            return false;
+        }
+        BallImpl ball = (BallImpl) o;
+        return getId() == ball.getId() && getType() == ball.getType() && getPace().equals(ball.getPace()) && edgesHit.equals(ball.edgesHit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, pace);
+        return Objects.hash(super.hashCode(), getType(), getPace(), edgesHit, getId());
     }
 
     @Override

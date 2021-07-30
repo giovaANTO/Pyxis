@@ -12,7 +12,6 @@ import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
@@ -31,7 +30,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
 
     @Override
     public void update(final double delta) {
-        throw new UnsupportedOperationException("You can't call update on a brick");
+        throw new UnsupportedOperationException("You can't call an update on a brick");
     }
 
     @Override
@@ -85,6 +84,11 @@ public final class BrickImpl extends AbstractElement implements Brick {
         }
         BrickImpl brick = (BrickImpl) o;
         return this.getDurability() == brick.getDurability() && this.getBrickType() == brick.getBrickType();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override
