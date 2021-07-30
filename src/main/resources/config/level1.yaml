@@ -25,3 +25,15 @@ bricks:
   - x: 100
     y: 150
     type: "RED"
+  - x: 210
+    y: 50
+    type: "BLUE"
+  - x: 90
+    y: 100
+    type: "RED"
+  - x: 150
+    y: 100
+    type: "YELLOW"
+  - x: 210
+    y: 100
+    type: "RED"

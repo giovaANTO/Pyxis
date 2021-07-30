@@ -44,7 +44,7 @@ public class GameArenaDrawer {
     }
 
     public final void fillPowerup(final Coord position, final Dimension dimension, final PowerupType type) {
-//        this.fillImage(position, dimension, type.toString() + POWERUP_END_PATH);
+        this.fillImage(position, dimension, /*type.toString() +*/ POWERUP_END_PATH);
     }
 
     public final void fillPad(final Pad pad) {

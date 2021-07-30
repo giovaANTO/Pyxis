@@ -92,6 +92,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Subscribe
     public void handleCollision(final BallCollisionEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
+            System.out.println("Ball - Collision detected");
             allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
                     collisionEvent.getCollisionInformation().getBorderOffset());
         }
@@ -101,6 +102,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Subscribe
     public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
+            System.out.println("Ball - Pad collision detected");
             allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
                     collisionEvent.getCollisionInformation().getBorderOffset());
         }
