@@ -36,21 +36,19 @@ public final class BallImpl extends AbstractElement implements Ball {
         EventBus.getDefault().register(this);
     }
 
-
-    @Override
-    @Subscribe
-    public void handleCollision(final BallCollisionEvent collisionEvent) {
-        if (this.id == collisionEvent.getBallId()) {
-            edgesHit.add(collisionEvent.getCollidedEdge());
-        }
+    private void calculateNewCoord(final double dt) {
+        final Coord updatedCoord = this.getPosition();
+        updatedCoord.sumVector(this.getPace(),
+                this.getType().getPaceMultiplier() * dt * this.getUpdateTimeMultiplier());
+        this.setPosition(updatedCoord);
     }
 
-    @Override
-    @Subscribe
-    public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
-        if (this.id == collisionEvent.getBallId()) {
-            edgesHit.add(collisionEvent.getCollidedEdge());
-        }
+    private void invertPaceX() {
+        this.pace.setX(-this.pace.getX());
+    }
+
+    private void invertPaceY() {
+        this.pace.setY(-this.pace.getY());
     }
 
     private void applyBorderAndBrickCollision() {
@@ -68,12 +66,20 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.edgesHit.clear();
     }
 
-    private void invertPaceX() {
-        this.pace.setX(-this.pace.getX());
+    @Override
+    @Subscribe
+    public void handleCollision(final BallCollisionEvent collisionEvent) {
+        if (this.id == collisionEvent.getBallId()) {
+            edgesHit.add(collisionEvent.getCollidedEdge());
+        }
     }
 
-    private void invertPaceY() {
-        this.pace.setY(-this.pace.getY());
+    @Override
+    @Subscribe
+    public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
+        if (this.id == collisionEvent.getBallId()) {
+            edgesHit.add(collisionEvent.getCollidedEdge());
+        }
     }
 
     @Override
@@ -108,11 +114,31 @@ public final class BallImpl extends AbstractElement implements Ball {
         EventBus.getDefault().post(Events.newBallMovementEvent(this));
     }
 
-    private void calculateNewCoord(final double dt) {
-        final Coord updatedCoord = this.getPosition();
-        updatedCoord.sumVector(this.getPace(),
-                this.getType().getPaceMultiplier() * dt * this.getUpdateTimeMultiplier());
-        this.setPosition(updatedCoord);
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof BallImpl)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        BallImpl ball = (BallImpl) o;
+        final boolean testId = this.getId() == ball.getId();
+        final boolean testType = this.getType() == ball.getType();
+        return testId && testType && getPace().equals(ball.getPace()) && edgesHit.equals(ball.edgesHit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
+
+    @Override
+    public String toString() {
+        return "BallImpl{" + "type=" + type + ", pace=" + pace + ", id=" + id + "}";
     }
 
     /**
@@ -163,30 +189,5 @@ public final class BallImpl extends AbstractElement implements Ball {
                     this.type,
                     this.id.orElseThrow());
         }
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof BallImpl)) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-        BallImpl ball = (BallImpl) o;
-        return getId() == ball.getId() && getType() == ball.getType() && getPace().equals(ball.getPace()) && edgesHit.equals(ball.edgesHit);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getType(), getPace(), edgesHit, getId());
-    }
-
-    @Override
-    public String toString() {
-        return "BallImpl{" + "type=" + type + ", pace=" + pace + ", id=" + id + "}";
     }
 }

@@ -286,11 +286,21 @@ public final class ArenaImpl implements Arena {
     @Override
     public void cleanup() {
         final EventBus bus = EventBus.getDefault();
-        this.getBalls().forEach(bus::unregister);
+        this.getBalls().forEach(ball -> {
+            if (bus.isRegistered(ball)) {
+                bus.unregister(ball);
+            }
+        });
         this.ballSet.clear();
-        this.getBricks().forEach(bus::unregister);
+        this.getBricks().forEach(brick -> {
+            if (bus.isRegistered(brick)) {
+                bus.unregister(brick);
+            }
+        });
         this.brickMap.clear();
-        bus.unregister(this.getPad());
+        if (bus.isRegistered(this.getPad())) {
+            bus.unregister(this.getPad());
+        }
         this.powerupHandler.stop();
         this.powerupHandler.shutdown();
     }
