@@ -145,6 +145,7 @@ public final class ArenaImpl implements Arena {
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
+        System.out.println("Arena - brick destroyed: ");
         this.brickMap.remove(event.getBrickCoord());
         if (this.calculateSpawnPowerup()) {
             this.spawnPowerup(event.getBrickCoord());
@@ -300,6 +301,9 @@ public final class ArenaImpl implements Arena {
         this.brickMap.clear();
         if (bus.isRegistered(this.getPad())) {
             bus.unregister(this.getPad());
+        }
+        if (bus.isRegistered(this)) {
+            bus.unregister(this);
         }
         this.powerupHandler.stop();
         this.powerupHandler.shutdown();
