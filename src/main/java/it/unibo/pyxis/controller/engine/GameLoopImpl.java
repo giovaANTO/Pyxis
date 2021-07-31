@@ -13,7 +13,7 @@ import java.util.concurrent.BlockingQueue;
 public final class GameLoopImpl extends Thread implements GameLoop {
 
     private static final int COMMAND_QUEUE_DIMENSION = 100;
-    private static final int PERIOD = 10;
+    private static final int PERIOD = 20;
     private final Linker linker;
     private final BlockingQueue<Command<Level>> commandQueue;
 
