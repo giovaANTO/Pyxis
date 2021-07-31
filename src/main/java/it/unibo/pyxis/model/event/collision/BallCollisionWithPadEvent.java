@@ -6,9 +6,9 @@ package it.unibo.pyxis.model.event.collision;
  */
 public interface BallCollisionWithPadEvent extends BallCollisionEvent {
     /**
-     * Return the current pad width.
+     * Returns at what percentage of his width the pad was hit.
      * @return
      *          The width dimension of the pad.
      */
-    double getPadWidth();
+    double getPadHitPercentage();
 }

@@ -6,8 +6,6 @@ import it.unibo.pyxis.model.level.status.LevelStatus;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Objects;
-
 public final class LevelImpl implements Level {
 
     private int lives;
@@ -16,12 +14,20 @@ public final class LevelImpl implements Level {
     private final Arena arena;
 
     public LevelImpl(final int inputLives, final Arena inputArena) {
-        Objects.requireNonNull(inputArena, "You must pass an instance of Arena");
         this.lives = inputLives;
         this.score = 0;
         this.levelStatus = LevelStatus.PLAYING;
         this.arena = inputArena;
         EventBus.getDefault().register(this);
+    }
+
+    /**
+     * Increase the score of this level.
+     * @param score
+     *               The score to increase
+     */
+    private void increaseScore(final int score) {
+        this.score += score;
     }
 
     @Override
@@ -39,15 +45,6 @@ public final class LevelImpl implements Level {
         return this.score;
     }
 
-    /**
-     * Increase the score of this level.
-     * @param score
-     *               The score to increase
-     */
-    private void increaseScore(final int score) {
-        this.score += score;
-    }
-
     @Override
     public Arena getArena() {
         return this.arena;
@@ -58,7 +55,7 @@ public final class LevelImpl implements Level {
         this.arena.update(delta);
         if (this.arena.isCleared()) {
             this.levelStatus = LevelStatus.SUCCESSFULLY_COMPLETED;
-            this.arena.cleanup();
+            this.arena.cleanUp();
         }
     }
 
@@ -75,5 +72,11 @@ public final class LevelImpl implements Level {
     @Override
     public LevelStatus getLevelStatus() {
         return this.levelStatus;
+    }
+
+    @Override
+    public void cleanUp() {
+        this.getArena().cleanUp();
+        EventBus.getDefault().unregister(this);
     }
 }

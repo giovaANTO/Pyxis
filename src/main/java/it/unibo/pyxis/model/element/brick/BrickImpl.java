@@ -11,6 +11,7 @@ import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
@@ -27,6 +28,28 @@ public final class BrickImpl extends AbstractElement implements Brick {
         EventBus.getDefault().register(this);
     }
 
+    /**
+     * Handle the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}.
+     * If the durability of the {@link Brick} reaches the value 0 then the brick is destroyed.
+     *
+     * @param incomingDamage
+     *                         The {@link Optional} indicating the damage taken.
+     */
+    private void handleIncomingDamage(final Optional<Integer> incomingDamage) {
+        System.out.println("Brick - Collision detected");
+        System.out.println("Brick - Durability before: " + this.getDurability());
+        this.durability = incomingDamage.isEmpty() ? 0 : Math.max(this.durability - incomingDamage.get(), 0);
+        System.out.println("Brick - Durability after: " + this.getDurability());
+        if (this.durability == 0 && !this.getBrickType().isIndestructible()) {
+            System.out.println("Brick - Destruction event");
+            EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
+            if (EventBus.getDefault().isRegistered(this)) {
+                System.out.println("Brick - Unregister");
+                EventBus.getDefault().unregister(this);
+            }
+        }
+    }
+
     @Override
     public void update(final double delta) {
         throw new UnsupportedOperationException("You can't call update on a brick");
@@ -37,27 +60,11 @@ public final class BrickImpl extends AbstractElement implements Brick {
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Optional<CollisionInformation> collisionInformation = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         collisionInformation.ifPresent(cI -> {
+            System.out.println("Ball collision");
             final Ball ball = movementEvent.getElement();
             EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI));
             this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
         });
-    }
-
-    /**
-     * Handle the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}.
-     * If the durability of the {@link Brick} reaches the value 0 then the brick is destroyed.
-     *
-     * @param incomingDamage
-     *                         The {@link Optional} indicating the damage taken.
-     */
-    private void handleIncomingDamage(final Optional<Integer> incomingDamage) {
-        this.durability = incomingDamage.isEmpty() ? 0 : Math.max(this.durability - incomingDamage.get(), 0);
-        if (this.durability == 0 && !this.getBrickType().isIndestructible()) {
-            EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
-            if (EventBus.getDefault().isRegistered(this)) {
-                EventBus.getDefault().unregister(this);
-            }
-        }
     }
 
     @Override
@@ -83,6 +90,11 @@ public final class BrickImpl extends AbstractElement implements Brick {
         }
         final BrickImpl brick = (BrickImpl) o;
         return this.getDurability() == brick.getDurability() && this.getBrickType() == brick.getBrickType();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override

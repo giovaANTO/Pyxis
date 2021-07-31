@@ -21,6 +21,8 @@ import java.util.Optional;
 public final class BallImpl extends AbstractElement implements Ball {
 
     private static final Dimension DIMENSION = new DimensionImpl(20, 20);
+    private static final double MIN_PACE_LEFT_PERCENTAGE = 0.1;
+    private static final double MIN_PACE_RIGHT_PERCENTAGE = 0.9;
     private BallType type;
     private Vector pace;
     private final Map<HitEdge, Dimension> allCollisionInformations;
@@ -36,26 +38,22 @@ public final class BallImpl extends AbstractElement implements Ball {
         EventBus.getDefault().register(this);
     }
 
-
-    @Override
-    @Subscribe
-    public void handleCollision(final BallCollisionEvent collisionEvent) {
-        if (this.id == collisionEvent.getBallId()) {
-            allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
-                                        collisionEvent.getCollisionInformation().getBorderOffset());
-        }
+    private void calculateNewCoord(final double dt) {
+        final Coord updatedCoord = this.getPosition();
+        updatedCoord.sumVector(this.getPace(),
+                this.getType().getPaceMultiplier() * dt * this.getUpdateTimeMultiplier());
+        this.setPosition(updatedCoord);
     }
 
-    @Override
-    @Subscribe
-    public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
-        if (this.id == collisionEvent.getBallId()) {
-            allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
-                                        collisionEvent.getCollisionInformation().getBorderOffset());
-        }
+    private void invertPaceX() {
+        this.pace.setX(-this.pace.getX());
     }
 
-    private void applyBorderAndBrickCollision() {
+    private void invertPaceY() {
+        this.pace.setY(-this.pace.getY());
+    }
+
+    private void applyCollisions() {
         if (allCollisionInformations.containsKey(HitEdge.HORIZONTAL) && allCollisionInformations.containsKey(HitEdge.VERTICAL)) {
             this.invertPaceX();
             this.invertPaceY();
@@ -77,7 +75,6 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     private void applyOffset(final Dimension borderOffset) {
         final Coord updatedCoord = this.getPosition();
-        System.out.println("Offset: " + borderOffset.getWidth() + ", " + borderOffset.getHeight());
         if (this.pace.getX() > 0) {
             updatedCoord.sumXValue(borderOffset.getWidth());
         } else {
@@ -89,15 +86,34 @@ public final class BallImpl extends AbstractElement implements Ball {
             updatedCoord.sumYValue(-borderOffset.getHeight());
         }
         this.setPosition(updatedCoord);
-        System.out.println("posizione dopo: " + this.getPosition().getX() + ", " + this.getPosition().getY());
     }
 
-    private void invertPaceX() {
-        this.pace.setX(-this.pace.getX());
+    private void applyPaceChange(final double padHitPercentage) {
+        final double angle = Math.PI * Math.min(Math.max(padHitPercentage, MIN_PACE_LEFT_PERCENTAGE), MIN_PACE_RIGHT_PERCENTAGE);
+        final double module = this.getPace().getModule();
+        this.pace.setX(Math.cos(angle) * module);
+        this.pace.setY(Math.sin(angle) * module);
     }
 
-    private void invertPaceY() {
-        this.pace.setY(-this.pace.getY());
+    @Override
+    @Subscribe
+    public void handleCollision(final BallCollisionEvent collisionEvent) {
+        if (this.id == collisionEvent.getBallId()) {
+            allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
+                    collisionEvent.getCollisionInformation().getBorderOffset());
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
+        if (this.id == collisionEvent.getBallId()) {
+            if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.HORIZONTAL) {
+                this.applyPaceChange(collisionEvent.getPadHitPercentage());
+            }
+            allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
+                    collisionEvent.getCollisionInformation().getBorderOffset());
+        }
     }
 
     @Override
@@ -127,16 +143,36 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     public void update(final double dt) {
-        this.applyBorderAndBrickCollision();
+        this.applyCollisions();
         this.calculateNewCoord(dt);
         EventBus.getDefault().post(Events.newBallMovementEvent(this));
     }
 
-    private void calculateNewCoord(final double dt) {
-        final Coord updatedCoord = this.getPosition();
-        updatedCoord.sumVector(this.getPace(),
-                this.getType().getPaceMultiplier() * dt * this.getUpdateTimeMultiplier());
-        this.setPosition(updatedCoord);
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof BallImpl)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        final BallImpl ball = (BallImpl) o;
+        final boolean testId = this.getId() == ball.getId();
+        final boolean testType = this.getType() == ball.getType();
+        return testId && testType && getPace().equals(ball.getPace());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
+
+    @Override
+    public String toString() {
+        return "BallImpl{" + "type=" + type + ", pace=" + pace + ", id=" + id + "}";
     }
 
     /**
@@ -156,7 +192,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         @Override
         public BallBuilder pace(final Vector inputPace) {
             this.check(inputPace);
-            this.pace = Optional.of(inputPace.copyOf());
+            this.pace = Optional.of(inputPace);
             return this;
         }
 
@@ -187,26 +223,5 @@ public final class BallImpl extends AbstractElement implements Ball {
                     this.type,
                     this.id.orElseThrow());
         }
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        return this.id == ((BallImpl) o).getId();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, pace);
-    }
-
-    @Override
-    public String toString() {
-        return "BallImpl{" + "type=" + type + ", pace=" + pace + ", id=" + id + "}";
     }
 }

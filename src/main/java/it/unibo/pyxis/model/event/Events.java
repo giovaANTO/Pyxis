@@ -72,7 +72,7 @@ public final class Events {
             }
 
             @Override
-            public double getPadWidth() {
+            public double getPadHitPercentage() {
                 return padWidth;
             }
 

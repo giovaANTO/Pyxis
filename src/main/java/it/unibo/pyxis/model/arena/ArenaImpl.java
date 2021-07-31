@@ -46,7 +46,7 @@ public final class ArenaImpl implements Arena {
     private final PowerupHandler powerupHandler;
     private final Dimension dimension;
 
-    private static final double POWERUP_SPAWN_PROBABILITY = 3.0 / 10;
+    private static final double POWERUP_SPAWN_PROBABILITY = 1;
     private final Random randomNumberGenerator;
 
     public ArenaImpl(final Dimension inputDimension) {
@@ -70,10 +70,10 @@ public final class ArenaImpl implements Arena {
      * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
      */
     private void resetStartingPosition() {
-        this.getPad().setPosition(this.startingPadPosition);
+        this.getPad().setPosition(this.startingPadPosition.copyOf());
         final Ball newBall = new BallImpl.Builder()
-                .initialPosition(this.startingBallPosition)
-                .pace(this.startingBallPace)
+                .initialPosition(this.startingBallPosition.copyOf())
+                .pace(this.startingBallPace.copyOf())
                 .ballType(BallType.NORMAL_BALL)
                 .id(1)
                 .build();
@@ -145,8 +145,10 @@ public final class ArenaImpl implements Arena {
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
+        System.out.println("Arena - brick destroyed: ");
         this.brickMap.remove(event.getBrickCoord());
         if (this.calculateSpawnPowerup()) {
+            System.out.println("Arena - Spawn powerup");
             this.spawnPowerup(event.getBrickCoord());
         }
     }
@@ -284,15 +286,34 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    public void cleanup() {
+    public void cleanUp() {
         final EventBus bus = EventBus.getDefault();
-        this.getBalls().forEach(bus::unregister);
+        this.getBalls().forEach(ball -> {
+            if (bus.isRegistered(ball)) {
+                bus.unregister(ball);
+            }
+        });
         this.ballSet.clear();
-        this.getBricks().forEach(bus::unregister);
+        this.getBricks().forEach(brick -> {
+            if (bus.isRegistered(brick)) {
+                bus.unregister(brick);
+            }
+        });
         this.brickMap.clear();
-        bus.unregister(this.getPad());
+        this.powerupSet.forEach(powerup -> {
+            if (bus.isRegistered(powerup)) {
+                bus.unregister(powerup);
+            }
+        });
+        this.powerupSet.clear();
         this.powerupHandler.stop();
         this.powerupHandler.shutdown();
+        if (bus.isRegistered(this.getPad())) {
+            bus.unregister(this.getPad());
+        }
+        if (bus.isRegistered(this)) {
+            bus.unregister(this);
+        }
     }
 
     @Override
