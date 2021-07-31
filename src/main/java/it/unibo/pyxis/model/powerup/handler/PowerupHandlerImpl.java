@@ -128,6 +128,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                     } catch (InterruptedException e) {
                         System.out.println(e.getMessage());
                     } finally {
+                        System.out.println("Powerup - removed " + effect.getType());
                         effect.removeEffect(PowerupHandlerImpl.this.getArena());
                         InternalExecutor.this.untrackThread(effect.getType(), Thread.currentThread().getId());
                     }

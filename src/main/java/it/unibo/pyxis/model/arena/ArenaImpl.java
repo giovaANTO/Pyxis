@@ -130,6 +130,7 @@ public final class ArenaImpl implements Arena {
     private void spawnPowerup(final Coord spawnCoord) {
         final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
         final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
+        System.out.println("Arena - Powerup spawned: " + powerup.toString());
         this.addPowerup(powerup);
     }
 
@@ -147,7 +148,9 @@ public final class ArenaImpl implements Arena {
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
         this.brickMap.remove(event.getBrickCoord());
+        System.out.println("Arena - Brick destruction");
         if (this.calculateSpawnPowerup()) {
+            System.out.println("Arena - Spawn powerup");
             this.spawnPowerup(event.getBrickCoord());
         }
     }
@@ -177,6 +180,9 @@ public final class ArenaImpl implements Arena {
         final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()
                 .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
                 .collect(Collectors.toSet());
+        if (powerupRemoveSet.size() > 0) {
+            System.out.println("Arena - powerups destroyed: " + powerupRemoveSet.toString());
+        }
         this.powerupSet.removeAll(powerupRemoveSet);
     }
 
@@ -232,7 +238,7 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public void movePadLeft() {
-        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-5, 0));
+        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-20, 0));
         if (newPosition.getX() >= this.pad.getDimension().getWidth() / 2) {
             this.getPad().setPosition(newPosition);
         }
@@ -240,7 +246,7 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public void movePadRigth() {
-        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(5, 0));
+        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(20, 0));
         if (newPosition.getX() <= this.getDimension().getWidth() - this.pad.getDimension().getWidth() / 2) {
             this.getPad().setPosition(newPosition);
         }
