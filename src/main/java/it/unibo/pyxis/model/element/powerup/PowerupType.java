@@ -48,7 +48,7 @@ public enum PowerupType {
         }
     };
 
-    private static final int STD_APP_TIME = 10;
+    private static final int STD_APP_TIME = 20;
     private static final int PAD_MOD_FACTOR = 2;
 
     /**
