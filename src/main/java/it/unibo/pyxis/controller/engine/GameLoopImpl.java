@@ -13,14 +13,24 @@ import java.util.concurrent.BlockingQueue;
 public final class GameLoopImpl extends Thread implements GameLoop {
 
     private static final int COMMAND_QUEUE_DIMENSION = 100;
-    private static final int PERIOD = 20;
+    private static final int PERIOD = 10;
     private final Linker linker;
     private final BlockingQueue<Command<Level>> commandQueue;
-
 
     public GameLoopImpl(final Linker linker) {
         this.linker = linker;
         this.commandQueue = new ArrayBlockingQueue<Command<Level>>(COMMAND_QUEUE_DIMENSION);
+    }
+
+    private void waitForNextFrame(final long current) {
+        long dt = System.currentTimeMillis() - current;
+        if (dt < PERIOD) {
+            try {
+                Thread.sleep(PERIOD - dt);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
     @Override
@@ -34,17 +44,6 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             Platform.runLater(this.linker::render);
             this.waitForNextFrame(current);
             lastTime = current;
-        }
-    }
-
-    private void waitForNextFrame(final long current) {
-        long dt = System.currentTimeMillis() - current;
-        if (dt < PERIOD) {
-            try {
-                Thread.sleep(PERIOD - dt);
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
         }
     }
 

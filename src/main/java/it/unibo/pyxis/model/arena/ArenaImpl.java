@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallImpl;
@@ -145,10 +146,8 @@ public final class ArenaImpl implements Arena {
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
-        System.out.println("Arena - brick destroyed: ");
         this.brickMap.remove(event.getBrickCoord());
         if (this.calculateSpawnPowerup()) {
-            System.out.println("Arena - Spawn powerup");
             this.spawnPowerup(event.getBrickCoord());
         }
     }
@@ -161,9 +160,8 @@ public final class ArenaImpl implements Arena {
     }
 
     @Override
-    @Subscribe
     public void checkBorderCollision() {
-        for (final Ball b: getBalls()) {
+        for (final Ball b: this.getBalls()) {
             if (b.getHitbox().isCollidingWithLowerBorder(this.getDimension())) {
                 this.ballSet.remove(b);
                 if (this.ballSet.isEmpty()) {
@@ -176,18 +174,19 @@ public final class ArenaImpl implements Arena {
                 collisionInformation.ifPresent(cI -> EventBus.getDefault().post(Events.newBallCollisionEvent(b.getId(), cI)));
             }
         }
-        for (final Powerup p: getPowerups()) {
-            if (p.getHitbox().isCollidingWithLowerBorder(this.getDimension())) {
-                this.powerupSet.remove(p);
-            }
-        }
+        final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()
+                .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
+                .collect(Collectors.toSet());
+        this.powerupSet.removeAll(powerupRemoveSet);
     }
 
     @Override
     public void update(final double delta) {
         this.checkBorderCollision();
-        this.ballSet.forEach(b -> b.update(delta));
-        this.powerupSet.forEach(p -> p.update(delta));
+        final Set<Ball> ballSetCopy = Set.copyOf(this.ballSet);
+        final Set<Powerup> powerupSetCopy = Set.copyOf(this.powerupSet);
+        ballSetCopy.forEach(b -> b.update(delta));
+        powerupSetCopy.forEach(p -> p.update(delta));
     }
 
     @Override
@@ -233,7 +232,7 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public void movePadLeft() {
-        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-3, 0));
+        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-5, 0));
         if (newPosition.getX() >= this.pad.getDimension().getWidth() / 2) {
             this.getPad().setPosition(newPosition);
         }
@@ -241,7 +240,7 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public void movePadRigth() {
-        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(3, 0));
+        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(5, 0));
         if (newPosition.getX() <= this.getDimension().getWidth() - this.pad.getDimension().getWidth() / 2) {
             this.getPad().setPosition(newPosition);
         }
