@@ -56,14 +56,12 @@ public final class ArenaImpl implements Arena {
         this.powerupSet = new HashSet<>();
         this.randomNumberGenerator = new Random();
         this.dimension = inputDimension;
-        // Configuring the powerup handler.
         final PowerupHandlerPolicy policy = (type, map) -> {
             if (type == PowerupEffectType.BALL_POWERUP) {
                 map.values().forEach(Thread::interrupt);
             }
         };
         this.powerupHandler = new PowerupHandlerImpl(policy, this);
-        // Register the Arena to the event bus
         EventBus.getDefault().register(this);
     }
 
