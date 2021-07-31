@@ -36,7 +36,9 @@ public final class DimensionImpl implements Dimension {
 
     @Override
     public void increaseWidth(final double increaseValue) {
+        System.out.println("DimensionImpl - Increasing starting width: " + this.getWidth() + " with " + increaseValue);
         this.setWidth(this.getWidth() + increaseValue);
+        System.out.println("DimensionImpl - After increase: " + this.getWidth());
     }
 
     @Override
@@ -64,5 +66,9 @@ public final class DimensionImpl implements Dimension {
     @Override
     public int hashCode() {
         return Objects.hash(internalPair);
+    }
+
+    public String toString() {
+        return "Dimension X: " + this.internalPair.getFirst() + " and Y: " + this.internalPair.getSecond();
     }
 }

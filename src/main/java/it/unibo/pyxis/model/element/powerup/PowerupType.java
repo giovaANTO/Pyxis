@@ -5,6 +5,7 @@ import it.unibo.pyxis.model.powerup.effect.PowerupEffectFactory;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffectFactoryImpl;
 
 public enum PowerupType {
+
     /**
      * Powerup that increase the length of the pad .
      */
@@ -15,6 +16,7 @@ public enum PowerupType {
            return factory.modifyPadWidthEffect(STD_APP_TIME, PAD_MOD_FACTOR);
         }
     },
+
     /**
      * Powerup that decrease the length of the pad .
      */
@@ -49,7 +51,7 @@ public enum PowerupType {
     };
 
     private static final int STD_APP_TIME = 20;
-    private static final int PAD_MOD_FACTOR = 2;
+    private static final int PAD_MOD_FACTOR = 40;
 
     /**
      * Return the Powerup effect associated to a PowerupType.

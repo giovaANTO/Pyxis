@@ -241,15 +241,28 @@ public final class ArenaImpl implements Arena {
         final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-20, 0));
         if (newPosition.getX() >= this.pad.getDimension().getWidth() / 2) {
             this.getPad().setPosition(newPosition);
+        } else {
+            final Coord leftPadLimitPosition = new CoordImpl(
+                    this.pad.getDimension().getWidth() / 2,
+                    this.pad.getPosition().getY());
+            this.getPad().setPosition(leftPadLimitPosition);
         }
+        System.out.println("Arena - After left movement, new Pad position: " + this.pad.getPosition().toString());
     }
 
     @Override
     public void movePadRigth() {
         final Coord newPosition = this.calcPadNewCoord(new VectorImpl(20, 0));
-        if (newPosition.getX() <= this.getDimension().getWidth() - this.pad.getDimension().getWidth() / 2) {
+        if (newPosition.getX() + (this.pad.getDimension().getWidth() / 2) <=
+                this.dimension.getWidth() - (this.pad.getDimension().getWidth() / 2)) {
             this.getPad().setPosition(newPosition);
+        } else {
+            final Coord rightPadLimitPosition = new CoordImpl(
+                    this.dimension.getWidth() - this.pad.getDimension().getWidth() / 2,
+                    this.pad.getPosition().getY());
+            this.getPad().setPosition(rightPadLimitPosition);
         }
+        System.out.println("Arena - After left movement, new Pad position: " + this.pad.getPosition().toString());
     }
 
     @Override
