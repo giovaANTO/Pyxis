@@ -41,7 +41,7 @@ public final class ArenaImpl implements Arena {
     private final PowerupHandler powerupHandler;
     private final Dimension dimension;
 
-    private static final double POWERUP_SPAWN_PROBABILITY = 1;
+    private static final double POWERUP_SPAWN_PROBABILITY = 2.0 / 10;
     private final Random randomNumberGenerator;
 
     public ArenaImpl(final Dimension inputDimension) {
@@ -107,9 +107,8 @@ public final class ArenaImpl implements Arena {
      *                  The starting position of newly created {@link Powerup}.
      */
     private void spawnPowerup(final Coord spawnCoord) {
-        //final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
-        final Powerup powerup = new PowerupImpl(PowerupType.MULTIPLE_BALLS, spawnCoord);
-        System.out.println(this.ballSet);
+        final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
+        final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
         this.addPowerup(powerup);
     }
 
