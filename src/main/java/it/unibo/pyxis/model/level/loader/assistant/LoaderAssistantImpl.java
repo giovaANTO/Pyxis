@@ -29,7 +29,7 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
 
     @Override
     public Level createLevel(final LevelSkeleton skeleton) {
-        return new LevelImpl(skeleton.getLives(), this.arenaFromSkeleton(skeleton));
+        return new LevelImpl(skeleton.getLives(), this.arenaFromSkeleton(skeleton), skeleton.getLevelNumber());
     }
 
     /**

@@ -2,6 +2,7 @@
 lives: 3
 width: 500
 height: 560
+levelNumber: 1
 pad:
     x: 200
     y: 500

@@ -24,7 +24,7 @@ class LevelTest {
     @BeforeEach
     public void init() {
         this.arena = new ArenaImpl(new DimensionImpl(1,1));
-        this.level = new LevelImpl(DEFAULT_STARTING_LIVES, arena);
+        this.level = new LevelImpl(DEFAULT_STARTING_LIVES, arena,1);
     }
 
     @Test
@@ -58,5 +58,10 @@ class LevelTest {
     @Test
     void getArena() {
         assertEquals(this.arena, this.level.getArena());
+    }
+
+    @Test
+    void getLevelNumber() {
+        assertEquals(1, this.level.getLevelNumber());
     }
 }

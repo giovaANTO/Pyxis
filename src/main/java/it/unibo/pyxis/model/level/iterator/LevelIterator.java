@@ -13,7 +13,7 @@ public final class LevelIterator implements Iterator<Level> {
 
     private final LevelLoader loader;
     private int currentLevel;
-    
+
     public LevelIterator(final String levelDirectory, final int startingLevel) {
         this.loader = new LevelLoaderImpl(levelDirectory);
         this.currentLevel = startingLevel;
