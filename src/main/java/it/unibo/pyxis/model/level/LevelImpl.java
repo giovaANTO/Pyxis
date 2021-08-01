@@ -8,12 +8,14 @@ import org.greenrobot.eventbus.Subscribe;
 
 public final class LevelImpl implements Level {
 
+    private final int levelNumber;
     private int lives;
     private int score;
     private LevelStatus levelStatus;
     private final Arena arena;
 
-    public LevelImpl(final int inputLives, final Arena inputArena) {
+    public LevelImpl(final int inputLives, final Arena inputArena, final int levelNumber) {
+        this.levelNumber = levelNumber;
         this.lives = inputLives;
         this.score = 0;
         this.levelStatus = LevelStatus.PLAYING;
@@ -28,6 +30,11 @@ public final class LevelImpl implements Level {
      */
     private void increaseScore(final int score) {
         this.score += score;
+    }
+
+    @Override
+    public int getLevelNumber() {
+        return this.levelNumber;
     }
 
     @Override
