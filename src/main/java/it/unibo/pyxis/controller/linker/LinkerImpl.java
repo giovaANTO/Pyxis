@@ -3,7 +3,6 @@ package it.unibo.pyxis.controller.linker;
 import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
-import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
@@ -33,6 +32,30 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
+    public final void resume() {
+        this.switchScene(SceneType.GAME_SCENE);
+        this.gameState.setState(StateEnum.RUN);
+    }
+
+    @Override
+    public final void menu() {
+        //this.gameState.setState(StateEnum.PAUSE);
+        this.switchScene(SceneType.MENU_SCENE);
+        if (this.gameState.getState() == StateEnum.PAUSE) {
+            //System.out.println(this.gameState.getCurrentLevel());
+            this.gameState.reset();
+            this.gameState.setState(StateEnum.WAITING_FOR_NEW_GAME);
+        }
+    }
+
+    @Override
+    public final void run() {
+        this.switchScene(SceneType.GAME_SCENE);
+        this.render();
+        this.gameState.setState(StateEnum.WAITING_FOR_STARTING_COMMAND);
+    }
+
+    @Override
     public final void quit() {
         this.gameState.setState(StateEnum.STOP);
         this.gameState.getCurrentLevel().getArena().cleanUp();
@@ -40,16 +63,9 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public final void endGame() {
+    public final void endLevel() {
         this.gameState.setState(StateEnum.PAUSE);
-        this.switchScene(SceneType.PAUSE_SCENE);
-    }
-
-    @Override
-    public final void run() {
-        this.switchScene(SceneType.GAME_SCENE);
-        this.render();
-        this.gameState.setState(StateEnum.RUN);
+        this.switchScene(SceneType.END_LEVEL_SCENE);
     }
 
     @Override
@@ -83,7 +99,7 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public final void insertCommand(final Command<Level> levelCommand) {
-        levelCommand.execute(this.gameState.getCurrentLevel());
+    public final void insertCommand(final Command<GameState> levelCommand) {
+        levelCommand.execute(this.gameState);
     }
 }

@@ -101,7 +101,7 @@ public interface Arena {
     /**
      * Move pad to the rigth of the {@link Arena}.
      */
-    void movePadRigth();
+    void movePadRight();
 
     /**
      * Add a {@link Brick} in the {@link Arena}.

@@ -26,17 +26,37 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     @Override
     public void run() {
         long lastTime = System.currentTimeMillis();
-        while (this.linker.getGameState().getGameState() != StateEnum.STOP) {
+        while (this.linker.getGameState().getState() != StateEnum.STOP) {
             long current = System.currentTimeMillis();
             int elapsed = (int) (current - lastTime);
-            this.processInput();
-            if (this.linker.getGameState().getGameState() != StateEnum.PAUSE) {
+            if (this.conditionProcessInput()) {
+                this.processInput();
+            }
+            if (this.conditionProcessUpdate()) {
                 this.linker.getGameState().update(elapsed);
             }
-            Platform.runLater(this.linker::render);
+            if (this.conditionProcessRender()) {
+                Platform.runLater(this.linker::render);
+            }
             this.waitForNextFrame(current);
             lastTime = current;
         }
+    }
+
+    private boolean conditionProcessInput() {
+        return (this.linker.getGameState().getState() == StateEnum.RUN)
+                || (this.linker.getGameState().getState()
+                    == StateEnum.WAITING_FOR_STARTING_COMMAND);
+    }
+
+    private boolean conditionProcessUpdate() {
+        return this.linker.getGameState().getState() == StateEnum.RUN;
+    }
+
+    private boolean conditionProcessRender() {
+        return (this.linker.getGameState().getState() == StateEnum.RUN)
+                || (this.linker.getGameState().getState()
+                    == StateEnum.WAITING_FOR_STARTING_COMMAND);
     }
 
     private void waitForNextFrame(final long current) {

@@ -1,7 +1,6 @@
 package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.command.Command;
-import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.view.scene.SceneType;
 
@@ -9,9 +8,13 @@ public interface Linker {
 
     void pause();
 
+    void resume();
+
+    void menu();
+
     void quit();
 
-    void endGame();
+    void endLevel();
 
     void run();
 
@@ -21,5 +24,5 @@ public interface Linker {
 
     void render();
 
-    void insertCommand(Command<Level> levelCommand);
+    void insertCommand(Command<GameState> levelCommand);
 }

@@ -6,6 +6,8 @@ import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
+import it.unibo.pyxis.model.state.GameState;
+import it.unibo.pyxis.model.state.StateEnum;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.view.scene.SceneType;
 
@@ -40,7 +42,25 @@ public class GameSceneController extends AbstractController {
     }
 
     public final void back() {
-        this.getLinker().switchScene(SceneType.MENU_SCENE);
+        this.getLinker().menu();
+    }
+
+    public final void commandPadLeft(final GameState inputGameState) {
+        if (this.getLinker().getGameState().getState() == StateEnum.RUN) {
+            inputGameState.getCurrentLevel().getArena().movePadLeft();
+        }
+    }
+
+    public final void commandPadRight(final GameState inputGameState) {
+        if (this.getLinker().getGameState().getState() == StateEnum.RUN) {
+            inputGameState.getCurrentLevel().getArena().movePadRight();
+        }
+    }
+
+    public final void commandStart(final GameState inputGameState) {
+        if (inputGameState.getState() != StateEnum.RUN) {
+            inputGameState.setState(StateEnum.RUN);
+        }
     }
 
 //    public final Integer getLevelNumber() {

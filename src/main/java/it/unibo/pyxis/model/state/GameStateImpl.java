@@ -59,7 +59,7 @@ public final class GameStateImpl implements GameState {
     }
 
     @Override
-    public StateEnum getGameState() {
+    public StateEnum getState() {
         return this.gameStateEnum;
     }
 

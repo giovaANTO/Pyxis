@@ -2,10 +2,12 @@ package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
 import it.unibo.pyxis.controller.linker.Linker;
+import it.unibo.pyxis.model.state.StateEnum;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -49,10 +51,13 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         final EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
             switch (keyEvent.getCode()) {
                 case A:
-                    linker.insertCommand(level -> level.getArena().movePadLeft());
+                    linker.insertCommand(gameState -> this.getController().commandPadLeft(gameState));
                     break;
                 case D:
-                    linker.insertCommand(level -> level.getArena().movePadRigth());
+                    linker.insertCommand(gameState -> this.getController().commandPadRight(gameState));
+                    break;
+                case S:
+                    linker.insertCommand(gameState -> this.getController().commandStart(gameState));
                     break;
                 case ESCAPE:
                     System.out.println("ESC");

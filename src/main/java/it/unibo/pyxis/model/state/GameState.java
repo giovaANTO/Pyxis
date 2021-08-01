@@ -22,7 +22,7 @@ public interface GameState {
      * @return
      *          The currently state of the game.
      */
-    StateEnum getGameState();
+    StateEnum getState();
 
     /**
      * Set the game in a new state.
