@@ -30,7 +30,9 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             long current = System.currentTimeMillis();
             int elapsed = (int) (current - lastTime);
             this.processInput();
-            this.linker.getGameState().update(elapsed);
+            if (this.linker.getGameState().getGameState() != StateEnum.PAUSE) {
+                this.linker.getGameState().update(elapsed);
+            }
             Platform.runLater(this.linker::render);
             this.waitForNextFrame(current);
             lastTime = current;

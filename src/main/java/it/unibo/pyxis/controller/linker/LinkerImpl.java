@@ -49,23 +49,12 @@ public class LinkerImpl implements Linker {
     public final void run() {
         this.switchScene(SceneType.GAME_SCENE);
         this.render();
-        this.gameLoop.start();
         this.gameState.setState(StateEnum.RUN);
     }
 
     @Override
     public final void switchScene(final SceneType inputSceneType) {
         this.sceneHandler.switchScene(inputSceneType);
-        /*
-        if (inputSceneType == SceneType.MENU_SCENE) {
-            this.gameState.getCurrentLevel().getArena().cleanup();
-            this.gameState.reset();
-        }
-<<<<<<< HEAD
-
-=======
->>>>>>> handling-physics
-        */
     }
 
     private void createGameState() {
