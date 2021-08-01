@@ -3,8 +3,8 @@ width: 1000
 height: 1000
 levelNumber: 2
 pad:
-    x: 1
-    y: 2
+  x: 1
+  y: 2
 balls:
   - x: 10
     y: 2
