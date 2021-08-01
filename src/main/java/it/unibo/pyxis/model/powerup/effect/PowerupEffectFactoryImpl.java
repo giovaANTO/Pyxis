@@ -74,30 +74,24 @@ public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
                 arena -> {
                     final Ball arenaRandomBall = arena.getRandomBall();
                     final Vector pace = arenaRandomBall.getPace();
-                    try {
-                        final Ball randomBall1 = new BallImpl.Builder()
-                                .pace(pace.rotationBy(-90.0))
-                                .initialPosition(arenaRandomBall.getPosition())
-                                .ballType(BallType.NORMAL_BALL)
-                                .id(arena.getLastBallId() + 1)
-                                .build();
-                        arena.addBall(randomBall1);
-                    } catch (Exception exception) {
-                        System.out.println(exception.getMessage());
-                    }
 
-                    final Ball randomBall2 = new BallImpl.Builder()
-                            .pace(pace.rotationBy(90.0))
+                    final Ball randomBall1 = new BallImpl.Builder()
+                            .pace(pace.rotationBy(-90.0))
                             .initialPosition(arenaRandomBall.getPosition())
                             .ballType(BallType.NORMAL_BALL)
                             .id(arena.getLastBallId() + 1)
                             .build();
-
-
+                    final Ball randomBall2 = new BallImpl.Builder()
+                            .pace(pace.rotationBy(90.0))
+                            .initialPosition(arenaRandomBall.getPosition())
+                            .ballType(BallType.NORMAL_BALL)
+                            .id(arena.getLastBallId() + 2)
+                            .build();
+                    arena.addBall(randomBall1);
                     arena.addBall(randomBall2);
                 },
                 arena -> { },
-                1
+                0
         );
     }
 }

@@ -41,6 +41,8 @@ public final class BrickImpl extends AbstractElement implements Brick {
             EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this);
+            } else {
+                System.out.println("Can't unregister the brick");
             }
         }
     }

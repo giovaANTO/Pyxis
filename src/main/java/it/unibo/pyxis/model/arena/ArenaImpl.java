@@ -109,7 +109,6 @@ public final class ArenaImpl implements Arena {
     private void spawnPowerup(final Coord spawnCoord) {
         //final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
         final Powerup powerup = new PowerupImpl(PowerupType.MULTIPLE_BALLS, spawnCoord);
-        System.out.println("Arena - Powerup spawned: " + powerup.toString());
         System.out.println(this.ballSet);
         this.addPowerup(powerup);
     }
@@ -128,9 +127,7 @@ public final class ArenaImpl implements Arena {
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
         this.brickMap.remove(event.getBrickCoord());
-        System.out.println("Arena - Brick destruction");
         if (this.calculateSpawnPowerup()) {
-            System.out.println("Arena - Spawn powerup");
             this.spawnPowerup(event.getBrickCoord());
         }
     }
@@ -147,6 +144,7 @@ public final class ArenaImpl implements Arena {
         for (final Ball b: this.getBalls()) {
             if (b.getHitbox().isCollidingWithLowerBorder(this.getDimension())) {
                 this.ballSet.remove(b);
+                EventBus.getDefault().unregister(b);
                 if (this.ballSet.isEmpty()) {
                     //EventBus.getDefault().post(Events.newDecreaseLifeEvent());
                     this.powerupHandler.stop();
@@ -160,9 +158,6 @@ public final class ArenaImpl implements Arena {
         final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()
                 .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
                 .collect(Collectors.toSet());
-        if (powerupRemoveSet.size() > 0) {
-            System.out.println("Arena - powerups destroyed: " + powerupRemoveSet.toString());
-        }
         this.powerupSet.removeAll(powerupRemoveSet);
     }
 
@@ -242,14 +237,13 @@ public final class ArenaImpl implements Arena {
                     this.pad.getPosition().getY());
             this.getPad().setPosition(leftPadLimitPosition);
         }
-        System.out.println("Arena - After left movement, new Pad position: " + this.pad.getPosition().toString());
     }
 
     @Override
     public void movePadRigth() {
         final Coord newPosition = this.calcPadNewCoord(new VectorImpl(20, 0));
-        if (newPosition.getX() + (this.pad.getDimension().getWidth() / 2) <=
-                this.dimension.getWidth() - (this.pad.getDimension().getWidth() / 2)) {
+        if (newPosition.getX() + (this.pad.getDimension().getWidth() / 2)
+                <= this.dimension.getWidth() - (this.pad.getDimension().getWidth() / 2)) {
             this.getPad().setPosition(newPosition);
         } else {
             final Coord rightPadLimitPosition = new CoordImpl(
@@ -257,7 +251,6 @@ public final class ArenaImpl implements Arena {
                     this.pad.getPosition().getY());
             this.getPad().setPosition(rightPadLimitPosition);
         }
-        System.out.println("Arena - After left movement, new Pad position: " + this.pad.getPosition().toString());
     }
 
     @Override
