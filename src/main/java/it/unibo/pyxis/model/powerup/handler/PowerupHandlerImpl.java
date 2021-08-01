@@ -82,6 +82,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
             this.threadMap = new ConcurrentHashMap<>();
             this.threadMap.put(PowerupEffectType.PAD_POWERUP, new ConcurrentHashMap<>());
             this.threadMap.put(PowerupEffectType.BALL_POWERUP, new ConcurrentHashMap<>());
+            this.threadMap.put(PowerupEffectType.ARENA_POWERUP, new ConcurrentHashMap<>());
         }
 
         @Override
@@ -116,15 +117,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                     final Condition cond = InternalExecutor.this.getCondition();
                     InternalExecutor.this.trackThread(effect.getType(), Thread.currentThread().getId(), Thread.currentThread());
                     try {
-                        if (effect.getType() == PowerupEffectType.PAD_POWERUP) {
-                            System.out.println("Pad - starting dimension: "
-                                    + PowerupHandlerImpl.this.getArena().getPad().getDimension().toString());
-                        }
                         effect.applyEffect(PowerupHandlerImpl.this.getArena());
-                        if (effect.getType() == PowerupEffectType.PAD_POWERUP) {
-                            System.out.println("Pad - dimension after powerup: "
-                                    + PowerupHandlerImpl.this.getArena().getPad().getDimension().toString());
-                        }
                         for (int i = 0; i < effect.getApplyTime(); i++) {
                             lock.lock();
                             while (PowerupHandlerImpl.this.isPaused()) {
@@ -136,12 +129,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                     } catch (InterruptedException e) {
                         System.out.println(e.getMessage());
                     } finally {
-                        System.out.println("Powerup - removed " + effect.getType());
                         effect.removeEffect(PowerupHandlerImpl.this.getArena());
-                        if (effect.getType() == PowerupEffectType.PAD_POWERUP) {
-                            System.out.println("Pad - dimension after powerup removed: "
-                                    + PowerupHandlerImpl.this.getArena().getPad().getDimension().toString());
-                        }
                         InternalExecutor.this.untrackThread(effect.getType(), Thread.currentThread().getId());
                     }
                 }

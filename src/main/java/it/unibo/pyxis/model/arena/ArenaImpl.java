@@ -1,12 +1,6 @@
 package it.unibo.pyxis.model.arena;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import it.unibo.pyxis.model.element.ball.Ball;
@@ -93,19 +87,6 @@ public final class ArenaImpl implements Arena {
     }
 
     /**
-     * Return the last {@link Ball} id inserted in the {@link Arena}.
-     * @return
-     *          The integer representing the last id inserted
-     *          in the {@link Arena}
-     */
-    private int getLastBallId() {
-        return this.ballSet.stream()
-                .mapToInt(Ball::getId)
-                .max()
-                .orElse(0);
-    }
-
-    /**
      * Calculate the new position of the {@link Pad}.
      * @param directionalVector
      *                          The directional {@link Vector} used for setting the new {@link Coord}.
@@ -126,9 +107,10 @@ public final class ArenaImpl implements Arena {
      *                  The starting position of newly created {@link Powerup}.
      */
     private void spawnPowerup(final Coord spawnCoord) {
-        final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
-        final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
+        //final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
+        final Powerup powerup = new PowerupImpl(PowerupType.MULTIPLE_BALLS, spawnCoord);
         System.out.println("Arena - Powerup spawned: " + powerup.toString());
+        System.out.println(this.ballSet);
         this.addPowerup(powerup);
     }
 
@@ -201,6 +183,21 @@ public final class ArenaImpl implements Arena {
     @Override
     public Set<Ball> getBalls() {
         return Set.copyOf(this.ballSet);
+    }
+
+    @Override
+    public int getLastBallId() {
+        return this.ballSet.stream()
+                .mapToInt(Ball::getId)
+                .max()
+                .orElse(0);
+    }
+
+    @Override
+    public Ball getRandomBall() {
+        final List<Ball> ballList = new ArrayList<>(this.ballSet);
+        Collections.shuffle(ballList);
+        return ballList.get(0);
     }
 
     @Override

@@ -38,6 +38,16 @@ public interface Vector {
     void setY(double yCoord);
 
     /**
+     * Return a new copy of the current {@link Vector} rotated by a
+     * certain amount of degrees.
+     * @param  rotationAngle
+     *                          The rotation angle of the {@link Vector}
+     * @return
+     *          A new rotated {@link Vector}
+     */
+    Vector rotationBy(double rotationAngle);
+
+    /**
      * Return a copy of the vector.
      * @return
      *          The {@link Vector} copy
