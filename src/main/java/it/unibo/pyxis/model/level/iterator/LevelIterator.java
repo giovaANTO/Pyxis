@@ -7,7 +7,7 @@ import it.unibo.pyxis.model.level.loader.LevelLoaderImpl;
 import java.util.Iterator;
 
 
-public final class LevelIteratorImpl implements Iterator<Level> {
+public final class LevelIterator implements Iterator<Level> {
 
     private static final int DEFAULT_STARTING_LEVEL = 1;
     private static final int DEFAULT_FINAL_LEVEL = 2;
@@ -16,17 +16,17 @@ public final class LevelIteratorImpl implements Iterator<Level> {
     private final LevelLoader loader;
     private int currentLevel;
 
-    public LevelIteratorImpl(final String levelDirectory, final int inputStartingLevel, final int inputFinalLevel) {
+    public LevelIterator(final String levelDirectory, final int inputStartingLevel, final int inputFinalLevel) {
         this.loader = new LevelLoaderImpl(levelDirectory);
         this.currentLevel = inputStartingLevel;
         this.finalLevel = inputFinalLevel;
     }
 
-    public LevelIteratorImpl(final int inputStartingLevel) {
+    public LevelIterator(final int inputStartingLevel) {
         this(Config.LEVEL_RESOURCE_FOLDER.getValue(), inputStartingLevel, DEFAULT_FINAL_LEVEL);
     }
 
-    public LevelIteratorImpl() {
+    public LevelIterator() {
         this(Config.LEVEL_RESOURCE_FOLDER.getValue(), DEFAULT_STARTING_LEVEL, DEFAULT_FINAL_LEVEL);
     }
 

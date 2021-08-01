@@ -14,7 +14,7 @@ class LevelIteratorTest {
     @Test
     public void testLevelChanging() {
         Path resourceDirectory = Paths.get("src","test","resources","level-files","iterator");
-        final Iterator<Level> levelIterator = new LevelIteratorImpl();
+        final Iterator<Level> levelIterator = new LevelIterator();
         Level levelIterated = levelIterator.next();
         assertNotNull(levelIterated);
         assertEquals(1, levelIterated.getLevelNumber());
