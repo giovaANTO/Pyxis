@@ -6,16 +6,46 @@ import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public final class GameStateImpl implements GameState {
 
-    private final LevelIterator iterator;
+    private LevelIterator iterator;
     private Level currentLevel;
     private int score;
     private StateEnum gameStateEnum;
 
     public GameStateImpl() {
+        this.initialize();
+    }
+
+    /**
+     * Change the current playing {@link Level}.
+     * If no other levels are aviable set the {@link GameState} in a stopped mode.
+     */
+    private void switchLevel() {
+        this.setState(StateEnum.PAUSE);
+        this.score += this.currentLevel.getScore();
+        if (this.iterator.hasNext()) {
+            this.currentLevel = this.iterator.next();
+            this.setState(StateEnum.RUN);
+        } else {
+            this.setState(StateEnum.STOP);
+        }
+    }
+
+    /**
+     * Initialize the {@link GameState} setting the {@link LevelIterator}
+     * and the first {@link Level} to play. The score is also cleared on the
+     * call of this procedure.
+     */
+    private void initialize() {
+        this.gameStateEnum = StateEnum.PAUSE;
         this.iterator = new LevelIterator();
         this.currentLevel = this.iterator.next();
         this.score = 0;
-        this.gameStateEnum = StateEnum.PAUSE;
+    }
+
+    @Override
+    public void reset() {
+        this.getCurrentLevel().cleanUp();
+        this.initialize();
     }
 
     @Override
@@ -39,27 +69,12 @@ public final class GameStateImpl implements GameState {
     }
 
     @Override
-    public void update(final int delta) {
+    public void update(final double delta) {
         this.getCurrentLevel().update(delta);
         final LevelStatus levelStatus = this.currentLevel.getLevelStatus();
         if (levelStatus == LevelStatus.SUCCESSFULLY_COMPLETED) {
            this.switchLevel();
         } else if (levelStatus == LevelStatus.GAME_OVER) {
-            this.setState(StateEnum.STOP);
-        }
-    }
-
-    /**
-     * Change the current playing {@link Level}.
-     * If no other levels are aviable set the {@link GameState} in a stopped mode.
-     */
-    private void switchLevel() {
-        this.setState(StateEnum.PAUSE);
-        this.score += this.currentLevel.getScore();
-        if (this.iterator.hasNext()) {
-            this.currentLevel = this.iterator.next();
-            this.setState(StateEnum.RUN);
-        } else {
             this.setState(StateEnum.STOP);
         }
     }

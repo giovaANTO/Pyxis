@@ -1,9 +1,10 @@
 package it.unibo.pyxis.model.element.brick;
 
 import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
-import it.unibo.pyxis.model.hitbox.Hitbox;
+import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
@@ -11,12 +12,11 @@ import it.unibo.pyxis.model.util.DimensionImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public final class BrickImpl extends AbstractElement implements Brick {
 
-    private static final Dimension DIMENSION = new DimensionImpl(1, 1);
+    private static final Dimension DIMENSION = new DimensionImpl(60, 25);
     private final BrickType brickType;
     private int durability;
 
@@ -28,20 +28,6 @@ public final class BrickImpl extends AbstractElement implements Brick {
         EventBus.getDefault().register(this);
     }
 
-    @Override
-    public void update(final int delta) {
-        throw new UnsupportedOperationException("You can't call update on a brick");
-    }
-
-    @Override
-    @Subscribe
-    public void handleBallMovement(final BallMovementEvent movementEvent) {
-        final Hitbox ballHitbox = movementEvent.getHitbox();
-        if (ballHitbox.isCollidingWithHB(this.getHitbox())) {
-            this.handleIncomingDamage(movementEvent.getDamage());
-        }
-    }
-
     /**
      * Handle the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}.
      * If the durability of the {@link Brick} reaches the value 0 then the brick is destroyed.
@@ -50,25 +36,35 @@ public final class BrickImpl extends AbstractElement implements Brick {
      *                         The {@link Optional} indicating the damage taken.
      */
     private void handleIncomingDamage(final Optional<Integer> incomingDamage) {
-       this.decreaseDurability(incomingDamage);
-       if (this.durability == 0 && !this.getBrickType().isIndestructible()) {
-           EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
-           EventBus.getDefault().unregister(this);
-       }
+        System.out.println("Brick - Collision detected");
+        System.out.println("Brick - Durability before: " + this.getDurability());
+        this.durability = incomingDamage.isEmpty() ? 0 : Math.max(this.durability - incomingDamage.get(), 0);
+        System.out.println("Brick - Durability after: " + this.getDurability());
+        if (this.durability == 0 && !this.getBrickType().isIndestructible()) {
+            System.out.println("Brick - Destruction event");
+            EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
+            if (EventBus.getDefault().isRegistered(this)) {
+                System.out.println("Brick - Unregister");
+                EventBus.getDefault().unregister(this);
+            }
+        }
     }
 
-    /**
-     * Decrease the durability of the brick.
-     * @param incomingDamage
-     *                        The {@link Optional} indicating the damage taken.
-     */
-    private void decreaseDurability(final Optional<Integer> incomingDamage) {
-        if (incomingDamage.isEmpty()) {
-            this.durability = 0;
-        } else {
-            final int damage = incomingDamage.get();
-            this.durability = Math.max(this.durability - damage, 0);
-        }
+    @Override
+    public void update(final double delta) {
+        throw new UnsupportedOperationException("You can't call update on a brick");
+    }
+
+    @Override
+    @Subscribe
+    public void handleBallMovement(final BallMovementEvent movementEvent) {
+        final Optional<CollisionInformation> collisionInformation = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
+        collisionInformation.ifPresent(cI -> {
+            System.out.println("Ball collision");
+            final Ball ball = movementEvent.getElement();
+            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI));
+            this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
+        });
     }
 
     @Override
@@ -89,12 +85,25 @@ public final class BrickImpl extends AbstractElement implements Brick {
         if (!(o instanceof BrickImpl)) {
             return false;
         }
-        BrickImpl brick = (BrickImpl) o;
-        return super.equals(o) && getDurability() == brick.getDurability() && getBrickType() == brick.getBrickType();
+        if (!super.equals(o)) {
+            return false;
+        }
+        final BrickImpl brick = (BrickImpl) o;
+        return this.getDurability() == brick.getDurability() && this.getBrickType() == brick.getBrickType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBrickType(), getDurability());
+        return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "BrickImpl{"
+                + "Position X :" + this.getPosition().getX()
+                + ", Position Y :" + this.getPosition().getY()
+                + ", Type :" + this.getBrickType()
+                + ", Durability : " + this.getDurability()
+                + '}';
     }
 }

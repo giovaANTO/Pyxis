@@ -60,7 +60,7 @@ public interface Hitbox {
      *          An {@link Optional} with the specified {@link HitEdge} the {@link Hitbox} is colliding with,
      *          an empty {@link Optional} if they are not colliding.
      */
-    Optional<HitEdge> collidingEdgeWithHB(Hitbox hitbox);
+    Optional<CollisionInformation> collidingEdgeWithHB(Hitbox hitbox);
 
     /**
      * Checks for a collision with the right, left and upper edge of a border with the parameter {@link Dimension}.
@@ -69,7 +69,7 @@ public interface Hitbox {
      * @return 
      *          An {@link Optional} with the specified colliding {@link HitEdge} of the border, an EMPTY {@link Optional} if they are not colliding.
      */
-    Optional<HitEdge> collidingEdgeWithBorder(Dimension borderDimension);
+    Optional<CollisionInformation> collidingEdgeWithBorder(Dimension borderDimension);
 
     /**
      * Checks for a collision with the lower edge of a border with the parameter {@link Dimension}.

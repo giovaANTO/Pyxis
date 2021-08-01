@@ -15,4 +15,16 @@ public final class PauseSceneView  extends AbstractJavaFXView<PauseSceneControll
     public void initialize(final URL location, final ResourceBundle resources) {
 
     }
+
+    public void quit() {
+
+    }
+
+    public void settings() {
+
+    }
+
+    public void resume() {
+
+    }
 }

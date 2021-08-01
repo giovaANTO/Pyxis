@@ -73,5 +73,5 @@ public interface Element {
      * Execute an update on the element.
      * @param dt The time gap intercurred between an update
      */
-    void update(int dt);
+    void update(double dt);
 }

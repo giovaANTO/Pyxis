@@ -6,6 +6,7 @@ import java.util.Optional;
 import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.DimensionImpl;
 
 public abstract class AbstractHitbox implements Hitbox {
 
@@ -26,35 +27,38 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
-    public Optional<HitEdge> collidingEdgeWithBorder(final Dimension borderDimension) {
+    public Optional<CollisionInformation> collidingEdgeWithBorder(final Dimension borderDimension) {
 
         final double cHBCenterX = getPosition().getX();
         final double cHBCenterY = getPosition().getY();
         final double cHBHalvedHeight = getDimension().getHeight() / 2;
         final double cHBHalvedWidth = getDimension().getWidth() / 2;
         final double bHBWidth   = borderDimension.getWidth();
-        final double bHBHeight  = borderDimension.getHeight();
-        final double bHBCenterX = bHBWidth / 2;
-        final double bHBCenterY = bHBHeight / 2;
 
         HitEdge hitEdge = null;
+        final Dimension borderOffset = new DimensionImpl();
 
-        if (checkBC(cHBCenterX, bHBCenterX, bHBWidth, cHBHalvedWidth)
-                || checkBC(bHBCenterX, cHBCenterX, bHBWidth, cHBHalvedWidth)) {
+        if (checkBC(cHBCenterX, cHBHalvedWidth)) {
+            borderOffset.setWidth(widthOffsetCalculation(cHBCenterX));
+            hitEdge = HitEdge.VERTICAL;
+        } else if (checkBC(bHBWidth - cHBCenterX, cHBHalvedWidth)) {
+            borderOffset.setWidth(widthOffsetCalculation(bHBWidth - cHBCenterX));
             hitEdge = HitEdge.VERTICAL;
         }
-        if (checkBC(cHBCenterY, bHBCenterY, bHBHeight, cHBHalvedHeight)) {
+        if (checkBC(cHBCenterY, cHBHalvedHeight)) {
+            borderOffset.setHeight(heightOffsetCalculation(cHBCenterY));
             hitEdge = Objects.isNull(hitEdge) 
                     ? HitEdge.HORIZONTAL
                     : HitEdge.CORNER;
         }
-        return Optional.ofNullable(hitEdge);
+        return !Objects.isNull(hitEdge)
+                ? Optional.of(new CollisionInformation(hitEdge, borderOffset))
+                : Optional.empty();
     }
 
     @Override
     public boolean isCollidingWithLowerBorder(final Dimension borderDimension) {
-        return checkBC(borderDimension.getHeight() / 2, getPosition().getY(),
-                borderDimension.getHeight(), getDimension().getHeight() / 2);
+        return checkBC(borderDimension.getHeight() - this.getPosition().getY(), this.getDimension().getHeight() / 2);
     }
 
     /**
@@ -67,9 +71,8 @@ public abstract class AbstractHitbox implements Hitbox {
      *          TRUE if the calculation [addedValue - subtractedValue + addedHalvedValue/2] is less than or equal to [collisionDistance], 
      *          FALSE otherwise.
      */
-    private boolean checkBC(final double addedValue, final double subtractedValue,
-                            final double addedHalvedValue, final double collisionDistance) {
-        return addedValue - subtractedValue + addedHalvedValue/2 <= collisionDistance;
+    private boolean checkBC(final double distanceFromBorder, final double collisionDistance) {
+        return distanceFromBorder <= collisionDistance;
     }
 
     @Override
@@ -82,7 +85,7 @@ public abstract class AbstractHitbox implements Hitbox {
     public abstract boolean isCollidingWithHB(final Hitbox hitbox);
 
     @Override
-    public abstract Optional<HitEdge> collidingEdgeWithHB(final Hitbox hitbox);
+    public abstract Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox);
 
     /**
      * Checks for a collision with the same {@link Hitbox}.
@@ -103,7 +106,7 @@ public abstract class AbstractHitbox implements Hitbox {
      *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
      *          an EMPTY {@link Optional} if they are different or not colliding.
      */
-    protected abstract Optional<HitEdge> collidingEdgeWithSameHB(final Hitbox hitbox);
+    protected abstract Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox);
 
     /**
      * Checks for a collision with the different {@link Hitbox}.
@@ -124,6 +127,13 @@ public abstract class AbstractHitbox implements Hitbox {
      *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
      *          an EMPTY {@link Optional} if they are the same or not colliding.
      */
-    protected abstract Optional<HitEdge> collidingEdgeWithOtherHB(final Hitbox hitbox);
+    protected abstract Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox);
 
+    protected Double widthOffsetCalculation(final Double distanceFromCenter) {
+        return this.getDimension().getWidth() / 2 - distanceFromCenter;
+    }
+
+    protected Double heightOffsetCalculation(final Double distanceFromCenter) {
+        return this.getDimension().getHeight() / 2 - distanceFromCenter;
+    }
 }

@@ -17,7 +17,7 @@ public interface Arena {
      * @param delta
      *              The passed time.
      */
-    void update(int delta);
+    void update(double delta);
 
     /**
      * Handle a {@link BrickDestructionEvent}.
@@ -94,6 +94,16 @@ public interface Arena {
     void setDefaultPad();
 
     /**
+     * Move pad to the left of the {@link Arena}.
+     */
+    void movePadLeft();
+
+    /**
+     * Move pad to the rigth of the {@link Arena}.
+     */
+    void movePadRigth();
+
+    /**
      * Add a {@link Brick} in the {@link Arena}.
      * @param brick
  *              The {@link Brick} to add.
@@ -128,7 +138,9 @@ public interface Arena {
     boolean isCleared();
 
     /**
-     * Procedure of cleanup.
+     * Procedure of cleanup of the {@link Arena}.
+     * Unregister all the elements from the {@link org.greenrobot.eventbus.EventBus}
+     * and shutdown the {@link it.unibo.pyxis.model.powerup.handler.PowerupHandler}.
      */
-    void cleanup();
+    void cleanUp();
 }

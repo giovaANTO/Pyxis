@@ -36,7 +36,7 @@ public interface Level {
      * @param delta
      *              The time gap intercurred between an update
      */
-    void update(int delta);
+    void update(double delta);
 
     /**
      * Handle a {@link DecreaseLifeEvent}.
@@ -51,4 +51,10 @@ public interface Level {
      *          The value of {@link LevelStatus}
      */
     LevelStatus getLevelStatus();
+
+    /**
+     * Clean up the current {@link Level} and the assigned {@link Arena}
+     * unregistering them from the{@link org.greenrobot.eventbus.EventBus}.
+     */
+    void cleanUp();
 }

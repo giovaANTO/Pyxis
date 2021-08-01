@@ -33,7 +33,6 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        System.out.println(this.getController());
         vBox.prefWidthProperty().bind(mainPane.prefWidthProperty());
         vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
 
@@ -57,6 +56,5 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     public void quit() {
         this.getController().quit();
     }
-
 
 }

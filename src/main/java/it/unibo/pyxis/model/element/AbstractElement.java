@@ -73,7 +73,7 @@ public abstract class AbstractElement implements Element {
     }
 
     @Override
-    public abstract void update(int dt);
+    public abstract void update(double dt);
 
     @Override
     public boolean equals(final Object o) {
@@ -83,7 +83,7 @@ public abstract class AbstractElement implements Element {
         if (!(o instanceof AbstractElement)) {
             return false;
         }
-        AbstractElement that = (AbstractElement) o;
+        final AbstractElement that = (AbstractElement) o;
         final boolean testDimensions = Objects.equals(this.getDimension(), that.getDimension());
         final boolean testPositions = Objects.equals(this.getPosition(), that.getPosition());
         final boolean testHitbox = Objects.equals(this.getHitbox(), that.getHitbox());

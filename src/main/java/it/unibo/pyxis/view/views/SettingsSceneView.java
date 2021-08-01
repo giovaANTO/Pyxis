@@ -1,13 +1,11 @@
 package it.unibo.pyxis.view.views;
 
-
+import java.net.URL;
+import java.util.ResourceBundle;
 import it.unibo.pyxis.controller.controllers.SettingsSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneController> {
 
@@ -27,4 +25,5 @@ public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneCon
     public void backToMainMenu() {
         this.getController().backToMainMenu();
     }
+
 }

@@ -1,7 +1,9 @@
 package it.unibo.pyxis.controller.linker;
 
+import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
+import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
@@ -23,7 +25,7 @@ public class LinkerImpl implements Linker {
         this.createSceneLoader(inputStage);
         this.switchScene(SceneType.MENU_SCENE);
     }
-    
+
     @Override
     public final void pause() {
         this.gameState.setState(StateEnum.PAUSE);
@@ -33,7 +35,7 @@ public class LinkerImpl implements Linker {
     @Override
     public final void quit() {
         this.gameState.setState(StateEnum.STOP);
-        this.gameState.getCurrentLevel().getArena().cleanup();
+        this.gameState.getCurrentLevel().getArena().cleanUp();
         this.sceneHandler.close();
     }
 
@@ -59,7 +61,10 @@ public class LinkerImpl implements Linker {
             this.gameState.getCurrentLevel().getArena().cleanup();
             this.gameState.reset();
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> handling-physics
         */
     }
 
@@ -73,7 +78,8 @@ public class LinkerImpl implements Linker {
     }
 
     private void createGameLoop() {
-        this.gameLoop = new GameLoopImpl(this.gameState);
+        this.gameLoop = new GameLoopImpl(this);
+        this.gameLoop.start();
     }
 
     private void createSceneLoader(final Stage inputStage) {
@@ -88,12 +94,7 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public void handleCommandControl() {
-
-    }
-
-    @Override
-    public void handleApplicationCommand() {
-
+    public final void insertCommand(final Command<Level> levelCommand) {
+        levelCommand.execute(this.gameState.getCurrentLevel());
     }
 }

@@ -9,8 +9,7 @@ public enum SceneType {
     SELECT_LEVEL_SCENE("SelectLevelScene", new SelectLevelSceneController()),
     GAME_SCENE("GameScene", new GameSceneController()),
     PAUSE_SCENE("PauseScene", new PauseSceneController()),
-    END_LEVEL_SCENE("EndLevelScene", new EndLevelSceneController()),
-    QUITTING_SCENE("QuittingScene", new QuittingSceneController());
+    END_LEVEL_SCENE("EndLevelScene", new EndLevelSceneController());
 
     private final String name;
     private final Controller controller;

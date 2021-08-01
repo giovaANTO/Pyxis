@@ -36,5 +36,10 @@ public interface GameState {
      * @param delta
      *              The passed time.
      */
-     void update(int delta);
+     void update(double delta);
+
+    /**
+     * Reset the game.
+     */
+    void reset();
 }

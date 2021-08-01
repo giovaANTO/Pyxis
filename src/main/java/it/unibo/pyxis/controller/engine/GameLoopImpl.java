@@ -1,85 +1,73 @@
 package it.unibo.pyxis.controller.engine;
 
-import it.unibo.pyxis.controller.command.GameCommand;
-import it.unibo.pyxis.model.state.GameState;
+import it.unibo.pyxis.controller.command.Command;
+import it.unibo.pyxis.controller.linker.Linker;
+import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.state.StateEnum;
+import javafx.application.Platform;
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 
 public final class GameLoopImpl extends Thread implements GameLoop {
 
-    private static final int MAX_COMMANDS = 300;
-    private static final long UPDATING_FREQUENCY = 4;
-    private final GameState gameState;
-    private final BlockingQueue<GameCommand> commandQueue;
-    private long showStatsTimer;
-    private int fps = 0;
-    private int ups = 0;
+    private static final int COMMAND_QUEUE_DIMENSION = 100;
+    private static final int PERIOD = 20;
+    private final Linker linker;
+    private final BlockingQueue<Command<Level>> commandQueue;
 
-    public GameLoopImpl(final GameState inputGameState) {
-        this.gameState = inputGameState;
-        this.commandQueue = new ArrayBlockingQueue<GameCommand>(MAX_COMMANDS);
+
+    public GameLoopImpl(final Linker linker) {
+        this.linker = linker;
+        this.commandQueue = new ArrayBlockingQueue<Command<Level>>(COMMAND_QUEUE_DIMENSION);
     }
 
     @Override
     public void run() {
-        this.gameState.setState(StateEnum.RUN);
-        long lastUpdate = System.currentTimeMillis();
-        this.showStatsTimer = System.currentTimeMillis() + 1000;
-        while (this.gameState.getGameState() == StateEnum.RUN) {
+        long lastTime = System.currentTimeMillis();
+        while (this.linker.getGameState().getGameState() != StateEnum.STOP) {
             long current = System.currentTimeMillis();
-            long lastRenderingTime = (current - lastUpdate);
+            int elapsed = (int) (current - lastTime);
             this.processInput();
-            this.update(lastRenderingTime);
-            this.render();
-            this.showStats();
+            this.linker.getGameState().update(elapsed);
+            Platform.runLater(this.linker::render);
             this.waitForNextFrame(current);
-            lastUpdate = current;
+            lastTime = current;
         }
     }
-
-    private void showStats() {
-        if (System.currentTimeMillis() >= showStatsTimer) {
-            System.out.print("\r FPS: " + this.fps + " UPS: " + this.ups);
-            this.fps = 0;
-            this.ups = 0;
-            this.showStatsTimer = System.currentTimeMillis() + 1000;
-        }
-    }
-
 
     private void waitForNextFrame(final long current) {
-        long delta = System.currentTimeMillis() - current;
-        if (delta < UPDATING_FREQUENCY) {
+        long dt = System.currentTimeMillis() - current;
+        if (dt < PERIOD) {
             try {
-                Thread.sleep(UPDATING_FREQUENCY - delta);
+                Thread.sleep(PERIOD - dt);
             } catch (Exception ex) {
-                Thread.currentThread().interrupt();
+                System.out.println(ex.getMessage());
             }
         }
     }
 
     @Override
     public void render() {
-        this.fps++;
+        Platform.runLater(this.linker::render);
     }
 
     @Override
     public void update(final double elapsed) {
-        this.ups++;
+        this.linker.getGameState().update(elapsed);
     }
 
     @Override
     public void processInput() {
         if (!this.commandQueue.isEmpty()) {
-            final GameCommand nextCommand = this.commandQueue.poll();
-            nextCommand.execute(this.gameState.getCurrentLevel());
+            final Command<Level> nextCommand = this.commandQueue.poll();
+            nextCommand.execute(this.linker.getGameState().getCurrentLevel());
         }
     }
 
     @Override
-    public void addCommand(final GameCommand command) {
+    public void addCommand(final Command<Level> command) {
         this.commandQueue.add(command);
     }
 }

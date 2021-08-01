@@ -42,14 +42,21 @@ public final class VectorImpl implements Vector {
     }
 
     @Override
+    public Vector copyOf() {
+        final double firstComponent = this.components.getFirst();
+        final double secondComponent = this.components.getSecond();
+        return new VectorImpl(firstComponent, secondComponent);
+    }
+
+    @Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof VectorImpl)) {
             return false;
         }
-        VectorImpl vector = (VectorImpl) o;
+        final VectorImpl vector = (VectorImpl) o;
         return Objects.equals(components, vector.components);
     }
 
@@ -57,12 +64,4 @@ public final class VectorImpl implements Vector {
     public int hashCode() {
         return Objects.hash(components);
     }
-
-    @Override
-    public Vector copyOf() {
-        double firstComponent = this.components.getFirst();
-        double secondComponent = this.components.getSecond();
-        return new VectorImpl(firstComponent, secondComponent);
-    }
-
 }
