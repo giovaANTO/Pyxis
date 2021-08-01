@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.element.ball;
 
 import it.unibo.pyxis.model.element.AbstractElement;
-import it.unibo.pyxis.model.event.collision.BallCollisionEvent;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CircleHitbox;
@@ -97,7 +97,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     @Subscribe
-    public void handleBallCollision(final BallCollisionEvent collisionEvent) {
+    public void handleBallCollision(final BallCollisionWithBrickEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
             collisionInformation.put(collisionEvent.getCollisionInformation().getHitEdge(),
                     collisionEvent.getCollisionInformation().getBorderOffset());

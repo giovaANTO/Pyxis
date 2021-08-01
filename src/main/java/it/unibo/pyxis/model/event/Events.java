@@ -2,7 +2,8 @@ package it.unibo.pyxis.model.event;
 
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.powerup.Powerup;
-import it.unibo.pyxis.model.event.collision.BallCollisionEvent;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
@@ -10,7 +11,6 @@ import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.hitbox.CollisionInformation;
-import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.util.Coord;
 
 import java.util.Optional;
@@ -18,7 +18,7 @@ import java.util.Optional;
 public final class Events {
 
     private Events() {
-        throw new AssertionError("This class can't be instantiated , why are you here?");
+        throw new AssertionError("This class can't be instantiated");
     };
 
     /**
@@ -33,15 +33,16 @@ public final class Events {
     }
 
     /**
-     * Create a new {@link BallCollisionEvent} instance passing a {@link HitEdge}.
-     * @param hitEdge
-     *                  The edge of the {@link it.unibo.pyxis.model.element.brick.Brick} 
-     *                  or border of the {@link it.unibo.pyxis.model.arena.Arena} that has been hit.
+     * Create a new {@link BallCollisionWithBrickEvent} instance.
+     * @param id
+     *              The {@link Ball} id
+     * @param collisionInformation
+     *              The {@link CollisionInformation} instance.
      * @return
-     *         The {@link BallCollisionEvent} instance.
+     *          The {@link BallCollisionWithBrickEvent} instance.
      */
-    public static BallCollisionEvent newBallCollisionEvent(final int id, final CollisionInformation collisionInformation) {
-        return new BallCollisionEvent() {
+    public static BallCollisionWithBrickEvent newBallCollisionEvent(final int id, final CollisionInformation collisionInformation) {
+        return new BallCollisionWithBrickEvent() {
             @Override
             public int getBallId() {
                 return id;
@@ -55,16 +56,41 @@ public final class Events {
     }
 
     /**
-     * Create a new {@link BallCollisionWithPadEvent} instance passing a {@link HitEdge}.
-     * @param hitEdge
-     *                  The edge of the {@link it.unibo.pyxis.model.element.pad.Pad} that has been hit.
-     * @param padWidth
-     *                  The current width of the {@link it.unibo.pyxis.model.element.pad.Pad}
+     * Create a new {@link BallCollisionWithBorderEvent} instance.
+     * @param id
+     *              The {@link Ball} id
+     * @param collisionInformation
+     *              The {@link CollisionInformation} instance.
      * @return
-     *           The {@link BallCollisionWithPadEvent} instance.
+     *          The {@link BallCollisionWithBorderEvent} instance.
      */
-    public static BallCollisionWithPadEvent newBallCollisionWithPadEvent(final int id, 
-            final CollisionInformation collisionInformation, final double padWidth) {
+    public static BallCollisionWithBorderEvent newBallCollisionWithBorderEvent(final int id, final CollisionInformation collisionInformation) {
+        return new BallCollisionWithBorderEvent() {
+            @Override
+            public int getBallId() {
+                return id;
+            }
+
+            @Override
+            public CollisionInformation getCollisionInformation() {
+                return collisionInformation;
+            }
+        };
+    }
+
+    /**
+     * Create a new {@link BallCollisionWithPadEvent} instance.
+     * @param id
+     *              The {@link Ball} id
+     * @param collisionInformation
+     *              The {@link CollisionInformation} instance.
+     * @param padWidth
+     *              The width property of the {@link it.unibo.pyxis.model.element.pad.Pad}.
+     * @return
+     *          The {@link BallCollisionWithPadEvent} instance.
+     */
+    public static BallCollisionWithPadEvent newBallCollisionWithPadEvent(final int id, final CollisionInformation collisionInformation,
+                                                                         final double padWidth) {
         return new BallCollisionWithPadEvent() {
             @Override
             public int getBallId() {
