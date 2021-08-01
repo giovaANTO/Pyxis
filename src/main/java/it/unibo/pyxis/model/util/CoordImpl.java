@@ -95,4 +95,8 @@ public final class CoordImpl implements Coord {
     public int hashCode() {
         return Objects.hash(internalPair);
     }
+
+    public String toString() {
+        return "Position X: " + this.internalPair.getFirst() + " and Y: " + this.internalPair.getSecond();
+    }
 }

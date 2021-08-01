@@ -61,6 +61,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     @Subscribe
     public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {
         if (movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox()).isPresent()) {
+            System.out.println("Pad - powerup activated: " + movementEvent.getElement());
             EventBus.getDefault().post(Events.newPowerupActivationEvent(movementEvent.getElement()));
         }
     }
