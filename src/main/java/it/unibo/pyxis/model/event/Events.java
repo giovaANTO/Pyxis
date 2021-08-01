@@ -41,7 +41,7 @@ public final class Events {
      * @return
      *          The {@link BallCollisionWithBrickEvent} instance.
      */
-    public static BallCollisionWithBrickEvent newBallCollisionEvent(final int id, final CollisionInformation collisionInformation) {
+    public static BallCollisionWithBrickEvent newBallCollisionWithBrickEvent(final int id, final CollisionInformation collisionInformation) {
         return new BallCollisionWithBrickEvent() {
             @Override
             public int getBallId() {

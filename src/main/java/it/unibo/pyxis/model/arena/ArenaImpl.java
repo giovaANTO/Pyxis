@@ -150,8 +150,8 @@ public final class ArenaImpl implements Arena {
                     this.resetStartingPosition();
                 }
             } else {
-                final Optional<CollisionInformation> collisionInformation = ball.getHitbox().collidingEdgeWithBorder(this.getDimension());
-                collisionInformation.ifPresent(cI -> EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI)));
+                final Optional<CollisionInformation> collInformation = ball.getHitbox().collidingEdgeWithBorder(this.getDimension());
+                collInformation.ifPresent(cI -> EventBus.getDefault().post(Events.newBallCollisionWithBorderEvent(ball.getId(), cI)));
             }
         }
         final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()

@@ -53,7 +53,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
             final Ball ball = movementEvent.getElement();
             this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
             if (ball.getType().bounce()) {
-                EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI));
+                EventBus.getDefault().post(Events.newBallCollisionWithBrickEvent(ball.getId(), cI));
             }
         });
     }
