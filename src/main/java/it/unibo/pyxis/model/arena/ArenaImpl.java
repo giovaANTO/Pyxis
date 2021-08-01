@@ -140,18 +140,18 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public void checkBorderCollision() {
-        for (final Ball b: this.getBalls()) {
-            if (b.getHitbox().isCollidingWithLowerBorder(this.getDimension())) {
-                this.ballSet.remove(b);
-                EventBus.getDefault().unregister(b);
+        for (final Ball ball: this.getBalls()) {
+            if (ball.getHitbox().isCollidingWithLowerBorder(this.getDimension())) {
+                this.ballSet.remove(ball);
+                EventBus.getDefault().unregister(ball);
                 if (this.ballSet.isEmpty()) {
                     //EventBus.getDefault().post(Events.newDecreaseLifeEvent());
                     this.powerupHandler.stop();
                     this.resetStartingPosition();
                 }
             } else {
-                final Optional<CollisionInformation> collisionInformation = b.getHitbox().collidingEdgeWithBorder(this.getDimension());
-                collisionInformation.ifPresent(cI -> EventBus.getDefault().post(Events.newBallCollisionEvent(b.getId(), cI)));
+                final Optional<CollisionInformation> collisionInformation = ball.getHitbox().collidingEdgeWithBorder(this.getDimension());
+                collisionInformation.ifPresent(cI -> EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI)));
             }
         }
         final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()

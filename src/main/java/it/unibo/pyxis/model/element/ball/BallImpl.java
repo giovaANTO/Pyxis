@@ -25,7 +25,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     private static final double MIN_PACE_RIGHT_PERCENTAGE = 0.9;
     private BallType type;
     private Vector pace;
-    private final Map<HitEdge, Dimension> allCollisionInformations;
+    private final Map<HitEdge, Dimension> collisionInformation;
     private final int id;
 
     private BallImpl(final Vector inputPace, final Coord position, final BallType type, final int inputId) {
@@ -33,7 +33,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.setHitbox(new CircleHitbox(this));
         this.type = type;
         this.pace = inputPace;
-        this.allCollisionInformations = new HashMap<>(Map.of());
+        this.collisionInformation = new HashMap<>();
         this.id = inputId;
         EventBus.getDefault().register(this);
     }
@@ -54,23 +54,23 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     private void applyCollisions() {
-        if (allCollisionInformations.containsKey(HitEdge.HORIZONTAL) && allCollisionInformations.containsKey(HitEdge.VERTICAL)) {
+        if (collisionInformation.containsKey(HitEdge.HORIZONTAL) && collisionInformation.containsKey(HitEdge.VERTICAL)) {
             this.invertPaceX();
             this.invertPaceY();
-            this.applyOffset(new DimensionImpl(allCollisionInformations.get(HitEdge.VERTICAL).getWidth(),
-                                                allCollisionInformations.get(HitEdge.HORIZONTAL).getHeight()));
-        } else if (allCollisionInformations.containsKey(HitEdge.HORIZONTAL)) {
+            this.applyOffset(new DimensionImpl(collisionInformation.get(HitEdge.VERTICAL).getWidth(),
+                                                collisionInformation.get(HitEdge.HORIZONTAL).getHeight()));
+        } else if (collisionInformation.containsKey(HitEdge.HORIZONTAL)) {
             this.invertPaceY();
-            this.applyOffset(allCollisionInformations.get(HitEdge.HORIZONTAL));
-        } else if (allCollisionInformations.containsKey(HitEdge.VERTICAL)) {
+            this.applyOffset(collisionInformation.get(HitEdge.HORIZONTAL));
+        } else if (collisionInformation.containsKey(HitEdge.VERTICAL)) {
             this.invertPaceX();
-            this.applyOffset(allCollisionInformations.get(HitEdge.VERTICAL));
-        } else if (allCollisionInformations.containsKey(HitEdge.CORNER)) {
+            this.applyOffset(collisionInformation.get(HitEdge.VERTICAL));
+        } else if (collisionInformation.containsKey(HitEdge.CORNER)) {
             this.invertPaceX();
             this.invertPaceY();
-            this.applyOffset(allCollisionInformations.get(HitEdge.CORNER));
+            this.applyOffset(collisionInformation.get(HitEdge.CORNER));
         }
-        this.allCollisionInformations.clear();
+        this.collisionInformation.clear();
     }
 
     private void applyOffset(final Dimension borderOffset) {
@@ -97,9 +97,9 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     @Subscribe
-    public void handleCollision(final BallCollisionEvent collisionEvent) {
+    public void handleBallCollision(final BallCollisionEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
-            allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
+            collisionInformation.put(collisionEvent.getCollisionInformation().getHitEdge(),
                     collisionEvent.getCollisionInformation().getBorderOffset());
         }
     }
@@ -111,7 +111,7 @@ public final class BallImpl extends AbstractElement implements Ball {
             if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.HORIZONTAL) {
                 this.applyPaceChange(collisionEvent.getPadHitPercentage());
             }
-            allCollisionInformations.put(collisionEvent.getCollisionInformation().getHitEdge(),
+            collisionInformation.put(collisionEvent.getCollisionInformation().getHitEdge(),
                     collisionEvent.getCollisionInformation().getBorderOffset());
         }
     }

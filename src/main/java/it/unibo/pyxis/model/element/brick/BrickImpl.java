@@ -41,15 +41,8 @@ public final class BrickImpl extends AbstractElement implements Brick {
             EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this);
-            } else {
-                System.out.println("Can't unregister the brick");
             }
         }
-    }
-
-    @Override
-    public void update(final double delta) {
-        throw new UnsupportedOperationException("You can't call update on a brick");
     }
 
     @Override
@@ -58,9 +51,16 @@ public final class BrickImpl extends AbstractElement implements Brick {
         final Optional<CollisionInformation> collisionInformation = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         collisionInformation.ifPresent(cI -> {
             final Ball ball = movementEvent.getElement();
-            EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI));
             this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
+            if (ball.getType().bounce()) {
+                EventBus.getDefault().post(Events.newBallCollisionEvent(ball.getId(), cI));
+            }
         });
+    }
+
+    @Override
+    public void update(final double delta) {
+        throw new UnsupportedOperationException("You can't call update on a brick");
     }
 
     @Override
