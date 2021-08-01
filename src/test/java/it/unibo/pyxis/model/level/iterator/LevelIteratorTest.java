@@ -14,11 +14,10 @@ class LevelIteratorTest {
     @Test
     public void testLevelChanging() {
         Path resourceDirectory = Paths.get("src","test","resources","level-files","iterator");
-        final Iterator<Level> levelIterator = new LevelIterator();
+        final Iterator<Level> levelIterator = new LevelIteratorImpl();
         Level levelIterated = levelIterator.next();
-        assertTrue(levelIterator.hasNext());
-        assertEquals(1, levelIterated.getLevelNumber());
         assertNotNull(levelIterated);
+        assertEquals(1, levelIterated.getLevelNumber());
         assertTrue(levelIterator.hasNext());
 
         levelIterated = levelIterator.next();

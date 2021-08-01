@@ -1,12 +1,12 @@
 package it.unibo.pyxis.model.state;
 
 import it.unibo.pyxis.model.level.Level;
-import it.unibo.pyxis.model.level.iterator.LevelIterator;
+import it.unibo.pyxis.model.level.iterator.LevelIteratorImpl;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public final class GameStateImpl implements GameState {
 
-    private LevelIterator iterator;
+    private LevelIteratorImpl iterator;
     private Level currentLevel;
     private int score;
     private StateEnum gameStateEnum;
@@ -31,13 +31,13 @@ public final class GameStateImpl implements GameState {
     }
 
     /**
-     * Initialize the {@link GameState} setting the {@link LevelIterator}
+     * Initialize the {@link GameState} setting the {@link LevelIteratorImpl}
      * and the first {@link Level} to play. The score is also cleared on the
      * call of this procedure.
      */
     private void initialize() {
         this.gameStateEnum = StateEnum.PAUSE;
-        this.iterator = new LevelIterator();
+        this.iterator = new LevelIteratorImpl();
         this.currentLevel = this.iterator.next();
         this.score = 0;
     }
