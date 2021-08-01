@@ -3,8 +3,8 @@ lives: 3
 width: 500
 height: 560
 pad:
-    x: 200
-    y: 500
+  x: 200
+  y: 500
 balls:
   - x: 240
     y: 300
