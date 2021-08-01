@@ -1,9 +1,11 @@
 package it.unibo.pyxis.model.element.ball;
 
 import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
 import it.unibo.pyxis.model.event.Events;
+import it.unibo.pyxis.model.event.collision.CollisionEvent;
 import it.unibo.pyxis.model.hitbox.CircleHitbox;
 import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.util.Coord;
@@ -95,12 +97,25 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.pace.setY(Math.sin(angle) * module);
     }
 
+    private void registerCollision(final CollisionEvent collisionEvent) {
+        final HitEdge hitEdge = collisionEvent.getCollisionInformation().getHitEdge();
+        final Dimension borderOffset = collisionEvent.getCollisionInformation().getBorderOffset();
+        this.collisionInformation.put(hitEdge, borderOffset);
+    }
+
     @Override
     @Subscribe
-    public void handleBallCollision(final BallCollisionWithBrickEvent collisionEvent) {
+    public void handleBrickCollision(final BallCollisionWithBrickEvent collisionEvent) {
+        if (this.id == collisionEvent.getBallId() && this.getType().bounce()) {
+            this.registerCollision(collisionEvent);
+        }
+    }
+
+    @Override
+    @Subscribe
+    public void handleBorderCollision(final BallCollisionWithBorderEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
-            collisionInformation.put(collisionEvent.getCollisionInformation().getHitEdge(),
-                    collisionEvent.getCollisionInformation().getBorderOffset());
+            this.registerCollision(collisionEvent);
         }
     }
 
@@ -111,8 +126,7 @@ public final class BallImpl extends AbstractElement implements Ball {
             if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.HORIZONTAL) {
                 this.applyPaceChange(collisionEvent.getPadHitPercentage());
             }
-            collisionInformation.put(collisionEvent.getCollisionInformation().getHitEdge(),
-                    collisionEvent.getCollisionInformation().getBorderOffset());
+            this.registerCollision(collisionEvent);
         }
     }
 

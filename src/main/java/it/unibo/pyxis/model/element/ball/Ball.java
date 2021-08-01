@@ -1,6 +1,7 @@
 package it.unibo.pyxis.model.element.ball;
 
 import it.unibo.pyxis.model.element.Element;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
 import it.unibo.pyxis.model.util.Vector;
@@ -10,9 +11,16 @@ public interface Ball extends Element {
     /**
      * Handles the collision event between the ball and a brick.
      * @param collisionEvent
-     *              Receive a {@link BrickCollisionEvent}
+     *              Receive a {@link BallCollisionWithBrickEvent}
      */
-    void handleBallCollision(BallCollisionWithBrickEvent collisionEvent);
+    void handleBrickCollision(BallCollisionWithBrickEvent collisionEvent);
+
+    /**
+     * Handles the collision event between the ball and the border.
+     * @param collisionEvent
+     *              Receive a {@link BallCollisionWithBorderEvent}
+     */
+    void handleBorderCollision(BallCollisionWithBorderEvent collisionEvent);
 
     /**
      * Handles the collision event between the ball and the pad.
