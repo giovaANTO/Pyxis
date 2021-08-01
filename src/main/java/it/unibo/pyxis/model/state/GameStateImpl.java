@@ -36,7 +36,7 @@ public final class GameStateImpl implements GameState {
      * call of this procedure.
      */
     private void initialize() {
-        this.gameStateEnum = StateEnum.PAUSE;
+        this.gameStateEnum = StateEnum.WAITING_FOR_NEW_GAME;
         this.iterator = new LevelIterator();
         this.currentLevel = this.iterator.next();
         this.score = 0;
