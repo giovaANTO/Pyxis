@@ -12,12 +12,12 @@
          <children>
             <Canvas fx:id="arenaCanvas" height="400.0" width="350.0" StackPane.alignment="CENTER" />
          </children></StackPane>
-      <Label layoutX="497.0" layoutY="332.0" text="CURRENT LIVES" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="35.0" />
-      <Label fx:id="currentLives" layoutX="534.0" layoutY="350.0" text="N" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="35.0" />
-      <Label layoutX="35.0" layoutY="23.0" text="SCORE" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="20.0" />
-      <Label fx:id="currentScore" layoutX="44.0" layoutY="41.0" text="NN" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="40.0" />
-      <Label layoutX="496.0" layoutY="23.0" text="CURRENT LEVEL" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="20.0" />
-      <Label fx:id="currentLevel" layoutX="529.0" layoutY="41.0" text="NM" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="40.0" />
+      <Label layoutX="497.0" layoutY="332.0" prefHeight="17.6" prefWidth="84.0" text="CURRENT LIVES" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="35.0" />
+      <Label fx:id="currentLives" layoutX="534.0" layoutY="350.0" prefHeight="17.6" prefWidth="9.6" text="N" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="35.0" />
+      <Label layoutX="35.0" layoutY="23.0" prefHeight="17.6" prefWidth="36.8" text="SCORE" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="20.0" />
+      <Label fx:id="currentScore" layoutX="44.0" layoutY="41.0" prefHeight="17.6" prefWidth="50.0" text="NN" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="40.0" />
+      <Label layoutX="496.0" layoutY="23.0" prefHeight="17.6" prefWidth="85.6" text="CURRENT LEVEL" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="20.0" />
+      <Label fx:id="currentLevel" layoutX="529.0" layoutY="41.0" prefHeight="17.6" prefWidth="20.0" text="NM" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="40.0" />
       <Button layoutX="27.0" layoutY="217.0" mnemonicParsing="false" onAction="#render" text="Render" />
       <Button layoutX="21.0" layoutY="180.0" mnemonicParsing="false" onAction="#dofortenX" text="Update x10" />
       <Button layoutX="27.0" layoutY="271.0" mnemonicParsing="false" onAction="#update" text="Update" />

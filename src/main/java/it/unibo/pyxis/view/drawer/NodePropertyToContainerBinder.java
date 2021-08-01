@@ -3,7 +3,7 @@ package it.unibo.pyxis.view.drawer;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 
-public class CanvasPropertyBinder {
+public class NodePropertyToContainerBinder {
 
     private final ReadOnlyDoubleProperty wC;
     private final ReadOnlyDoubleProperty hC;
@@ -13,7 +13,7 @@ public class CanvasPropertyBinder {
     private final Double xScaleFactor;
     private final Double yScaleFactor;
 
-    public CanvasPropertyBinder(final ReadOnlyDoubleProperty containerWidthProperty, final ReadOnlyDoubleProperty containerHeightProperty,
+    public NodePropertyToContainerBinder(final ReadOnlyDoubleProperty containerWidthProperty, final ReadOnlyDoubleProperty containerHeightProperty,
                         final Double containerStartWidth, final Double containerStartHeight,
                         final DoubleProperty nodeWidthProperty, final DoubleProperty nodeHeightProperty,
                         final Double nodeWidth, final Double nodeHeight) {

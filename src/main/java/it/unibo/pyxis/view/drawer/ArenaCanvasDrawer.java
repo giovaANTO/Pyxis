@@ -14,7 +14,7 @@ import it.unibo.pyxis.model.util.DimensionImpl;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class GameArenaDrawer {
+public class ArenaCanvasDrawer {
 
     private static final String SEPARATOR = File.separator;
     private static final String SPRITES_PATH = "sprites" + SEPARATOR;
@@ -26,7 +26,7 @@ public class GameArenaDrawer {
     private final GraphicsContext gc;
     private final Dimension arenaDimension;
 
-    public GameArenaDrawer(final GraphicsContext gc, final Dimension arenaDimension) {
+    public ArenaCanvasDrawer(final GraphicsContext gc, final Dimension arenaDimension) {
         this.gc = gc;
         this.arenaDimension = arenaDimension;
     }
