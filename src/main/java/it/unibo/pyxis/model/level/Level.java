@@ -5,6 +5,14 @@ import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public interface Level {
+
+    /**
+     * Return the number of the {@link Level} loaded.
+     * @return
+     *          An integer representing the {@link Level} number
+     */
+    int getLevelNumber();
+
     /**
      * Decrease a life.
      */
