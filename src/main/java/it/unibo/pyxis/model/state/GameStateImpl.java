@@ -2,7 +2,6 @@ package it.unibo.pyxis.model.state;
 
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.iterator.LevelIterator;
-import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public final class GameStateImpl implements GameState {
 
@@ -20,15 +19,14 @@ public final class GameStateImpl implements GameState {
      * Change the current playing {@link Level}.
      * If no other levels are available set the {@link GameState} in a stopped mode.
      */
-    private void switchLevel() {
-        this.setState(StateEnum.PAUSE);
+    public void switchLevel() {
+        if (this.gameStateEnum != StateEnum.PAUSE) {
+            this.setState(StateEnum.PAUSE);
+        }
         this.score += this.currentLevel.getScore();
         this.currentLevel.cleanUp();
         if (this.iterator.hasNext()) {
             this.currentLevel = this.iterator.next();
-            this.setState(StateEnum.RUN);
-        } else {
-            this.setState(StateEnum.STOP);
         }
     }
 
@@ -56,6 +54,11 @@ public final class GameStateImpl implements GameState {
     }
 
     @Override
+    public LevelIterator getLevelIterator() {
+        return this.iterator;
+    }
+
+    @Override
     public Level getCurrentLevel() {
         return this.currentLevel;
     }
@@ -78,11 +81,5 @@ public final class GameStateImpl implements GameState {
     @Override
     public void update(final double delta) {
         this.getCurrentLevel().update(delta);
-        final LevelStatus levelStatus = this.currentLevel.getLevelStatus();
-        if (levelStatus == LevelStatus.SUCCESSFULLY_COMPLETED) {
-           this.switchLevel();
-        } else if (levelStatus == LevelStatus.GAME_OVER) {
-            this.setState(StateEnum.STOP);
-        }
     }
 }

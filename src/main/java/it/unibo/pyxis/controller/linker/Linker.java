@@ -2,7 +2,6 @@ package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.model.state.GameState;
-import it.unibo.pyxis.view.scene.SceneType;
 
 public interface Linker {
 
@@ -22,7 +21,11 @@ public interface Linker {
 
     void selectLevel();
 
+    void switchLevel();
+
     GameState getGameState();
+
+    int getMaximumLevelReached();
 
     void render();
 
