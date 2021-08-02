@@ -100,9 +100,9 @@ public final class ArenaImpl implements Arena {
      * @return
      *          The new position of the {@link Pad}
      */
-    private Coord calcPadNewCoord(final Vector directionalVector) {
+    private Coord calcPadNewXCoord(final double dx) {
         final Coord updatedCoord = this.pad.getPosition();
-        updatedCoord.sumVector(directionalVector);
+        updatedCoord.sumXValue(dx);
         return updatedCoord;
     }
 
@@ -303,28 +303,33 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public void movePadLeft() {
-        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-20, 0));
-        if (newPosition.getX() >= this.pad.getDimension().getWidth() / 2) {
-            this.getPad().setPosition(newPosition);
-        } else {
-            final Coord leftPadLimitPosition = new CoordImpl(
+        final Coord oldPosition = this.pad.getPosition();
+        Coord newPosition = this.calcPadNewXCoord(-PadImpl.PAD_X_MOVEMENT);
+        if (newPosition.getX() < this.pad.getDimension().getWidth() / 2) {
+            newPosition = new CoordImpl(
                     this.pad.getDimension().getWidth() / 2,
                     this.pad.getPosition().getY());
-            this.getPad().setPosition(leftPadLimitPosition);
+        }
+        this.pad.setPosition(newPosition);
+        if (this.getBalls().stream()
+                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()))) {
+            this.pad.setPosition(oldPosition);
         }
     }
 
     @Override
     public void movePadRight() {
-        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(20, 0));
-        if (newPosition.getX() + (this.pad.getDimension().getWidth() / 2)
-                <= this.dimension.getWidth() - (this.pad.getDimension().getWidth() / 2)) {
-            this.getPad().setPosition(newPosition);
-        } else {
-            final Coord rightPadLimitPosition = new CoordImpl(
+        final Coord oldPosition = this.pad.getPosition();
+        Coord newPosition = this.calcPadNewXCoord(PadImpl.PAD_X_MOVEMENT);
+        if (newPosition.getX() > this.dimension.getWidth() - this.pad.getDimension().getWidth() / 2) {
+            newPosition = new CoordImpl(
                     this.dimension.getWidth() - this.pad.getDimension().getWidth() / 2,
                     this.pad.getPosition().getY());
-            this.getPad().setPosition(rightPadLimitPosition);
+        }
+        this.pad.setPosition(newPosition);
+        if (this.getBalls().stream()
+                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()))) {
+            this.pad.setPosition(oldPosition);
         }
     }
 

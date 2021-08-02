@@ -9,8 +9,8 @@ pad:
 balls:
   - x: 240
     y: 300
-    paceX: -60
-    paceY: -120
+    paceX: 0
+    paceY: 200
     ballType: "NORMAL"
     id: 1
 bricks:

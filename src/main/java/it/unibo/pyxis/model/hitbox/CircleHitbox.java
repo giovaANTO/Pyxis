@@ -75,8 +75,10 @@ public class CircleHitbox extends AbstractHitbox {
         closestPointY = closestPointCalculation(cHBCenterY, rHBCenterY, rHBHeight);
 
         if (closestPointX != cHBCenterX && closestPointY != cHBCenterY) {
-            borderOffset.setWidth(widthOffsetCalculation(Math.abs(cHBCenterX - closestPointX)));
-            borderOffset.setHeight(heightOffsetCalculation(Math.abs(cHBCenterY - closestPointY)));
+            borderOffset.setWidth(cornerOffsetCalculation(this.getPosition().distance(closestPointX, closestPointY),
+                    Math.abs(cHBCenterX - closestPointX)));
+            borderOffset.setHeight(cornerOffsetCalculation(this.getPosition().distance(closestPointX, closestPointY),
+                    Math.abs(cHBCenterY - closestPointY)));
             hitEdge = HitEdge.CORNER;
         } else if (closestPointX != cHBCenterX && closestPointY == cHBCenterY) {
             borderOffset.setWidth(widthOffsetCalculation(Math.abs(cHBCenterX - closestPointX)));
@@ -113,6 +115,10 @@ public class CircleHitbox extends AbstractHitbox {
         return cHBCenterCoord < rHBCenterCoord - rHBEdgeLength / 2
                 ? rHBCenterCoord - rHBEdgeLength / 2
                 : Math.min(cHBCenterCoord, rHBCenterCoord + rHBEdgeLength / 2);
+    }
+
+    private double cornerOffsetCalculation(final double distanceFromClosestPoint, final double componentDistance) {
+        return (this.getRadius() - distanceFromClosestPoint) * componentDistance / this.getRadius();
     }
 
 }
