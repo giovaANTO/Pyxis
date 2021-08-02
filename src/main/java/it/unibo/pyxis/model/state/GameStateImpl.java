@@ -80,10 +80,8 @@ public final class GameStateImpl implements GameState {
         this.getCurrentLevel().update(delta);
         final LevelStatus levelStatus = this.currentLevel.getLevelStatus();
         if (levelStatus == LevelStatus.SUCCESSFULLY_COMPLETED) {
-            System.out.println("You've won the current level.");
            this.switchLevel();
         } else if (levelStatus == LevelStatus.GAME_OVER) {
-            System.out.println("You've lost the current level.");
             this.setState(StateEnum.STOP);
         }
     }
