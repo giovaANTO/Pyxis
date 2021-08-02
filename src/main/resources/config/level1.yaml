@@ -4,8 +4,8 @@ width: 500
 height: 560
 levelNumber: 1
 pad:
-    x: 200
-    y: 500
+  x: 200
+  y: 500
 balls:
   - x: 240
     y: 300
