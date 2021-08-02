@@ -131,6 +131,46 @@ public final class ArenaImpl implements Arena {
         return rangeNextInt(multiplier) <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
     }
 
+    /**
+     * Remove all the {@link Ball}s in the {@link Arena} unsubscribing them
+     * from the {@link EventBus}.
+     */
+    private void clearBalls() {
+        this.getBalls().forEach(ball -> {
+            if (EventBus.getDefault().isRegistered(ball)) {
+                EventBus.getDefault().unregister(ball);
+            }
+        });
+        this.ballSet.clear();
+    }
+
+    /**
+     * Remove all the {@link Brick}s in the {@link Arena} unsubscribing them
+     * from the {@link EventBus}.
+     */
+    private void clearBricks() {
+        this.getBricks().forEach(brick -> {
+            if (EventBus.getDefault().isRegistered(brick)) {
+                EventBus.getDefault().unregister(brick);
+            }
+        });
+        this.brickMap.clear();
+    }
+
+    /**
+     * Remove all the {@link Powerup}s in the {@link Arena} unsubscribing them
+     * from the {@link EventBus}.
+     */
+    private void clearPowerup() {
+        this.powerupSet.forEach(powerup -> {
+            if (EventBus.getDefault().isRegistered(powerup)) {
+                EventBus.getDefault().unregister(powerup);
+            }
+        });
+        this.powerupSet.clear();
+        this.powerupHandler.stop();
+    }
+
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
@@ -155,8 +195,9 @@ public final class ArenaImpl implements Arena {
                 EventBus.getDefault().unregister(ball);
                 if (this.ballSet.isEmpty()) {
                     EventBus.getDefault().post(Events.newDecreaseLifeEvent());
-                    this.powerupHandler.stop();
+                    this.powerupSet.clear();
                     this.resetStartingPosition();
+                    return;
                 }
             } else {
                 final Optional<CollisionInformation> collInformation = ball.getHitbox().collidingEdgeWithBorder(this.getDimension());
@@ -164,14 +205,11 @@ public final class ArenaImpl implements Arena {
             }
         }
 
-        if (this.ballSet.isEmpty()) {
-          this.powerupSet.clear();
-        } else {
-            final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()
-                    .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
-                    .collect(Collectors.toSet());
-            this.powerupSet.removeAll(powerupRemoveSet);
-        }
+        final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()
+                .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
+                .collect(Collectors.toSet());
+        this.powerupSet.removeAll(powerupRemoveSet);
+
     }
 
     @Override
@@ -312,35 +350,18 @@ public final class ArenaImpl implements Arena {
 
     @Override
     public void cleanUp() {
-        final EventBus bus = EventBus.getDefault();
-        this.getBalls().forEach(ball -> {
-            if (bus.isRegistered(ball)) {
-                bus.unregister(ball);
-            }
-        });
-        this.ballSet.clear();
-        this.getBricks().forEach(brick -> {
-            if (bus.isRegistered(brick)) {
-                bus.unregister(brick);
-            }
-        });
-        this.brickMap.clear();
-        this.powerupSet.forEach(powerup -> {
-            if (bus.isRegistered(powerup)) {
-                bus.unregister(powerup);
-            }
-        });
-        this.powerupSet.clear();
-        this.powerupHandler.stop();
+        this.clearBalls();
+        this.clearBricks();
+        this.clearPowerup();
         this.powerupHandler.shutdown();
-        if (bus.isRegistered(this.getPad())) {
-            bus.unregister(this.getPad());
+        if (EventBus.getDefault().isRegistered(this.getPad())) {
+            EventBus.getDefault().unregister(this.getPad());
         }
-        if (bus.isRegistered(this)) {
-            bus.unregister(this);
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
         }
     }
-
+   
     @Override
     public String toString() {
         final int ballsNumber = this.getBalls().size();
