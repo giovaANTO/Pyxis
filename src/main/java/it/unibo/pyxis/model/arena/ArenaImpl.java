@@ -42,9 +42,9 @@ public final class ArenaImpl implements Arena {
 
     private Pad pad;
     private Coord startingPadPosition;
-    private final Set<Ball> ballSet;
     private Coord startingBallPosition;
     private Vector startingBallPace;
+    private final Set<Ball> ballSet;
     private final Map<Coord, Brick> brickMap;
     private final Set<Powerup> powerupSet;
     private final PowerupHandler powerupHandler;

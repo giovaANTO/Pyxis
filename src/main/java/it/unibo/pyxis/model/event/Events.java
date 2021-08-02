@@ -23,11 +23,23 @@ public final class Events {
      * Create a new {@link BrickDestructionEvent} instance passing the coords of the destroyed brick.
      * @param coords
      *                  The coords of destroyed brick.
+     * @param points
+     *                  The amount of points to be registered.
      * @return
      *                  The {@link BrickDestructionEvent} instance.
      */
-    public static BrickDestructionEvent newBrickDestructionEvent(final Coord coords) {
-        return () -> coords;
+    public static BrickDestructionEvent newBrickDestructionEvent(final Coord coords, final int points) {
+        return new BrickDestructionEvent() {
+            @Override
+            public Coord getBrickCoord() {
+                return coords;
+            }
+
+            @Override
+            public int getPoints() {
+                return points;
+            }
+        };
     }
 
     /**

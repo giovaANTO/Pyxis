@@ -38,7 +38,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
     private void handleIncomingDamage(final Optional<Integer> incomingDamage) {
         this.durability = incomingDamage.isEmpty() ? 0 : Math.max(this.durability - incomingDamage.get(), 0);
         if (this.durability == 0 && !this.getBrickType().isIndestructible()) {
-            EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition()));
+            EventBus.getDefault().post(Events.newBrickDestructionEvent(this.getPosition(), this.getBrickType().getPoints()));
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this);
             }

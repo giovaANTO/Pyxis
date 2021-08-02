@@ -1,6 +1,7 @@
 package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
+import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 import org.greenrobot.eventbus.EventBus;
@@ -73,6 +74,12 @@ public final class LevelImpl implements Level {
         if (this.lives <= 0) {
             this.levelStatus = LevelStatus.GAME_OVER;
         }
+    }
+
+    @Override
+    @Subscribe
+    public void handleBrickDestruction(final BrickDestructionEvent event) {
+        this.increaseScore(event.getPoints());
     }
 
     @Override
