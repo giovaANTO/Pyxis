@@ -15,15 +15,15 @@ public class CanvasRatioBinder {
 
     public CanvasRatioBinder(final ReadOnlyDoubleProperty containerWidthProperty, final ReadOnlyDoubleProperty containerHeightProperty,
                         final Double containerStartWidth, final Double containerStartHeight,
-                        final DoubleProperty nodeWidthProperty, final DoubleProperty nodeHeightProperty,
-                        final Double nodeWidth, final Double nodeHeight) {
+                        final DoubleProperty canvasWidthProperty, final DoubleProperty canvasHeightProperty,
+                        final Double canvasWidth, final Double canvasHeight) {
         this.wC = containerWidthProperty;
         this.hC = containerHeightProperty;
-        this.wN = nodeWidthProperty;
-        this.hN = nodeHeightProperty;
-        this.aspectRatio = nodeWidth / nodeHeight;
-        this.xScaleFactor = nodeWidth / containerStartWidth;
-        this.yScaleFactor = nodeHeight / containerStartHeight;
+        this.wN = canvasWidthProperty;
+        this.hN = canvasHeightProperty;
+        this.aspectRatio = canvasWidth / canvasHeight;
+        this.xScaleFactor = canvasWidth / containerStartWidth;
+        this.yScaleFactor = canvasHeight / containerStartHeight;
     }
 
     public void bindWithRatioToContainer() {
