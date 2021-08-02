@@ -10,7 +10,7 @@ public interface Brick extends Element {
      * Handles the ball's movement event.
      *
      * @param movementEvent
-     *                          The movement event caused by the {@link it.unibo.pyxis.element.ball.Ball}
+     *                          The movement event caused by the {@link it.unibo.pyxis.model.element.ball.Ball}
      *                          that should be handled
      */
     void handleBallMovement(BallMovementEvent movementEvent);
