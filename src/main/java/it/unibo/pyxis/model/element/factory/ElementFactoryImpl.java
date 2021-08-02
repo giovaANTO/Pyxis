@@ -6,7 +6,10 @@ import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickImpl;
 import it.unibo.pyxis.model.element.brick.BrickType;
+import it.unibo.pyxis.model.element.pad.Pad;
+import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.Dimension;
 
 public final class ElementFactoryImpl implements ElementFactory {
 
@@ -58,6 +61,16 @@ public final class ElementFactoryImpl implements ElementFactory {
                 .pace(ball.getPace().rotationBy(angle))
                 .initialPosition(ball.getPosition())
                 .build();
+    }
+
+    @Override
+    public Pad createPad(final Dimension dimension, final Coord position) {
+        return new PadImpl(dimension, position);
+    }
+
+    @Override
+    public Pad createDefaultPad(final Coord position) {
+        return new PadImpl(position);
     }
 
     @Override

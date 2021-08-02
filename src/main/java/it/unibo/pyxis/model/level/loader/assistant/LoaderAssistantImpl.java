@@ -6,10 +6,10 @@ import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
-import it.unibo.pyxis.model.element.brick.BrickImpl;
 import it.unibo.pyxis.model.element.brick.BrickType;
+import it.unibo.pyxis.model.element.factory.ElementFactory;
+import it.unibo.pyxis.model.element.factory.ElementFactoryImpl;
 import it.unibo.pyxis.model.element.pad.Pad;
-import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.LevelImpl;
 import it.unibo.pyxis.model.level.loader.skeleton.ball.BallSkeleton;
@@ -26,6 +26,8 @@ import java.util.Objects;
 import java.util.Set;
 
 public final class LoaderAssistantImpl implements LoaderAssistant {
+
+    private final ElementFactory elementFactory = new ElementFactoryImpl();
 
     /**
      * Create an {@link Arena} instance from a skeleton.
@@ -56,7 +58,7 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
     }
 
     private Pad padFromSkeleton(final PadSkeleton skeleton) {
-        return new PadImpl(new CoordImpl(skeleton.getX(), skeleton.getY()));
+        return this.elementFactory.createDefaultPad(new CoordImpl(skeleton.getX(), skeleton.getY()));
     }
 
     /**
@@ -87,7 +89,7 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
     private Brick brickFromSkeleton(final BrickSkeleton skeleton) {
         final Coord brickCoord = new CoordImpl(skeleton.getX(), skeleton.getY());
         final BrickType brickType = this.getBrickType(skeleton.getType());
-        return new BrickImpl(brickType, brickCoord);
+        return this.elementFactory.createBrickFromType(brickType, brickCoord);
     }
 
     /**

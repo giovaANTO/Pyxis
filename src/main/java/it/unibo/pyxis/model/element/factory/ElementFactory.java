@@ -4,7 +4,10 @@ import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickType;
+import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.Dimension;
+
 
 public interface ElementFactory {
 
@@ -113,4 +116,25 @@ public interface ElementFactory {
      *              A new {@link Ball} instance
      */
     Ball copyBallWithType(Ball ball, double angle, int id, BallType type);
+
+    /**
+     * Create a new {@link Pad}.
+     * @param dimension
+     *                  The {@link Dimension} of the {@link Pad}
+     * @param position
+     *                  The {@link Coord} of the {@link Pad}
+     *
+     * @return
+     *          A new {@link Pad} instance.
+     */
+    Pad createPad(Dimension dimension, Coord position);
+
+    /**
+     * Create a {@link Pad} with default dimensions.
+     * @param position
+     *                 The {@link Coord} of the {@link Pad}
+     * @return
+     *          A new {@link Pad} instance.
+     */
+    Pad createDefaultPad(Coord position);
 }
