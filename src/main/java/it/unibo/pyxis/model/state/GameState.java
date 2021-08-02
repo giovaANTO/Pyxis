@@ -42,4 +42,11 @@ public interface GameState {
      * Reset the game.
      */
     void reset();
+
+    /**
+     * Select a starting {@link Level}.
+     * @param levelNumber
+     *                      The initial {@link Level} number
+     */
+    void selectStartingLevel(int levelNumber);
 }

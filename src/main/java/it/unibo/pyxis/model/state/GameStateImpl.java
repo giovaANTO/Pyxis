@@ -12,6 +12,7 @@ public final class GameStateImpl implements GameState {
     private StateEnum gameStateEnum;
 
     public GameStateImpl() {
+        this.iterator = new LevelIterator();
         this.initialize();
     }
 
@@ -22,6 +23,7 @@ public final class GameStateImpl implements GameState {
     private void switchLevel() {
         this.setState(StateEnum.PAUSE);
         this.score += this.currentLevel.getScore();
+        this.currentLevel.cleanUp();
         if (this.iterator.hasNext()) {
             this.currentLevel = this.iterator.next();
             this.setState(StateEnum.RUN);
@@ -31,9 +33,8 @@ public final class GameStateImpl implements GameState {
     }
 
     /**
-     * Initialize the {@link GameState} setting the {@link LevelIterator}
-     * and the first {@link Level} to play. The score is also cleared on the
-     * call of this procedure.
+     * Initialize the {@link GameState} setting the first {@link Level} to play.
+     * The score is also cleared on the call of this procedure.
      */
     private void initialize() {
         this.gameStateEnum = StateEnum.WAITING_FOR_NEW_GAME;
@@ -45,6 +46,12 @@ public final class GameStateImpl implements GameState {
     @Override
     public void reset() {
         this.getCurrentLevel().cleanUp();
+        this.initialize();
+    }
+
+    @Override
+    public void selectStartingLevel(final int levelNumber) {
+        this.iterator = new LevelIterator(levelNumber);
         this.initialize();
     }
 

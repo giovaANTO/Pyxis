@@ -7,12 +7,23 @@ import java.util.Set;
 
 public final class LevelSkeletonImpl implements LevelSkeleton {
 
+    private int levelNumber;
     private int lives;
     private double width;
     private double height;
     private PadSkeletonImpl pad;
     private Set<BrickSkeleton> bricks;
     private Set<BallSkeleton> balls;
+
+    @Override
+    public int getLevelNumber() {
+        return this.levelNumber;
+    }
+
+    @Override
+    public void setLevelNumber(final int number) {
+        this.levelNumber = number;
+    }
 
     @Override
     public int getLives() {

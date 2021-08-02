@@ -60,6 +60,21 @@ public interface Arena {
     Set<Ball> getBalls();
 
     /**
+     * Return the last {@link Ball} id inserted in the {@link Arena}.
+     * @return
+     *          The integer representing the last id inserted
+     *          in the {@link Arena}
+     */
+    int getLastBallId();
+
+    /**
+     * Return a random {@link Ball} registered in this {@link Arena}.
+     * @return
+     *          A {@link Ball} in the {@link Arena}
+     */
+    Ball getRandomBall();
+
+    /**
      * Return a {@link java.util.Set} of {@link Brick} that are currently present in
      * the {@link Arena}.
      * @return

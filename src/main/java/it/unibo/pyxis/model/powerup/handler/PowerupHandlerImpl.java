@@ -82,6 +82,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
             this.threadMap = new ConcurrentHashMap<>();
             this.threadMap.put(PowerupEffectType.PAD_POWERUP, new ConcurrentHashMap<>());
             this.threadMap.put(PowerupEffectType.BALL_POWERUP, new ConcurrentHashMap<>());
+            this.threadMap.put(PowerupEffectType.ARENA_POWERUP, new ConcurrentHashMap<>());
         }
 
         @Override

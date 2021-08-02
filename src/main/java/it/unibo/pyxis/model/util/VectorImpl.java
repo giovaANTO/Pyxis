@@ -11,8 +11,8 @@ public final class VectorImpl implements Vector {
         this.components = initialComponents;
     }
 
-    public VectorImpl(final double paceX, final double paceY) {
-        this(new PairImpl<Double>(paceX, paceY));
+    public VectorImpl(final double x, final double y) {
+        this(new PairImpl<Double>(x, y));
     }
 
     @Override
@@ -39,6 +39,13 @@ public final class VectorImpl implements Vector {
     @Override
     public void setY(final double yCoord) {
         this.components.setSecond(yCoord);
+    }
+
+    @Override
+    public Vector rotationBy(final double rotationAngle) {
+        double cos = Math.cos(rotationAngle);
+        double sin = Math.sin(rotationAngle);
+        return new VectorImpl(this.getX() * cos - this.getY() * sin, this.getX() * sin + this.getY() * cos);
     }
 
     @Override

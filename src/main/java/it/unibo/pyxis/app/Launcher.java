@@ -10,7 +10,7 @@ import java.awt.GraphicsEnvironment;
 
 public final class Launcher extends Application {
 
-    private static final double WINDOW_SCALE_FACTOR = 1.5;
+    private static final double WINDOW_SCALE_FACTOR = 1.1;
 
     @Override
     public void start(final Stage primaryStage) throws Exception {

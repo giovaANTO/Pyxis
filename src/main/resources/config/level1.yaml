@@ -2,6 +2,7 @@
 lives: 3
 width: 500
 height: 560
+levelNumber: 1
 pad:
     x: 200
     y: 500
@@ -15,25 +16,46 @@ balls:
 bricks:
   - x: 30
     y: 50
-    type: "BLUE"
+    type: "RED"
   - x: 90
     y: 50
     type: "RED"
   - x: 150
     y: 50
-    type: "YELLOW"
-  - x: 100
+    type: "RED"
+  - x: 210
+    y: 50
+    type: "RED"
+  - x: 30
+    y: 100
+    type: "RED"
+  - x: 90
+    y: 100
+    type: "RED"
+  - x: 150
+    y: 100
+    type: "RED"
+  - x: 210
+    y: 100
+    type: "RED"
+  - x: 30
+    y: 150
+    type: "RED"
+  - x: 90
+    y: 150
+    type: "RED"
+  - x: 150
     y: 150
     type: "RED"
   - x: 210
-    y: 50
-    type: "BLUE"
+    y: 150
+    type: "RED"
+  - x: 30
+    y: 200
+    type: "RED"
   - x: 90
-    y: 100
+    y: 200
     type: "RED"
   - x: 150
-    y: 100
-    type: "YELLOW"
-  - x: 210
-    y: 100
+    y: 200
     type: "RED"

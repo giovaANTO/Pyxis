@@ -17,10 +17,20 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     private final Linker linker;
     private final BlockingQueue<Command<Level>> commandQueue;
 
-
     public GameLoopImpl(final Linker linker) {
         this.linker = linker;
         this.commandQueue = new ArrayBlockingQueue<Command<Level>>(COMMAND_QUEUE_DIMENSION);
+    }
+
+    private void waitForNextFrame(final long current) {
+        long dt = System.currentTimeMillis() - current;
+        if (dt < PERIOD) {
+            try {
+                Thread.sleep(PERIOD - dt);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
     @Override
@@ -57,17 +67,6 @@ public final class GameLoopImpl extends Thread implements GameLoop {
         return this.linker.getGameState().getState() == StateEnum.RUN
                 || this.linker.getGameState().getState()
                     == StateEnum.WAITING_FOR_STARTING_COMMAND;
-    }
-
-    private void waitForNextFrame(final long current) {
-        long dt = System.currentTimeMillis() - current;
-        if (dt < PERIOD) {
-            try {
-                Thread.sleep(PERIOD - dt);
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
     }
 
     @Override
