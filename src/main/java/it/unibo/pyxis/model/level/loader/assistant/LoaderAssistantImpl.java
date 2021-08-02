@@ -27,11 +27,6 @@ import java.util.Set;
 
 public final class LoaderAssistantImpl implements LoaderAssistant {
 
-    @Override
-    public Level createLevel(final LevelSkeleton skeleton) {
-        return new LevelImpl(skeleton.getLives(), this.arenaFromSkeleton(skeleton), skeleton.getLevelNumber());
-    }
-
     /**
      * Create an {@link Arena} instance from a skeleton.
      * @param skeleton
@@ -121,5 +116,10 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
                 .filter(t -> t.getType().equals(typeString))
                 .findFirst()
                 .orElseThrow();
+    }
+
+    @Override
+    public Level createLevel(final LevelSkeleton skeleton) {
+        return new LevelImpl(skeleton.getLives(), this.arenaFromSkeleton(skeleton), skeleton.getLevelNumber());
     }
 }

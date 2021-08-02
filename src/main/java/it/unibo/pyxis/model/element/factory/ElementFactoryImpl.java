@@ -10,52 +10,44 @@ import it.unibo.pyxis.model.util.Coord;
 
 public final class ElementFactoryImpl implements ElementFactory {
 
-    /**
-     * Create a new {@link Brick} specifying a {@link BrickType}.
-     * @param type
-     *              The type of {@link Brick} that should be created
-     * @param position
-     *              A {@link Coord} indicating the {@link Brick} position
-     * @return
-     *          A new {@link Brick}
-     */
-    private Brick brickFromType(final BrickType type, final Coord position) {
+    @Override
+    public Brick createBrickFromType(final BrickType type, final Coord position) {
         return new BrickImpl(type, position);
     }
 
     @Override
     public Brick createRedBrick(final Coord position) {
-        return this.brickFromType(BrickType.RED, position);
+        return this.createBrickFromType(BrickType.RED, position);
     }
 
     @Override
     public Brick createOrangeBrick(final Coord position) {
-        return this.brickFromType(BrickType.ORANGE, position);
+        return this.createBrickFromType(BrickType.ORANGE, position);
     }
 
     @Override
     public Brick createYellowBrick(final Coord position) {
-        return this.brickFromType(BrickType.YELLOW, position);
+        return this.createBrickFromType(BrickType.YELLOW, position);
     }
 
     @Override
     public Brick createGreenBrick(final Coord position) {
-        return this.brickFromType(BrickType.GREEN, position);
+        return this.createBrickFromType(BrickType.GREEN, position);
     }
 
     @Override
     public Brick createBlueBrick(final Coord position) {
-        return this.brickFromType(BrickType.BLUE, position);
+        return this.createBrickFromType(BrickType.BLUE, position);
     }
 
     @Override
     public Brick createPurpleBrick(final Coord position) {
-        return this.brickFromType(BrickType.PURPLE, position);
+        return this.createBrickFromType(BrickType.PURPLE, position);
     }
 
     @Override
     public Brick createIndestructibleBrick(final Coord position) {
-        return this.brickFromType(BrickType.INDESTRUCTIBLE, position);
+        return this.createBrickFromType(BrickType.INDESTRUCTIBLE, position);
     }
 
     @Override

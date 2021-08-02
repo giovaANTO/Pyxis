@@ -3,9 +3,21 @@ package it.unibo.pyxis.model.element.factory;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
+import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.util.Coord;
 
 public interface ElementFactory {
+
+    /**
+     * Create a {@link Brick} of a given type.
+     * @param type
+     *              The {@link BrickType} to assign to the new {@link Brick}
+     * @param position
+     *              The {@link Coord} position of the {@link Brick}
+     * @return
+     *              The new {@link Brick} instance
+     */
+    Brick createBrickFromType(BrickType type, Coord position);
 
     /**
      * Create a {@link Brick} of red type.
