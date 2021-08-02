@@ -56,7 +56,6 @@ public class LinkerImpl implements Linker {
                     this.gameState.getCurrentLevel().getLevelNumber()
                          + (this.gameState.getCurrentLevel().getLevelStatus()
                             == LevelStatus.SUCCESSFULLY_COMPLETED ? 1 : 0));
-            System.out.println("After the game, maxLvlRcd " + this.maximumLevelReached);
             this.gameState.reset();
             this.gameState.setState(StateEnum.WAITING_FOR_NEW_GAME);
         }
