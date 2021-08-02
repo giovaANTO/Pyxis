@@ -44,9 +44,9 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     }
 
     private boolean conditionProcessInput() {
-        return (this.linker.getGameState().getState() == StateEnum.RUN)
-                || (this.linker.getGameState().getState()
-                    == StateEnum.WAITING_FOR_STARTING_COMMAND);
+        return this.linker.getGameState().getState() == StateEnum.RUN
+                || this.linker.getGameState().getState()
+                    == StateEnum.WAITING_FOR_STARTING_COMMAND;
     }
 
     private boolean conditionProcessUpdate() {
@@ -54,9 +54,9 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     }
 
     private boolean conditionProcessRender() {
-        return (this.linker.getGameState().getState() == StateEnum.RUN)
-                || (this.linker.getGameState().getState()
-                    == StateEnum.WAITING_FOR_STARTING_COMMAND);
+        return this.linker.getGameState().getState() == StateEnum.RUN
+                || this.linker.getGameState().getState()
+                    == StateEnum.WAITING_FOR_STARTING_COMMAND;
     }
 
     private void waitForNextFrame(final long current) {

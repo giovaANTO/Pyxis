@@ -22,8 +22,8 @@ public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneCon
     public void initialize(final URL location, final ResourceBundle resources) {
     }
 
-    public void backToMainMenu() {
-        this.getController().backToMainMenu();
+    public void back() {
+        this.getController().back();
     }
 
 }

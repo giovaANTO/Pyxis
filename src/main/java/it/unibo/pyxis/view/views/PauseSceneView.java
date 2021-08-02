@@ -17,14 +17,18 @@ public final class PauseSceneView  extends AbstractJavaFXView<PauseSceneControll
     }
 
     public void quit() {
-
+        this.getController().quit();
     }
 
     public void settings() {
-
+        this.getController().settings();
     }
 
     public void resume() {
+        this.getController().resume();
+    }
 
+    public void menu() {
+        this.getController().menu();
     }
 }

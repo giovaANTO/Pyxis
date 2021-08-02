@@ -18,7 +18,9 @@ public interface Linker {
 
     void run();
 
-    void switchScene(SceneType sceneType);
+    void settings();
+
+    void selectLevel();
 
     GameState getGameState();
 

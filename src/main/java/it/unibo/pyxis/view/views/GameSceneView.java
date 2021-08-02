@@ -1,22 +1,16 @@
 package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
-import it.unibo.pyxis.controller.linker.Linker;
-import it.unibo.pyxis.model.state.StateEnum;
-import javafx.event.EventHandler;
+import it.unibo.pyxis.view.drawer.CanvasPropertyBinder;
+import it.unibo.pyxis.view.drawer.GameArenaDrawer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import it.unibo.pyxis.view.drawer.CanvasPropertyBinder;
-import it.unibo.pyxis.view.drawer.GameArenaDrawer;
 
 public final class GameSceneView extends AbstractJavaFXView<GameSceneController> implements RenderableView {
 
@@ -47,47 +41,6 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
                 mainPane.getPrefWidth(), mainPane.getPrefHeight(),
                 arenaCanvas.widthProperty(), arenaCanvas.heightProperty(),
                 arenaCanvas.getWidth(), arenaCanvas.getHeight());
-        final Linker linker = this.getController().getLinker();
-        final EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
-            switch (keyEvent.getCode()) {
-                case A:
-                    linker.insertCommand(gameState -> this.getController().commandPadLeft(gameState));
-                    break;
-                case D:
-                    linker.insertCommand(gameState -> this.getController().commandPadRight(gameState));
-                    break;
-                case S:
-                    linker.insertCommand(gameState -> this.getController().commandStart(gameState));
-                    break;
-                case ESCAPE:
-                    System.out.println("ESC");
-                    break;
-                default:
-                    break;
-            }
-        };
-        this.mainPane.addEventHandler(KeyEvent.KEY_PRESSED, keyEventEventHandler);
-    }
-
-    public void back() {
-        this.getController().back();
-    }
-
-    public void update() {
-        this.getController().getLinker().getGameState().getCurrentLevel().update(500.0);
-    }
-
-    public void dofortenX() {
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
     }
 
     @Override

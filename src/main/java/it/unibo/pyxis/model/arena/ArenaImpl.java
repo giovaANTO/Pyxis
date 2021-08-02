@@ -145,10 +145,8 @@ public final class ArenaImpl implements Arena {
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
-        System.out.println("Arena - brick destroyed: ");
         this.brickMap.remove(event.getBrickCoord());
         if (this.calculateSpawnPowerup()) {
-            System.out.println("Arena - Spawn powerup");
             this.spawnPowerup(event.getBrickCoord());
         }
     }
@@ -209,6 +207,12 @@ public final class ArenaImpl implements Arena {
     public Set<Powerup> getPowerups() {
         return Set.copyOf(this.powerupSet);
     }
+
+    @Override
+    public PowerupHandler getPowerupHandler() {
+        return this.powerupHandler;
+    }
+
 
     @Override
     public Pad getPad() {

@@ -3,6 +3,8 @@ package it.unibo.pyxis.controller.linker;
 import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
+import it.unibo.pyxis.controller.input.InputHandler;
+import it.unibo.pyxis.controller.input.InputHandlerImpl;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
@@ -17,17 +19,22 @@ public class LinkerImpl implements Linker {
     private GameState gameState;
     private GameLoop gameLoop;
     private SceneHandler sceneHandler;
+    private InputHandler inputHandler;
 
     public LinkerImpl(final Stage inputStage) {
         this.createGameState();
         this.createGameLoop();
+        this.createInputHandler(inputStage);
         this.createSceneLoader(inputStage);
         this.switchScene(SceneType.MENU_SCENE);
     }
 
     @Override
     public final void pause() {
-        this.gameState.setState(StateEnum.PAUSE);
+        if (this.gameState.getState() != StateEnum.PAUSE) {
+            this.gameState.setState(StateEnum.PAUSE);
+            this.gameState.getCurrentLevel().getArena().getPowerupHandler().pause();
+        }
         this.switchScene(SceneType.PAUSE_SCENE);
     }
 
@@ -35,11 +42,11 @@ public class LinkerImpl implements Linker {
     public final void resume() {
         this.switchScene(SceneType.GAME_SCENE);
         this.gameState.setState(StateEnum.RUN);
+        this.gameState.getCurrentLevel().getArena().getPowerupHandler().resume();
     }
 
     @Override
     public final void menu() {
-        //this.gameState.setState(StateEnum.PAUSE);
         this.switchScene(SceneType.MENU_SCENE);
         if (this.gameState.getState() == StateEnum.PAUSE) {
             //System.out.println(this.gameState.getCurrentLevel());
@@ -69,7 +76,16 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public final void switchScene(final SceneType inputSceneType) {
+    public final void settings() {
+        this.switchScene(SceneType.SETTINGS_SCENE);
+    }
+
+    @Override
+    public final void selectLevel() {
+        this.switchScene(SceneType.SELECT_LEVEL_SCENE);
+    }
+
+    private void switchScene(final SceneType inputSceneType) {
         this.sceneHandler.switchScene(inputSceneType);
     }
 
@@ -87,6 +103,11 @@ public class LinkerImpl implements Linker {
         this.gameLoop.start();
     }
 
+    private void createInputHandler(final Stage inputStage) {
+        this.inputHandler = new InputHandlerImpl();
+        this.inputHandler.bindCommands(this, inputStage);
+    }
+
     private void createSceneLoader(final Stage inputStage) {
         this.sceneHandler = new SceneHandlerImpl(inputStage, this);
     }
@@ -99,7 +120,14 @@ public class LinkerImpl implements Linker {
     }
 
     @Override
-    public final void insertCommand(final Command<GameState> levelCommand) {
-        levelCommand.execute(this.gameState);
+    public final void insertCommand(final Command<GameState> gameCommand) {
+        if (this.conditionInsertCommand()) {
+            gameCommand.execute(this.gameState);
+        }
+    }
+
+    private boolean conditionInsertCommand() {
+        return this.getGameState().getState() == StateEnum.RUN
+                || this.getGameState().getState() == StateEnum.WAITING_FOR_STARTING_COMMAND;
     }
 }

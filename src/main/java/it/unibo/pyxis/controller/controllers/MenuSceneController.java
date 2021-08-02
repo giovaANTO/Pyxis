@@ -1,7 +1,5 @@
 package it.unibo.pyxis.controller.controllers;
 
-import it.unibo.pyxis.view.scene.SceneType;
-
 public class MenuSceneController extends AbstractController {
 
     public final void startNewGame() {
@@ -13,10 +11,10 @@ public class MenuSceneController extends AbstractController {
     }
 
     public final void showSettings() {
-        this.getLinker().switchScene(SceneType.SETTINGS_SCENE);
+        this.getLinker().settings();
     }
 
     public final void selectLevel() {
-        this.getLinker().switchScene(SceneType.SELECT_LEVEL_SCENE);
+        this.getLinker().selectLevel();
     }
 }
