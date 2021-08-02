@@ -103,6 +103,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
 
     private void drawCanvas() {
         this.drawer.clearCanvas();
+        this.drawer.fillBackground(1);
         this.getController().getBricks().forEach(b -> this.drawer.fillBrick(b.getPosition(), b.getDimension(), b.getBrickType()));
         this.getController().getBalls().forEach(b -> this.drawer.fillBall(b.getPosition(), b.getDimension(), b.getType()));
         this.getController().getPowerups().forEach(p -> this.drawer.fillPowerup(p.getPosition(), p.getDimension(), p.getType()));

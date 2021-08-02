@@ -16,7 +16,6 @@ public class LabelSizeBinder {
         this.label = label;
         this.originalSize = label.getFont().getSize();
         this.originalWidth = label.getPrefWidth();
-        System.out.println(containerStartWidth);
         this.label.prefWidthProperty().bind(containerWidthProperty.multiply(label.getPrefWidth() / containerStartWidth));
         this.label.prefHeightProperty().bind(containerHeightProperty.multiply(label.getPrefHeight() / containerStartHeight));
     }
