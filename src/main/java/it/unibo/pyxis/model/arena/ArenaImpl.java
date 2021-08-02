@@ -361,7 +361,7 @@ public final class ArenaImpl implements Arena {
             EventBus.getDefault().unregister(this);
         }
     }
-   
+
     @Override
     public String toString() {
         final int ballsNumber = this.getBalls().size();
