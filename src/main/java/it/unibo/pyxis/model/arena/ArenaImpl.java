@@ -1,6 +1,15 @@
 package it.unibo.pyxis.model.arena;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import it.unibo.pyxis.model.element.ball.Ball;
@@ -145,7 +154,7 @@ public final class ArenaImpl implements Arena {
                 this.ballSet.remove(ball);
                 EventBus.getDefault().unregister(ball);
                 if (this.ballSet.isEmpty()) {
-                    //EventBus.getDefault().post(Events.newDecreaseLifeEvent());
+                    EventBus.getDefault().post(Events.newDecreaseLifeEvent());
                     this.powerupHandler.stop();
                     this.resetStartingPosition();
                 }
@@ -154,10 +163,15 @@ public final class ArenaImpl implements Arena {
                 collInformation.ifPresent(cI -> EventBus.getDefault().post(Events.newBallCollisionWithBorderEvent(ball.getId(), cI)));
             }
         }
-        final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()
-                .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
-                .collect(Collectors.toSet());
-        this.powerupSet.removeAll(powerupRemoveSet);
+
+        if (this.ballSet.isEmpty()) {
+          this.powerupSet.clear();
+        } else {
+            final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()
+                    .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
+                    .collect(Collectors.toSet());
+            this.powerupSet.removeAll(powerupRemoveSet);
+        }
     }
 
     @Override

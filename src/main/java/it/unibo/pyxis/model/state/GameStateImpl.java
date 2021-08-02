@@ -23,6 +23,7 @@ public final class GameStateImpl implements GameState {
     private void switchLevel() {
         this.setState(StateEnum.PAUSE);
         this.score += this.currentLevel.getScore();
+        this.currentLevel.cleanUp();
         if (this.iterator.hasNext()) {
             this.currentLevel = this.iterator.next();
             this.setState(StateEnum.RUN);

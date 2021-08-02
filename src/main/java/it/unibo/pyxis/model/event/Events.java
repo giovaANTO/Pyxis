@@ -13,8 +13,6 @@ import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.util.Coord;
 
-import java.util.Optional;
-
 public final class Events {
 
     private Events() {
@@ -147,14 +145,17 @@ public final class Events {
     }
 
     /**
-     * Create a new {@link DecreaseLifeEvent} instance passing an {@link Optional} indicating the score gained.
+     * Create a new {@link DecreaseLifeEvent} instance.
      *
-     * @param score
-     *              An {@link Optional} with the score gained
      * @return
      *              The {@link DecreaseLifeEvent} instance.
      */
-    public static DecreaseLifeEvent newDecreaseLifeEvent(final Optional<Integer> score) {
-        return () -> score;
+    public static DecreaseLifeEvent newDecreaseLifeEvent() {
+        return new DecreaseLifeEvent() {
+            @Override
+            public String toString() {
+                return super.toString();
+            }
+        };
     }
 }

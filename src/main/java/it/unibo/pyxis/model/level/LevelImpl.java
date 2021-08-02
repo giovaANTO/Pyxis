@@ -69,7 +69,6 @@ public final class LevelImpl implements Level {
     @Override
     @Subscribe
     public void handleDecreaseLife(final DecreaseLifeEvent event) {
-        event.getScore().ifPresent(this::increaseScore);
         this.decreaseLife();
         if (this.lives <= 0) {
             this.levelStatus = LevelStatus.GAME_OVER;

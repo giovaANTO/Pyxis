@@ -45,17 +45,6 @@ class LevelTest {
     }
 
     @Test
-    void increaseScore() {
-
-        DecreaseLifeEvent lifeEvent = Events.newDecreaseLifeEvent(Optional.of(SCORE_INCREMENT));
-        assertEquals(0, this.level.getScore());
-        EventBus.getDefault().post(lifeEvent);
-        assertEquals(SCORE_INCREMENT, this.level.getScore());
-        EventBus.getDefault().post(lifeEvent);
-        assertEquals(2 * SCORE_INCREMENT, this.level.getScore());
-    }
-
-    @Test
     void getArena() {
         assertEquals(this.arena, this.level.getArena());
     }
