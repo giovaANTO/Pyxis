@@ -9,15 +9,17 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import it.unibo.pyxis.view.drawer.NodePropertyToContainerBinder;
+import it.unibo.pyxis.view.drawer.CanvasRatioBinder;
 import it.unibo.pyxis.view.drawer.ArenaCanvasDrawer;
-import it.unibo.pyxis.view.drawer.LabelPropertyToContainerBinder;
+import it.unibo.pyxis.view.drawer.LabelSizeBinder;
 
 public final class GameSceneView extends AbstractJavaFXView<GameSceneController> implements RenderableView {
 
@@ -31,19 +33,26 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     private Canvas arenaCanvas;
 
     @FXML
+    private VBox leftVBox, rightVBox;
+
+    @FXML
     private Label currentLives, currentScore, currentLevel;
 
     private ArenaCanvasDrawer drawer;
-    private NodePropertyToContainerBinder canvasToMainPaneBinder;
-    private Set<LabelPropertyToContainerBinder> labelsToMainPaneBinders;
+    private CanvasRatioBinder canvasBinder;
+    private Set<LabelSizeBinder> labelBinders;
 
     public GameSceneView(final GameSceneController inputController) {
         super(inputController);
     }
 
     public void initialize(final URL location, final ResourceBundle resources) {
-        stackPane.prefHeightProperty().bind(mainPane.heightProperty());
         stackPane.prefWidthProperty().bind(mainPane.widthProperty());
+        stackPane.prefHeightProperty().bind(mainPane.heightProperty());
+        leftVBox.prefWidthProperty().bind(mainPane.widthProperty().multiply(leftVBox.getPrefWidth() / mainPane.getPrefWidth()));
+        leftVBox.prefHeightProperty().bind(mainPane.heightProperty());
+        rightVBox.prefWidthProperty().bind(mainPane.widthProperty().multiply(rightVBox.getPrefWidth() / mainPane.getPrefWidth()));
+        rightVBox.prefHeightProperty().bind(mainPane.heightProperty());
         this.drawer = new ArenaCanvasDrawer(arenaCanvas.getGraphicsContext2D(), this.getController().getArenaDimension());
         this.setupBinders();
 
@@ -67,54 +76,29 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     }
 
     private void setupBinders() {
-        this.canvasToMainPaneBinder = new NodePropertyToContainerBinder(mainPane.widthProperty(), mainPane.heightProperty(),
+        this.canvasBinder = new CanvasRatioBinder(mainPane.widthProperty(), mainPane.heightProperty(),
                 mainPane.getPrefWidth(), mainPane.getPrefHeight(),
                 arenaCanvas.widthProperty(), arenaCanvas.heightProperty(),
                 arenaCanvas.getWidth(), arenaCanvas.getHeight());
-        this.labelsToMainPaneBinders = this.mainPane.getChildren()
-                                .stream()
+        this.labelBinders = Stream.concat(leftVBox.getChildren().stream(), rightVBox.getChildren().stream())
                                 .filter(n -> n instanceof Label)
-                                .map(n -> {
-                                    final Label l = (Label) n;
-                                    return new LabelPropertyToContainerBinder(mainPane.widthProperty(), mainPane.heightProperty(),
+                                .map(n -> new LabelSizeBinder(mainPane.widthProperty(), mainPane.heightProperty(),
                                             mainPane.getPrefWidth(), mainPane.getPrefHeight(),
-                                            l);
-                                })
+                                            (Label) n))
                                 .collect(Collectors.toSet());
-    }
-
-    public void back() {
-        this.getController().back();
-    }
-
-    public void update() {
-        this.getController().getLinker().getGameState().getCurrentLevel().update(500.0);
-    }
-
-    public void dofortenX() {
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
-        this.update();
     }
 
     @Override
     public void render() {
-        this.bindNodesToContainer();
+        this.updateBindNodesToContainer();
         this.currentLives.setText(this.getController().getLives().toString());
         this.currentScore.setText(this.getController().getScore().toString());
         this.drawCanvas();
     }
 
-    private void bindNodesToContainer() {
-        this.labelsToMainPaneBinders.forEach(b -> b.bindWithRatioToContainer());
-        this.canvasToMainPaneBinder.bindWithRatioToContainer();
+    private void updateBindNodesToContainer() {
+        this.labelBinders.forEach(b -> b.bindWithSize());
+        this.canvasBinder.bindWithRatioToContainer();
     }
 
     private void drawCanvas() {
