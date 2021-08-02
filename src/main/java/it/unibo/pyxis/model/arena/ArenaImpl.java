@@ -50,7 +50,7 @@ public final class ArenaImpl implements Arena {
     private final PowerupHandler powerupHandler;
     private final Dimension dimension;
 
-    private static final double POWERUP_SPAWN_PROBABILITY = 2.0 / 10;
+    private static final double POWERUP_SPAWN_PROBABILITY = 10.0 / 10;
     private final Random randomNumberGenerator;
 
     public ArenaImpl(final Dimension inputDimension) {
@@ -85,8 +85,6 @@ public final class ArenaImpl implements Arena {
 
     /**
      * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive).
-     * @param upperBound
-     *                   The upper bound of the range.
      * @return
      *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
      *          from the {@link Random} rng sequence.
@@ -171,6 +169,27 @@ public final class ArenaImpl implements Arena {
         this.powerupHandler.stop();
     }
 
+    /**
+     * Modify the {@link Pad} width dimension of a certain amount.
+     * @param amount
+     *               The modifying amount
+     */
+    private synchronized void modifyPadWidth(final double amount) {
+        final double padWidth = this.pad.getDimension().getWidth();
+        final Coord padPosition = this.getPad().getPosition();
+        final double halfIncrement = (padWidth + amount) / 2;
+        double offset = 0;
+        if (padPosition.getX() + halfIncrement > this.getDimension().getWidth()) {
+            offset = (this.getDimension().getWidth() - (padPosition.getX() + halfIncrement));
+        } else if (padPosition.getX() - halfIncrement < 0) {
+            offset = -(padPosition.getX() - halfIncrement);
+        }
+        final Coord newPadPosition = new CoordImpl(padPosition.getX() + offset, padPosition.getY());
+        this.pad.increaseWidth(amount);
+        this.pad.setPosition(newPadPosition);
+
+    }
+
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
@@ -195,7 +214,7 @@ public final class ArenaImpl implements Arena {
                 EventBus.getDefault().unregister(ball);
                 if (this.ballSet.isEmpty()) {
                     EventBus.getDefault().post(Events.newDecreaseLifeEvent());
-                    this.powerupSet.clear();
+                    this.clearPowerup();
                     this.resetStartingPosition();
                     return;
                 }
@@ -261,7 +280,6 @@ public final class ArenaImpl implements Arena {
         return this.powerupHandler;
     }
 
-
     @Override
     public Pad getPad() {
         return this.pad;
@@ -308,6 +326,16 @@ public final class ArenaImpl implements Arena {
                     this.pad.getPosition().getY());
             this.getPad().setPosition(rightPadLimitPosition);
         }
+    }
+
+    @Override
+    public void increasePadWidth(final double amount) {
+        this.modifyPadWidth(amount);
+    }
+
+    @Override
+    public void decreasePadWidth(final double amount) {
+        this.modifyPadWidth(-amount);
     }
 
     @Override

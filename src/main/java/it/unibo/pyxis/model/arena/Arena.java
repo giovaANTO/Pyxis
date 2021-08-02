@@ -127,6 +127,20 @@ public interface Arena {
     void movePadRight();
 
     /**
+     * Increase the {@link Pad}'s width of a certain amount.
+     * @param amount
+     *                 Increase amount.
+     */
+    void increasePadWidth(double amount);
+
+    /**
+     * Decrease the {@link Pad}'s width of a certain amount.
+     * @param amount
+     *                 Increase amount.
+     */
+    void decreasePadWidth(double amount);
+
+    /**
      * Add a {@link Brick} in the {@link Arena}.
      * @param brick
  *              The {@link Brick} to add.

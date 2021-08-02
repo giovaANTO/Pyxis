@@ -41,7 +41,7 @@ bricks:
   - x: 30
     y: 150
     type: "RED"
-  - x: 90
+  - x: 400
     y: 150
     type: "RED"
   - x: 150
