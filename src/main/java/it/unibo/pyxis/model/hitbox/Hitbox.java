@@ -2,6 +2,7 @@ package it.unibo.pyxis.model.hitbox;
 
 import java.util.Optional;
 
+import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
@@ -22,6 +23,15 @@ public interface Hitbox {
      *
      */
     Dimension getDimension();
+
+    /**
+     * Return the {@link Element} bound to the {@link Hitbox}.
+     *
+     * @return
+     *          The {@link Element} bound to the {@link Hitbox}.
+     *
+     */
+    Element getElement();
 
     /**
      * Checks for a collision with a {@link Coord}.
