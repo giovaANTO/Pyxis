@@ -50,7 +50,7 @@ public final class ArenaImpl implements Arena {
     private final PowerupHandler powerupHandler;
     private final Dimension dimension;
 
-    private static final double POWERUP_SPAWN_PROBABILITY = 10.0 / 10;
+    private static final double POWERUP_SPAWN_PROBABILITY = 2.0 / 10;
     private final Random randomNumberGenerator;
 
     public ArenaImpl(final Dimension inputDimension) {
