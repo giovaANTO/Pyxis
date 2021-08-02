@@ -63,7 +63,6 @@ public final class LevelImpl implements Level {
         this.arena.update(delta);
         if (this.arena.isCleared()) {
             this.levelStatus = LevelStatus.SUCCESSFULLY_COMPLETED;
-            this.arena.cleanUp();
         }
     }
 

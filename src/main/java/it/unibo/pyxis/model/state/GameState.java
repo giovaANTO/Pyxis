@@ -1,6 +1,7 @@
 package it.unibo.pyxis.model.state;
 
 import it.unibo.pyxis.model.level.Level;
+import it.unibo.pyxis.model.level.iterator.LevelIterator;
 
 public interface GameState {
     /**
@@ -46,7 +47,16 @@ public interface GameState {
     /**
      * Select a starting {@link Level}.
      * @param levelNumber
-     *                      The initial {@link Level} number
+     *          The initial {@link Level} number
      */
     void selectStartingLevel(int levelNumber);
+
+    /**
+     * Return the {@link LevelIterator} of the {@link GameState}.
+     * @return
+     *          The {@link LevelIterator}.
+     */
+    LevelIterator getLevelIterator();
+
+    void switchLevel();
 }

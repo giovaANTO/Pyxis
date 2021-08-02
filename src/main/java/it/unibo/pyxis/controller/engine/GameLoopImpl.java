@@ -3,6 +3,7 @@ package it.unibo.pyxis.controller.engine;
 import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.linker.Linker;
 import it.unibo.pyxis.model.level.Level;
+import it.unibo.pyxis.model.level.status.LevelStatus;
 import it.unibo.pyxis.model.state.StateEnum;
 import javafx.application.Platform;
 
@@ -43,7 +44,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
                 this.processInput();
             }
             if (this.conditionProcessUpdate()) {
-                this.linker.getGameState().update(elapsed);
+                this.update(elapsed);
             }
             if (this.conditionProcessRender()) {
                 Platform.runLater(this.linker::render);
@@ -77,6 +78,10 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     @Override
     public void update(final double elapsed) {
         this.linker.getGameState().update(elapsed);
+        if (this.linker.getGameState().getCurrentLevel().getLevelStatus()
+                != LevelStatus.PLAYING) {
+            Platform.runLater(this.linker::endLevel);
+        }
     }
 
     @Override
