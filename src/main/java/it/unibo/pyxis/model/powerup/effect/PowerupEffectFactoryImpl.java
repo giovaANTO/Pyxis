@@ -2,13 +2,16 @@ package it.unibo.pyxis.model.powerup.effect;
 
 import it.unibo.pyxis.model.arena.Arena;
 import it.unibo.pyxis.model.element.ball.Ball;
-import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.ball.BallType;
+import it.unibo.pyxis.model.element.factory.ElementFactory;
+import it.unibo.pyxis.model.element.factory.ElementFactoryImpl;
 import it.unibo.pyxis.model.util.Vector;
 
 import java.util.function.Consumer;
 
-import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.*;
+import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.ARENA_POWERUP;
+import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.BALL_POWERUP;
+import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.PAD_POWERUP;
 
 public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
 
@@ -74,21 +77,9 @@ public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
                 arena -> {
                     final Ball arenaRandomBall = arena.getRandomBall();
                     final Vector pace = arenaRandomBall.getPace();
-
-                    final Ball randomBall1 = new BallImpl.Builder()
-                            .pace(pace.rotationBy(-90.0))
-                            .initialPosition(arenaRandomBall.getPosition())
-                            .ballType(BallType.NORMAL_BALL)
-                            .id(arena.getLastBallId() + 1)
-                            .build();
-                    final Ball randomBall2 = new BallImpl.Builder()
-                            .pace(pace.rotationBy(90.0))
-                            .initialPosition(arenaRandomBall.getPosition())
-                            .ballType(BallType.NORMAL_BALL)
-                            .id(arena.getLastBallId() + 2)
-                            .build();
-                    arena.addBall(randomBall1);
-                    arena.addBall(randomBall2);
+                    final ElementFactory factory = new ElementFactoryImpl();
+                    arena.addBall(factory.copyBallWithAngle(arenaRandomBall, -90.0, arena.getLastBallId() + 1));
+                    arena.addBall(factory.copyBallWithAngle(arenaRandomBall, 90.0, arena.getLastBallId() + 2));
                 },
                 arena -> { },
                 0
