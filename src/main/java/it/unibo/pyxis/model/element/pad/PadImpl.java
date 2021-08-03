@@ -1,33 +1,26 @@
 package it.unibo.pyxis.model.element.pad;
 
 import it.unibo.pyxis.model.element.AbstractElement;
-import it.unibo.pyxis.model.event.Events;
-import it.unibo.pyxis.model.event.movement.BallMovementEvent;
-import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
-import it.unibo.pyxis.model.hitbox.CollisionInformation;
+import it.unibo.pyxis.model.element.pad.component.PadEventComponent;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import it.unibo.pyxis.model.util.Vector;
 import it.unibo.pyxis.model.util.VectorImpl;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.Objects;
-import java.util.Optional;
 
 public final class PadImpl extends AbstractElement implements Pad {
 
     private static final String DEFAULT_TAG = "DEFAULT_PAD";
     private static final Dimension DIMENSION = new DimensionImpl(100, 18);
-    private String tag;
+    private final String tag;
 
     public PadImpl(final Dimension inputDimension, final Coord inputPosition, final String inputTag) {
         super(inputDimension, inputPosition);
         this.setHitbox(new RectHitbox(this));
         this.tag = inputTag;
-        EventBus.getDefault().register(this);
+        this.registerComponent(new PadEventComponent(this));
     }
 
     public PadImpl(final Dimension inputDimension, final Coord inputPosition) {
@@ -56,25 +49,6 @@ public final class PadImpl extends AbstractElement implements Pad {
     @Override
     public String getTag() {
         return this.tag;
-    }
-
-    @Override
-    @Subscribe
-    public void handleBallMovement(final BallMovementEvent movementEvent) {
-        final Optional<CollisionInformation> collisionInformation = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
-        collisionInformation.ifPresent(cI -> {
-            EventBus.getDefault().post(Events.newBallCollisionWithPadEvent(movementEvent.getElement().getId(), cI,
-                (this.getPosition().getX() + this.getDimension().getWidth() / 2 - movementEvent.getElement().getPosition().getX())
-                / this.getDimension().getWidth()));
-        });
-    }
-
-    @Override
-    @Subscribe
-    public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {
-        if (movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox()).isPresent()) {
-            EventBus.getDefault().post(Events.newPowerupActivationEvent(movementEvent.getElement()));
-        }
     }
 
     @Override
