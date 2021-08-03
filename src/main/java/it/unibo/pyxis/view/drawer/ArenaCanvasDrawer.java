@@ -14,10 +14,12 @@ import it.unibo.pyxis.model.util.DimensionImpl;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class GameArenaDrawer {
+public class ArenaCanvasDrawer {
 
     private static final String SEPARATOR = File.separator;
     private static final String SPRITES_PATH = "sprites" + SEPARATOR;
+    private static final String BACKGROUNDS_PATH = "backgrounds" + SEPARATOR;
+    private static final String BACKGROUND_END_PATH = "BACKGROUND.png";
     private static final String BRICK_END_PATH = "BRICK.png";
     private static final String BALL_END_PATH = "BALL.png";
     private static final String POWERUP_END_PATH = "POWERUP.png";
@@ -26,7 +28,7 @@ public class GameArenaDrawer {
     private final GraphicsContext gc;
     private final Dimension arenaDimension;
 
-    public GameArenaDrawer(final GraphicsContext gc, final Dimension arenaDimension) {
+    public ArenaCanvasDrawer(final GraphicsContext gc, final Dimension arenaDimension) {
         this.gc = gc;
         this.arenaDimension = arenaDimension;
     }
@@ -36,23 +38,32 @@ public class GameArenaDrawer {
     }
 
     public final void fillBrick(final Coord position, final Dimension dimension, final BrickType type) {
-        this.fillImage(position, dimension, type.getTypeString() + BRICK_END_PATH);
+        this.fillSpriteImage(position, dimension, type.getTypeString() + BRICK_END_PATH);
     }
 
     public final void fillBall(final Coord position, final Dimension dimension, final BallType type) {
-        this.fillImage(position, dimension, type.getType() + BALL_END_PATH);
+        this.fillSpriteImage(position, dimension, type.getType() + BALL_END_PATH);
     }
 
     public final void fillPowerup(final Coord position, final Dimension dimension, final PowerupType type) {
-        this.fillImage(position, dimension, /*type.toString() +*/ POWERUP_END_PATH);
+        this.fillSpriteImage(position, dimension, /*type.toString() +*/ POWERUP_END_PATH);
     }
 
     public final void fillPad(final Pad pad) {
-        this.fillImage(pad.getPosition(), pad.getDimension(), PAD_END_PATH);
+        this.fillSpriteImage(pad.getPosition(), pad.getDimension(), PAD_END_PATH);
     }
 
-    private void fillImage(final Coord position, final Dimension dimension, final String endPath) {
-        drawImage(loadImage(endPath), modelToViewPositionScale(position, dimension), modelToViewDimensionScale(dimension));
+    public final void fillBackground(final int levelNumber) {
+        this.fillImage(new CoordImpl(this.arenaDimension.getWidth() / 2, this.arenaDimension.getHeight() / 2),
+                this.arenaDimension, BACKGROUNDS_PATH + levelNumber + BACKGROUND_END_PATH);
+    }
+
+    private void fillSpriteImage(final Coord position, final Dimension dimension, final String endPath) {
+        this.fillImage(position, dimension, SPRITES_PATH + endPath);
+    }
+
+    private void fillImage(final Coord position, final Dimension dimension, final String path) {
+        this.drawImage(loadImage(path), modelToViewPositionScale(position, dimension), modelToViewDimensionScale(dimension));
     }
 
     /**
@@ -94,8 +105,8 @@ public class GameArenaDrawer {
      * @return
      *          the {@link Image} for the requested sprite path.
      */
-    private Image loadImage(final String endPath) {
-        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(SPRITES_PATH + endPath)));
+    private Image loadImage(final String path) {
+        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(path)));
     }
 
 }

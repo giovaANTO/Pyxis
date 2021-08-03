@@ -69,15 +69,15 @@ public final class ArenaImpl implements Arena {
     }
 
     /**
-     * Calculate the new position of the {@link Pad}.
-     * @param directionalVector
-     *                          The directional {@link Vector} used for setting the new {@link Coord}.
+     * Calculate new {@link Pad}'s {@link Coord}.
+     * @param dx
+     *          The value to add to the x value of the {@link Pad}'s {@link Coord}.
      * @return
-     *          The new position of the {@link Pad}
+     *          The new position of the {@link Pad}.
      */
-    private Coord calcPadNewCoord(final Vector directionalVector) {
+    private Coord calcPadNewXCoord(final double dx) {
         final Coord updatedCoord = this.pad.getPosition();
-        updatedCoord.sumVector(directionalVector);
+        updatedCoord.sumXValue(dx);
         return updatedCoord;
     }
     /**
@@ -90,9 +90,64 @@ public final class ArenaImpl implements Arena {
         return rangeNextInt(multiplier) <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
     }
     /**
+     * Remove all the {@link Ball}s in the {@link Arena} unsubscribing them
+     * from the {@link EventBus}.
+     */
+    private void clearBalls() {
+        this.getBalls().forEach(ball -> {
+            if (EventBus.getDefault().isRegistered(ball)) {
+                EventBus.getDefault().unregister(ball);
+            }
+        });
+        this.ballSet.clear();
+    }
+    /**
+     * Remove all the {@link Brick}s in the {@link Arena} unsubscribing them
+     * from the {@link EventBus}.
+     */
+    private void clearBricks() {
+        this.getBricks().forEach(brick -> {
+            if (EventBus.getDefault().isRegistered(brick)) {
+                EventBus.getDefault().unregister(brick);
+            }
+        });
+        this.brickMap.clear();
+    }
+
+    /**
+     * Remove all the {@link Powerup}s in the {@link Arena} unsubscribing them
+     * from the {@link EventBus}.
+     */
+    private void clearPowerup() {
+        this.powerupSet.forEach(powerup -> {
+            if (EventBus.getDefault().isRegistered(powerup)) {
+                EventBus.getDefault().unregister(powerup);
+            }
+        });
+        this.powerupSet.clear();
+        this.powerupHandler.stop();
+    }
+    /**
+     * Modify the {@link Pad} width dimension of a certain amount.
+     * @param amount
+     *               The modifying amount
+     */
+    private synchronized void modifyPadWidth(final double amount) {
+        final double padWidth = this.pad.getDimension().getWidth();
+        final Coord padPosition = this.getPad().getPosition();
+        final double halfIncrement = (padWidth + amount) / 2;
+        double offset = 0;
+        if (padPosition.getX() + halfIncrement > this.getDimension().getWidth()) {
+            offset = (this.getDimension().getWidth() - (padPosition.getX() + halfIncrement));
+        } else if (padPosition.getX() - halfIncrement < 0) {
+            offset = -(padPosition.getX() - halfIncrement);
+        }
+        final Coord newPadPosition = new CoordImpl(padPosition.getX() + offset, padPosition.getY());
+        this.pad.increaseWidth(amount);
+        this.pad.setPosition(newPadPosition);
+    }
+    /**
      * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive).
-     * @param upperBound
-     *                   The upper bound of the range.
      * @return
      *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
      *          from the {@link Random} rng sequence.
@@ -126,6 +181,7 @@ public final class ArenaImpl implements Arena {
         final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
         this.addPowerup(powerup);
     }
+
     @Override
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {
@@ -140,6 +196,7 @@ public final class ArenaImpl implements Arena {
         this.powerupHandler.addPowerup(event.getPowerup().getType().getEffect());
         this.powerupSet.remove(event.getPowerup());
     }
+
     @Override
     public void addBall(final Ball ball) {
         if (Objects.isNull(this.startingBallPosition)) {
@@ -177,8 +234,9 @@ public final class ArenaImpl implements Arena {
                 EventBus.getDefault().unregister(ball);
                 if (this.ballSet.isEmpty()) {
                     EventBus.getDefault().post(Events.newDecreaseLifeEvent());
-                    this.powerupHandler.stop();
+                    this.clearPowerup();
                     this.resetStartingPosition();
+                    return;
                 }
             } else {
                 final Optional<CollisionInformation> collInformation = ball.getHitbox().collidingEdgeWithBorder(this.getDimension());
@@ -186,14 +244,10 @@ public final class ArenaImpl implements Arena {
             }
         }
 
-        if (this.ballSet.isEmpty()) {
-          this.powerupSet.clear();
-        } else {
-            final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()
-                    .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
-                    .collect(Collectors.toSet());
-            this.powerupSet.removeAll(powerupRemoveSet);
-        }
+        final Set<Powerup> powerupRemoveSet = this.getPowerups().stream()
+                .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
+                .collect(Collectors.toSet());
+        this.powerupSet.removeAll(powerupRemoveSet);
     }
     @Override
     public void cleanUp() {
@@ -224,6 +278,10 @@ public final class ArenaImpl implements Arena {
         if (bus.isRegistered(this)) {
             bus.unregister(this);
         }
+    }
+    @Override
+    public void decreasePadWidth(final double amount) {
+        this.modifyPadWidth(-amount);
     }
     @Override
     public Set<Ball> getBalls() {
@@ -263,32 +321,41 @@ public final class ArenaImpl implements Arena {
         return ballList.get(0);
     }
     @Override
+    public void increasePadWidth(final double amount) {
+        this.modifyPadWidth(amount);
+    }
+    @Override
     public boolean isCleared() {
         return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
     }
     @Override
     public void movePadLeft() {
-        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(-20, 0));
-        if (newPosition.getX() >= this.pad.getDimension().getWidth() / 2) {
-            this.getPad().setPosition(newPosition);
-        } else {
-            final Coord leftPadLimitPosition = new CoordImpl(
+        final Coord oldPosition = this.pad.getPosition();
+        Coord newPosition = this.calcPadNewXCoord(-PadImpl.PAD_X_MOVEMENT);
+        if (newPosition.getX() < this.pad.getDimension().getWidth() / 2) {
+            newPosition = new CoordImpl(
                     this.pad.getDimension().getWidth() / 2,
                     this.pad.getPosition().getY());
-            this.getPad().setPosition(leftPadLimitPosition);
+        }
+        this.pad.setPosition(newPosition);
+        if (this.getBalls().stream()
+                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()))) {
+            this.pad.setPosition(oldPosition);
         }
     }
     @Override
     public void movePadRight() {
-        final Coord newPosition = this.calcPadNewCoord(new VectorImpl(20, 0));
-        if (newPosition.getX() + (this.pad.getDimension().getWidth() / 2)
-                <= this.dimension.getWidth() - (this.pad.getDimension().getWidth() / 2)) {
-            this.getPad().setPosition(newPosition);
-        } else {
-            final Coord rightPadLimitPosition = new CoordImpl(
+        final Coord oldPosition = this.pad.getPosition();
+        Coord newPosition = this.calcPadNewXCoord(PadImpl.PAD_X_MOVEMENT);
+        if (newPosition.getX() > this.dimension.getWidth() - this.pad.getDimension().getWidth() / 2) {
+            newPosition = new CoordImpl(
                     this.dimension.getWidth() - this.pad.getDimension().getWidth() / 2,
                     this.pad.getPosition().getY());
-            this.getPad().setPosition(rightPadLimitPosition);
+        }
+        this.pad.setPosition(newPosition);
+        if (this.getBalls().stream()
+                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()))) {
+            this.pad.setPosition(oldPosition);
         }
     }
     @Override

@@ -3,7 +3,7 @@ package it.unibo.pyxis.view.drawer;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 
-public class CanvasPropertyBinder {
+public class CanvasRatioBinder {
 
     private final ReadOnlyDoubleProperty wC;
     private final ReadOnlyDoubleProperty hC;
@@ -13,17 +13,17 @@ public class CanvasPropertyBinder {
     private final Double xScaleFactor;
     private final Double yScaleFactor;
 
-    public CanvasPropertyBinder(final ReadOnlyDoubleProperty containerWidthProperty, final ReadOnlyDoubleProperty containerHeightProperty,
+    public CanvasRatioBinder(final ReadOnlyDoubleProperty containerWidthProperty, final ReadOnlyDoubleProperty containerHeightProperty,
                         final Double containerStartWidth, final Double containerStartHeight,
-                        final DoubleProperty nodeWidthProperty, final DoubleProperty nodeHeightProperty,
-                        final Double nodeWidth, final Double nodeHeight) {
+                        final DoubleProperty canvasWidthProperty, final DoubleProperty canvasHeightProperty,
+                        final Double canvasWidth, final Double canvasHeight) {
         this.wC = containerWidthProperty;
         this.hC = containerHeightProperty;
-        this.wN = nodeWidthProperty;
-        this.hN = nodeHeightProperty;
-        this.aspectRatio = nodeWidth / nodeHeight;
-        this.xScaleFactor = nodeWidth / containerStartWidth;
-        this.yScaleFactor = nodeHeight / containerStartHeight;
+        this.wN = canvasWidthProperty;
+        this.hN = canvasHeightProperty;
+        this.aspectRatio = canvasWidth / canvasHeight;
+        this.xScaleFactor = canvasWidth / containerStartWidth;
+        this.yScaleFactor = canvasHeight / containerStartHeight;
     }
 
     public void bindWithRatioToContainer() {

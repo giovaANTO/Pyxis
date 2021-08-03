@@ -4,7 +4,7 @@ import it.unibo.pyxis.model.util.Dimension;
 
 public class CollisionInformation {
 
-    private final HitEdge hitEdge;
+    private HitEdge hitEdge;
     private final Dimension borderOffset;
 
     public CollisionInformation(final HitEdge hitEdge, final Dimension borderOffset) {
@@ -18,6 +18,10 @@ public class CollisionInformation {
 
     public Dimension getBorderOffset() {
         return borderOffset;
+    }
+
+    public void setHitEdge(final HitEdge hitEdge) {
+        this.hitEdge = hitEdge;
     }
 
 }

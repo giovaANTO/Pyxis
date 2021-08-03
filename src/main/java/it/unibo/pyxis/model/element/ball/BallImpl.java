@@ -6,7 +6,7 @@ import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.collision.CollisionEvent;
-import it.unibo.pyxis.model.hitbox.CircleHitbox;
+import it.unibo.pyxis.model.hitbox.BallHitbox;
 import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
@@ -32,7 +32,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     private BallImpl(final Vector inputPace, final Coord position, final BallType type, final int inputId) {
         super(DIMENSION, position);
-        this.setHitbox(new CircleHitbox(this));
+        this.setHitbox(new BallHitbox(this));
         this.type = type;
         this.pace = inputPace;
         this.collisionInformation = new HashMap<>();
@@ -123,8 +123,9 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Subscribe
     public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
         if (this.id == collisionEvent.getBallId()) {
-            if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.HORIZONTAL) {
+            if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.TOP) {
                 this.applyPaceChange(collisionEvent.getPadHitPercentage());
+                collisionEvent.getCollisionInformation().setHitEdge(HitEdge.HORIZONTAL);
             }
             this.registerCollision(collisionEvent);
         }
