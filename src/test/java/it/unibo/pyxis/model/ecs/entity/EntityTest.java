@@ -1,6 +1,7 @@
 package it.unibo.pyxis.model.ecs.entity;
 
 import it.unibo.pyxis.model.ecs.component.Component;
+import it.unibo.pyxis.model.ecs.entity.component.TypeA;
 import it.unibo.pyxis.model.ecs.entity.component.TypeAComponent;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -15,14 +16,14 @@ class EntityTest {
     @Order(1)
     void registerComponent() {
         entity.registerComponent(new TypeAComponent());
-        assertTrue(entity.has(TypeAComponent.class));
+        assertTrue(entity.has(TypeA.class));
     }
 
     @Test
     @Order(2)
     void getComponent() {
         entity.registerComponent(new TypeAComponent());
-        assertDoesNotThrow(() -> entity.getComponent(TypeAComponent.class));
+        assertDoesNotThrow(() -> entity.getComponent(TypeA.class));
 
     }
 
@@ -30,6 +31,6 @@ class EntityTest {
     @Order(3)
     void removeComponent() {
         entity.registerComponent(new TypeAComponent());
-        assertDoesNotThrow(() -> entity.removeComponent(TypeAComponent.class));
+        assertDoesNotThrow(() -> entity.removeComponent(TypeA.class));
     }
 }

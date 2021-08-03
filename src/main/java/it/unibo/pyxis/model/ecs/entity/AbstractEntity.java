@@ -10,7 +10,7 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final <C extends Component<?>> void registerComponent(final C component) {
-        final Class<?> componentClass = component.getClass();
+        final Class<?> componentClass = component.getClass().getInterfaces()[0];
         if (!this.has(componentClass)) {
             component.attach(this);
             this.componentMap.put(componentClass, component);
@@ -18,24 +18,25 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
-    public final <C extends Component<?>> void removeComponent(final Class<?> componentClass) {
-        if (!this.has(componentClass)) {
+    public final <C extends Component<?>> void removeComponent(final Class<C> componentInterface) {
+        if (!this.has(componentInterface)) {
             throw new IllegalArgumentException("The component isn't registered in this entity");
         }
-        final Component<?> removedComponent = this.componentMap.remove(componentClass);
+        final Component<?> removedComponent = this.componentMap.remove(componentInterface);
         removedComponent.detach();
     }
 
     @Override
-    public final Component<?> getComponent(final Class<?> componentClass) {
-        if (!this.has(componentClass)) {
+    public final <C extends Component<?>> C getComponent(final Class<C> componentInterface) {
+        if (!this.has(componentInterface)) {
             throw new IllegalArgumentException("The component isn't registered in this entity");
         }
-        return this.componentMap.get(componentClass);
+        return componentInterface.cast(this.componentMap.get(componentInterface));
     }
 
+
     @Override
-    public final boolean has(final Class<?> componentClass) {
-        return this.componentMap.containsKey(componentClass);
+    public final boolean has(final Class<?> componentInterface) {
+        return this.componentMap.containsKey(componentInterface);
     }
 }

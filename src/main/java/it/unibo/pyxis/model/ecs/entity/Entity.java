@@ -14,29 +14,29 @@ public interface Entity {
 
     /**
      * Remove a {@link Component} previously registered in the {@link Entity}.
-     * @param componentClass
-     *                              The component class to remove
      * @param <C>
      *                              A class that extends {@link Component}
+     * @param componentInterface
+ *                              The component class to remove
      */
-    <C extends Component<?>> void removeComponent(Class<?> componentClass);
+    <C extends Component<?>> void removeComponent(Class<C> componentInterface);
 
     /**
      * Return a {@link Component} previously registered in the {@link Entity}.
-     * @param componentClass
+     * @param componentInterface
      *                              The interface of the component
      * @return
      *                              A registered {@link Component}
      */
-    Component<?> getComponent(Class<?> componentClass);
+    <C extends Component<?>> C getComponent(Class<C> componentInterface);
 
     /**
      * Check if a {@link Component} with a given the {@link Entity}.
-     * @param componentClass
+     * @param componentInterface
      *                              The interface of the component
      * @return
      *                              True if the interface has the {@link Component} or
      *                              false otherwise.
      */
-    boolean has(Class<?> componentClass);
+    boolean has(Class<?> componentInterface);
 }

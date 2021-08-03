@@ -1,10 +1,8 @@
 package it.unibo.pyxis.model.ecs.entity.component;
 
-import it.unibo.pyxis.model.ecs.component.Component;
-import it.unibo.pyxis.model.ecs.entity.DummyEntity;
 import it.unibo.pyxis.model.ecs.entity.Entity;
 
-public class TypeAComponent implements Component<DummyEntity> {
+public class TypeAComponent implements TypeA {
 
     private Entity entity;
 
