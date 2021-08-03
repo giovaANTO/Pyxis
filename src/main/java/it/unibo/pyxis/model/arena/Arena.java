@@ -3,7 +3,6 @@ package it.unibo.pyxis.model.arena;
 import java.util.Set;
 
 import it.unibo.pyxis.model.ecs.entity.Entity;
-import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;

@@ -1,13 +1,15 @@
 package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
-import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
-import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
+import it.unibo.pyxis.model.ecs.component.event.EventComponent;
+import it.unibo.pyxis.model.ecs.component.physics.PhysicsComponent;
+import it.unibo.pyxis.model.ecs.entity.AbstractEntity;
+import it.unibo.pyxis.model.level.component.LevelEventComponent;
+import it.unibo.pyxis.model.level.component.LevelPhysicsComponent;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
-public final class LevelImpl implements Level {
+public final class LevelImpl extends AbstractEntity implements Level {
 
     private final int levelNumber;
     private int lives;
@@ -21,16 +23,8 @@ public final class LevelImpl implements Level {
         this.score = 0;
         this.levelStatus = LevelStatus.PLAYING;
         this.arena = inputArena;
-        EventBus.getDefault().register(this);
-    }
-
-    /**
-     * Increase the score of this level.
-     * @param score
-     *               The score to increase
-     */
-    private void increaseScore(final int score) {
-        this.score += score;
+        this.registerComponent(new LevelPhysicsComponent(this));
+        this.registerComponent(new LevelEventComponent(this));
     }
 
     @Override
@@ -60,25 +54,17 @@ public final class LevelImpl implements Level {
 
     @Override
     public void update(final double delta) {
-        this.arena.update(delta);
-        if (this.arena.isCleared()) {
-            this.levelStatus = LevelStatus.SUCCESSFULLY_COMPLETED;
-        }
+        this.getComponent(PhysicsComponent.class).update(delta);
     }
 
     @Override
-    @Subscribe
-    public void handleDecreaseLife(final DecreaseLifeEvent event) {
-        this.decreaseLife();
-        if (this.lives <= 0) {
-            this.levelStatus = LevelStatus.GAME_OVER;
-        }
+    public void increaseScore(final int score) {
+        this.score += score;
     }
 
     @Override
-    @Subscribe
-    public void handleBrickDestruction(final BrickDestructionEvent event) {
-        this.increaseScore(event.getPoints());
+    public void setLevelStatus(final LevelStatus levelStatus) {
+        this.levelStatus = levelStatus;
     }
 
     @Override
@@ -89,6 +75,6 @@ public final class LevelImpl implements Level {
     @Override
     public void cleanUp() {
         this.getArena().cleanUp();
-        EventBus.getDefault().unregister(this);
+        this.removeComponent(EventComponent.class);
     }
 }

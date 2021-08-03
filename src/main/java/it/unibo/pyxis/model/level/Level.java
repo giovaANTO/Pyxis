@@ -1,11 +1,12 @@
 package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
+import it.unibo.pyxis.model.ecs.entity.Entity;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
-public interface Level {
+public interface Level extends Entity {
 
     /**
      * Return the number of the {@link Level} loaded.
@@ -48,18 +49,18 @@ public interface Level {
     void update(double delta);
 
     /**
-     * Handle a {@link DecreaseLifeEvent}.
-     * @param event
-     *              The instance of {@link DecreaseLifeEvent}.
+     * Increase the score of this level.
+     * @param score
+     *               The score to increase
      */
-    void handleDecreaseLife(DecreaseLifeEvent event);
+    void increaseScore(int score);
 
     /**
-     * Handle a {@link BrickDestructionEvent}.
-     * @param event
-     *              The instance of {@link BrickDestructionEvent}
+     * Sets a {@link LevelStatus}.
+     * @param levelStatus
+     *                    The input {@link LevelStatus} to set
      */
-    void handleBrickDestruction(BrickDestructionEvent event);
+    void setLevelStatus(LevelStatus levelStatus);
 
     /**
      * Return the current {@link LevelStatus} of the {@link Level}.
