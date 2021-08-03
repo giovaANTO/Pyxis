@@ -5,10 +5,8 @@ import it.unibo.pyxis.model.ecs.entity.Entity;
 public interface Component<E extends Entity> {
     /**
      * Attach this component into an {@link Entity}.
-     * @param entity
-     *             The entity where this component should be attached
      */
-    <T extends Entity> void attach(T entity);
+    void attach();
 
     /**
      * Detach this component.

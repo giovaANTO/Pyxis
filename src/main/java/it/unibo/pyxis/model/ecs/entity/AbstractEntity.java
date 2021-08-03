@@ -12,7 +12,7 @@ public abstract class AbstractEntity implements Entity {
     public final <C extends Component<?>> void registerComponent(final C component) {
         final Class<?> componentClass = component.getClass().getInterfaces()[0];
         if (!this.has(componentClass)) {
-            component.attach(this);
+            component.attach();
             this.componentMap.put(componentClass, component);
         }
     }
