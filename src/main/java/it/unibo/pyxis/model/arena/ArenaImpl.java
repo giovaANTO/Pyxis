@@ -239,8 +239,8 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     @Override
     public void removeBall(final Ball ball) {
         this.ballSet.remove(ball);
-        if (EventBus.getDefault().isRegistered(ball)) {
-            EventBus.getDefault().unregister(ball);
+        if (ball.hasComponent(EventComponent.class)) {
+            ball.removeComponent(EventComponent.class);
         }
     }
 

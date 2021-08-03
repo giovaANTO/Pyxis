@@ -2,6 +2,7 @@ package it.unibo.pyxis.model.element.ball;
 
 import it.unibo.pyxis.model.ecs.component.physics.PhysicsComponent;
 import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.element.ball.component.BallEventComponent;
 import it.unibo.pyxis.model.element.ball.component.BallPhysicsComponent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
@@ -25,8 +26,6 @@ import java.util.Optional;
 public final class BallImpl extends AbstractElement implements Ball {
 
     private static final Dimension DIMENSION = new DimensionImpl(20, 20);
-    private static final double MIN_PACE_LEFT_PERCENTAGE = 0.1;
-    private static final double MIN_PACE_RIGHT_PERCENTAGE = 0.9;
     private BallType type;
     private Vector pace;
     private final Map<HitEdge, Dimension> collisionInformation;
@@ -40,20 +39,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.collisionInformation = new HashMap<>();
         this.id = inputId;
         this.registerComponent(new BallPhysicsComponent(this));
-        EventBus.getDefault().register(this);
-    }
-
-    private void applyPaceChange(final double padHitPercentage) {
-        final double angle = Math.PI * Math.min(Math.max(padHitPercentage, MIN_PACE_LEFT_PERCENTAGE), MIN_PACE_RIGHT_PERCENTAGE);
-        final double module = this.getPace().getModule();
-        this.pace.setX(Math.cos(angle) * module);
-        this.pace.setY(Math.sin(angle) * module);
-    }
-
-    private void registerCollision(final CollisionEvent collisionEvent) {
-        final HitEdge hitEdge = collisionEvent.getCollisionInformation().getHitEdge();
-        final Dimension borderOffset = collisionEvent.getCollisionInformation().getBorderOffset();
-        this.collisionInformation.put(hitEdge, borderOffset);
+        this.registerComponent(new BallEventComponent(this));
     }
 
     @Override
@@ -69,34 +55,6 @@ public final class BallImpl extends AbstractElement implements Ball {
     @Override
     public void registerCollision(final HitEdge hitEdge, final Dimension offset) {
         this.collisionInformation.put(hitEdge, offset);
-    }
-
-    @Override
-    @Subscribe
-    public void handleBrickCollision(final BallCollisionWithBrickEvent collisionEvent) {
-        if (this.id == collisionEvent.getBallId() && this.getType().bounce()) {
-            this.registerCollision(collisionEvent);
-        }
-    }
-
-    @Override
-    @Subscribe
-    public void handleBorderCollision(final BallCollisionWithBorderEvent collisionEvent) {
-        if (this.id == collisionEvent.getBallId()) {
-            this.registerCollision(collisionEvent);
-        }
-    }
-
-    @Override
-    @Subscribe
-    public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
-        if (this.id == collisionEvent.getBallId()) {
-            if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.TOP) {
-                this.applyPaceChange(collisionEvent.getPadHitPercentage());
-                collisionEvent.getCollisionInformation().setHitEdge(HitEdge.HORIZONTAL);
-            }
-            this.registerCollision(collisionEvent);
-        }
     }
 
     @Override

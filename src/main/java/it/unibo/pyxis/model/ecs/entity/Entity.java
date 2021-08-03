@@ -38,5 +38,5 @@ public interface Entity {
      *                              True if the interface has the {@link Component} or
      *                              false otherwise.
      */
-    boolean has(Class<?> componentInterface);
+    boolean hasComponent(Class<?> componentInterface);
 }

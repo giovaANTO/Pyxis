@@ -30,7 +30,7 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public final <C extends Component<?>> void registerComponent(final C component) {
         final Class<?> componentClass = findComponentInterface(component);
-        if (!this.has(componentClass)) {
+        if (!this.hasComponent(componentClass)) {
             component.attach();
             this.componentMap.put(componentClass, component);
         } else {
@@ -40,7 +40,7 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final <C extends Component<?>> void removeComponent(final Class<C> componentInterface) {
-        if (!this.has(componentInterface)) {
+        if (!this.hasComponent(componentInterface)) {
             throw new IllegalArgumentException("The component isn't registered in this entity");
         }
         final Component<?> removedComponent = this.componentMap.remove(componentInterface);
@@ -49,14 +49,14 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final <C extends Component<?>> C getComponent(final Class<C> componentInterface) {
-        if (!this.has(componentInterface)) {
+        if (!this.hasComponent(componentInterface)) {
             throw new IllegalArgumentException("The component isn't registered in this entity");
         }
         return componentInterface.cast(this.componentMap.get(componentInterface));
     }
 
     @Override
-    public final boolean has(final Class<?> componentInterface) {
+    public final boolean hasComponent(final Class<?> componentInterface) {
         return !Objects.isNull(componentInterface) && this.componentMap.containsKey(componentInterface);
     }
 }

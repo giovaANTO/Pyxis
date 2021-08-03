@@ -36,27 +36,6 @@ public interface Ball extends Element {
     void registerCollision(HitEdge hitEdge, Dimension offset);
 
     /**
-     * Handles the collision event between the ball and a brick.
-     * @param collisionEvent
-     *              Receive a {@link BallCollisionWithBrickEvent}
-     */
-    void handleBrickCollision(BallCollisionWithBrickEvent collisionEvent);
-
-    /**
-     * Handles the collision event between the ball and the border.
-     * @param collisionEvent
-     *              Receive a {@link BallCollisionWithBorderEvent}
-     */
-    void handleBorderCollision(BallCollisionWithBorderEvent collisionEvent);
-
-    /**
-     * Handles the collision event between the ball and the pad.
-     * @param collisionEvent
-     *              Receive a {@link BallCollisionWithPadEvent}
-     */
-    void handlePadCollision(BallCollisionWithPadEvent collisionEvent);
-
-    /**
      * Returns the ball's type.
      * @return
      *              The {@link BallType}
