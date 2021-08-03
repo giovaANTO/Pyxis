@@ -7,10 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 import java.util.Set;
 
+import it.unibo.pyxis.model.arena.component.ArenaEventComponent;
 import it.unibo.pyxis.model.arena.component.ArenaPhysicsComponent;
+import it.unibo.pyxis.model.ecs.component.event.EventComponent;
 import it.unibo.pyxis.model.ecs.component.physics.PhysicsComponent;
 import it.unibo.pyxis.model.ecs.entity.AbstractEntity;
 import it.unibo.pyxis.model.element.ball.Ball;
@@ -21,20 +22,15 @@ import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.element.powerup.Powerup;
-import it.unibo.pyxis.model.element.powerup.PowerupImpl;
-import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerPolicy;
-import it.unibo.pyxis.model.element.powerup.PowerupType;
-import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.Vector;
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 public final class ArenaImpl extends AbstractEntity implements Arena {
 
@@ -48,14 +44,10 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     private final PowerupHandler powerupHandler;
     private final Dimension dimension;
 
-    private static final double POWERUP_SPAWN_PROBABILITY = 2.0 / 10;
-    private final Random randomNumberGenerator;
-
     public ArenaImpl(final Dimension inputDimension) {
         this.brickMap = new HashMap<>();
         this.ballSet = new HashSet<>();
         this.powerupSet = new HashSet<>();
-        this.randomNumberGenerator = new Random();
         this.dimension = inputDimension;
         final PowerupHandlerPolicy policy = (type, map) -> {
             if (type == PowerupEffectType.BALL_POWERUP) {
@@ -63,8 +55,8 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
             }
         };
         this.powerupHandler = new PowerupHandlerImpl(policy, this);
-        EventBus.getDefault().register(this);
         this.registerComponent(new ArenaPhysicsComponent(this));
+        this.registerComponent(new ArenaEventComponent(this));
     }
 
     /**
@@ -84,16 +76,6 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     }
 
     /**
-     * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive).
-     * @return
-     *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
-     *          from the {@link Random} rng sequence.
-     */
-    private Integer rangeNextInt(final int upperBound) {
-        return randomNumberGenerator.nextInt(upperBound);
-    }
-
-    /**
      * Calculate the new position of the {@link Pad}.
      * @param directionalVector
      *                          The directional {@link Vector} used for setting the new {@link Coord}.
@@ -104,29 +86,6 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
         final Coord updatedCoord = this.pad.getPosition();
         updatedCoord.sumXValue(dx);
         return updatedCoord;
-    }
-
-    /**
-     * Spawn a new {@link Powerup} in a specified position.
-     * Add a new instance of {@link Powerup} inside the set of powerups.
-     *
-     * @param spawnCoord
-     *                  The starting position of newly created {@link Powerup}.
-     */
-    private void spawnPowerup(final Coord spawnCoord) {
-        final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
-        final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
-        this.addPowerup(powerup);
-    }
-
-    /**
-     * Determine if a {@link Powerup} should be created.
-     * @return
-     *          True if the {@link Powerup} can be created false otherwise.
-     */
-    private boolean calculateSpawnPowerup() {
-        final int multiplier = 100;
-        return rangeNextInt(multiplier) <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
     }
 
     /**
@@ -148,22 +107,6 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
         this.pad.increaseWidth(amount);
         this.pad.setPosition(newPadPosition);
 
-    }
-
-    @Override
-    @Subscribe
-    public void handleBrickDestruction(final BrickDestructionEvent event) {
-        this.brickMap.remove(event.getBrickCoord());
-        if (this.calculateSpawnPowerup()) {
-            this.spawnPowerup(event.getBrickCoord());
-        }
-    }
-
-    @Override
-    @Subscribe
-    public void handlePowerupActivation(final PowerupActivationEvent event) {
-        this.powerupHandler.addPowerup(event.getPowerup().getType().getEffect());
-        this.removePowerup(event.getPowerup());
     }
 
     @Override
@@ -340,9 +283,7 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
         if (EventBus.getDefault().isRegistered(this.getPad())) {
             EventBus.getDefault().unregister(this.getPad());
         }
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
+        this.removeComponent(EventComponent.class);
     }
 
     @Override

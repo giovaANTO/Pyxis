@@ -11,7 +11,6 @@ import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
-import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import org.greenrobot.eventbus.EventBus;
 
 
@@ -23,20 +22,6 @@ public interface Arena extends Entity {
      *              The passed time.
      */
     void update(double delta);
-
-    /**
-     * Handle a {@link BrickDestructionEvent}.
-     * @param event
-     *              The instance of {@link BrickDestructionEvent}
-     */
-    void handleBrickDestruction(BrickDestructionEvent event);
-
-    /**
-     * Handle a {@link PowerupActivationEvent}.
-     * @param event
-     *              The instance of {@link PowerupActivationEvent}
-     */
-    void handlePowerupActivation(PowerupActivationEvent event);
 
     /**
      * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
