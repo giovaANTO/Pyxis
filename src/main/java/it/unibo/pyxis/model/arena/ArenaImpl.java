@@ -130,32 +130,6 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     }
 
     /**
-     * Remove all the {@link Ball}s in the {@link Arena} unsubscribing them
-     * from the {@link EventBus}.
-     */
-    private void clearBalls() {
-        this.getBalls().forEach(ball -> {
-            if (EventBus.getDefault().isRegistered(ball)) {
-                EventBus.getDefault().unregister(ball);
-            }
-        });
-        this.ballSet.clear();
-    }
-
-    /**
-     * Remove all the {@link Brick}s in the {@link Arena} unsubscribing them
-     * from the {@link EventBus}.
-     */
-    private void clearBricks() {
-        this.getBricks().forEach(brick -> {
-            if (EventBus.getDefault().isRegistered(brick)) {
-                EventBus.getDefault().unregister(brick);
-            }
-        });
-        this.brickMap.clear();
-    }
-
-    /**
      * Modify the {@link Pad} width dimension of a certain amount.
      * @param amount
      *               The modifying amount
@@ -306,6 +280,11 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     }
 
     @Override
+    public void clearBricks() {
+        this.getBricks().forEach(brick -> this.removeBrick(brick.getPosition()));
+    }
+
+    @Override
     public void addBall(final Ball ball) {
         if (Objects.isNull(this.startingBallPosition)) {
             this.startingBallPosition = ball.getPosition();
@@ -323,6 +302,11 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     }
 
     @Override
+    public void clearBalls() {
+        this.getBalls().forEach(this::removeBall);
+    }
+
+    @Override
     public void addPowerup(final Powerup powerup) {
         this.powerupSet.add(powerup);
     }
@@ -337,11 +321,7 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
 
     @Override
     public void clearPowerups() {
-        this.powerupSet.forEach(powerup -> {
-            if (EventBus.getDefault().isRegistered(powerup)) {
-                EventBus.getDefault().unregister(powerup);
-            }
-        });
+        this.getPowerups().forEach(this::removePowerup);
         this.powerupSet.clear();
         this.powerupHandler.stop();
     }

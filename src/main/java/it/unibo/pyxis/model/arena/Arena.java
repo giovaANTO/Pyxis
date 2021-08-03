@@ -12,6 +12,7 @@ import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
+import org.greenrobot.eventbus.EventBus;
 
 
 public interface Arena extends Entity {
@@ -150,6 +151,12 @@ public interface Arena extends Entity {
     void removeBrick(Coord brickCoord);
 
     /**
+     * Remove all the {@link Brick}s in the {@link Arena} unsubscribing them
+     * from the {@link EventBus}.
+     */
+    void clearBricks();
+
+    /**
      * Add a {@link Ball} in the {@link Arena}.
      * @param ball
      *           The {@link Ball} to add.
@@ -163,6 +170,12 @@ public interface Arena extends Entity {
      *              The {@link Ball} to remove from the {@link Arena}
      */
     void removeBall(Ball ball);
+
+    /**
+     * Remove all the {@link Ball}s in the {@link Arena} unsubscribing them
+     * from the {@link EventBus}.
+     */
+    void clearBalls();
 
     /**
      * Add a new {@link Powerup} in the {@link Arena}.
