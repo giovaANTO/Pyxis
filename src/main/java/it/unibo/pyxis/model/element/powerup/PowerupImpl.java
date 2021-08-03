@@ -1,6 +1,8 @@
 package it.unibo.pyxis.model.element.powerup;
 
+import it.unibo.pyxis.model.ecs.component.physics.PhysicsComponent;
 import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.element.powerup.component.PowerupPhysicsComponent;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 
@@ -23,6 +25,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         super(DIMENSION, inputCoord);
         this.setHitbox(new RectHitbox(this));
         this.type = inputType;
+        this.registerComponent(new PowerupPhysicsComponent(this));
     }
 
     @Override
@@ -37,15 +40,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
 
     @Override
     public void update(final double dt) {
-        this.calculateNewCoord(dt);
-        EventBus.getDefault().post(Events.newPowerupMovementEvent(this));
-    }
-
-    private void calculateNewCoord(final double dt) {
-        final Coord updatedCoord = this.getPosition();
-        updatedCoord.sumVector(this.getPace(),
-                dt * this.getUpdateTimeMultiplier());
-        this.setPosition(updatedCoord);
+        this.getComponent(PhysicsComponent.class).update(dt);
     }
 
     @Override

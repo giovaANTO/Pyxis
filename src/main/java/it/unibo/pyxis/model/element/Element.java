@@ -1,10 +1,11 @@
 package it.unibo.pyxis.model.element;
 
+import it.unibo.pyxis.model.ecs.entity.Entity;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
-public interface Element {
+public interface Element extends Entity {
 
     /**
      * Returns the element's position.
