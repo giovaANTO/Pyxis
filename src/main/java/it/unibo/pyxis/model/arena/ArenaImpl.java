@@ -217,8 +217,8 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     @Override
     public void removeBrick(final Coord brickCoord) {
         final Brick removedBrick = this.brickMap.remove(brickCoord);
-        if (EventBus.getDefault().isRegistered(removedBrick)) {
-            EventBus.getDefault().unregister(removedBrick);
+        if (removedBrick.hasComponent(EventComponent.class)) {
+            removedBrick.removeComponent(EventComponent.class);
         }
     }
 
