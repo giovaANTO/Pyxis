@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import it.unibo.pyxis.model.ecs.entity.AbstractEntity;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.ball.BallType;
@@ -38,7 +39,7 @@ import it.unibo.pyxis.model.util.VectorImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public final class ArenaImpl implements Arena {
+public final class ArenaImpl extends AbstractEntity implements Arena {
 
     private Pad pad;
     private Coord startingPadPosition;

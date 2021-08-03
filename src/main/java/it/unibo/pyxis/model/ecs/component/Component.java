@@ -14,10 +14,17 @@ public interface Component<E extends Entity> {
     void detach();
 
     /**
+     * Return the {@link Entity} linked to this {@link Component}.
+     * @return
+     *          An {@link Entity} instance
+     */
+    E getEntity();
+
+    /**
      * Return true if this {@link Component} is attacched to an
      * {@link Entity}.
      * @return
-     *         A boolean value.
+     *         True if the component is attached, false otherwise
      */
     boolean isAttached();
 }

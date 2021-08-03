@@ -2,6 +2,7 @@ package it.unibo.pyxis.model.arena;
 
 import java.util.Set;
 
+import it.unibo.pyxis.model.ecs.entity.Entity;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.util.Dimension;
@@ -11,7 +12,7 @@ import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 
-public interface Arena {
+public interface Arena extends Entity {
 
     /**
      * Update the elements of the {@link Arena}.
