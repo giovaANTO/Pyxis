@@ -17,6 +17,11 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
+    public Element getElement() {
+        return element;
+    }
+
+    @Override
     public Coord getPosition() {
         return element.getPosition();
     }
@@ -129,10 +134,22 @@ public abstract class AbstractHitbox implements Hitbox {
      */
     protected abstract Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox);
 
+    /**
+     * Return the offset to apply to the {@link Element} after the collision.
+     * @param distanceFromCenter
+     * @return
+     *          The offset to apply to the {@link Element} after the collision.
+     */
     protected Double widthOffsetCalculation(final Double distanceFromCenter) {
         return this.getDimension().getWidth() / 2 - distanceFromCenter;
     }
 
+    /**
+     * Return the offset to apply to the {@link Element} after the collision.
+     * @param distanceFromCenter
+     * @return
+     *          The offset to apply to the {@link Element} after the collision.
+     */
     protected Double heightOffsetCalculation(final Double distanceFromCenter) {
         return this.getDimension().getHeight() / 2 - distanceFromCenter;
     }

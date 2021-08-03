@@ -3,6 +3,7 @@ package it.unibo.pyxis.model.arena;
 import java.util.Set;
 
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
+import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
@@ -90,6 +91,13 @@ public interface Arena {
     Set<Powerup> getPowerups();
 
     /**
+     * Return the {@link PowerupHandler} of the {@link Arena}.
+     * @return
+     *          A {@link PowerupHandler}.
+     */
+    PowerupHandler getPowerupHandler();
+
+    /**
      * Get the current {@link Pad} in the {@link Arena}.
      * @return
      *          The {@link Pad} actually present in the {@link Arena}.
@@ -98,10 +106,10 @@ public interface Arena {
 
     /**
      * Set the {@link Pad} in the {@link Arena}.
-     * @param inputPad
+     * @param pad
      *          The {@link Pad} to add.
      */
-    void setPad(Pad inputPad);
+    void setPad(Pad pad);
 
     /**
      * Set a default {@link Pad} in the {@link Arena}.
@@ -116,7 +124,21 @@ public interface Arena {
     /**
      * Move pad to the rigth of the {@link Arena}.
      */
-    void movePadRigth();
+    void movePadRight();
+
+    /**
+     * Increase the {@link Pad}'s width of a certain amount.
+     * @param amount
+     *                 Increase amount.
+     */
+    void increasePadWidth(double amount);
+
+    /**
+     * Decrease the {@link Pad}'s width of a certain amount.
+     * @param amount
+     *                 Increase amount.
+     */
+    void decreasePadWidth(double amount);
 
     /**
      * Add a {@link Brick} in the {@link Arena}.

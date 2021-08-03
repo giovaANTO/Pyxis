@@ -1,10 +1,19 @@
 package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
+import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public interface Level {
+
+    /**
+     * Return the number of the {@link Level} loaded.
+     * @return
+     *          An integer representing the {@link Level} number
+     */
+    int getLevelNumber();
+
     /**
      * Decrease a life.
      */
@@ -44,6 +53,13 @@ public interface Level {
      *              The instance of {@link DecreaseLifeEvent}.
      */
     void handleDecreaseLife(DecreaseLifeEvent event);
+
+    /**
+     * Handle a {@link BrickDestructionEvent}.
+     * @param event
+     *              The instance of {@link BrickDestructionEvent}
+     */
+    void handleBrickDestruction(BrickDestructionEvent event);
 
     /**
      * Return the current {@link LevelStatus} of the {@link Level}.

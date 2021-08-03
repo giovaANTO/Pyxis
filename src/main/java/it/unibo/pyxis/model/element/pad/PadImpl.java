@@ -17,6 +17,7 @@ import java.util.Optional;
 
 public final class PadImpl extends AbstractElement implements Pad {
 
+    public static final double PAD_X_MOVEMENT = 10;
     private static final String DEFAULT_TAG = "DEFAULT_PAD";
     private static final Dimension DIMENSION = new DimensionImpl(100, 18);
     private String tag;
@@ -61,7 +62,6 @@ public final class PadImpl extends AbstractElement implements Pad {
     @Subscribe
     public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {
         if (movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox()).isPresent()) {
-            System.out.println("Pad - powerup activated: " + movementEvent.getElement());
             EventBus.getDefault().post(Events.newPowerupActivationEvent(movementEvent.getElement()));
         }
     }
@@ -77,7 +77,7 @@ public final class PadImpl extends AbstractElement implements Pad {
         if (!super.equals(o)) {
             return false;
         }
-        PadImpl pad = (PadImpl) o;
+        final PadImpl pad = (PadImpl) o;
         return Objects.equals(this.getTag(), pad.getTag());
     }
 

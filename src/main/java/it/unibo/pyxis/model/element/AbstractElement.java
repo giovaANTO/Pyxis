@@ -19,12 +19,12 @@ public abstract class AbstractElement implements Element {
     }
 
     @Override
-    public final synchronized Dimension getDimension() {
+    public final Dimension getDimension() {
         return this.dimension.copyOf();
     }
 
     @Override
-    public final synchronized Coord getPosition() {
+    public final Coord getPosition() {
         return this.position.copyOf();
     }
 
@@ -47,28 +47,28 @@ public abstract class AbstractElement implements Element {
     }
 
     @Override
-    public final synchronized void setPosition(final Coord inputPosition) {
+    public final void setPosition(final Coord inputPosition) {
         Objects.requireNonNull(inputPosition, "Error, tried to set null position.");
         this.position.setXY(inputPosition.getX(), inputPosition.getY());
     }
 
     @Override
-    public final synchronized void setWidth(final double inputWidth) {
+    public final void setWidth(final double inputWidth) {
         this.dimension.setWidth(inputWidth);
     }
 
     @Override
-    public final synchronized void setHeight(final double inputHeight) {
+    public final void setHeight(final double inputHeight) {
         this.dimension.setHeight(inputHeight);
     }
 
     @Override
-    public final synchronized void increaseWidth(final double increaseValue) {
+    public final void increaseWidth(final double increaseValue) {
         this.dimension.increaseWidth(increaseValue);
     }
 
     @Override
-    public final synchronized void increaseHeight(final double increaseValue) {
+    public final void increaseHeight(final double increaseValue) {
         this.dimension.increaseHeight(increaseValue);
     }
 

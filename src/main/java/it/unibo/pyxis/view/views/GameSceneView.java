@@ -1,16 +1,12 @@
 package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
-import it.unibo.pyxis.controller.linker.Linker;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -55,24 +51,6 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         rightVBox.prefHeightProperty().bind(mainPane.heightProperty());
         this.drawer = new ArenaCanvasDrawer(arenaCanvas.getGraphicsContext2D(), this.getController().getArenaDimension());
         this.setupBinders();
-
-        final Linker linker = this.getController().getLinker();
-        final EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
-            switch (keyEvent.getCode()) {
-                case A:
-                    linker.insertCommand(level -> level.getArena().movePadLeft());
-                    break;
-                case D:
-                    linker.insertCommand(level -> level.getArena().movePadRigth());
-                    break;
-                case ESCAPE:
-                    System.out.println("ESC");
-                    break;
-                default:
-                    break;
-            }
-        };
-        this.mainPane.addEventHandler(KeyEvent.KEY_PRESSED, keyEventEventHandler);
     }
 
     private void setupBinders() {

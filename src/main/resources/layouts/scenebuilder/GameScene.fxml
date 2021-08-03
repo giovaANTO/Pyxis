@@ -11,7 +11,8 @@
       <StackPane fx:id="stackPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
             <Canvas fx:id="arenaCanvas" height="400.0" width="350.0" StackPane.alignment="CENTER" />
-         </children></StackPane>
+         </children>
+      </StackPane>
       <VBox fx:id="leftVBox" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="125.0" AnchorPane.leftAnchor="0.0">
          <children>
             <Label alignment="CENTER" prefHeight="30.0" prefWidth="125.0" text="SCORE" textFill="WHITE" />

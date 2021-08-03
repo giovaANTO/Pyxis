@@ -2,14 +2,15 @@
 lives: 3
 width: 500
 height: 560
+levelNumber: 1
 pad:
     x: 200
     y: 500
 balls:
   - x: 240
     y: 300
-    paceX: -60
-    paceY: -60
+    paceX: 0
+    paceY: 200
     ballType: "NORMAL"
     id: 1
 bricks:
@@ -40,7 +41,7 @@ bricks:
   - x: 30
     y: 150
     type: "RED"
-  - x: 90
+  - x: 400
     y: 150
     type: "RED"
   - x: 150
