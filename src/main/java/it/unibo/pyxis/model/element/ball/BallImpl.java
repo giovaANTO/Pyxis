@@ -1,10 +1,11 @@
 package it.unibo.pyxis.model.element.ball;
 
+import it.unibo.pyxis.model.ecs.component.physics.PhysicsComponent;
 import it.unibo.pyxis.model.element.AbstractElement;
+import it.unibo.pyxis.model.element.ball.component.BallPhysicsComponent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
-import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.collision.CollisionEvent;
 import it.unibo.pyxis.model.hitbox.BallHitbox;
 import it.unibo.pyxis.model.hitbox.HitEdge;
@@ -15,6 +16,7 @@ import it.unibo.pyxis.model.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -37,57 +39,8 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.pace = inputPace;
         this.collisionInformation = new HashMap<>();
         this.id = inputId;
+        this.registerComponent(new BallPhysicsComponent(this));
         EventBus.getDefault().register(this);
-    }
-
-    private void calculateNewCoord(final double dt) {
-        final Coord updatedCoord = this.getPosition();
-        updatedCoord.sumVector(this.getPace(),
-                this.getType().getPaceMultiplier() * dt * this.getUpdateTimeMultiplier());
-        this.setPosition(updatedCoord);
-    }
-
-    private void invertPaceX() {
-        this.pace.setX(-this.pace.getX());
-    }
-
-    private void invertPaceY() {
-        this.pace.setY(-this.pace.getY());
-    }
-
-    private void applyCollisions() {
-        if (collisionInformation.containsKey(HitEdge.HORIZONTAL) && collisionInformation.containsKey(HitEdge.VERTICAL)) {
-            this.invertPaceX();
-            this.invertPaceY();
-            this.applyOffset(new DimensionImpl(collisionInformation.get(HitEdge.VERTICAL).getWidth(),
-                                                collisionInformation.get(HitEdge.HORIZONTAL).getHeight()));
-        } else if (collisionInformation.containsKey(HitEdge.HORIZONTAL)) {
-            this.invertPaceY();
-            this.applyOffset(collisionInformation.get(HitEdge.HORIZONTAL));
-        } else if (collisionInformation.containsKey(HitEdge.VERTICAL)) {
-            this.invertPaceX();
-            this.applyOffset(collisionInformation.get(HitEdge.VERTICAL));
-        } else if (collisionInformation.containsKey(HitEdge.CORNER)) {
-            this.invertPaceX();
-            this.invertPaceY();
-            this.applyOffset(collisionInformation.get(HitEdge.CORNER));
-        }
-        this.collisionInformation.clear();
-    }
-
-    private void applyOffset(final Dimension borderOffset) {
-        final Coord updatedCoord = this.getPosition();
-        if (this.pace.getX() > 0) {
-            updatedCoord.sumXValue(borderOffset.getWidth());
-        } else {
-            updatedCoord.sumXValue(-borderOffset.getWidth());
-        }
-        if (this.pace.getY() > 0) {
-            updatedCoord.sumYValue(borderOffset.getHeight());
-        } else {
-            updatedCoord.sumYValue(-borderOffset.getHeight());
-        }
-        this.setPosition(updatedCoord);
     }
 
     private void applyPaceChange(final double padHitPercentage) {
@@ -101,6 +54,21 @@ public final class BallImpl extends AbstractElement implements Ball {
         final HitEdge hitEdge = collisionEvent.getCollisionInformation().getHitEdge();
         final Dimension borderOffset = collisionEvent.getCollisionInformation().getBorderOffset();
         this.collisionInformation.put(hitEdge, borderOffset);
+    }
+
+    @Override
+    public Map<HitEdge, Dimension> getCollisionInformations() {
+        return Collections.unmodifiableMap(this.collisionInformation);
+    }
+
+    @Override
+    public void clearCollisionInformations() {
+        this.collisionInformation.clear();
+    }
+
+    @Override
+    public void registerCollision(final HitEdge hitEdge, final Dimension offset) {
+        this.collisionInformation.put(hitEdge, offset);
     }
 
     @Override
@@ -142,13 +110,13 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     @Override
-    public synchronized void setType(final BallType inputType) {
-        this.type = inputType;
+    public void setPace(final Vector inputPace) {
+        this.pace = inputPace;
     }
 
     @Override
-    public synchronized void setPace(final Vector inputPace) {
-      this.pace = inputPace;
+    public synchronized void setType(final BallType inputType) {
+        this.type = inputType;
     }
 
     @Override
@@ -158,9 +126,7 @@ public final class BallImpl extends AbstractElement implements Ball {
 
     @Override
     public void update(final double dt) {
-        this.applyCollisions();
-        this.calculateNewCoord(dt);
-        EventBus.getDefault().post(Events.newBallMovementEvent(this));
+        this.getComponent(PhysicsComponent.class).update(dt);
     }
 
     @Override

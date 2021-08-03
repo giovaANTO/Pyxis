@@ -4,9 +4,36 @@ import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
+import it.unibo.pyxis.model.hitbox.HitEdge;
+import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.Vector;
 
+import java.util.Map;
+
 public interface Ball extends Element {
+
+    /**
+     * Return the collision information {@link Map}
+     * of the {@link Ball}.
+     * @return
+     *         The {@link Map} containing the collision informations of the
+     *         {@link Ball}.
+     */
+    Map<HitEdge, Dimension> getCollisionInformations();
+
+    /**
+     * Clear all the collision informations of the {@link Ball}.
+     */
+    void clearCollisionInformations();
+
+    /**
+     * Register a new {@link Ball} collision.
+     * @param hitEdge
+     *                  {@link HitEdge} repsenting the edge hitted in the collision.
+     * @param offset
+     *                  Offset of the collision
+     */
+    void registerCollision(HitEdge hitEdge, Dimension offset);
 
     /**
      * Handles the collision event between the ball and a brick.

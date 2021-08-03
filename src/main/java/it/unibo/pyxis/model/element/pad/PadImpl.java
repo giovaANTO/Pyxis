@@ -6,9 +6,7 @@ import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
 import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
-import it.unibo.pyxis.model.util.Coord;
-import it.unibo.pyxis.model.util.Dimension;
-import it.unibo.pyxis.model.util.DimensionImpl;
+import it.unibo.pyxis.model.util.*;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -35,6 +33,16 @@ public final class PadImpl extends AbstractElement implements Pad {
 
     public PadImpl(final Coord inputPosition) {
         this(DIMENSION, inputPosition, DEFAULT_TAG);
+    }
+
+    @Override
+    public Vector getPace() {
+        return new VectorImpl(0, 0);
+    }
+
+    @Override
+    public void setPace(final Vector inputPace) {
+        throw new UnsupportedOperationException("You can't set a the pace on a Pad");
     }
 
     @Override

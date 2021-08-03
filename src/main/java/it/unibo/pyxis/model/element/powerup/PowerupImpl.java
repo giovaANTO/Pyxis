@@ -39,6 +39,11 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     }
 
     @Override
+    public void setPace(final Vector inputPace) {
+        throw new UnsupportedOperationException("You can't set a the pace on a PowerupImpl");
+    }
+
+    @Override
     public void update(final double dt) {
         this.getComponent(PhysicsComponent.class).update(dt);
     }

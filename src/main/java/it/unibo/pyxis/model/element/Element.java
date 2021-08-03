@@ -4,6 +4,7 @@ import it.unibo.pyxis.model.ecs.entity.Entity;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.Vector;
 
 public interface Element extends Entity {
 
@@ -20,6 +21,20 @@ public interface Element extends Entity {
      *         The element's {@link Dimension}
      */
     Dimension getDimension();
+
+    /**
+     * Returns the element's pace.
+     * @return
+     *              The pace's {@link Vector}
+     */
+    Vector getPace();
+
+    /**
+     * Sets the element's pace.
+     * @param inputPace
+     *                  The input pace's {@link Vector}
+     */
+    void setPace(Vector inputPace);
 
     /**
      * Returns the element's update time multiplier.
