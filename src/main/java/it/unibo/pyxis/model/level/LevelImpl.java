@@ -7,7 +7,6 @@ import it.unibo.pyxis.model.ecs.entity.AbstractEntity;
 import it.unibo.pyxis.model.level.component.LevelEventComponent;
 import it.unibo.pyxis.model.level.component.LevelPhysicsComponent;
 import it.unibo.pyxis.model.level.status.LevelStatus;
-import org.greenrobot.eventbus.EventBus;
 
 public final class LevelImpl extends AbstractEntity implements Level {
 
