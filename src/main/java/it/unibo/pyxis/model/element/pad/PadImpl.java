@@ -38,7 +38,7 @@ public final class PadImpl extends AbstractElement implements Pad {
 
     @Override
     public void setPace(final Vector inputPace) {
-        throw new UnsupportedOperationException("You can't set a the pace on a Pad");
+        throw new UnsupportedOperationException("You can't set the pace on a Pad");
     }
 
     @Override
