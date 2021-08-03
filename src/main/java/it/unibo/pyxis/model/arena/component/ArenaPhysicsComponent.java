@@ -5,6 +5,8 @@ import it.unibo.pyxis.model.ecs.component.physics.AbstractPhysicsComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CollisionInformation;
+import it.unibo.pyxis.model.hitbox.Hitbox;
+import it.unibo.pyxis.model.util.Dimension;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Optional;
@@ -25,7 +27,8 @@ public class ArenaPhysicsComponent extends AbstractPhysicsComponent<Arena> {
     private void checkBorderCollision() {
         final Arena arena = this.getEntity();
         for (final Ball ball: arena.getBalls()) {
-            if (ball.getHitbox().isCollidingWithLowerBorder(arena.getDimension())) {
+            final Hitbox ballHitbox = ball.getHitbox();
+            if (ballHitbox.isCollidingWithLowerBorder(arena.getDimension())) {
                 arena.removeBall(ball);
                 if (arena.getBalls().isEmpty()) {
                     EventBus.getDefault().post(Events.newDecreaseLifeEvent());
@@ -34,7 +37,8 @@ public class ArenaPhysicsComponent extends AbstractPhysicsComponent<Arena> {
                     return;
                 }
             } else {
-                final Optional<CollisionInformation> collInformation = ball.getHitbox().collidingEdgeWithBorder(arena.getDimension());
+                final Dimension arenaDimension = arena.getDimension();
+                final Optional<CollisionInformation> collInformation = ballHitbox.collidingEdgeWithBorder(arenaDimension);
                 collInformation.ifPresent(cI -> EventBus.getDefault().post(Events.newBallCollisionWithBorderEvent(ball.getId(), cI)));
             }
         }
