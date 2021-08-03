@@ -46,13 +46,9 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
         }
         if (!Objects.isNull(ballSkeletonSet)) {
            ballSkeletonSet.forEach(bls -> outputArena.addBall(this.ballFromSkeleton(bls)));
-        } else {
-            outputArena.addDefaultBall();
         }
         if (!Objects.isNull(skeleton.getPad())) {
             outputArena.setPad(this.padFromSkeleton(skeleton.getPad()));
-        } else {
-            outputArena.setDefaultPad();
         }
         return outputArena;
     }

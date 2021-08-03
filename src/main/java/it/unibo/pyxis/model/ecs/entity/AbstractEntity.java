@@ -29,7 +29,7 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final <C extends Component<?>> void registerComponent(final C component) {
-        final Class<?> componentClass = component.getClass().getInterfaces()[0];
+        final Class<?> componentClass = findComponentInterface(component);
         if (!this.has(componentClass)) {
             component.attach();
             this.componentMap.put(componentClass, component);
@@ -54,7 +54,6 @@ public abstract class AbstractEntity implements Entity {
         }
         return componentInterface.cast(this.componentMap.get(componentInterface));
     }
-
 
     @Override
     public final boolean has(final Class<?> componentInterface) {

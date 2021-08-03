@@ -5,12 +5,14 @@ import java.util.Set;
 import it.unibo.pyxis.model.ecs.entity.Entity;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
+import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
+
 
 public interface Arena extends Entity {
 
@@ -36,13 +38,9 @@ public interface Arena extends Entity {
     void handlePowerupActivation(PowerupActivationEvent event);
 
     /**
-     * Check if {@link Ball} or {@link Powerup} is colliding with a border.
-     * 
-     * Removes the {@link Ball} or {@link Powerup} colliding with the bottom border,
-     * Otherwise sends a {@link it.unibo.pyxis.model.event.collision.CollisionEvent}
-     * with the edge the {@link Ball} is colliding with.
+     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
      */
-    void checkBorderCollision();
+    void resetStartingPosition();
 
     /**
      * Returns the dimensions of the {@link Arena}.
@@ -113,11 +111,6 @@ public interface Arena extends Entity {
     void setPad(Pad pad);
 
     /**
-     * Set a default {@link Pad} in the {@link Arena}.
-     */
-    void setDefaultPad();
-
-    /**
      * Move pad to the left of the {@link Arena}.
      */
     void movePadLeft();
@@ -144,9 +137,17 @@ public interface Arena extends Entity {
     /**
      * Add a {@link Brick} in the {@link Arena}.
      * @param brick
- *              The {@link Brick} to add.
+     *            The {@link Brick} to add.
      */
     void addBrick(Brick brick);
+
+    /**
+     * Remove a {@link Brick} in the {@link Arena}.
+     * @param brickCoord
+     *            The {@link Coord} of the {@link Brick}
+     *            to remove.
+     */
+    void removeBrick(Coord brickCoord);
 
     /**
      * Add a {@link Ball} in the {@link Arena}.
@@ -156,9 +157,12 @@ public interface Arena extends Entity {
     void addBall(Ball ball);
 
     /**
-     * Add a default {@link Ball} to the {@link Arena}.
+     * Remove a {@link Ball} from the {@link Arena}.
+     *
+     * @param ball
+     *              The {@link Ball} to remove from the {@link Arena}
      */
-    void addDefaultBall();
+    void removeBall(Ball ball);
 
     /**
      * Add a new {@link Powerup} in the {@link Arena}.
@@ -166,6 +170,19 @@ public interface Arena extends Entity {
  *               The {@link Powerup} to add.
      */
     void addPowerup(Powerup powerup);
+
+    /**
+     * Remove a {@link Powerup} from the {@link Arena}.
+     * @param powerup
+     *                  The {@link Powerup} to remove.
+     */
+    void removePowerup(Powerup powerup);
+
+    /**
+     * Remove all the {@link Powerup}s in the {@link Arena} unsubscribing them
+     * from the {@link org.greenrobot.eventbus.EventBus}.
+     */
+    void clearPowerups();
 
     /**
      * Check if the {@link Arena} is cleared, or rather, there aren't any bricks left except for the ones
