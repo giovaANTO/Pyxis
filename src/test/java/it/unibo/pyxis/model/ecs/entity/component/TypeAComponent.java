@@ -5,7 +5,6 @@ import it.unibo.pyxis.model.ecs.entity.Entity;
 public class TypeAComponent implements TypeA {
 
     private Entity entity;
-
     @Override
     public <A extends Entity> void attach(A entity) {
         this.entity = entity;
