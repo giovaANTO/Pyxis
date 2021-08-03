@@ -1,22 +1,25 @@
 package it.unibo.pyxis.model.hitbox;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import it.unibo.pyxis.model.element.Element;
+import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
+import it.unibo.pyxis.model.util.Vector;
 
-public class CircleHitbox extends AbstractHitbox {
+public class BallHitbox extends AbstractHitbox {
 
-    public CircleHitbox(final Element element) {
+    public BallHitbox(final Element element) {
         super(element);
     }
 
     /**
-     * Return the radius of the {@link CircleHitbox}.
+     * Return the radius of the {@link BallHitbox}.
      * @return
-     *          the radius of the {@link CircleHitbox}.
+     *          the radius of the {@link BallHitbox}.
      */
     private Double getRadius() {
         return getDimension().getHeight() / 2;
@@ -34,20 +37,20 @@ public class CircleHitbox extends AbstractHitbox {
 
     @Override
     public boolean isCollidingWithHB(final Hitbox hitbox) {
-        return hitbox instanceof CircleHitbox
+        return hitbox instanceof BallHitbox
                 ? isCollidingWithSameHB(hitbox)
                 : isCollidingWithOtherHB(hitbox);
     }
 
     @Override
     public Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox) {
-        return hitbox instanceof CircleHitbox
+        return hitbox instanceof BallHitbox
                 ? collidingEdgeWithSameHB(hitbox)
                 : collidingEdgeWithOtherHB(hitbox);
     }
 
     protected Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox) {
-        return getPosition().distance(hitbox.getPosition()) <= getRadius() + ((CircleHitbox) hitbox).getRadius()
+        return getPosition().distance(hitbox.getPosition()) <= getRadius() + ((BallHitbox) hitbox).getRadius()
                 ? Optional.of(new CollisionInformation(HitEdge.CIRCLE, new DimensionImpl()))
                 : Optional.empty();
     }
@@ -61,37 +64,48 @@ public class CircleHitbox extends AbstractHitbox {
         double closestPointX;
         double closestPointY;
 
-        HitEdge hitEdge;
+        HitEdge hitEdge = null;
         final Dimension borderOffset = new DimensionImpl();
 
-        final double cHBCenterX = this.getPosition().getX();
-        final double cHBCenterY = this.getPosition().getY();
+        final double bHBCenterX = this.getPosition().getX();
+        final double bHBCenterY = this.getPosition().getY();
         final double rHBCenterX = hitbox.getPosition().getX();
         final double rHBCenterY = hitbox.getPosition().getY();
         final double rHBWidth   = hitbox.getDimension().getWidth();
         final double rHBHeight  = hitbox.getDimension().getHeight();
 
-        closestPointX = closestPointCalculation(cHBCenterX, rHBCenterX, rHBWidth);
-        closestPointY = closestPointCalculation(cHBCenterY, rHBCenterY, rHBHeight);
+        closestPointX = closestPointCalculation(bHBCenterX, rHBCenterX, rHBWidth);
+        closestPointY = closestPointCalculation(bHBCenterY, rHBCenterY, rHBHeight);
 
-        if (closestPointX != cHBCenterX && closestPointY != cHBCenterY) {
+        if (closestPointX != bHBCenterX && closestPointY != bHBCenterY) {
             borderOffset.setWidth(cornerOffsetCalculation(this.getPosition().distance(closestPointX, closestPointY),
-                    Math.abs(cHBCenterX - closestPointX)));
+                    Math.abs(bHBCenterX - closestPointX)));
             borderOffset.setHeight(cornerOffsetCalculation(this.getPosition().distance(closestPointX, closestPointY),
-                    Math.abs(cHBCenterY - closestPointY)));
-            hitEdge = HitEdge.CORNER;
-        } else if (closestPointX != cHBCenterX && closestPointY == cHBCenterY) {
-            borderOffset.setWidth(widthOffsetCalculation(Math.abs(cHBCenterX - closestPointX)));
+                    Math.abs(bHBCenterY - closestPointY)));
+            if (bHBCenterX <= rHBCenterX && this.getPace().getX() > 0
+                    || bHBCenterX > rHBCenterX && this.getPace().getX() < 0) {
+                hitEdge = HitEdge.VERTICAL;
+            }
+            if (bHBCenterY <= rHBCenterY && this.getPace().getY() > 0
+                    || bHBCenterY > rHBCenterY && this.getPace().getY() < 0) {
+                hitEdge = Objects.isNull(hitEdge) 
+                        ? HitEdge.HORIZONTAL
+                        : HitEdge.CORNER;
+            }
+        } else if (closestPointX != bHBCenterX && closestPointY == bHBCenterY) {
+            borderOffset.setWidth(widthOffsetCalculation(Math.abs(bHBCenterX - closestPointX)));
             hitEdge = HitEdge.VERTICAL;
-        } else if (closestPointX == cHBCenterX && closestPointY != cHBCenterY){
-            borderOffset.setHeight(heightOffsetCalculation(Math.abs(cHBCenterY - closestPointY)));
-            hitEdge = HitEdge.HORIZONTAL;
+        } else if (closestPointX == bHBCenterX && closestPointY != bHBCenterY){
+            borderOffset.setHeight(heightOffsetCalculation(Math.abs(bHBCenterY - closestPointY)));
+            hitEdge = bHBCenterY > rHBCenterY
+                    ? HitEdge.HORIZONTAL
+                    : HitEdge.TOP;
         } else {
-            if (Math.min(cHBCenterX, rHBWidth - cHBCenterX) <= Math.min(cHBCenterY, rHBHeight - cHBCenterY)) {
-                borderOffset.setWidth(widthOffsetCalculation(Math.min(cHBCenterX, rHBWidth - cHBCenterX)));
+            if (Math.min(bHBCenterX, rHBWidth - bHBCenterX) <= Math.min(bHBCenterY, rHBHeight - bHBCenterY)) {
+                borderOffset.setWidth(widthOffsetCalculation(Math.min(bHBCenterX, rHBWidth - bHBCenterX)));
                 hitEdge = HitEdge.VERTICAL;
             } else {
-                borderOffset.setHeight(heightOffsetCalculation(Math.min(cHBCenterY, rHBHeight - cHBCenterY)));
+                borderOffset.setHeight(heightOffsetCalculation(Math.min(bHBCenterY, rHBHeight - bHBCenterY)));
                 hitEdge = HitEdge.HORIZONTAL;
             }
         }
@@ -102,12 +116,12 @@ public class CircleHitbox extends AbstractHitbox {
     }
 
     /**
-     * Checks what's the closest point of the {@link RectHitbox} to the center of the {@link CircleHitbox}.
+     * Checks what's the closest point of the {@link RectHitbox} to the center of the {@link BallHitbox}.
      * @param cHBCenterCoord
      * @param rHBCenterCoord
      * @param rHBEdgeLength
      * @return
-     *          cHBCenterCoord if the center of the {@link CircleHitbox} is inside the {@link RectHitbox},
+     *          cHBCenterCoord if the center of the {@link BallHitbox} is inside the {@link RectHitbox},
      *          the Coordinate of the closest edge of the {@link RectHitbox} otherwise.
      */
     private double closestPointCalculation(final double cHBCenterCoord, final double rHBCenterCoord,
@@ -117,8 +131,19 @@ public class CircleHitbox extends AbstractHitbox {
                 : Math.min(cHBCenterCoord, rHBCenterCoord + rHBEdgeLength / 2);
     }
 
+    /**
+     * Return the offset to apply to the {@link Element} after the collision.
+     * @param distanceFromClosestPoint
+     * @param componentDistance
+     * @return
+     *          The offset to apply to the {@link Element} after the collision.
+     */
     private double cornerOffsetCalculation(final double distanceFromClosestPoint, final double componentDistance) {
         return (this.getRadius() - distanceFromClosestPoint) * componentDistance / this.getRadius();
+    }
+
+    private Vector getPace() {
+        return ((Ball) this.getElement()).getPace();
     }
 
 }

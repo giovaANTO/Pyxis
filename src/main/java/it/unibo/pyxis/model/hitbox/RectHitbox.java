@@ -83,12 +83,12 @@ public class RectHitbox extends AbstractHitbox {
     }
 
     /**
-     * Checks what's the closest point of the {@link RectHitbox} to the center of the {@link CircleHitbox}.
+     * Checks what's the closest point of the {@link RectHitbox} to the center of the {@link BallHitbox}.
      * @param cHBCenterCoord
      * @param rHBCenterCoord
      * @param rHBEdgeLength
      * @return
-     *          cHBCenterCoord if the center of the {@link CircleHitbox} is inside the {@link RectHitbox},
+     *          cHBCenterCoord if the center of the {@link BallHitbox} is inside the {@link RectHitbox},
      *          the Coordinate of the closest edge of the {@link RectHitbox} otherwise.
      */
     private double closestPointCalculation(final double cHBCenterCoord, final double rHBCenterCoord,
