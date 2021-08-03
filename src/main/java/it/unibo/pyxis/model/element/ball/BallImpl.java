@@ -4,18 +4,12 @@ import it.unibo.pyxis.model.ecs.component.physics.PhysicsComponent;
 import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.element.ball.component.BallEventComponent;
 import it.unibo.pyxis.model.element.ball.component.BallPhysicsComponent;
-import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
-import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
-import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
-import it.unibo.pyxis.model.event.collision.CollisionEvent;
 import it.unibo.pyxis.model.hitbox.BallHitbox;
 import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import it.unibo.pyxis.model.util.Vector;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Collections;
 import java.util.HashMap;
