@@ -8,7 +8,7 @@ public interface Component<E extends Entity> {
      * @param entity
      *             The entity where this component should be attached
      */
-    <A extends Entity> void attach(A entity);
+    <T extends Entity> void attach(T entity);
 
     /**
      * Detach this component.
