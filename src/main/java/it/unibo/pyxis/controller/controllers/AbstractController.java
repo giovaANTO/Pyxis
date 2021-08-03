@@ -9,22 +9,19 @@ public abstract class AbstractController implements Controller {
     private Linker linker;
 
     @Override
+    public final Linker getLinker() {
+        return this.linker;
+    }
+    @Override
     public final View<? extends Controller> getView() {
         return this.view;
     }
-
-    @Override
-    public final void setView(final View<? extends  Controller> inputView) {
-        this.view = inputView;
-    }
-
     @Override
     public final void setLinker(final Linker inputLinker) {
         this.linker = inputLinker;
     }
-
     @Override
-    public final Linker getLinker() {
-        return this.linker;
+    public final void setView(final View<? extends  Controller> inputView) {
+        this.view = inputView;
     }
 }
