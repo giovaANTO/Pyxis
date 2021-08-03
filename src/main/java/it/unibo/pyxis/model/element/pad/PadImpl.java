@@ -6,7 +6,11 @@ import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
 import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
-import it.unibo.pyxis.model.util.*;
+import it.unibo.pyxis.model.util.Coord;
+import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.DimensionImpl;
+import it.unibo.pyxis.model.util.Vector;
+import it.unibo.pyxis.model.util.VectorImpl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -15,7 +19,6 @@ import java.util.Optional;
 
 public final class PadImpl extends AbstractElement implements Pad {
 
-    public static final double PAD_X_MOVEMENT = 10;
     private static final String DEFAULT_TAG = "DEFAULT_PAD";
     private static final Dimension DIMENSION = new DimensionImpl(100, 18);
     private String tag;

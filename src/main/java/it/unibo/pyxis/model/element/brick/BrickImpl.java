@@ -1,7 +1,6 @@
 package it.unibo.pyxis.model.element.brick;
 
 import it.unibo.pyxis.model.element.AbstractElement;
-import it.unibo.pyxis.model.element.ball.component.BallEventComponent;
 import it.unibo.pyxis.model.element.brick.component.BrickEventComponent;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 import it.unibo.pyxis.model.util.Coord;

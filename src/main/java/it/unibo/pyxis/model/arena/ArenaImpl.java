@@ -44,6 +44,8 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     private final PowerupHandler powerupHandler;
     private final Dimension dimension;
 
+    private static final double PAD_X_MOVEMENT = 10;
+
     public ArenaImpl(final Dimension inputDimension) {
         this.brickMap = new HashMap<>();
         this.ballSet = new HashSet<>();
@@ -170,7 +172,7 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     @Override
     public void movePadLeft() {
         final Coord oldPosition = this.pad.getPosition();
-        Coord newPosition = this.calcPadNewXCoord(-PadImpl.PAD_X_MOVEMENT);
+        Coord newPosition = this.calcPadNewXCoord(-PAD_X_MOVEMENT);
         if (newPosition.getX() < this.pad.getDimension().getWidth() / 2) {
             newPosition = new CoordImpl(
                     this.pad.getDimension().getWidth() / 2,
@@ -186,15 +188,16 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
     @Override
     public void movePadRight() {
         final Coord oldPosition = this.pad.getPosition();
-        Coord newPosition = this.calcPadNewXCoord(PadImpl.PAD_X_MOVEMENT);
-        if (newPosition.getX() > this.dimension.getWidth() - this.pad.getDimension().getWidth() / 2) {
-            newPosition = new CoordImpl(
-                    this.dimension.getWidth() - this.pad.getDimension().getWidth() / 2,
-                    this.pad.getPosition().getY());
+        Coord newPosition = this.calcPadNewXCoord(PAD_X_MOVEMENT);
+        final double maxX = this.dimension.getWidth() - this.pad.getDimension().getWidth() / 2;
+        if (newPosition.getX() > maxX) {
+            final double yCoord =  this.pad.getPosition().getY();
+            newPosition = new CoordImpl(maxX, yCoord);
         }
         this.pad.setPosition(newPosition);
-        if (this.getBalls().stream()
-                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()))) {
+        final boolean anyCollsion = this.getBalls().stream()
+                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()));
+        if (anyCollsion) {
             this.pad.setPosition(oldPosition);
         }
     }
