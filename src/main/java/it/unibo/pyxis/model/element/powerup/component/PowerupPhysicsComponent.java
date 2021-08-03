@@ -6,7 +6,7 @@ import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.util.Coord;
 import org.greenrobot.eventbus.EventBus;
 
-public class PowerupPhysicsComponent extends AbstractPhysicsComponent<Powerup> {
+public final class PowerupPhysicsComponent extends AbstractPhysicsComponent<Powerup> {
 
     public PowerupPhysicsComponent(final Powerup entity) {
         super(entity);
