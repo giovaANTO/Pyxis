@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import it.unibo.pyxis.model.arena.component.ArenaEvComp;
 import it.unibo.pyxis.model.arena.component.ArenaEventComponent;
 import it.unibo.pyxis.model.arena.component.ArenaPhysicsComponent;
 import it.unibo.pyxis.ecs.component.event.EventComponent;
@@ -286,7 +285,7 @@ public final class ArenaImpl extends AbstractEntity implements Arena {
         if (EventBus.getDefault().isRegistered(this.getPad())) {
             EventBus.getDefault().unregister(this.getPad());
         }
-        this.removeComponent(ArenaEvComp.class);
+        this.removeComponent(EventComponent.class);
     }
 
     @Override
