@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.element.brick.component;
 
-import it.unibo.pyxis.model.ecs.component.event.AbstractEventComponent;
-import it.unibo.pyxis.model.ecs.component.event.EventComponent;
+import it.unibo.pyxis.ecs.component.event.AbstractEventComponent;
+import it.unibo.pyxis.ecs.component.event.EventComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.event.Events;

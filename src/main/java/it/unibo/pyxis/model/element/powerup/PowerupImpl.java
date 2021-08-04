@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.element.powerup;
 
-import it.unibo.pyxis.model.ecs.component.physics.PhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
 import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.element.powerup.component.PowerupPhysicsComponent;
 import it.unibo.pyxis.model.hitbox.RectHitbox;

@@ -1,9 +1,7 @@
 package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
-import it.unibo.pyxis.model.ecs.entity.Entity;
-import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
-import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
+import it.unibo.pyxis.ecs.entity.Entity;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public interface Level extends Entity {

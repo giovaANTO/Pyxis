@@ -1,7 +1,6 @@
 package it.unibo.pyxis.model.element.pad.component;
 
-import it.unibo.pyxis.model.ecs.component.event.AbstractEventComponent;
-import it.unibo.pyxis.model.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.event.AbstractEventComponent;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;

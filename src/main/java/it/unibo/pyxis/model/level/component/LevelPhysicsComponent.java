@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.level.component;
 
-import it.unibo.pyxis.model.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.AbstractPhysicsComponent;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 

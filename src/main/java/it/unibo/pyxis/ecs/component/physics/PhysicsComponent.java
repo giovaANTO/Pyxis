@@ -1,7 +1,7 @@
-package it.unibo.pyxis.model.ecs.component.physics;
+package it.unibo.pyxis.ecs.component.physics;
 
-import it.unibo.pyxis.model.ecs.component.Component;
-import it.unibo.pyxis.model.ecs.entity.Entity;
+import it.unibo.pyxis.ecs.component.Component;
+import it.unibo.pyxis.ecs.entity.Entity;
 
 public interface PhysicsComponent<T extends Entity> extends Component<T> {
     /**

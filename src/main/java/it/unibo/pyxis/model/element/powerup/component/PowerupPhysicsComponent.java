@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.element.powerup.component;
 
-import it.unibo.pyxis.model.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.AbstractPhysicsComponent;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.util.Coord;

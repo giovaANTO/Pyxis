@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.arena.component;
 
 import it.unibo.pyxis.model.arena.Arena;
-import it.unibo.pyxis.model.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.AbstractPhysicsComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CollisionInformation;

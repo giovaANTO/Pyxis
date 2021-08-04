@@ -1,8 +1,8 @@
-package it.unibo.pyxis.model.ecs.component.physics;
+package it.unibo.pyxis.ecs.component.physics;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import it.unibo.pyxis.model.ecs.entity.Entity;
+import it.unibo.pyxis.ecs.entity.Entity;
 
 public abstract class AbstractPhysicsComponent<E extends Entity> implements PhysicsComponent<E> {
 

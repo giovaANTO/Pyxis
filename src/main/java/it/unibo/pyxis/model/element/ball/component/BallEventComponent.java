@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.element.ball.component;
 
-import it.unibo.pyxis.model.ecs.component.event.AbstractEventComponent;
+import it.unibo.pyxis.ecs.component.event.AbstractEventComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;

@@ -1,6 +1,6 @@
-package it.unibo.pyxis.model.ecs.component;
+package it.unibo.pyxis.ecs.component;
 
-import it.unibo.pyxis.model.ecs.entity.Entity;
+import it.unibo.pyxis.ecs.entity.Entity;
 
 public interface Component<E extends Entity> {
     /**

@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.element.ball.component;
 
-import it.unibo.pyxis.model.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.AbstractPhysicsComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.event.Events;

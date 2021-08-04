@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.level.component;
 
-import it.unibo.pyxis.model.ecs.component.event.AbstractEventComponent;
+import it.unibo.pyxis.ecs.component.event.AbstractEventComponent;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.level.Level;

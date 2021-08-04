@@ -1,6 +1,6 @@
-package it.unibo.pyxis.model.ecs.entity;
+package it.unibo.pyxis.ecs.entity;
 
-import it.unibo.pyxis.model.ecs.component.Component;
+import it.unibo.pyxis.ecs.component.Component;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

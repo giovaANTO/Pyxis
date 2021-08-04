@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.arena.component;
 
 import it.unibo.pyxis.model.arena.Arena;
-import it.unibo.pyxis.model.ecs.component.event.AbstractEventComponent;
+import it.unibo.pyxis.ecs.component.event.AbstractEventComponent;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.element.powerup.PowerupImpl;
 import it.unibo.pyxis.model.element.powerup.PowerupType;

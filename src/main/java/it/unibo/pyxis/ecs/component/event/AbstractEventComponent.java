@@ -1,6 +1,6 @@
-package it.unibo.pyxis.model.ecs.component.event;
+package it.unibo.pyxis.ecs.component.event;
 
-import it.unibo.pyxis.model.ecs.entity.Entity;
+import it.unibo.pyxis.ecs.entity.Entity;
 import org.greenrobot.eventbus.EventBus;
 
 public abstract class AbstractEventComponent<E extends Entity> implements EventComponent<E> {
