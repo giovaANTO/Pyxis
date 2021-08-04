@@ -1,9 +1,12 @@
 package it.unibo.pyxis.ecs.entity;
 
 import it.unibo.pyxis.ecs.component.Component;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 public abstract class AbstractEntity implements Entity {
 
@@ -27,6 +30,20 @@ public abstract class AbstractEntity implements Entity {
         return compInterfaces.length != 0 ? compInterfaces[0] : null;
     }
 
+    /**
+     * @param inputInterface
+     * @return
+     */
+    private Optional<Class<?>> extractRegisteredInterface(final Class<?> inputInterface) {
+        if (Objects.isNull(inputInterface)) {
+            return Optional.empty();
+        } else if (this.componentMap.containsKey(inputInterface)) {
+            return Optional.of(inputInterface);
+        }
+        Class<?>[] superInterfaces = inputInterface.getInterfaces();
+        return Arrays.stream(superInterfaces).filter(this.componentMap::containsKey).findFirst();
+    }
+
     @Override
     public final <C extends Component<?>> void registerComponent(final C component) {
         final Class<?> componentClass = findComponentInterface(component);
@@ -43,7 +60,8 @@ public abstract class AbstractEntity implements Entity {
         if (!this.hasComponent(componentInterface)) {
             throw new IllegalArgumentException("The component isn't registered in this entity");
         }
-        final Component<?> removedComponent = this.componentMap.remove(componentInterface);
+        final Class<?> regInterface = this.extractRegisteredInterface(componentInterface).orElseThrow();
+        final Component<?> removedComponent = this.componentMap.remove(regInterface);
         removedComponent.detach();
     }
 
@@ -52,11 +70,12 @@ public abstract class AbstractEntity implements Entity {
         if (!this.hasComponent(componentInterface)) {
             throw new IllegalArgumentException("The component isn't registered in this entity");
         }
-        return componentInterface.cast(this.componentMap.get(componentInterface));
+        final Class<?> regInterface = this.extractRegisteredInterface(componentInterface).orElseThrow();
+        return componentInterface.cast(this.componentMap.get(regInterface));
     }
 
     @Override
     public final boolean hasComponent(final Class<?> componentInterface) {
-        return !Objects.isNull(componentInterface) && this.componentMap.containsKey(componentInterface);
+        return this.extractRegisteredInterface(componentInterface).isPresent();
     }
 }
