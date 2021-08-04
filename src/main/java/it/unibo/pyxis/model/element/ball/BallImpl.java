@@ -98,6 +98,9 @@ public final class BallImpl extends AbstractElement implements Ball {
     }
 
     private void registerCollision(final CollisionEvent collisionEvent) {
+        if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.TOP) {
+            collisionEvent.getCollisionInformation().setHitEdge(HitEdge.HORIZONTAL);
+        }
         final HitEdge hitEdge = collisionEvent.getCollisionInformation().getHitEdge();
         final Dimension borderOffset = collisionEvent.getCollisionInformation().getBorderOffset();
         this.collisionInformation.put(hitEdge, borderOffset);
@@ -125,7 +128,6 @@ public final class BallImpl extends AbstractElement implements Ball {
         if (this.id == collisionEvent.getBallId()) {
             if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.TOP) {
                 this.applyPaceChange(collisionEvent.getPadHitPercentage());
-                collisionEvent.getCollisionInformation().setHitEdge(HitEdge.HORIZONTAL);
             }
             this.registerCollision(collisionEvent);
         }
