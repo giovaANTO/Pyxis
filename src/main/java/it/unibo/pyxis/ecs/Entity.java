@@ -1,4 +1,4 @@
-package it.unibo.pyxis.ecs.entity;
+package it.unibo.pyxis.ecs;
 
 import it.unibo.pyxis.ecs.component.Component;
 

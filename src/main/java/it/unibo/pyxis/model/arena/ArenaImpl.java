@@ -13,7 +13,7 @@ import it.unibo.pyxis.model.arena.component.ArenaEventComponent;
 import it.unibo.pyxis.model.arena.component.ArenaPhysicsComponent;
 import it.unibo.pyxis.ecs.component.event.EventComponent;
 import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
-import it.unibo.pyxis.ecs.entity.AbstractEntity;
+import it.unibo.pyxis.ecs.AbstractEntity;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.ball.BallType;

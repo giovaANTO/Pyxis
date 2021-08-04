@@ -1,7 +1,7 @@
 package it.unibo.pyxis.ecs.component.sprite;
 
 import it.unibo.pyxis.ecs.component.AbstractComponent;
-import it.unibo.pyxis.ecs.entity.Entity;
+import it.unibo.pyxis.ecs.Entity;
 import javafx.scene.image.Image;
 
 import java.util.logging.Level;

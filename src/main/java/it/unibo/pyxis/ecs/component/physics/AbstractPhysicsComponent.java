@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.unibo.pyxis.ecs.component.AbstractComponent;
-import it.unibo.pyxis.ecs.entity.Entity;
+import it.unibo.pyxis.ecs.Entity;
 
 public abstract class AbstractPhysicsComponent<E extends Entity> extends AbstractComponent<E> implements PhysicsComponent<E> {
 

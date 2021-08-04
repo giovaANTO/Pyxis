@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.element;
 
 import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
-import it.unibo.pyxis.ecs.entity.AbstractEntity;
+import it.unibo.pyxis.ecs.AbstractEntity;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;

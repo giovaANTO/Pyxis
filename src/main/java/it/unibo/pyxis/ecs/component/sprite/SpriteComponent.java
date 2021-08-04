@@ -1,7 +1,7 @@
 package it.unibo.pyxis.ecs.component.sprite;
 
 import it.unibo.pyxis.ecs.component.Component;
-import it.unibo.pyxis.ecs.entity.Entity;
+import it.unibo.pyxis.ecs.Entity;
 import javafx.scene.image.Image;
 import java.io.File;
 

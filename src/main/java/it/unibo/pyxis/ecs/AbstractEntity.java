@@ -1,4 +1,4 @@
-package it.unibo.pyxis.ecs.entity;
+package it.unibo.pyxis.ecs;
 
 import it.unibo.pyxis.ecs.component.Component;
 
@@ -17,22 +17,34 @@ public abstract class AbstractEntity implements Entity {
      * @param component
      *                  The {@link Component}
      * @return
-     *                  A {@link Class} representing the {@link Component} interface
-     *                  or null if the component isn't extending any interface.
+     *                  An {@link Optional} with the {@link Component} interface.
      */
-    private Class<?> findComponentInterface(final Component<?> component) {
+    private Optional<Class<?>> findComponentInterface(final Component<?> component) {
         Class<?> actualClass = component.getClass();
-        Class<?>[] compInterfaces = actualClass.getInterfaces();
-        while (compInterfaces.length == 0 && !actualClass.getName().equals(Object.class.getName())) {
+        while (!actualClass.getName().equals(Object.class.getName())) {
+            Class<?>[] compInterfaces = actualClass.getInterfaces();
+            if (compInterfaces.length != 0) {
+                final Optional<Class<?>> assignableComponentClass = Arrays.stream(compInterfaces)
+                        .filter(Component.class::isAssignableFrom)
+                        .findFirst();
+                if (assignableComponentClass.isPresent()) {
+                    return assignableComponentClass;
+                }
+            }
             actualClass = actualClass.getSuperclass();
-            compInterfaces = actualClass.getInterfaces();
         }
-        return compInterfaces.length != 0 ? compInterfaces[0] : null;
+        return Optional.empty();
     }
 
     /**
+     * Extract a registered {@link Component} interface from the one in input.
+     * The method will check first if the given interface is already registered in the {@link Entity}, if not it
+     * will search for one of the other super interfaces.
      * @param inputInterface
+     *                          The starting interface
      * @return
+     *                          An {@link Optional} with the registered interface if inputInterface is present
+     *                          or an empty one otherwise.
      */
     private Optional<Class<?>> extractRegisteredInterface(final Class<?> inputInterface) {
         if (Objects.isNull(inputInterface)) {
@@ -46,10 +58,10 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public final <C extends Component<?>> void registerComponent(final C component) {
-        final Class<?> componentClass = findComponentInterface(component);
-        if (!this.hasComponent(componentClass)) {
+        final Optional<Class<?>> componentClass = findComponentInterface(component);
+        if (componentClass.isPresent() && !this.hasComponent(componentClass.get())) {
             component.attach();
-            this.componentMap.put(componentClass, component);
+            this.componentMap.put(componentClass.get(), component);
         }
     }
 
