@@ -1,6 +1,10 @@
 package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
+import it.unibo.pyxis.view.drawer.ArenaCanvasDrawer;
+import it.unibo.pyxis.view.drawer.binder.Binder;
+import it.unibo.pyxis.view.drawer.binder.CanvasRatioBinder;
+import it.unibo.pyxis.view.drawer.binder.LabelSize;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
@@ -12,10 +16,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import it.unibo.pyxis.view.drawer.CanvasRatioBinder;
-import it.unibo.pyxis.view.drawer.ArenaCanvasDrawer;
-import it.unibo.pyxis.view.drawer.LabelSizeBinder;
 
 public final class GameSceneView extends AbstractJavaFXView<GameSceneController> implements RenderableView {
 
@@ -35,8 +35,8 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     private Label currentLives, currentScore, currentLevel;
 
     private ArenaCanvasDrawer drawer;
-    private CanvasRatioBinder canvasBinder;
-    private Set<LabelSizeBinder> labelBinders;
+    private Binder canvasBinder;
+    private Set<LabelSize> labelBinders;
 
     public GameSceneView(final GameSceneController inputController) {
         super(inputController);
@@ -54,15 +54,10 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     }
 
     private void setupBinders() {
-        this.canvasBinder = new CanvasRatioBinder(mainPane.widthProperty(), mainPane.heightProperty(),
-                mainPane.getPrefWidth(), mainPane.getPrefHeight(),
-                arenaCanvas.widthProperty(), arenaCanvas.heightProperty(),
-                arenaCanvas.getWidth(), arenaCanvas.getHeight());
+        this.canvasBinder = new CanvasRatioBinder(mainPane, arenaCanvas);
         this.labelBinders = Stream.concat(leftVBox.getChildren().stream(), rightVBox.getChildren().stream())
                                 .filter(n -> n instanceof Label)
-                                .map(n -> new LabelSizeBinder(mainPane.widthProperty(), mainPane.heightProperty(),
-                                            mainPane.getPrefWidth(), mainPane.getPrefHeight(),
-                                            (Label) n))
+                                .map(n -> new LabelSize(mainPane, (Label) n))
                                 .collect(Collectors.toSet());
     }
 
@@ -75,8 +70,8 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     }
 
     private void updateBindNodesToContainer() {
-        this.labelBinders.forEach(b -> b.bindWithSize());
-        this.canvasBinder.bindWithRatioToContainer();
+        this.labelBinders.forEach(LabelSize::bind);
+        this.canvasBinder.bind();
     }
 
     private void drawCanvas() {
