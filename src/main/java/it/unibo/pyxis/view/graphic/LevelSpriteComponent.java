@@ -12,7 +12,7 @@ public final class LevelSpriteComponent extends AbstractSpriteComponent<Level> {
     }
 
     private String getFileNameByLevelNumber() {
-        return this.getEntity().getLevelNumber() + "BACKGROUND.png";
+        return 1 + "BACKGROUND.png";
     }
 
     @Override
