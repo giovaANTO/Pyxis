@@ -1,7 +1,6 @@
 package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
-import it.unibo.pyxis.view.drawer.ArenaCanvasDrawer;
 import it.unibo.pyxis.view.drawer.Drawer;
 import it.unibo.pyxis.view.drawer.DrawerImpl;
 import it.unibo.pyxis.view.drawer.binder.Binder;
