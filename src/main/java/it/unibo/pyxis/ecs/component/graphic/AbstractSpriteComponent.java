@@ -1,18 +1,17 @@
-package it.unibo.pyxis.ecs.component.physics;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package it.unibo.pyxis.ecs.component.graphic;
 
 import it.unibo.pyxis.ecs.component.AbstractComponent;
 import it.unibo.pyxis.ecs.entity.Entity;
 
-public abstract class AbstractPhysicsComponent<E extends Entity> extends AbstractComponent<E> implements PhysicsComponent<E> {
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public abstract class AbstractSpriteComponent<E extends Entity> extends AbstractComponent<E> implements SpriteComponent<E> {
 
     private boolean isAttached;
 
-    public AbstractPhysicsComponent(final E entity) {
+    public AbstractSpriteComponent(final E entity) {
         super(entity);
-        this.isAttached = false;
     }
 
     /**
@@ -27,13 +26,13 @@ public abstract class AbstractPhysicsComponent<E extends Entity> extends Abstrac
     @Override
     public void attach() {
         this.isAttached = true;
-        this.getLogger().log(Level.INFO, "Physics component attached");
+        this.getLogger().log(Level.INFO, "Sprite component attached");
     }
 
     @Override
     public void detach() {
         this.isAttached = false;
-        this.getLogger().log(Level.INFO, "Physics component detached");
+        this.getLogger().log(Level.INFO, "Sprite component detached");
     }
 
     @Override
@@ -42,5 +41,5 @@ public abstract class AbstractPhysicsComponent<E extends Entity> extends Abstrac
     }
 
     @Override
-    public abstract void update(double elapsed);
+    public abstract String obtainSprite();
 }
