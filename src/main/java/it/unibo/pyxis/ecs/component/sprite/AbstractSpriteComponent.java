@@ -1,4 +1,4 @@
-package it.unibo.pyxis.ecs.component.graphic;
+package it.unibo.pyxis.ecs.component.sprite;
 
 import it.unibo.pyxis.ecs.component.AbstractComponent;
 import it.unibo.pyxis.ecs.entity.Entity;
