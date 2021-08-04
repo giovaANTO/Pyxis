@@ -50,6 +50,12 @@ public interface Arena {
      */
     void cleanUp();
     /**
+     * Decrease the {@link Pad}'s {@link Dimension}'s width of an input amount.
+     * @param amount
+     *          The amount to decrease.
+     */
+    void decreasePadWidth(double amount);
+    /**
      * Return a {@link java.util.Set} of {@link Ball} that are currently present in
      * the {@link Arena}.
      * @return
@@ -114,6 +120,12 @@ public interface Arena {
      *              The instance of {@link PowerupActivationEvent}
      */
     void handlePowerupActivation(PowerupActivationEvent event);
+    /**
+     * Increase the {@link Pad}'s {@link Dimension}'s width of an input amount.
+     * @param amount
+     *          The amount to increase.
+     */
+    void increasePadWidth(double amount);
     /**
      * Check if the {@link Arena} is cleared, or rather, there aren't any bricks left except for the ones
      * of indestructible type.

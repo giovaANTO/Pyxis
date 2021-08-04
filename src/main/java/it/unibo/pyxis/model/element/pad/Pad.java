@@ -12,16 +12,16 @@ public interface Pad extends Element {
      *          The tag string of the {@link Pad}
      */
     String getTag();
-
     /**
-     * Handles the ball's movement event.
+     * Handle a {@link BallMovementEvent}.
      * @param movementEvent
+     *          The {@link BallMovementEvent} to handle.
      */
     void handleBallMovement(BallMovementEvent movementEvent);
-
     /**
-     * Handles a powerup's movement event.
+     * Handle a {@link PowerupMovementEvent}.
      * @param movementEvent
+     *          The {@link PowerupMovementEvent} to handle.
      */
     void handlePowerupMovement(PowerupMovementEvent movementEvent);
 }

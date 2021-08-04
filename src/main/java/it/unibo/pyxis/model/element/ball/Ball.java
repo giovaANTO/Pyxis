@@ -37,7 +37,6 @@ public interface Ball extends Element {
      *              Receive a {@link BallCollisionWithBrickEvent}
      */
     void handleBrickCollision(BallCollisionWithBrickEvent collisionEvent);
-
     /**
      * Handles the collision event between the ball and the pad.
      * @param collisionEvent
