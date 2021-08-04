@@ -2,6 +2,7 @@ package it.unibo.pyxis.ecs.component.sprite;
 
 import it.unibo.pyxis.ecs.component.Component;
 import it.unibo.pyxis.ecs.entity.Entity;
+import javafx.scene.image.Image;
 
 public interface SpriteComponent<T extends Entity> extends Component<T> {
     /**
@@ -9,5 +10,5 @@ public interface SpriteComponent<T extends Entity> extends Component<T> {
      * @return
      *          A String containing the path of the sprite.
      */
-    String obtainSprite();
+    Image obtainSprite();
 }

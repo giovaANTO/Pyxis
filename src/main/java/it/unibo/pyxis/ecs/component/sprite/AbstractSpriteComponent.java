@@ -2,6 +2,7 @@ package it.unibo.pyxis.ecs.component.sprite;
 
 import it.unibo.pyxis.ecs.component.AbstractComponent;
 import it.unibo.pyxis.ecs.entity.Entity;
+import javafx.scene.image.Image;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,5 +42,5 @@ public abstract class AbstractSpriteComponent<E extends Entity> extends Abstract
     }
 
     @Override
-    public abstract String obtainSprite();
+    public abstract Image obtainSprite();
 }

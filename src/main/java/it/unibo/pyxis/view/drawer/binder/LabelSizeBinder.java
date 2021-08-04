@@ -5,13 +5,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
-public class LabelSize implements Binder {
+public final class LabelSizeBinder implements Binder {
 
     private final Label label;
     private final double originalSize;
     private final double originalWidth;
 
-    public LabelSize(final Pane mainPane, final Label label) {
+    public LabelSizeBinder(final Pane mainPane, final Label label) {
         this.label = label;
         this.originalSize = label.getFont().getSize();
         this.originalWidth = label.getPrefWidth();

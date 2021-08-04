@@ -4,7 +4,7 @@ import it.unibo.pyxis.controller.controllers.GameSceneController;
 import it.unibo.pyxis.view.drawer.ArenaCanvasDrawer;
 import it.unibo.pyxis.view.drawer.binder.Binder;
 import it.unibo.pyxis.view.drawer.binder.CanvasRatioBinder;
-import it.unibo.pyxis.view.drawer.binder.LabelSize;
+import it.unibo.pyxis.view.drawer.binder.LabelSizeBinder;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
@@ -36,7 +36,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
 
     private ArenaCanvasDrawer drawer;
     private Binder canvasBinder;
-    private Set<LabelSize> labelBinders;
+    private Set<LabelSizeBinder> labelBinders;
 
     public GameSceneView(final GameSceneController inputController) {
         super(inputController);
@@ -57,7 +57,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.canvasBinder = new CanvasRatioBinder(mainPane, arenaCanvas);
         this.labelBinders = Stream.concat(leftVBox.getChildren().stream(), rightVBox.getChildren().stream())
                                 .filter(n -> n instanceof Label)
-                                .map(n -> new LabelSize(mainPane, (Label) n))
+                                .map(n -> new LabelSizeBinder(mainPane, (Label) n))
                                 .collect(Collectors.toSet());
     }
 
@@ -70,7 +70,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     }
 
     private void updateBindNodesToContainer() {
-        this.labelBinders.forEach(LabelSize::bind);
+        this.labelBinders.forEach(LabelSizeBinder::bind);
         this.canvasBinder.bind();
     }
 

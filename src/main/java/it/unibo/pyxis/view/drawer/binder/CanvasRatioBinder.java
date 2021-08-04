@@ -1,12 +1,11 @@
 package it.unibo.pyxis.view.drawer.binder;
 
-import it.unibo.pyxis.view.drawer.binder.Binder;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.canvas.Canvas;
 
-public class CanvasRatioBinder implements Binder {
+public final class CanvasRatioBinder implements Binder {
 
     private final ReadOnlyDoubleProperty wC;
     private final ReadOnlyDoubleProperty hC;
