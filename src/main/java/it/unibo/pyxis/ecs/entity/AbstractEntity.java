@@ -50,8 +50,6 @@ public abstract class AbstractEntity implements Entity {
         if (!this.hasComponent(componentClass)) {
             component.attach();
             this.componentMap.put(componentClass, component);
-        } else {
-            throw new IllegalArgumentException("The input component can't be registered in this entity");
         }
     }
 

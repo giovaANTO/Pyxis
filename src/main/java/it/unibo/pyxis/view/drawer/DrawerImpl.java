@@ -1,5 +1,7 @@
 package it.unibo.pyxis.view.drawer;
 
+import it.unibo.pyxis.ecs.component.sprite.SpriteComponent;
+import it.unibo.pyxis.model.element.Element;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
@@ -53,22 +55,27 @@ public final class DrawerImpl implements Drawer {
         return new DimensionImpl(scaledWidth, scaledHeight);
     }
 
-    @Override
-    public void clear() {
-        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-    }
-
-    @Override
-    public void draw(final Image spriteImage, final Coord position, final Dimension dimension) {
+    private void drawImg(final Image spriteImage, final Coord position, final Dimension dimension) {
         final Coord scalePos = this.modelToViewPositionScale(position, dimension);
         final Dimension scaleDim = this.modelToViewDimensionScale(dimension);
         gc.drawImage(spriteImage, scalePos.getX(), scalePos.getY(), scaleDim.getWidth(), scaleDim.getHeight());
     }
 
     @Override
-    public void fillBackground(final Image backgroundImage) {
+    public void clear() {
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+    }
+
+    @Override
+    public void draw(final Element element) {
+        final Image spriteImage = element.getComponent(SpriteComponent.class).obtainSprite();
+        this.drawImg(spriteImage, element.getPosition(), element.getDimension());
+    }
+
+    @Override
+    public void drawBackground(final Image levelImage) {
         final Dimension arenaDim = this.arenaDimension;
         final Coord position = new CoordImpl(arenaDim.getWidth() / 2, arenaDim.getHeight() / 2);
-        this.draw(backgroundImage, position, arenaDim);
+        this.drawImg(levelImage, position, arenaDim);
     }
 }

@@ -2,6 +2,8 @@ package it.unibo.pyxis.view.views;
 
 import it.unibo.pyxis.controller.controllers.GameSceneController;
 import it.unibo.pyxis.view.drawer.ArenaCanvasDrawer;
+import it.unibo.pyxis.view.drawer.Drawer;
+import it.unibo.pyxis.view.drawer.DrawerImpl;
 import it.unibo.pyxis.view.drawer.binder.Binder;
 import it.unibo.pyxis.view.drawer.binder.CanvasRatioBinder;
 import it.unibo.pyxis.view.drawer.binder.LabelSizeBinder;
@@ -34,7 +36,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     @FXML
     private Label currentLives, currentScore, currentLevel;
 
-    private ArenaCanvasDrawer drawer;
+    private Drawer drawer;
     private Binder canvasBinder;
     private Set<LabelSizeBinder> labelBinders;
 
@@ -49,7 +51,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         leftVBox.prefHeightProperty().bind(mainPane.heightProperty());
         rightVBox.prefWidthProperty().bind(mainPane.widthProperty().multiply(rightVBox.getPrefWidth() / mainPane.getPrefWidth()));
         rightVBox.prefHeightProperty().bind(mainPane.heightProperty());
-        this.drawer = new ArenaCanvasDrawer(arenaCanvas.getGraphicsContext2D(), this.getController().getArenaDimension());
+        this.drawer = new DrawerImpl(arenaCanvas.getGraphicsContext2D(), this.getController().getArenaDimension());
         this.setupBinders();
     }
 
@@ -75,12 +77,12 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     }
 
     private void drawCanvas() {
-        this.drawer.clearCanvas();
-        this.drawer.fillBackground(1);
-        this.getController().getBricks().forEach(b -> this.drawer.fillBrick(b.getPosition(), b.getDimension(), b.getBrickType()));
-        this.getController().getBalls().forEach(b -> this.drawer.fillBall(b.getPosition(), b.getDimension(), b.getType()));
-        this.getController().getPowerups().forEach(p -> this.drawer.fillPowerup(p.getPosition(), p.getDimension(), p.getType()));
-        this.drawer.fillPad(this.getController().getPad());
+        this.drawer.clear();
+        this.drawer.drawBackground(this.getController().getLevelImage());
+        this.getController().getBricks().forEach(this.drawer::draw);
+        this.getController().getBalls().forEach(this.drawer::draw);
+        this.getController().getPowerups().forEach(this.drawer::draw);
+        this.drawer.draw(this.getController().getPad());
     }
 
 }

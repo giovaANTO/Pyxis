@@ -4,6 +4,8 @@ import it.unibo.pyxis.ecs.component.sprite.AbstractSpriteComponent;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import javafx.scene.image.Image;
 
+import java.util.Objects;
+
 public final class PowerupSpriteComponent extends AbstractSpriteComponent<Powerup> {
     public PowerupSpriteComponent(final Powerup entity) {
         super(entity);
@@ -11,6 +13,7 @@ public final class PowerupSpriteComponent extends AbstractSpriteComponent<Poweru
 
     @Override
     public Image obtainSprite() {
-        return null;
+        final String path = this.getSpritesPath() + "POWERUP.png";
+        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(path)));
     }
 }
