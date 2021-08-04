@@ -1,6 +1,5 @@
 package it.unibo.pyxis.view.drawer.binder;
 
-import it.unibo.pyxis.view.drawer.binder.Binder;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
