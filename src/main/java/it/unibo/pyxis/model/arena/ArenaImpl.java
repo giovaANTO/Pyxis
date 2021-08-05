@@ -52,6 +52,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         final PowerupHandlerPolicy policy = (type, map) -> {
             if (type == PowerupEffectType.BALL_POWERUP) {
                 map.values().forEach(Thread::interrupt);
+                map.clear();
             }
         };
         this.powerupHandler = new PowerupHandlerImpl(policy, this);
