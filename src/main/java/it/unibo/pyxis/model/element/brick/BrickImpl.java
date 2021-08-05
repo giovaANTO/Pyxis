@@ -12,7 +12,7 @@ import it.unibo.pyxis.model.util.VectorImpl;
 
 public final class BrickImpl extends AbstractElement implements Brick {
 
-    private static final Dimension DIMENSION = new DimensionImpl(60, 25);
+    private static final Dimension DIMENSION = new DimensionImpl(42, 18);
     private final BrickType brickType;
     private int durability;
 

@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public final class PowerupImpl extends AbstractElement implements Powerup {
 
-    private static final Dimension DIMENSION = new DimensionImpl(30, 20);
+    private static final Dimension DIMENSION = new DimensionImpl(20, 14);
     private static final Vector PACE = new VectorImpl(0, 30);
     private final PowerupType type;
 
