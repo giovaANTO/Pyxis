@@ -5,6 +5,8 @@ import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
 import it.unibo.pyxis.controller.input.InputHandler;
 import it.unibo.pyxis.controller.input.InputHandlerImpl;
+import it.unibo.pyxis.controller.soundplayer.Sound;
+import it.unibo.pyxis.controller.soundplayer.SoundPlayer;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
@@ -28,6 +30,7 @@ public class LinkerImpl implements Linker {
         this.createGameLoop();
         this.createInputHandler(inputStage);
         this.createSceneHandler(inputStage);
+        SoundPlayer.playBackgroundMusic(Sound.MENU_MUSIC);
         this.switchScene(SceneType.MENU_SCENE);
         this.maximumLevelReached = 1;
     }
@@ -89,6 +92,7 @@ public class LinkerImpl implements Linker {
         if (this.gameState.getState() != StateEnum.PAUSE) {
             this.gameState.setState(StateEnum.PAUSE);
         }
+        this.gameState.updateTotalScore();
         this.switchScene(SceneType.END_LEVEL_SCENE);
     }
     @Override
@@ -129,6 +133,7 @@ public class LinkerImpl implements Linker {
     public final void quit() {
         this.gameState.setState(StateEnum.STOP);
         this.gameState.getCurrentLevel().getArena().cleanUp();
+        SoundPlayer.shutdown();
         this.sceneHandler.close();
     }
     @Override

@@ -3,7 +3,6 @@ package it.unibo.pyxis.model.powerup.effect;
 import it.unibo.pyxis.model.arena.Arena;
 
 public interface PowerupEffect {
-
     /**
      * Apply the effect of the {@link it.unibo.pyxis.model.element.powerup.Powerup}.
      *

@@ -9,7 +9,7 @@
    <children>
       <VBox fx:id="vBox" alignment="CENTER" spacing="20.0" StackPane.alignment="CENTER">
          <children>
-            <Label alignment="BOTTOM_CENTER" prefHeight="80.0" prefWidth="600.0" text="YOUR SCORE" textFill="WHITE" />
+            <Label alignment="BOTTOM_CENTER" prefHeight="80.0" prefWidth="600.0" text="TOTAL SCORE" textFill="WHITE" />
             <Label fx:id="score" alignment="TOP_CENTER" prefHeight="42.0" prefWidth="600.0" text="score" textFill="WHITE" />
             <Button mnemonicParsing="false" onAction="#menu" prefHeight="30.0" prefWidth="80.0" text="Main Menu" />
             <Button fx:id="nextLevelButton" mnemonicParsing="false" onAction="#nextLevel" prefHeight="30.0" prefWidth="80.0" text="Next Level" />

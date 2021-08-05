@@ -28,7 +28,6 @@ public interface Level extends Entity {
      *          An integer representing the {@link Level} number.
      */
     int getLevelNumber();
-
     /**
      * Return the current {@link LevelStatus} of the {@link Level}.
      *
@@ -36,7 +35,6 @@ public interface Level extends Entity {
      *          The value of {@link LevelStatus}
      */
     LevelStatus getLevelStatus();
-
     /**
      * Return the total number of lives.
      *
@@ -44,7 +42,6 @@ public interface Level extends Entity {
      *          The number of current lives.
      */
     int getLives();
-
     /**
      * Return the total score of this level.
      *
@@ -52,21 +49,18 @@ public interface Level extends Entity {
      *          The score.
      */
     int getScore();
-
     /**
      * Increase the score of the level of a certain amount.
      * @param score
      *          The amount to add.
      */
     void increaseScore(int score);
-
     /**
      * Sets a {@link LevelStatus}.
      * @param levelStatus
-     *                    The input {@link LevelStatus} to set
+     *          The input {@link LevelStatus} to set
      */
     void setLevelStatus(LevelStatus levelStatus);
-
     /**
      * Call an un update on the {@link Level} updating each
      * {@link it.unibo.pyxis.model.element.Element} in the {@link Arena} and check

@@ -16,21 +16,6 @@ public final class GameStateImpl implements GameState {
     }
 
     /**
-     * Change the current playing {@link Level}.
-     * If no other levels are available set the {@link GameState} in a stopped mode.
-     */
-    public void switchLevel() {
-        if (this.gameStateEnum != StateEnum.PAUSE) {
-            this.setState(StateEnum.PAUSE);
-        }
-        this.score += this.currentLevel.getScore();
-        this.currentLevel.cleanUp();
-        if (this.iterator.hasNext()) {
-            this.currentLevel = this.iterator.next();
-        }
-    }
-
-    /**
      * Initialize the {@link GameState} setting the first {@link Level} to play.
      * The score is also cleared on the call of this procedure.
      */
@@ -42,25 +27,13 @@ public final class GameStateImpl implements GameState {
     }
 
     @Override
-    public void reset() {
-        this.getCurrentLevel().cleanUp();
-        this.initialize();
-    }
-
-    @Override
-    public void selectStartingLevel(final int levelNumber) {
-        this.iterator = new LevelIterator(levelNumber);
-        this.initialize();
+    public Level getCurrentLevel() {
+        return this.currentLevel;
     }
 
     @Override
     public LevelIterator getLevelIterator() {
         return this.iterator;
-    }
-
-    @Override
-    public Level getCurrentLevel() {
-        return this.currentLevel;
     }
 
     @Override
@@ -79,7 +52,35 @@ public final class GameStateImpl implements GameState {
     }
 
     @Override
+    public void reset() {
+        this.getCurrentLevel().cleanUp();
+        this.initialize();
+    }
+
+    @Override
+    public void selectStartingLevel(final int levelNumber) {
+        this.iterator = new LevelIterator(levelNumber);
+        this.initialize();
+    }
+
+    @Override
+    public void switchLevel() {
+        if (this.gameStateEnum != StateEnum.PAUSE) {
+            this.setState(StateEnum.PAUSE);
+        }
+        this.currentLevel.cleanUp();
+        if (this.iterator.hasNext()) {
+            this.currentLevel = this.iterator.next();
+        }
+    }
+
+    @Override
     public void update(final double delta) {
         this.getCurrentLevel().update(delta);
+    }
+
+    @Override
+    public void updateTotalScore() {
+        this.score += this.currentLevel.getScore();
     }
 }

@@ -8,9 +8,8 @@ public enum Sound {
     BORDER_COLLISION("border_impact"),
     BREAKABLE_BRICK_COLLISION("breakable_brick_impact"),
     UNBREAKABLE_BRICK_COLLISION("unbreakable_brick_impact"),
-    BALL_DESTROYED("ball_destroyed"),
+    LIFE_DECREASED("life_decreased"),
     POWERUP_ACTIVATION("powerup_activation"),
-    GAME_OVER("game_over"),
     START_GAME_BUTTON("start_game_button"),
     GENERIC_BUTTON("generic_button");
 

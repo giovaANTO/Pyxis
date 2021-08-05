@@ -2,13 +2,13 @@ package it.unibo.pyxis.model.state;
 
 public enum StateEnum {
     /**
-     * The game is currently running.
-     */
-    RUN,
-    /**
      * The game is in the pause status.
      */
     PAUSE,
+    /**
+     * The game is currently running.
+     */
+    RUN,
     /**
      * The game is in the stop status.
      */
@@ -21,5 +21,5 @@ public enum StateEnum {
      * The game is currently in a new game, but it's waiting to receive the starting
      * command.
      */
-    WAITING_FOR_STARTING_COMMAND
+    WAITING_FOR_STARTING_COMMAND;
 }

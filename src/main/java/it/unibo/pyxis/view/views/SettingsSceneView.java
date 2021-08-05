@@ -38,6 +38,7 @@ public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneCon
     }
 
     public void back() {
+        this.playGenericButtonPressSound();
         this.getController().back();
     }
 

@@ -10,7 +10,7 @@ import java.util.Iterator;
 public final class LevelIterator implements Iterator<Level> {
 
     private static final int DEFAULT_STARTING_LEVEL = 1;
-    private static final int DEFAULT_FINAL_LEVEL = 2;
+    private static final int DEFAULT_FINAL_LEVEL = 5;
 
     private final int finalLevel;
     private final LevelLoader loader;
