@@ -14,72 +14,72 @@ balls:
     ballType: "NORMAL"
     id: 1
 bricks:
-  - x: 175
-    y: 30
+  - x: 189
+    y: 27
     type: "RED"
-  - x: 133
-    y: 48
+  - x: 147
+    y: 45
     type: "RED"
-  - x: 175
-    y: 48
+  - x: 189
+    y: 45
     type: "RED"
-  - x: 217
-    y: 48
+  - x: 231
+    y: 45
     type: "RED"
-  - x: 91
-    y: 66
+  - x: 105
+    y: 63
     type: "RED"
-  - x: 133
-    y: 66
+  - x: 147
+    y: 63
     type: "RED"
-  - x: 175
-    y: 66
+  - x: 189
+    y: 63
     type: "ORANGE"
-  - x: 217
-    y: 66
+  - x: 231
+    y: 63
     type: "RED"
-  - x: 259
-    y: 66
+  - x: 273
+    y: 63
     type: "RED"
-  - x: 91
-    y: 84
+  - x: 105
+    y: 81
     type: "RED"
-  - x: 133
-    y: 84
+  - x: 147
+    y: 81
     type: "ORANGE"
-  - x: 175
-    y: 84
+  - x: 189
+    y: 81
     type: "ORANGE"
-  - x: 217
-    y: 84
+  - x: 231
+    y: 81
     type: "ORANGE"
-  - x: 259
-    y: 84
+  - x: 273
+    y: 81
     type: "RED"
-  - x: 91
-    y: 102
+  - x: 105
+    y: 99
     type: "RED"
-  - x: 133
-    y: 102
+  - x: 147
+    y: 99
     type: "RED"
-  - x: 175
-    y: 102
+  - x: 189
+    y: 99
     type: "ORANGE"
-  - x: 217
-    y: 102
+  - x: 231
+    y: 99
     type: "RED"
-  - x: 259
-    y: 102
+  - x: 273
+    y: 99
     type: "RED"
-  - x: 133
-    y: 120
+  - x: 147
+    y: 117
     type: "RED"
-  - x: 175
-    y: 120
+  - x: 189
+    y: 117
     type: "RED"
-  - x: 217
-    y: 120
+  - x: 231
+    y: 117
     type: "RED"
-  - x: 175
-    y: 138
+  - x: 189
+    y: 135
     type: "RED"
