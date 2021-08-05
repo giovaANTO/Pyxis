@@ -1,61 +1,85 @@
 !!it.unibo.model.level.loader.skeleton.level.LevelSkeletonImpl
 lives: 3
-width: 500
-height: 560
+width: 350
+height: 400
 levelNumber: 1
 pad:
-    x: 200
-    y: 500
+    x: 175
+    y: 350
 balls:
-  - x: 240
+  - x: 175
     y: 300
     paceX: 0
-    paceY: 200
+    paceY: 160
     ballType: "NORMAL"
     id: 1
 bricks:
-  - x: 30
-    y: 50
+  - x: 175
+    y: 30
     type: "RED"
-  - x: 90
-    y: 50
+  - x: 133
+    y: 48
     type: "RED"
-  - x: 150
-    y: 50
+  - x: 175
+    y: 48
     type: "RED"
-  - x: 210
-    y: 50
+  - x: 217
+    y: 48
     type: "RED"
-  - x: 30
-    y: 100
+  - x: 91
+    y: 66
     type: "RED"
-  - x: 90
-    y: 100
+  - x: 133
+    y: 66
     type: "RED"
-  - x: 150
-    y: 100
+  - x: 175
+    y: 66
+    type: "ORANGE"
+  - x: 217
+    y: 66
     type: "RED"
-  - x: 210
-    y: 100
+  - x: 259
+    y: 66
     type: "RED"
-  - x: 30
-    y: 150
+  - x: 91
+    y: 84
     type: "RED"
-  - x: 400
-    y: 150
+  - x: 133
+    y: 84
+    type: "ORANGE"
+  - x: 175
+    y: 84
+    type: "ORANGE"
+  - x: 217
+    y: 84
+    type: "ORANGE"
+  - x: 259
+    y: 84
     type: "RED"
-  - x: 150
-    y: 150
+  - x: 91
+    y: 102
     type: "RED"
-  - x: 210
-    y: 150
+  - x: 133
+    y: 102
     type: "RED"
-  - x: 30
-    y: 200
+  - x: 175
+    y: 102
+    type: "ORANGE"
+  - x: 217
+    y: 102
     type: "RED"
-  - x: 90
-    y: 200
+  - x: 259
+    y: 102
     type: "RED"
-  - x: 150
-    y: 200
+  - x: 133
+    y: 120
+    type: "RED"
+  - x: 175
+    y: 120
+    type: "RED"
+  - x: 217
+    y: 120
+    type: "RED"
+  - x: 175
+    y: 138
     type: "RED"
