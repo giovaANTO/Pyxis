@@ -29,9 +29,9 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     @Override
     @Subscribe
     public void handleBallBrickCollision(final BallCollisionWithBrickEvent collisionEvent) {
-        final Sound soundEffect = collisionEvent.isBrickDestructible()
-                                    ? Sound.BREAKABLE_BRICK_COLLISION
-                                    : Sound.UNBREAKABLE_BRICK_COLLISION;
+        final Sound soundEffect = collisionEvent.isBrickIndestructible()
+                                    ? Sound.UNBREAKABLE_BRICK_COLLISION
+                                    : Sound.BREAKABLE_BRICK_COLLISION;
         this.playSoundEffect(soundEffect);
     }
 

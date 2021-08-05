@@ -51,7 +51,7 @@ public final class Events {
      * @return
      *          The {@link BallCollisionWithBrickEvent} instance.
      */
-    public static BallCollisionWithBrickEvent newBallCollisionWithBrickEvent(final int id, final boolean isDestructible,
+    public static BallCollisionWithBrickEvent newBallCollisionWithBrickEvent(final int id, final boolean isIndestructible,
                                                                              final CollisionInformation collisionInformation) {
         return new BallCollisionWithBrickEvent() {
             @Override
@@ -60,8 +60,8 @@ public final class Events {
             }
 
             @Override
-            public boolean isBrickDestructible() {
-                return isDestructible;
+            public boolean isBrickIndestructible() {
+                return isIndestructible;
             }
 
             @Override

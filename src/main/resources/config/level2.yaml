@@ -25,7 +25,7 @@ bricks:
     type: "GREEN"
   - x: 63
     y: 120
-    type: "INDESTRUCTIBLE"
+    type: "YELLOW"
   - x: 105
     y: 120
     type: "INDESTRUCTIBLE"
@@ -43,7 +43,7 @@ bricks:
     type: "INDESTRUCTIBLE"
   - x: 315
     y: 120
-    type: "INDESTRUCTIBLE"
+    type: "YELLOW"
   - x: 357
     y: 120
     type: "GREEN"
