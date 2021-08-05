@@ -39,6 +39,12 @@ public interface GameState {
      */
      void update(double delta);
 
+     /**
+      * Adds the {@link it.unibo.pyxis.model.level.Level} score
+      * to the total score.
+      */
+     void updateTotalScore();
+
     /**
      * Reset the game.
      */
