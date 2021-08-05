@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -48,6 +49,9 @@ public final class SoundPlayer {
      */
     public static void setBackgroundVolume(final double volume) {
         backgroundVolume = volume;
+        if (!Objects.isNull(backgroundMusicPlayer)) {
+            backgroundMusicPlayer.setVolume(backgroundVolume);
+        }
     }
 
     /**
@@ -56,6 +60,9 @@ public final class SoundPlayer {
      */
     public static void setSoundEffectVolume(final double volume) {
         soundEffectVolume = volume;
+        if (!Objects.isNull(soundEffectPlayer)) {
+            soundEffectPlayer.setVolume(soundEffectVolume);
+        }
     }
 
     /**
@@ -63,8 +70,10 @@ public final class SoundPlayer {
      * @param backgroundMusic
      */
     public static void playBackgroundMusic(final Sound backgroundMusic) {
+        if (!Objects.isNull(backgroundMusicPlayer)) {
+            backgroundMusicPlayer.stop();
+        }
         backgroundMusicPlayer = loadMediaPlayer(backgroundMusic);
-        backgroundMusicPlayer.setVolume(backgroundVolume);
         backgroundMusicPlayer.play();
         backgroundMusicPlayer.setOnEndOfMedia(() -> {
             backgroundMusicPlayer.seek(Duration.ZERO);
@@ -78,7 +87,6 @@ public final class SoundPlayer {
      */
     public static void playSoundEffect(final Sound soundEffect) {
         soundEffectPlayer = loadMediaPlayer(soundEffect);
-        soundEffectPlayer.setVolume(soundEffectVolume);
         soundEffectPlayer.play();
     }
 }
