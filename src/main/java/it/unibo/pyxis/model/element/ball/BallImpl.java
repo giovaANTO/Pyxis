@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public final class BallImpl extends AbstractElement implements Ball {
 
-    private static final Dimension DIMENSION = new DimensionImpl(20, 20);
+    private static final Dimension DIMENSION = new DimensionImpl(14, 14);
     private BallType type;
     private Vector pace;
     private final Map<HitEdge, Dimension> collisionInformation;

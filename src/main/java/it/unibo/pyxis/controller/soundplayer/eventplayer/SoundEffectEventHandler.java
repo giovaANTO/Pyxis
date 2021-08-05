@@ -43,4 +43,8 @@ public interface SoundEffectEventHandler {
      */
     void handleDecreaseLife(final DecreaseLifeEvent event);
 
+    /**
+     * Shuts down the {@link SoundEffectEventHandler}.
+     */
+    void shutdown();
 }

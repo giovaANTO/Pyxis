@@ -92,6 +92,7 @@ public class LinkerImpl implements Linker {
         if (this.gameState.getState() != StateEnum.PAUSE) {
             this.gameState.setState(StateEnum.PAUSE);
         }
+        this.gameState.updateTotalScore();
         this.switchScene(SceneType.END_LEVEL_SCENE);
     }
     @Override
@@ -132,6 +133,7 @@ public class LinkerImpl implements Linker {
     public final void quit() {
         this.gameState.setState(StateEnum.STOP);
         this.gameState.getCurrentLevel().getArena().cleanUp();
+        SoundPlayer.shutdown();
         this.sceneHandler.close();
     }
     @Override

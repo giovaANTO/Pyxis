@@ -103,6 +103,9 @@ public final class ArenaImpl extends EntityImpl implements Arena {
 
     @Override
     public void addBrick(final Brick brick) {
+        if (this.brickMap.containsKey(brick.getPosition())) {
+            throw new IllegalArgumentException("Can't insert the brick " + brick);
+        }
         this.brickMap.put(brick.getPosition(), brick);
     }
 

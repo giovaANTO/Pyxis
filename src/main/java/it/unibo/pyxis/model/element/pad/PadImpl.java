@@ -13,7 +13,7 @@ import java.util.Objects;
 public final class PadImpl extends AbstractElement implements Pad {
 
     private static final String DEFAULT_TAG = "DEFAULT_PAD";
-    private static final Dimension DIMENSION = new DimensionImpl(100, 18);
+    private static final Dimension DIMENSION = new DimensionImpl(70, 12);
     private final String tag;
 
     public PadImpl(final Dimension inputDimension, final Coord inputPosition, final String inputTag) {

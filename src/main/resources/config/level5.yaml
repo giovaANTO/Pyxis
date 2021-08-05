@@ -2,7 +2,7 @@
 lives: 3
 width: 378
 height: 420
-levelNumber: 1
+levelNumber: 5
 pad:
     x: 189
     y: 380
@@ -14,72 +14,81 @@ balls:
     ballType: "NORMAL"
     id: 1
 bricks:
-  - x: 189
+  - x: 21
     y: 27
     type: "RED"
-  - x: 147
-    y: 45
+  - x: 63
+    y: 27
     type: "RED"
-  - x: 189
-    y: 45
+  - x: 105
+    y: 27
     type: "RED"
-  - x: 231
+  - x: 63
     y: 45
     type: "RED"
   - x: 105
-    y: 63
-    type: "RED"
-  - x: 147
-    y: 63
-    type: "RED"
-  - x: 189
-    y: 63
+    y: 45
     type: "ORANGE"
-  - x: 231
-    y: 63
-    type: "RED"
-  - x: 273
+  - x: 189
+    y: 45
+    type: "ORANGE"
+  - x: 63
     y: 63
     type: "RED"
   - x: 105
-    y: 81
-    type: "RED"
-  - x: 147
-    y: 81
+    y: 63
     type: "ORANGE"
   - x: 189
-    y: 81
+    y: 63
     type: "ORANGE"
-  - x: 231
-    y: 81
-    type: "ORANGE"
-  - x: 273
+  - x: 63
     y: 81
     type: "RED"
   - x: 105
-    y: 99
-    type: "RED"
+    y: 81
+    type: "ORANGE"
   - x: 147
+    y: 81
+    type: "ORANGE"
+  - x: 189
+    y: 81
+    type: "ORANGE"
+  - x: 231
+    y: 81
+    type: "YELLOW"
+  - x: 315
+    y: 81
+    type: "YELLOW"
+  - x: 105
     y: 99
-    type: "RED"
+    type: "ORANGE"
   - x: 189
     y: 99
     type: "ORANGE"
   - x: 231
     y: 99
-    type: "RED"
-  - x: 273
+    type: "YELLOW"
+  - x: 315
     y: 99
-    type: "RED"
-  - x: 147
+    type: "YELLOW"
+  - x: 105
     y: 117
-    type: "RED"
+    type: "ORANGE"
   - x: 189
     y: 117
-    type: "RED"
+    type: "ORANGE"
+  - x: 273
+    y: 117
+    type: "INDESTRUCTIBLE"
   - x: 231
-    y: 117
-    type: "RED"
-  - x: 189
     y: 135
-    type: "RED"
+    type: "YELLOW"
+  - x: 315
+    y: 135
+    type: "YELLOW"
+  - x: 231
+    y: 153
+    type: "YELLOW"
+  - x: 315
+    y: 153
+    type: "YELLOW"

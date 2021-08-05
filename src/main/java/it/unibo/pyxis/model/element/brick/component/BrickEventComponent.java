@@ -3,6 +3,7 @@ package it.unibo.pyxis.model.element.brick.component;
 import it.unibo.pyxis.ecs.component.event.AbstractEventComponent;
 import it.unibo.pyxis.ecs.component.event.EventComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
+import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
@@ -21,17 +22,20 @@ public class BrickEventComponent extends AbstractEventComponent<Brick> {
     }
 
     /**
-     * Handle the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}.
+     * Handle the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}
+     * based on its {@link it.unibo.pyxis.model.element.ball.BallType}.
      * If the durability of the {@link Brick} reaches the value 0 then the brick is destroyed.
      *
-     * @param incomingDamage
-     *                         The {@link Optional} indicating the damage taken.
+     * @param ballType
+     *                         The {@link it.unibo.pyxis.model.element.ball.BallType}
+     *                         of the {@link it.unibo.pyxis.model.element.ball.Ball}
+     *                         that is damaging the {@link Brick}.
      */
-    private void handleIncomingDamage(final Optional<Integer> incomingDamage) {
+    private void handleIncomingDamage(final BallType ballType) {
         final int actualDurability = this.getEntity().getDurability();
-        final int damage = incomingDamage.isEmpty() ? 0 : Math.max(actualDurability - incomingDamage.get(), 0);
+        final int damage = ballType.getDamage().isEmpty() ? 0 : Math.max(actualDurability - ballType.getDamage().get(), 0);
         this.getEntity().setDurability(damage);
-        if (this.getEntity().getDurability() == 0 && !this.getEntity().getBrickType().isIndestructible()) {
+        if (this.getEntity().getDurability() == 0 && (!this.getEntity().getBrickType().isIndestructible() || ballType == BallType.ATOMIC_BALL)) {
             final Coord brickPosition = this.getEntity().getPosition();
             final int getPoints = this.getEntity().getBrickType().getPoints();
             EventBus.getDefault().post(Events.newBrickDestructionEvent(brickPosition, getPoints));
@@ -53,7 +57,7 @@ public class BrickEventComponent extends AbstractEventComponent<Brick> {
         final Optional<CollisionInformation> collInfo = movementEvent.getElement().getHitbox().collidingEdgeWithHB(hitbox);
         collInfo.ifPresent(cI -> {
             final Ball ball = movementEvent.getElement();
-            this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
+            this.handleIncomingDamage(movementEvent.getElement().getType());
             EventBus.getDefault().post(Events.newBallCollisionWithBrickEvent(ball.getId(), this.getEntity().getBrickType().isIndestructible(), cI));
         });
     }

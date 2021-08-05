@@ -29,9 +29,9 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     @Override
     @Subscribe
     public void handleBallBrickCollision(final BallCollisionWithBrickEvent collisionEvent) {
-        final Sound soundEffect = collisionEvent.isBrickDestructible()
-                                    ? Sound.BREAKABLE_BRICK_COLLISION
-                                    : Sound.UNBREAKABLE_BRICK_COLLISION;
+        final Sound soundEffect = collisionEvent.isBrickIndestructible()
+                                    ? Sound.UNBREAKABLE_BRICK_COLLISION
+                                    : Sound.BREAKABLE_BRICK_COLLISION;
         this.playSoundEffect(soundEffect);
     }
 
@@ -57,5 +57,10 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     @Subscribe
     public void handleDecreaseLife(final DecreaseLifeEvent event) {
         this.playSoundEffect(Sound.LIFE_DECREASED);
+    }
+
+    @Override
+    public void shutdown() {
+        EventBus.getDefault().unregister(this);
     }
 }
