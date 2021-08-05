@@ -46,7 +46,7 @@ public class ArenaCanvasDrawer {
     }
 
     public final void fillPowerup(final Coord position, final Dimension dimension, final PowerupType type) {
-        this.fillSpriteImage(position, dimension, /*type.toString() +*/ POWERUP_END_PATH);
+        this.fillSpriteImage(position, dimension, type.toString() + "_" + POWERUP_END_PATH);
     }
 
     public final void fillPad(final Pad pad) {
