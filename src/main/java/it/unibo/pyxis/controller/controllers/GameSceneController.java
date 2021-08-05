@@ -64,6 +64,10 @@ public class GameSceneController extends AbstractController {
         return this.getLinker().getGameState().getCurrentLevel().getScore();
     }
 
+    public final Integer getCurrentLevelNumber() {
+        return this.getLinker().getGameState().getCurrentLevel().getLevelNumber();
+    }
+
     public final Image getLevelImage() {
         final Level currentLevel = this.getLinker().getGameState().getCurrentLevel();
         if (!currentLevel.hasComponent(SpriteComponent.class)) {

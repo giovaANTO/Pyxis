@@ -51,6 +51,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         rightVBox.prefWidthProperty().bind(mainPane.widthProperty().multiply(rightVBox.getPrefWidth() / mainPane.getPrefWidth()));
         rightVBox.prefHeightProperty().bind(mainPane.heightProperty());
         this.drawer = new DrawerImpl(arenaCanvas.getGraphicsContext2D(), this.getController().getArenaDimension());
+        this.currentLevel.setText(this.getController().getCurrentLevelNumber().toString());
         this.setupBinders();
     }
 
