@@ -17,8 +17,8 @@ public final class SoundPlayer {
     private static final String SOUNDS_PATH = "soundeffects" + SEPARATOR;
     private static final String SOUNDS_END_PATH = ".wav";
 
-    private static double backgroundVolume = 0.2;
-    private static double soundEffectVolume = 1;
+    private static double backgroundVolume = 0.5;
+    private static double soundEffectVolume = 0.5;
     private static final Map<Sound, Media> allSounds;
 
     private static MediaPlayer backgroundMusicPlayer;
