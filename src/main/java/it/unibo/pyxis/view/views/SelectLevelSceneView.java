@@ -17,7 +17,7 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
     private StackPane stackPane;
     @FXML
     private HBox hBox;
-    private int numLevel = 7;
+    private final int numLevel = 7;
 
     public SelectLevelSceneView(final SelectLevelSceneController inputController) {
         super(inputController);

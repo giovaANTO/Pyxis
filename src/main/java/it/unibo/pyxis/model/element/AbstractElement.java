@@ -21,8 +21,28 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstractElement)) {
+            return false;
+        }
+        final AbstractElement that = (AbstractElement) o;
+        final boolean testDimensions = Objects.equals(this.getDimension(), that.getDimension());
+        final boolean testPositions = Objects.equals(this.getPosition(), that.getPosition());
+        final boolean testHitbox = Objects.equals(this.getHitbox(), that.getHitbox());
+        return testDimensions && testPositions && testHitbox;
+    }
+
+    @Override
     public final Dimension getDimension() {
         return this.dimension.copyOf();
+    }
+
+    @Override
+    public final Hitbox getHitbox() {
+        return this.hitbox;
     }
 
     @Override
@@ -35,17 +55,24 @@ public abstract class AbstractElement extends EntityImpl implements Element {
         return UPDATE_TIME_MULTIPLIER;
     }
 
-    /**
-     * Sets the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
-     * @param hitbox
-     */
-    protected void setHitbox(final Hitbox hitbox) {
-        this.hitbox = hitbox;
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getDimension(), this.getPosition(), this.getHitbox());
     }
 
     @Override
-    public final Hitbox getHitbox() {
-        return this.hitbox;
+    public final void increaseHeight(final double increaseValue) {
+        this.dimension.increaseHeight(increaseValue);
+    }
+
+    @Override
+    public final void increaseWidth(final double increaseValue) {
+        this.dimension.increaseWidth(increaseValue);
+    }
+
+    @Override
+    public final void setHeight(final double inputHeight) {
+        this.dimension.setHeight(inputHeight);
     }
 
     @Override
@@ -60,42 +87,16 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     }
 
     @Override
-    public final void setHeight(final double inputHeight) {
-        this.dimension.setHeight(inputHeight);
-    }
-
-    @Override
-    public final void increaseWidth(final double increaseValue) {
-        this.dimension.increaseWidth(increaseValue);
-    }
-
-    @Override
-    public final void increaseHeight(final double increaseValue) {
-        this.dimension.increaseHeight(increaseValue);
-    }
-
-    @Override
     public void update(final double dt) {
         this.getComponent(PhysicsComponent.class).update(dt);
     }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o)  {
-            return true;
-        }
-        if (!(o instanceof AbstractElement)) {
-            return false;
-        }
-        final AbstractElement that = (AbstractElement) o;
-        final boolean testDimensions = Objects.equals(this.getDimension(), that.getDimension());
-        final boolean testPositions = Objects.equals(this.getPosition(), that.getPosition());
-        final boolean testHitbox = Objects.equals(this.getHitbox(), that.getHitbox());
-        return testDimensions && testPositions && testHitbox;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.getDimension(), this.getPosition(), this.getHitbox());
+    /**
+     * Sets the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
+     *
+     * @param hitbox
+     */
+    protected void setHitbox(final Hitbox hitbox) {
+        this.hitbox = hitbox;
     }
 }

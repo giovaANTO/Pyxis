@@ -6,6 +6,6 @@ public enum HitEdge {
     VERTICAL,
     CORNER,
     TOP,
-    CIRCLE;
+    CIRCLE
 
 }

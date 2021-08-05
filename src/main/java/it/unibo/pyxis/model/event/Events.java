@@ -17,7 +17,7 @@ public final class Events {
 
     private Events() {
         throw new AssertionError("This class can't be instantiated");
-    };
+    }
 
     /**
      * Create a new {@link BrickDestructionEvent} instance passing the coords of the destroyed brick.

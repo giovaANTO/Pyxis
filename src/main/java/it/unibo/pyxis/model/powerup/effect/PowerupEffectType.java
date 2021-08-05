@@ -15,5 +15,5 @@ public enum PowerupEffectType {
      * Type of {@link it.unibo.pyxis.model.element.powerup.Powerup}
      * that affect the {@link it.unibo.pyxis.model.arena.Arena} enviroment.
      */
-    ARENA_POWERUP;
+    ARENA_POWERUP
 }

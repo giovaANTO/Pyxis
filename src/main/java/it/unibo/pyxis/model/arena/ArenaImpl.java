@@ -33,17 +33,16 @@ import org.greenrobot.eventbus.EventBus;
 
 public final class ArenaImpl extends EntityImpl implements Arena {
 
-    private Pad pad;
-    private Coord startingPadPosition;
-    private Coord startingBallPosition;
-    private Vector startingBallPace;
+    private static final double PAD_X_MOVEMENT = 10;
     private final Set<Ball> ballSet;
     private final Map<Coord, Brick> brickMap;
     private final Set<Powerup> powerupSet;
     private final PowerupHandler powerupHandler;
     private final Dimension dimension;
-
-    private static final double PAD_X_MOVEMENT = 10;
+    private Pad pad;
+    private Coord startingPadPosition;
+    private Coord startingBallPosition;
+    private Vector startingBallPace;
 
     public ArenaImpl(final Dimension inputDimension) {
         this.brickMap = new HashMap<>();
@@ -62,10 +61,9 @@ public final class ArenaImpl extends EntityImpl implements Arena {
 
     /**
      * Calculate new {@link Pad}'s {@link Coord}.
-     * @param dx
-     *          The value to add to the x value of the {@link Pad}'s {@link Coord}.
-     * @return
-     *          The new position of the {@link Pad}.
+     *
+     * @param dx The value to add to the x value of the {@link Pad}'s {@link Coord}.
+     * @return The new position of the {@link Pad}.
      */
     private Coord calcPadNewXCoord(final double dx) {
         final Coord updatedCoord = this.pad.getPosition();
@@ -75,8 +73,8 @@ public final class ArenaImpl extends EntityImpl implements Arena {
 
     /**
      * Modify the {@link Pad} width dimension of a certain amount.
-     * @param amount
-     *               The modifying amount
+     *
+     * @param amount The modifying amount
      */
     private synchronized void modifyPadWidth(final double amount) {
         final double padWidth = this.pad.getDimension().getWidth();
@@ -93,25 +91,57 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         this.pad.setPosition(newPadPosition);
     }
 
-    /**
-     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
-     */
     @Override
-    public void resetStartingPosition() {
-        this.getPad().setPosition(this.startingPadPosition.copyOf());
-        final Ball newBall = new BallImpl.Builder()
-                .initialPosition(this.startingBallPosition.copyOf())
-                .pace(this.startingBallPace.copyOf())
-                .ballType(BallType.NORMAL_BALL)
-                .id(1)
-                .build();
-        this.ballSet.clear();
-        this.ballSet.add(newBall);
+    public void addBall(final Ball ball) {
+        if (Objects.isNull(this.startingBallPosition)) {
+            this.startingBallPosition = ball.getPosition();
+            this.startingBallPace = ball.getPace();
+        }
+        this.ballSet.add(ball);
     }
 
     @Override
-    public void update(final double delta) {
-        this.getComponent(PhysicsComponent.class).update(delta);
+    public void addBrick(final Brick brick) {
+        this.brickMap.put(brick.getPosition(), brick);
+    }
+
+    @Override
+    public void addPowerup(final Powerup powerup) {
+        this.powerupSet.add(powerup);
+    }
+
+    @Override
+    public void cleanUp() {
+        this.clearBalls();
+        this.clearBricks();
+        this.clearPowerups();
+        this.powerupHandler.shutdown();
+        if (EventBus.getDefault().isRegistered(this.getPad())) {
+            EventBus.getDefault().unregister(this.getPad());
+        }
+        this.removeComponent(EventComponent.class);
+    }
+
+    @Override
+    public void clearBalls() {
+        this.getBalls().forEach(this::removeBall);
+    }
+
+    @Override
+    public void clearBricks() {
+        this.getBricks().forEach(brick -> this.removeBrick(brick.getPosition()));
+    }
+
+    @Override
+    public void clearPowerups() {
+        this.getPowerups().forEach(this::removePowerup);
+        this.powerupSet.clear();
+        this.powerupHandler.stop();
+    }
+
+    @Override
+    public void decreasePadWidth(final double amount) {
+        this.modifyPadWidth(-amount);
     }
 
     @Override
@@ -160,6 +190,16 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     }
 
     @Override
+    public void increasePadWidth(final double amount) {
+        this.modifyPadWidth(amount);
+    }
+
+    @Override
+    public boolean isCleared() {
+        return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
+    }
+
+    @Override
     public void movePadLeft() {
         final Coord oldPosition = this.pad.getPosition();
         Coord newPosition = this.calcPadNewXCoord(-PAD_X_MOVEMENT);
@@ -181,7 +221,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         Coord newPosition = this.calcPadNewXCoord(PAD_X_MOVEMENT);
         final double maxX = this.dimension.getWidth() - this.pad.getDimension().getWidth() / 2;
         if (newPosition.getX() > maxX) {
-            final double yCoord =  this.pad.getPosition().getY();
+            final double yCoord = this.pad.getPosition().getY();
             newPosition = new CoordImpl(maxX, yCoord);
         }
         this.pad.setPosition(newPosition);
@@ -193,18 +233,11 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     }
 
     @Override
-    public void increasePadWidth(final double amount) {
-        this.modifyPadWidth(amount);
-    }
-
-    @Override
-    public void decreasePadWidth(final double amount) {
-        this.modifyPadWidth(-amount);
-    }
-
-    @Override
-    public void addBrick(final Brick brick) {
-        this.brickMap.put(brick.getPosition(), brick);
+    public void removeBall(final Ball ball) {
+        this.ballSet.remove(ball);
+        if (ball.hasComponent(EventComponent.class)) {
+            ball.removeComponent(EventComponent.class);
+        }
     }
 
     @Override
@@ -216,38 +249,6 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     }
 
     @Override
-    public void clearBricks() {
-        this.getBricks().forEach(brick -> this.removeBrick(brick.getPosition()));
-    }
-
-    @Override
-    public void addBall(final Ball ball) {
-        if (Objects.isNull(this.startingBallPosition)) {
-            this.startingBallPosition = ball.getPosition();
-            this.startingBallPace = ball.getPace();
-        }
-        this.ballSet.add(ball);
-    }
-
-    @Override
-    public void removeBall(final Ball ball) {
-        this.ballSet.remove(ball);
-        if (ball.hasComponent(EventComponent.class)) {
-            ball.removeComponent(EventComponent.class);
-        }
-    }
-
-    @Override
-    public void clearBalls() {
-        this.getBalls().forEach(this::removeBall);
-    }
-
-    @Override
-    public void addPowerup(final Powerup powerup) {
-        this.powerupSet.add(powerup);
-    }
-
-    @Override
     public void removePowerup(final Powerup powerup) {
         this.powerupSet.remove(powerup);
         if (EventBus.getDefault().isRegistered(powerup)) {
@@ -256,27 +257,16 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     }
 
     @Override
-    public void clearPowerups() {
-        this.getPowerups().forEach(this::removePowerup);
-        this.powerupSet.clear();
-        this.powerupHandler.stop();
-    }
-
-    @Override
-    public boolean isCleared() {
-        return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
-    }
-
-    @Override
-    public void cleanUp() {
-        this.clearBalls();
-        this.clearBricks();
-        this.clearPowerups();
-        this.powerupHandler.shutdown();
-        if (EventBus.getDefault().isRegistered(this.getPad())) {
-            EventBus.getDefault().unregister(this.getPad());
-        }
-        this.removeComponent(EventComponent.class);
+    public void resetStartingPosition() {
+        this.getPad().setPosition(this.startingPadPosition.copyOf());
+        final Ball newBall = new BallImpl.Builder()
+                .initialPosition(this.startingBallPosition.copyOf())
+                .pace(this.startingBallPace.copyOf())
+                .ballType(BallType.NORMAL_BALL)
+                .id(1)
+                .build();
+        this.ballSet.clear();
+        this.ballSet.add(newBall);
     }
 
     @Override
@@ -298,5 +288,10 @@ public final class ArenaImpl extends EntityImpl implements Arena {
                 + ", #Powerup : " + powerupsNumber
                 + ", #Brick : " + brickNumbers
                 + "]";
+    }
+
+    @Override
+    public void update(final double delta) {
+        this.getComponent(PhysicsComponent.class).update(delta);
     }
 }

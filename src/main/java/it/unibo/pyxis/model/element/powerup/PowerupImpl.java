@@ -27,26 +27,6 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     }
 
     @Override
-    public PowerupType getType() {
-        return this.type;
-    }
-
-    @Override
-    public Vector getPace() {
-        return PACE.copyOf();
-    }
-
-    @Override
-    public void setPace(final Vector inputPace) {
-        throw new UnsupportedOperationException("You can't set a the pace on a PowerupImpl");
-    }
-
-    @Override
-    public void update(final double dt) {
-        this.getComponent(PhysicsComponent.class).update(dt);
-    }
-
-    @Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
@@ -59,11 +39,31 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     }
 
     @Override
+    public Vector getPace() {
+        return PACE.copyOf();
+    }
+
+    @Override
+    public PowerupType getType() {
+        return this.type;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(getType());
     }
 
+    @Override
+    public void setPace(final Vector inputPace) {
+        throw new UnsupportedOperationException("You can't set a the pace on a PowerupImpl");
+    }
+
     public String toString() {
         return "I'm a " + this.type + "; Coord: " + this.getPosition().getX() + " " + this.getPosition().getY();
+    }
+
+    @Override
+    public void update(final double dt) {
+        this.getComponent(PhysicsComponent.class).update(dt);
     }
 }

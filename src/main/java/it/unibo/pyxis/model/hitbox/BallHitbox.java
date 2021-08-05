@@ -143,7 +143,7 @@ public class BallHitbox extends AbstractHitbox {
     }
 
     private Vector getPace() {
-        return ((Ball) this.getElement()).getPace();
+        return this.getElement().getPace();
     }
 
 }
