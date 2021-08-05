@@ -22,7 +22,10 @@ public final class GameLoopImpl extends Thread implements GameLoop {
         this.linker = linker;
         this.commandQueue = new ArrayBlockingQueue<Command<Level>>(COMMAND_QUEUE_DIMENSION);
     }
-
+    /**
+     *
+     * @param current
+     */
     private void waitForNextFrame(final long current) {
         long dt = System.currentTimeMillis() - current;
         if (dt < PERIOD) {
@@ -33,7 +36,58 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             }
         }
     }
-
+    /**
+     * Establish if the {@link Command} can be processed.
+     * @return
+     *          True if {@link it.unibo.pyxis.model.state.GameState}'s
+     *          {@link StateEnum} is RUN or WAITING_FOR_STARTING_COMMAND.
+     *          False if {@link it.unibo.pyxis.model.state.GameState}'s
+     *          {@link StateEnum} is different.
+     */
+    private boolean conditionProcessInput() {
+        return this.linker.getGameState().getState() == StateEnum.RUN
+                || this.linker.getGameState().getState()
+                == StateEnum.WAITING_FOR_STARTING_COMMAND;
+    }
+    /**
+     * Establish if the updates can be processed.
+     * @return
+     *          True if {@link it.unibo.pyxis.model.state.GameState}'s
+     *          {@link StateEnum} is RUN.
+     *          False if {@link it.unibo.pyxis.model.state.GameState}'s
+     *          {@link StateEnum} is different.
+     */
+    private boolean conditionProcessUpdate() {
+        return this.linker.getGameState().getState() == StateEnum.RUN;
+    }
+    /**
+     * Establish if the render can be processed.
+     * @return
+     *          True if {@link it.unibo.pyxis.model.state.GameState}'s
+     *          {@link StateEnum} is RUN or WAITING_FOR_STARTING_COMMAND.
+     *          False if {@link it.unibo.pyxis.model.state.GameState}'s
+     *          {@link StateEnum} is different.
+     */
+    private boolean conditionProcessRender() {
+        return this.linker.getGameState().getState() == StateEnum.RUN
+                || this.linker.getGameState().getState()
+                == StateEnum.WAITING_FOR_STARTING_COMMAND;
+    }
+    @Override
+    public void addCommand(final Command<Level> command) {
+        this.commandQueue.add(command);
+    }
+    @Override
+    public void processInput() {
+        if (!this.commandQueue.isEmpty()) {
+            final Command<Level> nextCommand = this.commandQueue.poll();
+            nextCommand.execute(this.linker.getGameState().getCurrentLevel());
+        }
+    }
+    @Override
+    public void render() {
+        Platform.runLater(this.linker::render);
+    }
     @Override
     public void run() {
         long lastTime = System.currentTimeMillis();
@@ -47,34 +101,12 @@ public final class GameLoopImpl extends Thread implements GameLoop {
                 this.update(elapsed);
             }
             if (this.conditionProcessRender()) {
-                Platform.runLater(this.linker::render);
+                this.render();
             }
             this.waitForNextFrame(current);
             lastTime = current;
         }
     }
-
-    private boolean conditionProcessInput() {
-        return this.linker.getGameState().getState() == StateEnum.RUN
-                || this.linker.getGameState().getState()
-                    == StateEnum.WAITING_FOR_STARTING_COMMAND;
-    }
-
-    private boolean conditionProcessUpdate() {
-        return this.linker.getGameState().getState() == StateEnum.RUN;
-    }
-
-    private boolean conditionProcessRender() {
-        return this.linker.getGameState().getState() == StateEnum.RUN
-                || this.linker.getGameState().getState()
-                    == StateEnum.WAITING_FOR_STARTING_COMMAND;
-    }
-
-    @Override
-    public void render() {
-        Platform.runLater(this.linker::render);
-    }
-
     @Override
     public void update(final double elapsed) {
         this.linker.getGameState().update(elapsed);
@@ -82,18 +114,5 @@ public final class GameLoopImpl extends Thread implements GameLoop {
                 != LevelStatus.PLAYING) {
             Platform.runLater(this.linker::endLevel);
         }
-    }
-
-    @Override
-    public void processInput() {
-        if (!this.commandQueue.isEmpty()) {
-            final Command<Level> nextCommand = this.commandQueue.poll();
-            nextCommand.execute(this.linker.getGameState().getCurrentLevel());
-        }
-    }
-
-    @Override
-    public void addCommand(final Command<Level> command) {
-        this.commandQueue.add(command);
     }
 }

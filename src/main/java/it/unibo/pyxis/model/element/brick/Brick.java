@@ -4,6 +4,14 @@ import it.unibo.pyxis.model.element.Element;
 
 
 public interface Brick extends Element {
+
+    /**
+     * Allow to access the typology of the brick.
+     * @return
+     *          The {@link BrickType} value for this brick
+     */
+    BrickType getBrickType();
+
     /**
      * Returns the brick's durability.
      * @return
@@ -17,12 +25,4 @@ public interface Brick extends Element {
      *                        The durability to set.
      */
     void setDurability(int inputDurability);
-
-    /**
-     * Allow to access the typology of the brick.
-     *
-     * @return
-     *          The {@link BrickType} value for this brick
-     */
-    BrickType getBrickType();
 }

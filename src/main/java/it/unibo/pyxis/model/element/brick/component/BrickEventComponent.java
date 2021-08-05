@@ -41,6 +41,12 @@ public class BrickEventComponent extends AbstractEventComponent<Brick> {
         }
     }
 
+    /**
+     * Handles the ball's movement event.
+     * @param movementEvent
+     *          The movement event caused by the
+     *          {@link it.unibo.pyxis.model.element.ball.Ball} needs to be handled.
+     */
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Hitbox hitbox = this.getEntity().getHitbox();

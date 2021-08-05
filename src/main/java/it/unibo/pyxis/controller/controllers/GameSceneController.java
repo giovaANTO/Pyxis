@@ -60,10 +60,6 @@ public class GameSceneController extends AbstractController {
         return this.getArena().getDimension();
     }
 
-    public final Integer getLives() {
-        return this.getLinker().getGameState().getCurrentLevel().getLives();
-    }
-
     public final Integer getScore() {
         return this.getLinker().getGameState().getCurrentLevel().getScore();
     }
@@ -76,8 +72,7 @@ public class GameSceneController extends AbstractController {
         return currentLevel.getComponent(SpriteComponent.class).obtainSprite();
     }
 
-//    public final Integer getLevelNumber() {
-//        return this.getLevel().getNumber();
-//    }
-
+    public final Integer getLives() {
+        return this.getLinker().getGameState().getCurrentLevel().getLives();
+    }
 }

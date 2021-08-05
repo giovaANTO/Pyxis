@@ -36,12 +36,11 @@ public interface Ball extends Element {
     void registerCollision(HitEdge hitEdge, Dimension offset);
 
     /**
-     * Returns the ball's type.
+     * Allow to access to the {@link Ball} identifier.
      * @return
-     *              The {@link BallType}
+     *          The identifier of the {@link Ball}.
      */
-    BallType getType();
-
+    int getId();
     /**
      * Returns the ball's pace.
      * @return
@@ -50,11 +49,11 @@ public interface Ball extends Element {
     Vector getPace();
 
     /**
-     * Sets the ball's type.
-     * @param type
-     *              The {@link BallType} to set
+     * Returns the ball's type.
+     * @return
+     *              The {@link BallType}
      */
-    void setType(BallType type);
+    BallType getType();
 
     /**
      * Sets the ball's pace.
@@ -62,11 +61,10 @@ public interface Ball extends Element {
      *              The pace {@link Vector} to set
      */
     void setPace(Vector pace);
-
     /**
-     * Allow to access to the {@link Ball} identifier.
-     * @return
-     *          The identifier of the {@link Ball}.
+     * Sets the ball's type.
+     * @param type
+     *              The {@link BallType} to set
      */
-    int getId();
+    void setType(BallType type);
 }

@@ -38,6 +38,11 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
         this.getEntity().setPace(newPace);
     }
 
+    /**
+     * Handles the collision event between the ball and a brick.
+     * @param collisionEvent
+     *              Receive a {@link BallCollisionWithBrickEvent}
+     */
     @Subscribe
     public void handleBrickCollision(final BallCollisionWithBrickEvent collisionEvent) {
         if (this.getEntity().getId() == collisionEvent.getBallId() && this.getEntity().getType().bounce()) {
@@ -45,6 +50,11 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
         }
     }
 
+    /**
+     * Handles the collision event between the ball and the border.
+     * @param collisionEvent
+     *              Receive a {@link BallCollisionWithBorderEvent}
+     */
     @Subscribe
     public void handleBorderCollision(final BallCollisionWithBorderEvent collisionEvent) {
         if (this.getEntity().getId() == collisionEvent.getBallId()) {
@@ -52,6 +62,11 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
         }
     }
 
+    /**
+     * Handles the collision event between the ball and the pad.
+     * @param collisionEvent
+     *              Receive a {@link BallCollisionWithPadEvent}
+     */
     @Subscribe
     public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
         if (this.getEntity().getId() == collisionEvent.getBallId()) {

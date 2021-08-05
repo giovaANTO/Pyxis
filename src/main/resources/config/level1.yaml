@@ -19,16 +19,16 @@ bricks:
     type: "RED"
   - x: 90
     y: 50
-    type: "RED"
+    type: "ORANGE"
   - x: 150
     y: 50
-    type: "RED"
+    type: "ORANGE"
   - x: 210
     y: 50
-    type: "RED"
+    type: "YELLOW"
   - x: 30
     y: 100
-    type: "RED"
+    type: "ORANGE"
   - x: 90
     y: 100
     type: "RED"
@@ -37,25 +37,25 @@ bricks:
     type: "RED"
   - x: 210
     y: 100
-    type: "RED"
+    type: "YELLOW"
   - x: 30
     y: 150
-    type: "RED"
+    type: "YELLOW"
   - x: 400
     y: 150
-    type: "RED"
+    type: "GREEN"
   - x: 150
     y: 150
-    type: "RED"
+    type: "GREEN"
   - x: 210
     y: 150
     type: "RED"
   - x: 30
     y: 200
-    type: "RED"
+    type: "BLUE"
   - x: 90
     y: 200
-    type: "RED"
+    type: "PURPLE"
   - x: 150
     y: 200
-    type: "RED"
+    type: "INDESTRUCTIBLE"

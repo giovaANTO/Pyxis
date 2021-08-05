@@ -61,27 +61,11 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     }
 
     /**
-     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
-     */
-    @Override
-    public void resetStartingPosition() {
-        this.getPad().setPosition(this.startingPadPosition.copyOf());
-        final Ball newBall = new BallImpl.Builder()
-                .initialPosition(this.startingBallPosition.copyOf())
-                .pace(this.startingBallPace.copyOf())
-                .ballType(BallType.NORMAL_BALL)
-                .id(1)
-                .build();
-        this.ballSet.clear();
-        this.ballSet.add(newBall);
-    }
-
-    /**
-     * Calculate the new position of the {@link Pad}.
-     * @param directionalVector
-     *                          The directional {@link Vector} used for setting the new {@link Coord}.
+     * Calculate new {@link Pad}'s {@link Coord}.
+     * @param dx
+     *          The value to add to the x value of the {@link Pad}'s {@link Coord}.
      * @return
-     *          The new position of the {@link Pad}
+     *          The new position of the {@link Pad}.
      */
     private Coord calcPadNewXCoord(final double dx) {
         final Coord updatedCoord = this.pad.getPosition();
@@ -107,7 +91,22 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         final Coord newPadPosition = new CoordImpl(padPosition.getX() + offset, padPosition.getY());
         this.pad.increaseWidth(amount);
         this.pad.setPosition(newPadPosition);
+    }
 
+    /**
+     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
+     */
+    @Override
+    public void resetStartingPosition() {
+        this.getPad().setPosition(this.startingPadPosition.copyOf());
+        final Ball newBall = new BallImpl.Builder()
+                .initialPosition(this.startingBallPosition.copyOf())
+                .pace(this.startingBallPace.copyOf())
+                .ballType(BallType.NORMAL_BALL)
+                .id(1)
+                .build();
+        this.ballSet.clear();
+        this.ballSet.add(newBall);
     }
 
     @Override
@@ -116,13 +115,18 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     }
 
     @Override
-    public Dimension getDimension() {
-        return this.dimension.copyOf();
+    public Set<Ball> getBalls() {
+        return Set.copyOf(this.ballSet);
     }
 
     @Override
-    public Set<Ball> getBalls() {
-        return Set.copyOf(this.ballSet);
+    public Set<Brick> getBricks() {
+        return new HashSet<>(this.brickMap.values());
+    }
+
+    @Override
+    public Dimension getDimension() {
+        return this.dimension.copyOf();
     }
 
     @Override
@@ -134,20 +138,8 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     }
 
     @Override
-    public Ball getRandomBall() {
-        final List<Ball> ballList = new ArrayList<>(this.ballSet);
-        Collections.shuffle(ballList);
-        return ballList.get(0);
-    }
-
-    @Override
-    public Set<Brick> getBricks() {
-        return new HashSet<>(this.brickMap.values());
-    }
-
-    @Override
-    public Set<Powerup> getPowerups() {
-        return Set.copyOf(this.powerupSet);
+    public Pad getPad() {
+        return this.pad;
     }
 
     @Override
@@ -156,16 +148,15 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     }
 
     @Override
-    public Pad getPad() {
-        return this.pad;
+    public Set<Powerup> getPowerups() {
+        return Set.copyOf(this.powerupSet);
     }
 
     @Override
-    public void setPad(final Pad inputPad) {
-        if (Objects.isNull(this.startingPadPosition)) {
-            this.startingPadPosition = inputPad.getPosition();
-        }
-        this.pad = inputPad;
+    public Ball getRandomBall() {
+        final List<Ball> ballList = new ArrayList<>(this.ballSet);
+        Collections.shuffle(ballList);
+        return ballList.get(0);
     }
 
     @Override
@@ -286,6 +277,14 @@ public final class ArenaImpl extends EntityImpl implements Arena {
             EventBus.getDefault().unregister(this.getPad());
         }
         this.removeComponent(EventComponent.class);
+    }
+
+    @Override
+    public void setPad(final Pad inputPad) {
+        if (Objects.isNull(this.startingPadPosition)) {
+            this.startingPadPosition = inputPad.getPosition();
+        }
+        this.pad = inputPad;
     }
 
     @Override

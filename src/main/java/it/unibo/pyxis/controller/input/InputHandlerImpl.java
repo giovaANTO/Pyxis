@@ -7,7 +7,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class InputHandlerImpl implements InputHandler {
-
     @Override
     public final void bindCommands(final Linker inputLinker, final Stage inputStage) {
         final EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {

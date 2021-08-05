@@ -21,6 +21,11 @@ public class PadEventComponent extends AbstractEventComponent<Pad> {
         super(entity);
     }
 
+    /**
+     * Handle a {@link BallMovementEvent}.
+     * @param movementEvent
+     *          The {@link BallMovementEvent} to handle.
+     */
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Hitbox currentHitbox = this.getEntity().getHitbox();
@@ -37,6 +42,11 @@ public class PadEventComponent extends AbstractEventComponent<Pad> {
         });
     }
 
+    /**
+     * Handle a {@link PowerupMovementEvent}.
+     * @param movementEvent
+     *          The {@link PowerupMovementEvent} to handle.
+     */
     @Subscribe
     public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {
         if (movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getEntity().getHitbox()).isPresent()) {
