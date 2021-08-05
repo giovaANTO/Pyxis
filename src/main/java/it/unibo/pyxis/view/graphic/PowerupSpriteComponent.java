@@ -2,18 +2,19 @@ package it.unibo.pyxis.view.graphic;
 
 import it.unibo.pyxis.ecs.component.sprite.AbstractSpriteComponent;
 import it.unibo.pyxis.model.element.powerup.Powerup;
-import javafx.scene.image.Image;
 
-import java.util.Objects;
+import java.io.File;
 
 public final class PowerupSpriteComponent extends AbstractSpriteComponent<Powerup> {
+
+    private static final String POWERUP_FOLDER = "powerup" + File.separator;
+
     public PowerupSpriteComponent(final Powerup entity) {
         super(entity);
     }
 
     @Override
-    public Image obtainSprite() {
-        final String path = this.getSpritesPath() + "POWERUP.png";
-        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(path)));
+    public String getFileName() {
+        return this.getSpritesPath() + POWERUP_FOLDER + this.getEntity().getType().toString() + "_POWERUP.png";
     }
 }

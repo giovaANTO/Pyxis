@@ -4,6 +4,7 @@ import it.unibo.pyxis.ecs.component.AbstractComponent;
 import it.unibo.pyxis.ecs.Entity;
 import javafx.scene.image.Image;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,5 +43,10 @@ public abstract class AbstractSpriteComponent<E extends Entity> extends Abstract
     }
 
     @Override
-    public abstract Image obtainSprite();
+    public abstract String getFileName();
+
+    @Override
+    public Image obtainSprite() {
+        return new Image(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(this.getFileName())));
+    }
 }

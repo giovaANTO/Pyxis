@@ -14,6 +14,13 @@ public interface SpriteComponent<T extends Entity> extends Component<T> {
     Image obtainSprite();
 
     /**
+     * Return the filename of the sprite to load.
+     * @return
+     *          The string containing the filename.
+     */
+    String getFileName();
+
+    /**
      * Get the sprites path.
      * @return
      *          A string containing the sprites path
@@ -30,4 +37,6 @@ public interface SpriteComponent<T extends Entity> extends Component<T> {
     default String getBackgroundPath() {
         return "backgrounds" + File.separator;
     }
+
+
 }
