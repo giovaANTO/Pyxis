@@ -54,7 +54,7 @@ public class BrickEventComponent extends AbstractEventComponent<Brick> {
         collInfo.ifPresent(cI -> {
             final Ball ball = movementEvent.getElement();
             this.handleIncomingDamage(movementEvent.getElement().getType().getDamage());
-            EventBus.getDefault().post(Events.newBallCollisionWithBrickEvent(ball.getId(), cI));
+            EventBus.getDefault().post(Events.newBallCollisionWithBrickEvent(ball.getId(), this.getEntity().getBrickType().isIndestructible(), cI));
         });
     }
 }

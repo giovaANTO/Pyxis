@@ -45,15 +45,20 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     }
 
     public void startNewGame() {
+        this.playInGameMusic();
+        this.playStartGameButtonPressSound();
         this.getController().startNewGame();
     }
     public void showSettings() {
+        this.playGenericButtonPressSound();
         this.getController().showSettings();
     }
     public void selectLevels() {
+        this.playGenericButtonPressSound();
         this.getController().selectLevel();
     }
     public void quit() {
+        this.playGenericButtonPressSound();
         this.getController().quit();
     }
 

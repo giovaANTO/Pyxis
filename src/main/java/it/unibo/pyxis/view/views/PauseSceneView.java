@@ -26,18 +26,23 @@ public final class PauseSceneView  extends AbstractJavaFXView<PauseSceneControll
     }
 
     public void quit() {
+        this.playGenericButtonPressSound();
         this.getController().quit();
     }
 
     public void settings() {
+        this.playGenericButtonPressSound();
         this.getController().settings();
     }
 
     public void resume() {
+        this.playStartGameButtonPressSound();
         this.getController().resume();
     }
 
     public void menu() {
+        this.playMainMenuMusic();
+        this.playGenericButtonPressSound();
         this.getController().menu();
     }
 }

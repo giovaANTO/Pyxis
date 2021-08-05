@@ -5,7 +5,6 @@ import it.unibo.pyxis.model.hitbox.CollisionInformation;
 /**
  * Generic collision event interface.
  */
-@FunctionalInterface
 public interface CollisionEvent {
     /**
      * Return the edge of the {@link it.unibo.pyxis.model.element.Element}
@@ -15,4 +14,12 @@ public interface CollisionEvent {
      *          a {@link it.unibo.pyxis.model.element.ball.Ball}.
      */
     CollisionInformation getCollisionInformation();
+    /**
+     * Returns the Id of the {@link it.unibo.pyxis.model.element.ball.Ball}
+     * that collided in the event.
+     * @return
+     *          the Id of the {@link it.unibo.pyxis.model.element.ball.Ball}
+     *          that collided in the event.
+     */
+    int getBallId();
 }

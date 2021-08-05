@@ -6,11 +6,13 @@ package it.unibo.pyxis.model.event.collision;
  */
 public interface BallCollisionWithBrickEvent extends CollisionEvent {
     /**
-     * Returns the Id of the {@link it.unibo.pyxis.model.element.ball.Ball}
-     * that collided in the event.
+     * Returns true if the {@link it.unibo.pyxis.model.element.brick.Brick}
+     * that collided in the event is destructible,
+     * false otherwise.
      * @return
-     *          the Id of the {@link it.unibo.pyxis.model.element.ball.Ball}
-     *          that collided in the event.
+     *          Return true if the {@link it.unibo.pyxis.model.element.brick.Brick}
+     *          that collided in the event is destructible,
+     *          false otherwise.
      */
-    int getBallId();
+    boolean isBrickDestructible();
 }

@@ -34,10 +34,13 @@ public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelSceneCon
     }
 
     public void menu() {
+        this.playMainMenuMusic();
+        this.playGenericButtonPressSound();
         this.getController().menu();
     }
 
     public void nextLevel() {
+        this.playStartGameButtonPressSound();
         this.getController().nextLevel();
     }
 }
