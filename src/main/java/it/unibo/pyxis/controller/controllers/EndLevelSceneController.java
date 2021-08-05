@@ -17,4 +17,8 @@ public class EndLevelSceneController extends AbstractController {
     public final void nextLevel() {
         this.getLinker().switchLevel();
     }
+
+    public final Integer getScore() {
+        return this.getLinker().getGameState().getCurrentLevel().getScore();
+    }
 }
