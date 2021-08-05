@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * A pausable {@link java.util.concurrent.ExecutorService} based on a ThreadPoolExecutor.
+ *
  * @see <a href="shorturl.at/opDNS">JavaDoc 11 ThreadPoolExecutor</a>
  */
 public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool {
@@ -22,7 +23,9 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         this.lock = new ReentrantLock();
         this.waitCond = lock.newCondition();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void beforeExecute(final Thread t, final Runnable r) {
         super.beforeExecute(t, r);
@@ -37,7 +40,30 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
             lock.unlock();
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Condition getCondition() {
+        return this.waitCond;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ReentrantLock getLock() {
+        return this.lock;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPaused() {
+        return this.isPaused;
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void pause() {
         lock.lock();
@@ -47,7 +73,9 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
             lock.unlock();
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resume() {
         lock.lock();
@@ -57,20 +85,5 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         } finally {
             lock.unlock();
         }
-    }
-
-    @Override
-    public ReentrantLock getLock() {
-        return this.lock;
-    }
-
-    @Override
-    public Condition getCondition() {
-        return this.waitCond;
-    }
-
-    @Override
-    public boolean isPaused() {
-        return this.isPaused;
     }
 }

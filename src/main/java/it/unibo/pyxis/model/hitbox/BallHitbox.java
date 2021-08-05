@@ -17,46 +17,43 @@ public class BallHitbox extends AbstractHitbox {
     }
 
     /**
+     * Checks what's the closest point of the {@link RectHitbox} to the center of the {@link BallHitbox}.
+     *
+     * @param cHBCenterCoord
+     * @param rHBCenterCoord
+     * @param rHBEdgeLength
+     * @return cHBCenterCoord if the center of the {@link BallHitbox} is inside the {@link RectHitbox},
+     * the Coordinate of the closest edge of the {@link RectHitbox} otherwise.
+     */
+    private double closestPointCalculation(final double cHBCenterCoord, final double rHBCenterCoord,
+                                           final double rHBEdgeLength) {
+        return cHBCenterCoord < rHBCenterCoord - rHBEdgeLength / 2
+                ? rHBCenterCoord - rHBEdgeLength / 2
+                : Math.min(cHBCenterCoord, rHBCenterCoord + rHBEdgeLength / 2);
+    }
+
+    /**
+     * Return the offset to apply to the {@link Element} after the collision.
+     *
+     * @param distanceFromClosestPoint
+     * @param componentDistance
+     * @return The offset to apply to the {@link Element} after the collision.
+     */
+    private double cornerOffsetCalculation(final double distanceFromClosestPoint, final double componentDistance) {
+        return (this.getRadius() - distanceFromClosestPoint) * componentDistance / this.getRadius();
+    }
+
+    private Vector getPace() {
+        return ((Ball) this.getElement()).getPace();
+    }
+
+    /**
      * Return the radius of the {@link BallHitbox}.
-     * @return
-     *          the radius of the {@link BallHitbox}.
+     *
+     * @return The radius of the {@link BallHitbox}.
      */
     private Double getRadius() {
         return getDimension().getHeight() / 2;
-    }
-
-    @Override
-    public boolean isCollidingWithPoint(final Coord position) {
-        return getPosition().distance(position) <= getRadius();
-    }
-
-    @Override
-    public boolean isCollidingWithPoint(final double px, final double py) {
-        return getPosition().distance(px, py) <= getRadius();
-    }
-
-    @Override
-    public boolean isCollidingWithHB(final Hitbox hitbox) {
-        return hitbox instanceof BallHitbox
-                ? isCollidingWithSameHB(hitbox)
-                : isCollidingWithOtherHB(hitbox);
-    }
-
-    @Override
-    public Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox) {
-        return hitbox instanceof BallHitbox
-                ? collidingEdgeWithSameHB(hitbox)
-                : collidingEdgeWithOtherHB(hitbox);
-    }
-
-    protected Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox) {
-        return getPosition().distance(hitbox.getPosition()) <= getRadius() + ((BallHitbox) hitbox).getRadius()
-                ? Optional.of(new CollisionInformation(HitEdge.CIRCLE, new DimensionImpl()))
-                : Optional.empty();
-    }
-
-    protected boolean isCollidingWithOtherHB(final Hitbox hitbox) {
-        return collidingEdgeWithOtherHB(hitbox).isPresent();
     }
 
     protected Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox) {
@@ -71,8 +68,8 @@ public class BallHitbox extends AbstractHitbox {
         final double bHBCenterY = this.getPosition().getY();
         final double rHBCenterX = hitbox.getPosition().getX();
         final double rHBCenterY = hitbox.getPosition().getY();
-        final double rHBWidth   = hitbox.getDimension().getWidth();
-        final double rHBHeight  = hitbox.getDimension().getHeight();
+        final double rHBWidth = hitbox.getDimension().getWidth();
+        final double rHBHeight = hitbox.getDimension().getHeight();
 
         closestPointX = closestPointCalculation(bHBCenterX, rHBCenterX, rHBWidth);
         closestPointY = closestPointCalculation(bHBCenterY, rHBCenterY, rHBHeight);
@@ -88,14 +85,14 @@ public class BallHitbox extends AbstractHitbox {
             }
             if (bHBCenterY <= rHBCenterY && this.getPace().getY() > 0
                     || bHBCenterY > rHBCenterY && this.getPace().getY() < 0) {
-                hitEdge = Objects.isNull(hitEdge) 
+                hitEdge = Objects.isNull(hitEdge)
                         ? HitEdge.HORIZONTAL
                         : HitEdge.CORNER;
             }
         } else if (closestPointX != bHBCenterX && closestPointY == bHBCenterY) {
             borderOffset.setWidth(widthOffsetCalculation(Math.abs(bHBCenterX - closestPointX)));
             hitEdge = HitEdge.VERTICAL;
-        } else if (closestPointX == bHBCenterX && closestPointY != bHBCenterY){
+        } else if (closestPointX == bHBCenterX && closestPointY != bHBCenterY) {
             borderOffset.setHeight(heightOffsetCalculation(Math.abs(bHBCenterY - closestPointY)));
             hitEdge = bHBCenterY > rHBCenterY
                     ? HitEdge.HORIZONTAL
@@ -115,35 +112,38 @@ public class BallHitbox extends AbstractHitbox {
                 : Optional.empty();
     }
 
-    /**
-     * Checks what's the closest point of the {@link RectHitbox} to the center of the {@link BallHitbox}.
-     * @param cHBCenterCoord
-     * @param rHBCenterCoord
-     * @param rHBEdgeLength
-     * @return
-     *          cHBCenterCoord if the center of the {@link BallHitbox} is inside the {@link RectHitbox},
-     *          the Coordinate of the closest edge of the {@link RectHitbox} otherwise.
-     */
-    private double closestPointCalculation(final double cHBCenterCoord, final double rHBCenterCoord,
-                                           final double rHBEdgeLength) {
-        return cHBCenterCoord < rHBCenterCoord - rHBEdgeLength / 2
-                ? rHBCenterCoord - rHBEdgeLength / 2
-                : Math.min(cHBCenterCoord, rHBCenterCoord + rHBEdgeLength / 2);
+    protected Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox) {
+        return getPosition().distance(hitbox.getPosition()) <= getRadius() + ((BallHitbox) hitbox).getRadius()
+                ? Optional.of(new CollisionInformation(HitEdge.CIRCLE, new DimensionImpl()))
+                : Optional.empty();
     }
 
-    /**
-     * Return the offset to apply to the {@link Element} after the collision.
-     * @param distanceFromClosestPoint
-     * @param componentDistance
-     * @return
-     *          The offset to apply to the {@link Element} after the collision.
-     */
-    private double cornerOffsetCalculation(final double distanceFromClosestPoint, final double componentDistance) {
-        return (this.getRadius() - distanceFromClosestPoint) * componentDistance / this.getRadius();
+    protected boolean isCollidingWithOtherHB(final Hitbox hitbox) {
+        return collidingEdgeWithOtherHB(hitbox).isPresent();
     }
 
-    private Vector getPace() {
-        return ((Ball) this.getElement()).getPace();
+    @Override
+    public Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox) {
+        return hitbox instanceof BallHitbox
+                ? collidingEdgeWithSameHB(hitbox)
+                : collidingEdgeWithOtherHB(hitbox);
+    }
+
+    @Override
+    public boolean isCollidingWithHB(final Hitbox hitbox) {
+        return hitbox instanceof BallHitbox
+                ? isCollidingWithSameHB(hitbox)
+                : isCollidingWithOtherHB(hitbox);
+    }
+
+    @Override
+    public boolean isCollidingWithPoint(final Coord position) {
+        return getPosition().distance(position) <= getRadius();
+    }
+
+    @Override
+    public boolean isCollidingWithPoint(final double px, final double py) {
+        return getPosition().distance(px, py) <= getRadius();
     }
 
 }

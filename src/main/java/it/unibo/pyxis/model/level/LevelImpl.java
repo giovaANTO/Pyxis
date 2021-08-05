@@ -10,10 +10,10 @@ import org.greenrobot.eventbus.Subscribe;
 public final class LevelImpl implements Level {
 
     private final int levelNumber;
+    private final Arena arena;
     private int lives;
     private int score;
     private LevelStatus levelStatus;
-    private final Arena arena;
 
     public LevelImpl(final int inputLives, final Arena inputArena, final int levelNumber) {
         this.levelNumber = levelNumber;
@@ -26,46 +26,18 @@ public final class LevelImpl implements Level {
 
     /**
      * Increase the score of this level.
+     *
      * @param score
-     *               The score to increase
+     *          The score to increase.
      */
     private void increaseScore(final int score) {
         this.score += score;
     }
-
     @Override
-    public int getLevelNumber() {
-        return this.levelNumber;
+    @Subscribe
+    public void handleBrickDestruction(final BrickDestructionEvent event) {
+        this.increaseScore(event.getPoints());
     }
-
-    @Override
-    public void decreaseLife() {
-        this.lives--;
-    }
-
-    @Override
-    public int getLives() {
-        return this.lives;
-    }
-
-    @Override
-    public int getScore() {
-        return this.score;
-    }
-
-    @Override
-    public Arena getArena() {
-        return this.arena;
-    }
-
-    @Override
-    public void update(final double delta) {
-        this.arena.update(delta);
-        if (this.arena.isCleared()) {
-            this.levelStatus = LevelStatus.SUCCESSFULLY_COMPLETED;
-        }
-    }
-
     @Override
     @Subscribe
     public void handleDecreaseLife(final DecreaseLifeEvent event) {
@@ -74,21 +46,40 @@ public final class LevelImpl implements Level {
             this.levelStatus = LevelStatus.GAME_OVER;
         }
     }
-
-    @Override
-    @Subscribe
-    public void handleBrickDestruction(final BrickDestructionEvent event) {
-        this.increaseScore(event.getPoints());
-    }
-
-    @Override
-    public LevelStatus getLevelStatus() {
-        return this.levelStatus;
-    }
-
     @Override
     public void cleanUp() {
         this.getArena().cleanUp();
         EventBus.getDefault().unregister(this);
+    }
+    @Override
+    public void decreaseLife() {
+        this.lives--;
+    }
+    @Override
+    public Arena getArena() {
+        return this.arena;
+    }
+    @Override
+    public int getLevelNumber() {
+        return this.levelNumber;
+    }
+    @Override
+    public LevelStatus getLevelStatus() {
+        return this.levelStatus;
+    }
+    @Override
+    public int getLives() {
+        return this.lives;
+    }
+    @Override
+    public int getScore() {
+        return this.score;
+    }
+    @Override
+    public void update(final double delta) {
+        this.arena.update(delta);
+        if (this.arena.isCleared()) {
+            this.levelStatus = LevelStatus.SUCCESSFULLY_COMPLETED;
+        }
     }
 }

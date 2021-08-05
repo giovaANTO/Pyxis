@@ -6,71 +6,77 @@ import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public interface Level {
-
     /**
-     * Return the number of the {@link Level} loaded.
-     * @return
-     *          An integer representing the {@link Level} number
+     * Clean up the current {@link Level} and the assigned {@link Arena}
+     * unregistering them from the{@link org.greenrobot.eventbus.EventBus}.
      */
-    int getLevelNumber();
-
+    void cleanUp();
     /**
      * Decrease a life.
      */
     void decreaseLife();
-
-    /**
-     * Return the total number of lifes.
-     * @return
-     *          The number of current lifes
-     */
-    int getLives();
-
-    /**
-     * Return the total score of this level.
-     * @return
-     *         The score
-     */
-    int getScore();
-
     /**
      * Get the {@link Arena} associated to this level.
+     *
      * @return
-     *          The instance of {@link Arena}
+     *          The instance of {@link Arena}.
      */
     Arena getArena();
-
     /**
-     * Call an un update on the level updating the elements on the arena and check its status.
-     * @param delta
-     *              The time gap intercurred between an update
+     * Return the number of the {@link Level} loaded.
+     *
+     * @return
+     *          An integer representing the {@link Level} number.
      */
-    void update(double delta);
-
-    /**
-     * Handle a {@link DecreaseLifeEvent}.
-     * @param event
-     *              The instance of {@link DecreaseLifeEvent}.
-     */
-    void handleDecreaseLife(DecreaseLifeEvent event);
-
-    /**
-     * Handle a {@link BrickDestructionEvent}.
-     * @param event
-     *              The instance of {@link BrickDestructionEvent}
-     */
-    void handleBrickDestruction(BrickDestructionEvent event);
+    int getLevelNumber();
 
     /**
      * Return the current {@link LevelStatus} of the {@link Level}.
+     *
      * @return
      *          The value of {@link LevelStatus}
      */
     LevelStatus getLevelStatus();
 
     /**
-     * Clean up the current {@link Level} and the assigned {@link Arena}
-     * unregistering them from the{@link org.greenrobot.eventbus.EventBus}.
+     * Return the total number of lives.
+     *
+     * @return
+     *          The number of current lives.
      */
-    void cleanUp();
+    int getLives();
+
+    /**
+     * Return the total score of this level.
+     *
+     * @return
+     *          The score.
+     */
+    int getScore();
+
+    /**
+     * Handle a {@link BrickDestructionEvent}.
+     *
+     * @param event
+     *          The instance of {@link BrickDestructionEvent}
+     */
+    void handleBrickDestruction(BrickDestructionEvent event);
+
+    /**
+     * Handle a {@link DecreaseLifeEvent}.
+     *
+     * @param event
+     *          The instance of {@link DecreaseLifeEvent}.
+     */
+    void handleDecreaseLife(DecreaseLifeEvent event);
+
+    /**
+     * Call an un update on the {@link Level} updating each
+     * {@link it.unibo.pyxis.model.element.Element} in the {@link Arena} and check
+     * its status.
+     *
+     * @param delta
+     *          The time gap elapsed between an update.
+     */
+    void update(double delta);
 }

@@ -2,7 +2,7 @@ package it.unibo.pyxis.model.event;
 
 /**
  * Describe an event fired in the application model.
- * An event is created as a response of a certain action that involve one or more entities.
+ * An event is created as a response of a certain action that involves one or more entities.
  *
  * Examples of events are :
  * <ul>

@@ -16,19 +16,75 @@ public abstract class AbstractHitbox implements Hitbox {
         this.element = element;
     }
 
-    @Override
-    public Element getElement() {
-        return element;
+    /**
+     *
+     * @param distanceFromBorder
+     *
+     * @param collisionDistance
+     *
+     * @return
+     *
+     */
+    private boolean checkBC(final double distanceFromBorder, final double collisionDistance) {
+        return distanceFromBorder <= collisionDistance;
     }
 
-    @Override
-    public Coord getPosition() {
-        return element.getPosition();
+    /**
+     * Checks for a collision with the different {@link Hitbox}.
+     *
+     * @param hitbox
+     * @return An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
+     * an EMPTY {@link Optional} if they are the same or not colliding.
+     */
+    protected abstract Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox);
+
+    /**
+     * Checks for a collision with the same {@link Hitbox}.
+     *
+     * @param hitbox
+     * @return An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
+     * an EMPTY {@link Optional} if they are different or not colliding.
+     */
+    protected abstract Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox);
+
+    /**
+     * Return the offset to apply to the {@link Element} after the collision.
+     *
+     * @param distanceFromCenter
+     * @return The offset to apply to the {@link Element} after the collision.
+     */
+    protected Double heightOffsetCalculation(final Double distanceFromCenter) {
+        return this.getDimension().getHeight() / 2 - distanceFromCenter;
     }
 
-    @Override
-    public Dimension getDimension() {
-        return element.getDimension();
+    /**
+     * Checks for a collision with the different {@link Hitbox}.
+     *
+     * @param hitbox
+     * @return TRUE if the two {@link Hitbox} are different and colliding, otherwise FALSE.
+     */
+    protected boolean isCollidingWithOtherHB(final Hitbox hitbox) {
+        return collidingEdgeWithOtherHB(hitbox).isPresent();
+    }
+
+    /**
+     * Checks for a collision with the same {@link Hitbox}.
+     *
+     * @param hitbox
+     * @return TRUE if the two {@link Hitbox} are the same and colliding, otherwise FALSE.
+     */
+    protected boolean isCollidingWithSameHB(final Hitbox hitbox) {
+        return collidingEdgeWithSameHB(hitbox).isPresent();
+    }
+
+    /**
+     * Return the offset to apply to the {@link Element} after the collision.
+     *
+     * @param distanceFromCenter
+     * @return The offset to apply to the {@link Element} after the collision.
+     */
+    protected Double widthOffsetCalculation(final Double distanceFromCenter) {
+        return this.getDimension().getWidth() / 2 - distanceFromCenter;
     }
 
     @Override
@@ -38,7 +94,7 @@ public abstract class AbstractHitbox implements Hitbox {
         final double cHBCenterY = getPosition().getY();
         final double cHBHalvedHeight = getDimension().getHeight() / 2;
         final double cHBHalvedWidth = getDimension().getWidth() / 2;
-        final double bHBWidth   = borderDimension.getWidth();
+        final double bHBWidth = borderDimension.getWidth();
 
         HitEdge hitEdge = null;
         final Dimension borderOffset = new DimensionImpl();
@@ -52,7 +108,7 @@ public abstract class AbstractHitbox implements Hitbox {
         }
         if (checkBC(cHBCenterY, cHBHalvedHeight)) {
             borderOffset.setHeight(heightOffsetCalculation(cHBCenterY));
-            hitEdge = Objects.isNull(hitEdge) 
+            hitEdge = Objects.isNull(hitEdge)
                     ? HitEdge.HORIZONTAL
                     : HitEdge.CORNER;
         }
@@ -62,22 +118,29 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     @Override
-    public boolean isCollidingWithLowerBorder(final Dimension borderDimension) {
-        return checkBC(borderDimension.getHeight() - this.getPosition().getY(), this.getDimension().getHeight() / 2);
+    public abstract Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox);
+
+    @Override
+    public Dimension getDimension() {
+        return element.getDimension();
     }
 
-    /**
-     * Check for a collision with one of the borders.
-     * @param addedValue
-     * @param subtractedValue
-     * @param addedHalvedValue
-     * @param collisionDistance
-     * @return
-     *          TRUE if the calculation [addedValue - subtractedValue + addedHalvedValue/2] is less than or equal to [collisionDistance], 
-     *          FALSE otherwise.
-     */
-    private boolean checkBC(final double distanceFromBorder, final double collisionDistance) {
-        return distanceFromBorder <= collisionDistance;
+    @Override
+    public Element getElement() {
+        return element;
+    }
+
+    @Override
+    public Coord getPosition() {
+        return element.getPosition();
+    }
+
+    @Override
+    public abstract boolean isCollidingWithHB(final Hitbox hitbox);
+
+    @Override
+    public boolean isCollidingWithLowerBorder(final Dimension borderDimension) {
+        return checkBC(borderDimension.getHeight() - this.getPosition().getY(), this.getDimension().getHeight() / 2);
     }
 
     @Override
@@ -85,72 +148,4 @@ public abstract class AbstractHitbox implements Hitbox {
 
     @Override
     public abstract boolean isCollidingWithPoint(final double px, final double py);
-
-    @Override
-    public abstract boolean isCollidingWithHB(final Hitbox hitbox);
-
-    @Override
-    public abstract Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox);
-
-    /**
-     * Checks for a collision with the same {@link Hitbox}.
-     * @param 
-     *          hitbox
-     * @return 
-     *          TRUE if the two {@link Hitbox} are the same and colliding, otherwise FALSE.
-     */
-    protected boolean isCollidingWithSameHB(final Hitbox hitbox) {
-        return collidingEdgeWithSameHB(hitbox).isPresent();
-    }
-
-    /**
-     * Checks for a collision with the same {@link Hitbox}.
-     * @param 
-     *          hitbox
-     * @return 
-     *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
-     *          an EMPTY {@link Optional} if they are different or not colliding.
-     */
-    protected abstract Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox);
-
-    /**
-     * Checks for a collision with the different {@link Hitbox}.
-     * @param 
-     *          hitbox
-     * @return 
-     *          TRUE if the two {@link Hitbox} are different and colliding, otherwise FALSE.
-     */
-    protected boolean isCollidingWithOtherHB(final Hitbox hitbox) {
-        return collidingEdgeWithOtherHB(hitbox).isPresent();
-    }
-
-    /**
-     * Checks for a collision with the different {@link Hitbox}.
-     * @param 
-     *          hitbox
-     * @return 
-     *          An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
-     *          an EMPTY {@link Optional} if they are the same or not colliding.
-     */
-    protected abstract Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox);
-
-    /**
-     * Return the offset to apply to the {@link Element} after the collision.
-     * @param distanceFromCenter
-     * @return
-     *          The offset to apply to the {@link Element} after the collision.
-     */
-    protected Double widthOffsetCalculation(final Double distanceFromCenter) {
-        return this.getDimension().getWidth() / 2 - distanceFromCenter;
-    }
-
-    /**
-     * Return the offset to apply to the {@link Element} after the collision.
-     * @param distanceFromCenter
-     * @return
-     *          The offset to apply to the {@link Element} after the collision.
-     */
-    protected Double heightOffsetCalculation(final Double distanceFromCenter) {
-        return this.getDimension().getHeight() / 2 - distanceFromCenter;
-    }
 }
