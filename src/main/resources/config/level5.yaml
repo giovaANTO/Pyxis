@@ -1,0 +1,94 @@
+!!it.unibo.model.level.loader.skeleton.level.LevelSkeletonImpl
+lives: 3
+width: 378
+height: 420
+levelNumber: 5
+pad:
+    x: 175
+    y: 380
+balls:
+  - x: 175
+    y: 320
+    paceX: 0
+    paceY: 160
+    ballType: "NORMAL"
+    id: 1
+bricks:
+  - x: 21
+    y: 27
+    type: "RED"
+  - x: 63
+    y: 27
+    type: "RED"
+  - x: 105
+    y: 27
+    type: "RED"
+  - x: 63
+    y: 45
+    type: "RED"
+  - x: 105
+    y: 45
+    type: "ORANGE"
+  - x: 189
+    y: 45
+    type: "ORANGE"
+  - x: 63
+    y: 63
+    type: "RED"
+  - x: 105
+    y: 63
+    type: "ORANGE"
+  - x: 189
+    y: 63
+    type: "ORANGE"
+  - x: 63
+    y: 81
+    type: "RED"
+  - x: 105
+    y: 81
+    type: "ORANGE"
+  - x: 147
+    y: 81
+    type: "ORANGE"
+  - x: 189
+    y: 81
+    type: "ORANGE"
+  - x: 231
+    y: 81
+    type: "YELLOW"
+  - x: 315
+    y: 81
+    type: "YELLOW"
+  - x: 105
+    y: 99
+    type: "ORANGE"
+  - x: 189
+    y: 99
+    type: "ORANGE"
+  - x: 231
+    y: 99
+    type: "YELLOW"
+  - x: 315
+    y: 99
+    type: "YELLOW"
+  - x: 105
+    y: 117
+    type: "ORANGE"
+  - x: 189
+    y: 117
+    type: "ORANGE"
+  - x: 273
+    y: 117
+    type: "INDESTRUCTIBLE"
+  - x: 231
+    y: 135
+    type: "YELLOW"
+  - x: 315
+    y: 135
+    type: "YELLOW"
+  - x: 231
+    y: 153
+    type: "YELLOW"
+  - x: 315
+    y: 153
+    type: "YELLOW"
