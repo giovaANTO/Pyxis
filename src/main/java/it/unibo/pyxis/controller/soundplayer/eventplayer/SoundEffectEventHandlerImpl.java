@@ -58,4 +58,9 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     public void handleDecreaseLife(final DecreaseLifeEvent event) {
         this.playSoundEffect(Sound.LIFE_DECREASED);
     }
+
+    @Override
+    public void shutdown() {
+        EventBus.getDefault().unregister(this);
+    }
 }

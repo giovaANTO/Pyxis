@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import it.unibo.pyxis.controller.soundplayer.eventplayer.SoundEffectEventHandler;
 import it.unibo.pyxis.controller.soundplayer.eventplayer.SoundEffectEventHandlerImpl;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -93,5 +94,14 @@ public final class SoundPlayer {
         soundEffectPlayer = loadMediaPlayer(soundEffect);
         soundEffectPlayer.play();
         soundEffectPlayer.setVolume(soundEffectVolume);
+    }
+
+    /**
+     * Shuts down the {@link SoundPlayer}.
+     */
+    public static void shutdown() {
+        backgroundMusicPlayer.stop();
+        soundEffectPlayer.stop();
+        modelSoundEffectHandler.shutdown();
     }
 }
