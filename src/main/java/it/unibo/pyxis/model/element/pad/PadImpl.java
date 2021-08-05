@@ -47,11 +47,6 @@ public final class PadImpl extends AbstractElement implements Pad {
     }
 
     @Override
-    public String getTag() {
-        return this.tag;
-    }
-
-    @Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
@@ -66,6 +61,10 @@ public final class PadImpl extends AbstractElement implements Pad {
         return Objects.equals(this.getTag(), pad.getTag());
     }
 
+    @Override
+    public String getTag() {
+        return this.tag;
+    }
     @Override
     public int hashCode() {
         return Objects.hash(this.getTag());

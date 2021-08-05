@@ -1,14 +1,16 @@
 package it.unibo.pyxis.model.event.collision;
 
 /**
- * Event fired when a {@link it.unibo.pyxis.model.element.pad.Pad} collide with a generic
- * element of the domain.
+ * Event fired when a {@link it.unibo.pyxis.model.element.ball.Ball} collide
+ * with the {@link it.unibo.pyxis.model.element.pad.Pad}.
  */
 public interface BallCollisionWithPadEvent extends BallCollisionWithBrickEvent {
     /**
-     * Returns at what percentage of his width the pad was hit.
+     * Returns the percentage of the {@link it.unibo.pyxis.model.element.pad.Pad}
+     * width calculated on the X {@link it.unibo.pyxis.model.util.Coord} of the point
+     * of collision.
      * @return
-     *          The width dimension of the pad.
+     *          The width percentage of the pad.
      */
     double getPadHitPercentage();
 }

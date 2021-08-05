@@ -6,61 +6,55 @@ import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.Vector;
 
+
 public interface Element extends Entity {
 
     /**
-     * Returns the element's dimension.
-     *
-     * @return The element's {@link Dimension}
+     * Return the element's dimension.
+     * @return
+     *         The element's {@link Dimension}
      */
     Dimension getDimension();
 
     /**
-     * Returns the element's {@link Hitbox}.
-     *
-     * @return The element's {@link Hitbox}
+     * Return the element's {@link Hitbox}.
+     * @return
+     *          The element's {@link Hitbox}
      */
     Hitbox getHitbox();
 
     /**
-     * Returns the element's pace.
-     *
-     * @return The pace's {@link Vector}
-     */
-    Vector getPace();
-
-    /**
-     * Returns the element's position.
-     *
-     * @return The element's {@link Coord}
+     * Return the element's position.
+     * @return
+     *          The element's {@link Coord}
      */
     Coord getPosition();
 
     /**
-     * Returns the element's update time multiplier.
-     *
-     * @return The dt multiplier
+     * Return the element's update time multiplier.
+     * @return
+     *          The dt multiplier
      */
     double getUpdateTimeMultiplier();
 
     /**
-     * Increases the element's height value.
-     *
-     * @param increaseValue The increment value
+     * Increase the element's height value.
+     * @param increaseValue
+     *          The increment value
      */
     void increaseHeight(double increaseValue);
 
     /**
-     * Increases the element's width value.
-     *
-     * @param increaseValue The increment value
+     * Increase the element's width value.
+     * @param increaseValue
+     *          The increment value
      */
     void increaseWidth(double increaseValue);
 
     /**
-     * Sets the element's height value.
-     *
-     * @param height The height value
+     * Set the element's height value.
+     * @param height
+     *          The height value
      */
     void setHeight(double height);
 
@@ -91,4 +85,11 @@ public interface Element extends Entity {
      * @param dt The time gap intercurred between an update
      */
     void update(double dt);
+
+    /**
+     * Returns the element's pace.
+     *
+     * @return The pace's {@link Vector}
+     */
+    Vector getPace();
 }

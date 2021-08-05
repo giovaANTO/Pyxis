@@ -1,6 +1,5 @@
 package it.unibo.pyxis.model.element.powerup;
 
-import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
 import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.element.powerup.component.PowerupPhysicsComponent;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
@@ -26,6 +25,9 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         this.registerComponent(new PowerupPhysicsComponent(this));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -38,14 +40,20 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         return super.equals(o) && getType() == powerup.getType();
     }
 
-    @Override
-    public Vector getPace() {
-        return PACE.copyOf();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PowerupType getType() {
         return this.type;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Vector getPace() {
+        return PACE.copyOf();
     }
 
     @Override
@@ -60,10 +68,5 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
 
     public String toString() {
         return "I'm a " + this.type + "; Coord: " + this.getPosition().getX() + " " + this.getPosition().getY();
-    }
-
-    @Override
-    public void update(final double dt) {
-        this.getComponent(PhysicsComponent.class).update(dt);
     }
 }
