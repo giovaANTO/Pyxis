@@ -25,29 +25,20 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         this.type = inputType;
     }
 
-    @Override
-    public PowerupType getType() {
-        return this.type;
-    }
-
-    @Override
-    public Vector getPace() {
-        return PACE.copyOf();
-    }
-
-    @Override
-    public void update(final double dt) {
-        this.calculateNewCoord(dt);
-        EventBus.getDefault().post(Events.newPowerupMovementEvent(this));
-    }
-
+    /**
+     * Calculate and apply the new {@link Coord} for the {@link Powerup}.
+     * @param dt
+     *          The time gap used to calculate the new {@link Coord}.
+     */
     private void calculateNewCoord(final double dt) {
         final Coord updatedCoord = this.getPosition();
         updatedCoord.sumVector(this.getPace(),
                 dt * this.getUpdateTimeMultiplier());
         this.setPosition(updatedCoord);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -59,13 +50,36 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         PowerupImpl powerup = (PowerupImpl) o;
         return super.equals(o) && getType() == powerup.getType();
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Vector getPace() {
+        return PACE.copyOf();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PowerupType getType() {
+        return this.type;
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getType());
     }
-
     public String toString() {
         return "I'm a " + this.type + "; Coord: " + this.getPosition().getX() + " " + this.getPosition().getY();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(final double dt) {
+        this.calculateNewCoord(dt);
+        EventBus.getDefault().post(Events.newPowerupMovementEvent(this));
     }
 }

@@ -5,70 +5,60 @@ import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
 public interface Element {
-
     /**
-     * Returns the element's position.
-     * @return
-     *          The element's {@link Coord}
-     */
-    Coord getPosition();
-
-    /**
-     * Returns the element's dimension.
+     * Return the element's dimension.
      * @return
      *         The element's {@link Dimension}
      */
     Dimension getDimension();
-
     /**
-     * Returns the element's update time multiplier.
-     * @return
-     *          The dt multiplier
-     */
-    double getUpdateTimeMultiplier();
-
-    /**
-     * Returns the element's {@link Hitbox}.
+     * Return the element's {@link Hitbox}.
      * @return
      *          The element's {@link Hitbox}
      */
     Hitbox getHitbox();
-
     /**
-     * Sets the element's position.
-     * @param position
-     *          The {@link Coord}
+     * Return the element's position.
+     * @return
+     *          The element's {@link Coord}
      */
-    void setPosition(Coord position);
-
+    Coord getPosition();
     /**
-     * Sets the element's width value.
-     * @param width
-     *          The width value
+     * Return the element's update time multiplier.
+     * @return
+     *          The dt multiplier
      */
-    void setWidth(double width);
-
+    double getUpdateTimeMultiplier();
     /**
-     * Sets the element's height value.
-     * @param height
-     *          The height value
-     */
-    void setHeight(double height);
-
-    /**
-     * Increases the element's width value.
-     * @param increaseValue
-     *          The increment value
-     */
-    void increaseWidth(double increaseValue);
-
-    /**
-     * Increases the element's height value.
+     * Increase the element's height value.
      * @param increaseValue
      *          The increment value
      */
     void increaseHeight(double increaseValue);
-
+    /**
+     * Increase the element's width value.
+     * @param increaseValue
+     *          The increment value
+     */
+    void increaseWidth(double increaseValue);
+    /**
+     * Set the element's height value.
+     * @param height
+     *          The height value
+     */
+    void setHeight(double height);
+    /**
+     * Set the element's position.
+     * @param position
+     *          The {@link Coord}
+     */
+    void setPosition(Coord position);
+    /**
+     * Set the element's width value.
+     * @param width
+     *          The width value
+     */
+    void setWidth(double width);
     /**
      * Execute an update on the element.
      * @param dt The time gap intercurred between an update

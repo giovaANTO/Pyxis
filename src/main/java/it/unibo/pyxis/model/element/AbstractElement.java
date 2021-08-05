@@ -18,65 +18,19 @@ public abstract class AbstractElement implements Element {
         this.position = inputPosition;
     }
 
-    @Override
-    public final Dimension getDimension() {
-        return this.dimension.copyOf();
-    }
-
-    @Override
-    public final Coord getPosition() {
-        return this.position.copyOf();
-    }
-
-    @Override
-    public final double getUpdateTimeMultiplier() {
-        return UPDATE_TIME_MULTIPLIER;
-    }
-
     /**
-     * Sets the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
+     * Set the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
      * @param hitbox
+     *          The {@link Hitbox} to set.
      */
     protected void setHitbox(final Hitbox hitbox) {
         this.hitbox = hitbox;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final Hitbox getHitbox() {
-        return this.hitbox;
-    }
-
-    @Override
-    public final void setPosition(final Coord inputPosition) {
-        Objects.requireNonNull(inputPosition, "Error, tried to set null position.");
-        this.position.setXY(inputPosition.getX(), inputPosition.getY());
-    }
-
-    @Override
-    public final void setWidth(final double inputWidth) {
-        this.dimension.setWidth(inputWidth);
-    }
-
-    @Override
-    public final void setHeight(final double inputHeight) {
-        this.dimension.setHeight(inputHeight);
-    }
-
-    @Override
-    public final void increaseWidth(final double increaseValue) {
-        this.dimension.increaseWidth(increaseValue);
-    }
-
-    @Override
-    public final void increaseHeight(final double increaseValue) {
-        this.dimension.increaseHeight(increaseValue);
-    }
-
-    @Override
-    public abstract void update(double dt);
-
-    @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o)  {
             return true;
         }
@@ -89,9 +43,80 @@ public abstract class AbstractElement implements Element {
         final boolean testHitbox = Objects.equals(this.getHitbox(), that.getHitbox());
         return testDimensions && testPositions && testHitbox;
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Dimension getDimension() {
+        return this.dimension.copyOf();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Hitbox getHitbox() {
+        return this.hitbox;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Coord getPosition() {
+        return this.position.copyOf();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final double getUpdateTimeMultiplier() {
+        return UPDATE_TIME_MULTIPLIER;
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(this.getDimension(), this.getPosition(), this.getHitbox());
     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void increaseHeight(final double increaseValue) {
+        this.dimension.increaseHeight(increaseValue);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void increaseWidth(final double increaseValue) {
+        this.dimension.increaseWidth(increaseValue);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setHeight(final double inputHeight) {
+        this.dimension.setHeight(inputHeight);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setPosition(final Coord inputPosition) {
+        Objects.requireNonNull(inputPosition, "Error, tried to set null position.");
+        this.position.setXY(inputPosition.getX(), inputPosition.getY());
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setWidth(final double inputWidth) {
+        this.dimension.setWidth(inputWidth);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract void update(double dt);
 }

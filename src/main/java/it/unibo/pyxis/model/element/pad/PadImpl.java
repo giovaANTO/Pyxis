@@ -38,26 +38,15 @@ public final class PadImpl extends AbstractElement implements Pad {
     }
 
     @Override
-    public void update(final double dt) {
-        throw new UnsupportedOperationException("You can't call an update on the Pad");
-    }
-
-    @Override
-    public String getTag() {
-        return this.tag;
-    }
-
-    @Override
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Optional<CollisionInformation> collisionInformation = movementEvent.getElement().getHitbox().collidingEdgeWithHB(this.getHitbox());
         collisionInformation.ifPresent(cI -> {
             EventBus.getDefault().post(Events.newBallCollisionWithPadEvent(movementEvent.getElement().getId(), cI,
-                (this.getPosition().getX() + this.getDimension().getWidth() / 2 - movementEvent.getElement().getPosition().getX())
-                / this.getDimension().getWidth()));
+                    (this.getPosition().getX() + this.getDimension().getWidth() / 2 - movementEvent.getElement().getPosition().getX())
+                            / this.getDimension().getWidth()));
         });
     }
-
     @Override
     @Subscribe
     public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {
@@ -65,7 +54,6 @@ public final class PadImpl extends AbstractElement implements Pad {
             EventBus.getDefault().post(Events.newPowerupActivationEvent(movementEvent.getElement()));
         }
     }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -80,9 +68,16 @@ public final class PadImpl extends AbstractElement implements Pad {
         final PadImpl pad = (PadImpl) o;
         return Objects.equals(this.getTag(), pad.getTag());
     }
-
+    @Override
+    public String getTag() {
+        return this.tag;
+    }
     @Override
     public int hashCode() {
         return Objects.hash(this.getTag());
+    }
+    @Override
+    public void update(final double dt) {
+        throw new UnsupportedOperationException("You can't call an update on the Pad");
     }
 }
