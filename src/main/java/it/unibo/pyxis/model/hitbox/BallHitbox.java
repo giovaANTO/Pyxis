@@ -43,10 +43,6 @@ public class BallHitbox extends AbstractHitbox {
         return (this.getRadius() - distanceFromClosestPoint) * componentDistance / this.getRadius();
     }
 
-    private Vector getPace() {
-        return ((Ball) this.getElement()).getPace();
-    }
-
     /**
      * Return the radius of the {@link BallHitbox}.
      *
@@ -144,6 +140,10 @@ public class BallHitbox extends AbstractHitbox {
     @Override
     public boolean isCollidingWithPoint(final double px, final double py) {
         return getPosition().distance(px, py) <= getRadius();
+    }
+
+    private Vector getPace() {
+        return this.getElement().getPace();
     }
 
 }

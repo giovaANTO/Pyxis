@@ -1,11 +1,10 @@
 package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
-import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
-import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
+import it.unibo.pyxis.ecs.Entity;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
-public interface Level {
+public interface Level extends Entity {
     /**
      * Clean up the current {@link Level} and the assigned {@link Arena}
      * unregistering them from the{@link org.greenrobot.eventbus.EventBus}.
@@ -55,20 +54,18 @@ public interface Level {
     int getScore();
 
     /**
-     * Handle a {@link BrickDestructionEvent}.
-     *
-     * @param event
-     *          The instance of {@link BrickDestructionEvent}
+     * Increase the score of the level of a certain amount.
+     * @param score
+     *          The amount to add.
      */
-    void handleBrickDestruction(BrickDestructionEvent event);
+    void increaseScore(int score);
 
     /**
-     * Handle a {@link DecreaseLifeEvent}.
-     *
-     * @param event
-     *          The instance of {@link DecreaseLifeEvent}.
+     * Sets a {@link LevelStatus}.
+     * @param levelStatus
+     *                    The input {@link LevelStatus} to set
      */
-    void handleDecreaseLife(DecreaseLifeEvent event);
+    void setLevelStatus(LevelStatus levelStatus);
 
     /**
      * Call an un update on the {@link Level} updating each

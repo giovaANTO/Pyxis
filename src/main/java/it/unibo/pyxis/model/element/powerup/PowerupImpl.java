@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.element.powerup;
 
 import it.unibo.pyxis.model.element.AbstractElement;
-import it.unibo.pyxis.model.event.Events;
+import it.unibo.pyxis.model.element.powerup.component.PowerupPhysicsComponent;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 
 import it.unibo.pyxis.model.util.Coord;
@@ -9,7 +9,6 @@ import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import it.unibo.pyxis.model.util.Vector;
 import it.unibo.pyxis.model.util.VectorImpl;
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Objects;
 
@@ -23,19 +22,9 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         super(DIMENSION, inputCoord);
         this.setHitbox(new RectHitbox(this));
         this.type = inputType;
+        this.registerComponent(new PowerupPhysicsComponent(this));
     }
 
-    /**
-     * Calculate and apply the new {@link Coord} for the {@link Powerup}.
-     * @param dt
-     *          The time gap used to calculate the new {@link Coord}.
-     */
-    private void calculateNewCoord(final double dt) {
-        final Coord updatedCoord = this.getPosition();
-        updatedCoord.sumVector(this.getPace(),
-                dt * this.getUpdateTimeMultiplier());
-        this.setPosition(updatedCoord);
-    }
     /**
      * {@inheritDoc}
      */
@@ -50,13 +39,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         PowerupImpl powerup = (PowerupImpl) o;
         return super.equals(o) && getType() == powerup.getType();
     }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Vector getPace() {
-        return PACE.copyOf();
-    }
+
     /**
      * {@inheritDoc}
      */
@@ -64,22 +47,26 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     public PowerupType getType() {
         return this.type;
     }
+
     /**
      * {@inheritDoc}
      */
+    @Override
+    public Vector getPace() {
+        return PACE.copyOf();
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(getType());
     }
+
+    @Override
+    public void setPace(final Vector inputPace) {
+        throw new UnsupportedOperationException("You can't set a the pace on a PowerupImpl");
+    }
+
     public String toString() {
         return "I'm a " + this.type + "; Coord: " + this.getPosition().getX() + " " + this.getPosition().getY();
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void update(final double dt) {
-        this.calculateNewCoord(dt);
-        EventBus.getDefault().post(Events.newPowerupMovementEvent(this));
     }
 }

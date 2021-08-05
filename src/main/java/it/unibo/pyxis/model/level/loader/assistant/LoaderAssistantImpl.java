@@ -44,14 +44,10 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
             brickSkeletonSet.forEach(bs -> outputArena.addBrick(this.brickFromSkeleton(bs)));
         }
         if (!Objects.isNull(ballSkeletonSet)) {
-            ballSkeletonSet.forEach(bls -> outputArena.addBall(this.ballFromSkeleton(bls)));
-        } else {
-            outputArena.addDefaultBall();
+           ballSkeletonSet.forEach(bls -> outputArena.addBall(this.ballFromSkeleton(bls)));
         }
         if (!Objects.isNull(skeleton.getPad())) {
             outputArena.setPad(this.padFromSkeleton(skeleton.getPad()));
-        } else {
-            outputArena.setDefaultPad();
         }
         return outputArena;
     }

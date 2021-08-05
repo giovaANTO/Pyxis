@@ -107,7 +107,6 @@ class HitboxTest {
         final Dimension dimension2 = new DimensionImpl(10, 7.9);
 
         final Hitbox rectHBToHit = new PadImpl(dimension1, coord1).getHitbox();
-
         final Hitbox rectHBToMiss = new PadImpl(dimension2, coord2).getHitbox();
 
         assertTrue(rectHBToHit.isCollidingWithLowerBorder(borderDimension));

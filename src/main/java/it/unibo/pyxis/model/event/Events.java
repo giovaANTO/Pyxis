@@ -20,6 +20,29 @@ public final class Events {
     }
 
     /**
+     * Create a new {@link BrickDestructionEvent} instance passing the coords of the destroyed brick.
+     * @param coords
+     *                  The coords of destroyed brick.
+     * @param points
+     *                  The amount of points to be registered.
+     * @return
+     *                  The {@link BrickDestructionEvent} instance.
+     */
+    public static BrickDestructionEvent newBrickDestructionEvent(final Coord coords, final int points) {
+        return new BrickDestructionEvent() {
+            @Override
+            public Coord getBrickCoord() {
+                return coords;
+            }
+
+            @Override
+            public int getPoints() {
+                return points;
+            }
+        };
+    }
+
+    /**
      * Create a new {@link BallCollisionWithBorderEvent} instance.
      *
      * @param id
@@ -113,28 +136,6 @@ public final class Events {
      */
     public static BallMovementEvent newBallMovementEvent(final Ball ball) {
         return () -> ball;
-    }
-
-    /**
-     * Create a new {@link BrickDestructionEvent} instance passing the {@link Coord}
-     * of the destroyed {@link it.unibo.pyxis.model.element.brick.Brick}.
-     *
-     * @param coords The coords of destroyed brick.
-     * @param points The amount of points to be registered.
-     * @return The {@link BrickDestructionEvent} instance.
-     */
-    public static BrickDestructionEvent newBrickDestructionEvent(final Coord coords, final int points) {
-        return new BrickDestructionEvent() {
-            @Override
-            public Coord getBrickCoord() {
-                return coords;
-            }
-
-            @Override
-            public int getPoints() {
-                return points;
-            }
-        };
     }
 
     /**

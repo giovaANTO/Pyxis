@@ -1,12 +1,14 @@
 package it.unibo.pyxis.model.element;
 
+import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
+import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
 import java.util.Objects;
 
-public abstract class AbstractElement implements Element {
+public abstract class AbstractElement extends EntityImpl implements Element {
 
     private static final double UPDATE_TIME_MULTIPLIER = 0.001;
     private final Dimension dimension;
@@ -26,12 +28,13 @@ public abstract class AbstractElement implements Element {
     protected void setHitbox(final Hitbox hitbox) {
         this.hitbox = hitbox;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object o) {
-        if (this == o)  {
+        if (this == o) {
             return true;
         }
         if (!(o instanceof AbstractElement)) {
@@ -43,9 +46,7 @@ public abstract class AbstractElement implements Element {
         final boolean testHitbox = Objects.equals(this.getHitbox(), that.getHitbox());
         return testDimensions && testPositions && testHitbox;
     }
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
     public final Dimension getDimension() {
         return this.dimension.copyOf();
@@ -57,9 +58,8 @@ public abstract class AbstractElement implements Element {
     public final Hitbox getHitbox() {
         return this.hitbox;
     }
-    /**
-     * {@inheritDoc}
-     */
+
+
     @Override
     public final Coord getPosition() {
         return this.position.copyOf();
@@ -71,6 +71,7 @@ public abstract class AbstractElement implements Element {
     public final double getUpdateTimeMultiplier() {
         return UPDATE_TIME_MULTIPLIER;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -118,5 +119,9 @@ public abstract class AbstractElement implements Element {
      * {@inheritDoc}
      */
     @Override
-    public abstract void update(double dt);
+
+    public void update(final double dt) {
+        this.getComponent(PhysicsComponent.class).update(dt);
+    }
+
 }
