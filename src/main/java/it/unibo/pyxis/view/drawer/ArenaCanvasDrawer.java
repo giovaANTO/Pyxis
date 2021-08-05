@@ -20,9 +20,13 @@ public class ArenaCanvasDrawer {
     private static final String SPRITES_PATH = "sprites" + SEPARATOR;
     private static final String BACKGROUNDS_PATH = "backgrounds" + SEPARATOR;
     private static final String BACKGROUND_END_PATH = "BACKGROUND.png";
+    private static final String BRICK_START_PATH = "brick" + SEPARATOR;
     private static final String BRICK_END_PATH = "BRICK.png";
+    private static final String BALL_START_PATH = "ball" + SEPARATOR;
     private static final String BALL_END_PATH = "BALL.png";
+    private static final String POWERUP_START_PATH = "powerup" + SEPARATOR;
     private static final String POWERUP_END_PATH = "POWERUP.png";
+    private static final String PAD_START_PATH = "pad" + SEPARATOR;
     private static final String PAD_END_PATH = "PAD.png";
 
     private final GraphicsContext gc;
@@ -38,19 +42,19 @@ public class ArenaCanvasDrawer {
     }
 
     public final void fillBrick(final Coord position, final Dimension dimension, final BrickType type) {
-        this.fillSpriteImage(position, dimension, type.getTypeString() + BRICK_END_PATH);
+        this.fillSpriteImage(position, dimension, BRICK_START_PATH + type.getTypeString() + "_" + BRICK_END_PATH);
     }
 
     public final void fillBall(final Coord position, final Dimension dimension, final BallType type) {
-        this.fillSpriteImage(position, dimension, type.getType() + BALL_END_PATH);
+        this.fillSpriteImage(position, dimension, BALL_START_PATH + type.getType() + "_" + BALL_END_PATH);
     }
 
     public final void fillPowerup(final Coord position, final Dimension dimension, final PowerupType type) {
-        this.fillSpriteImage(position, dimension, type.toString() + "_" + POWERUP_END_PATH);
+        this.fillSpriteImage(position, dimension, POWERUP_START_PATH + type.toString() + "_" + POWERUP_END_PATH);
     }
 
     public final void fillPad(final Pad pad) {
-        this.fillSpriteImage(pad.getPosition(), pad.getDimension(), PAD_END_PATH);
+        this.fillSpriteImage(pad.getPosition(), pad.getDimension(),PAD_START_PATH + PAD_END_PATH);
     }
 
     public final void fillBackground(final int levelNumber) {
