@@ -1,14 +1,14 @@
 !!it.unibo.model.level.loader.skeleton.level.LevelSkeletonImpl
 lives: 3
-width: 350
-height: 400
+width: 378
+height: 420
 levelNumber: 1
 pad:
     x: 175
-    y: 350
+    y: 380
 balls:
   - x: 175
-    y: 300
+    y: 320
     paceX: 0
     paceY: 160
     ballType: "NORMAL"
