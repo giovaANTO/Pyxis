@@ -1,14 +1,14 @@
 package it.unibo.pyxis.model.element;
 
 import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
-import it.unibo.pyxis.ecs.AbstractEntity;
+import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
 import java.util.Objects;
 
-public abstract class AbstractElement extends AbstractEntity implements Element {
+public abstract class AbstractElement extends EntityImpl implements Element {
 
     private static final double UPDATE_TIME_MULTIPLIER = 0.001;
     private final Dimension dimension;

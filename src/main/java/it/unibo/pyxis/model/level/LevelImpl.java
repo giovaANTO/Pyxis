@@ -3,12 +3,12 @@ package it.unibo.pyxis.model.level;
 import it.unibo.pyxis.model.arena.Arena;
 import it.unibo.pyxis.ecs.component.event.EventComponent;
 import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
-import it.unibo.pyxis.ecs.AbstractEntity;
+import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.level.component.LevelEventComponent;
 import it.unibo.pyxis.model.level.component.LevelPhysicsComponent;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
-public final class LevelImpl extends AbstractEntity implements Level {
+public final class LevelImpl extends EntityImpl implements Level {
 
     private final int levelNumber;
     private int lives;

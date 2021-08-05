@@ -1,6 +1,6 @@
 package it.unibo.pyxis.ecs.utils;
 
-import it.unibo.pyxis.ecs.AbstractEntity;
+import it.unibo.pyxis.ecs.EntityImpl;
 
-public class TestEntity extends AbstractEntity {
+public class TestEntity extends EntityImpl {
 }

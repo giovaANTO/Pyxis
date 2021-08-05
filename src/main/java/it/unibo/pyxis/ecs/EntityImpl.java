@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class AbstractEntity implements Entity {
+public class EntityImpl implements Entity {
 
     private final Map<Class<?>, Component<?>> componentMap = new HashMap<>();
 
