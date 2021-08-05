@@ -4,10 +4,10 @@ width: 378
 height: 420
 levelNumber: 2
 pad:
-    x: 175
+    x: 189
     y: 380
 balls:
-  - x: 175
+  - x: 189
     y: 320
     paceX: 0
     paceY: 160
