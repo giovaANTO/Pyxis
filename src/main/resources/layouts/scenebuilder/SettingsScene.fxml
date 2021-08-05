@@ -15,13 +15,13 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" spacing="20.0">
                <children>
                   <Label text="BACKGROUND MUSIC VOLUME" textFill="WHITE" />
-                  <Slider fx:id="backgroundSlider" max="2.0" />
+                  <Slider fx:id="backgroundSlider" max="1.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <Label text="SOUND EFFECTS VOLUME" textFill="WHITE" />
-                  <Slider fx:id="soundEffectSlider" max="2.0" />
+                  <Slider fx:id="soundEffectSlider" max="1.0" />
                </children>
             </HBox>
          </children>
