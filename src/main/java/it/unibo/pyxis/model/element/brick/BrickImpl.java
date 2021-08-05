@@ -44,7 +44,6 @@ public final class BrickImpl extends AbstractElement implements Brick {
             }
         }
     }
-
     @Override
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
@@ -55,22 +54,6 @@ public final class BrickImpl extends AbstractElement implements Brick {
             EventBus.getDefault().post(Events.newBallCollisionWithBrickEvent(ball.getId(), cI));
         });
     }
-
-    @Override
-    public void update(final double delta) {
-        throw new UnsupportedOperationException("You can't call update on a brick");
-    }
-
-    @Override
-    public int getDurability() {
-        return this.durability;
-    }
-
-    @Override
-    public BrickType getBrickType() {
-        return this.brickType;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -85,12 +68,18 @@ public final class BrickImpl extends AbstractElement implements Brick {
         final BrickImpl brick = (BrickImpl) o;
         return this.getDurability() == brick.getDurability() && this.getBrickType() == brick.getBrickType();
     }
-
+    @Override
+    public BrickType getBrickType() {
+        return this.brickType;
+    }
+    @Override
+    public int getDurability() {
+        return this.durability;
+    }
     @Override
     public int hashCode() {
         return super.hashCode();
     }
-
     @Override
     public String toString() {
         return "BrickImpl{"
@@ -99,5 +88,9 @@ public final class BrickImpl extends AbstractElement implements Brick {
                 + ", Type :" + this.getBrickType()
                 + ", Durability : " + this.getDurability()
                 + '}';
+    }
+    @Override
+    public void update(final double delta) {
+        throw new UnsupportedOperationException("You can't call update on a brick");
     }
 }

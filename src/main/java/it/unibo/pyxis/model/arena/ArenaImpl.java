@@ -69,56 +69,17 @@ public final class ArenaImpl implements Arena {
     }
 
     /**
-     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
-     */
-    private void resetStartingPosition() {
-        this.getPad().setPosition(this.startingPadPosition.copyOf());
-        final Ball newBall = new BallImpl.Builder()
-                .initialPosition(this.startingBallPosition.copyOf())
-                .pace(this.startingBallPace.copyOf())
-                .ballType(BallType.NORMAL_BALL)
-                .id(1)
-                .build();
-        this.ballSet.clear();
-        this.ballSet.add(newBall);
-    }
-
-    /**
-     * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive).
+     * Calculate new {@link Pad}'s {@link Coord}.
+     * @param dx
+     *          The value to add to the x value of the {@link Pad}'s {@link Coord}.
      * @return
-     *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
-     *          from the {@link Random} rng sequence.
-     */
-    private Integer rangeNextInt(final int upperBound) {
-        return randomNumberGenerator.nextInt(upperBound);
-    }
-
-    /**
-     * Calculate the new position of the {@link Pad}.
-     * @param directionalVector
-     *                          The directional {@link Vector} used for setting the new {@link Coord}.
-     * @return
-     *          The new position of the {@link Pad}
+     *          The new position of the {@link Pad}.
      */
     private Coord calcPadNewXCoord(final double dx) {
         final Coord updatedCoord = this.pad.getPosition();
         updatedCoord.sumXValue(dx);
         return updatedCoord;
     }
-
-    /**
-     * Spawn a new {@link Powerup} in a specified position.
-     * Add a new instance of {@link Powerup} inside the set of powerups.
-     *
-     * @param spawnCoord
-     *                  The starting position of newly created {@link Powerup}.
-     */
-    private void spawnPowerup(final Coord spawnCoord) {
-        final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
-        final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
-        this.addPowerup(powerup);
-    }
-
     /**
      * Determine if a {@link Powerup} should be created.
      * @return
@@ -128,7 +89,6 @@ public final class ArenaImpl implements Arena {
         final int multiplier = 100;
         return rangeNextInt(multiplier) <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
     }
-
     /**
      * Remove all the {@link Ball}s in the {@link Arena} unsubscribing them
      * from the {@link EventBus}.
@@ -141,7 +101,6 @@ public final class ArenaImpl implements Arena {
         });
         this.ballSet.clear();
     }
-
     /**
      * Remove all the {@link Brick}s in the {@link Arena} unsubscribing them
      * from the {@link EventBus}.
@@ -168,7 +127,6 @@ public final class ArenaImpl implements Arena {
         this.powerupSet.clear();
         this.powerupHandler.stop();
     }
-
     /**
      * Modify the {@link Pad} width dimension of a certain amount.
      * @param amount
@@ -187,7 +145,41 @@ public final class ArenaImpl implements Arena {
         final Coord newPadPosition = new CoordImpl(padPosition.getX() + offset, padPosition.getY());
         this.pad.increaseWidth(amount);
         this.pad.setPosition(newPadPosition);
-
+    }
+    /**
+     * Returns a pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive).
+     * @return
+     *          the pseudorandom {@link Integer} value between 0 (inclusive) and the specified value (exclusive)
+     *          from the {@link Random} rng sequence.
+     */
+    private Integer rangeNextInt(final int upperBound) {
+        return randomNumberGenerator.nextInt(upperBound);
+    }
+    /**
+     * Resets the {@link Pad} and the {@link Ball} to the starting {@link Coord}.
+     */
+    private void resetStartingPosition() {
+        this.getPad().setPosition(this.startingPadPosition.copyOf());
+        final Ball newBall = new BallImpl.Builder()
+                .initialPosition(this.startingBallPosition.copyOf())
+                .pace(this.startingBallPace.copyOf())
+                .ballType(BallType.NORMAL_BALL)
+                .id(1)
+                .build();
+        this.ballSet.clear();
+        this.ballSet.add(newBall);
+    }
+    /**
+     * Spawn a new {@link Powerup} in a specified position.
+     * Add a new instance of {@link Powerup} inside the set of powerups.
+     *
+     * @param spawnCoord
+     *                  The starting position of newly created {@link Powerup}.
+     */
+    private void spawnPowerup(final Coord spawnCoord) {
+        final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
+        final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
+        this.addPowerup(powerup);
     }
 
     @Override
@@ -198,7 +190,6 @@ public final class ArenaImpl implements Arena {
             this.spawnPowerup(event.getBrickCoord());
         }
     }
-
     @Override
     @Subscribe
     public void handlePowerupActivation(final PowerupActivationEvent event) {
@@ -206,6 +197,35 @@ public final class ArenaImpl implements Arena {
         this.powerupSet.remove(event.getPowerup());
     }
 
+    @Override
+    public void addBall(final Ball ball) {
+        if (Objects.isNull(this.startingBallPosition)) {
+            this.startingBallPosition = ball.getPosition();
+            this.startingBallPace = ball.getPace();
+        }
+        this.ballSet.add(ball);
+    }
+    @Override
+    public void addBrick(final Brick brick) {
+        this.brickMap.put(brick.getPosition(), brick);
+    }
+    @Override
+    public void addDefaultBall() {
+        final double posX = this.getDimension().getWidth() / 2;
+        final double posY = this.getDimension().getHeight() * 0.7;
+        final int ballId = this.getLastBallId() + 1;
+        final Ball defaultBall = new BallImpl.Builder()
+                .ballType(BallType.NORMAL_BALL)
+                .initialPosition(new CoordImpl(posX, posY))
+                .id(ballId)
+                .pace(new VectorImpl(1.0, 1.0))
+                .build();
+        this.addBall(defaultBall);
+    }
+    @Override
+    public void addPowerup(final Powerup powerup) {
+        this.powerupSet.add(powerup);
+    }
     @Override
     public void checkBorderCollision() {
         for (final Ball ball: this.getBalls()) {
@@ -228,28 +248,53 @@ public final class ArenaImpl implements Arena {
                 .filter(p -> p.getHitbox().isCollidingWithLowerBorder(this.getDimension()))
                 .collect(Collectors.toSet());
         this.powerupSet.removeAll(powerupRemoveSet);
-
     }
-
     @Override
-    public void update(final double delta) {
-        this.checkBorderCollision();
-        final Set<Ball> ballSetCopy = Set.copyOf(this.ballSet);
-        final Set<Powerup> powerupSetCopy = Set.copyOf(this.powerupSet);
-        ballSetCopy.forEach(b -> b.update(delta));
-        powerupSetCopy.forEach(p -> p.update(delta));
+    public void cleanUp() {
+        final EventBus bus = EventBus.getDefault();
+        this.getBalls().forEach(ball -> {
+            if (bus.isRegistered(ball)) {
+                bus.unregister(ball);
+            }
+        });
+        this.ballSet.clear();
+        this.getBricks().forEach(brick -> {
+            if (bus.isRegistered(brick)) {
+                bus.unregister(brick);
+            }
+        });
+        this.brickMap.clear();
+        this.powerupSet.forEach(powerup -> {
+            if (bus.isRegistered(powerup)) {
+                bus.unregister(powerup);
+            }
+        });
+        this.powerupSet.clear();
+        this.powerupHandler.stop();
+        this.powerupHandler.shutdown();
+        if (bus.isRegistered(this.getPad())) {
+            bus.unregister(this.getPad());
+        }
+        if (bus.isRegistered(this)) {
+            bus.unregister(this);
+        }
     }
-
     @Override
-    public Dimension getDimension() {
-        return this.dimension.copyOf();
+    public void decreasePadWidth(final double amount) {
+        this.modifyPadWidth(-amount);
     }
-
     @Override
     public Set<Ball> getBalls() {
         return Set.copyOf(this.ballSet);
     }
-
+    @Override
+    public Set<Brick> getBricks() {
+        return new HashSet<>(this.brickMap.values());
+    }
+    @Override
+    public Dimension getDimension() {
+        return this.dimension.copyOf();
+    }
     @Override
     public int getLastBallId() {
         return this.ballSet.stream()
@@ -257,50 +302,32 @@ public final class ArenaImpl implements Arena {
                 .max()
                 .orElse(0);
     }
-
+    @Override
+    public Pad getPad() {
+        return this.pad;
+    }
+    @Override
+    public PowerupHandler getPowerupHandler() {
+        return this.powerupHandler;
+    }
+    @Override
+    public Set<Powerup> getPowerups() {
+        return Set.copyOf(this.powerupSet);
+    }
     @Override
     public Ball getRandomBall() {
         final List<Ball> ballList = new ArrayList<>(this.ballSet);
         Collections.shuffle(ballList);
         return ballList.get(0);
     }
-
     @Override
-    public Set<Brick> getBricks() {
-        return new HashSet<>(this.brickMap.values());
+    public void increasePadWidth(final double amount) {
+        this.modifyPadWidth(amount);
     }
-
     @Override
-    public Set<Powerup> getPowerups() {
-        return Set.copyOf(this.powerupSet);
+    public boolean isCleared() {
+        return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
     }
-
-    @Override
-    public PowerupHandler getPowerupHandler() {
-        return this.powerupHandler;
-    }
-
-    @Override
-    public Pad getPad() {
-        return this.pad;
-    }
-
-    @Override
-    public void setPad(final Pad inputPad) {
-        if (Objects.isNull(this.startingPadPosition)) {
-            this.startingPadPosition = inputPad.getPosition();
-        }
-        this.pad = inputPad;
-    }
-
-    @Override
-    public void setDefaultPad() {
-        final double posX = this.getDimension().getWidth() / 2;
-        final double posY = this.getDimension().getHeight() * 0.7;
-        final Pad defaultPad = new PadImpl(new CoordImpl(posX, posY));
-        this.setPad(defaultPad);
-    }
-
     @Override
     public void movePadLeft() {
         final Coord oldPosition = this.pad.getPosition();
@@ -316,7 +343,6 @@ public final class ArenaImpl implements Arena {
             this.pad.setPosition(oldPosition);
         }
     }
-
     @Override
     public void movePadRight() {
         final Coord oldPosition = this.pad.getPosition();
@@ -332,69 +358,20 @@ public final class ArenaImpl implements Arena {
             this.pad.setPosition(oldPosition);
         }
     }
-
     @Override
-    public void increasePadWidth(final double amount) {
-        this.modifyPadWidth(amount);
-    }
-
-    @Override
-    public void decreasePadWidth(final double amount) {
-        this.modifyPadWidth(-amount);
-    }
-
-    @Override
-    public void addBrick(final Brick brick) {
-        this.brickMap.put(brick.getPosition(), brick);
-    }
-
-    @Override
-    public void addBall(final Ball ball) {
-        if (Objects.isNull(this.startingBallPosition)) {
-            this.startingBallPosition = ball.getPosition();
-            this.startingBallPace = ball.getPace();
-        }
-        this.ballSet.add(ball);
-    }
-
-    @Override
-    public void addDefaultBall() {
+    public void setDefaultPad() {
         final double posX = this.getDimension().getWidth() / 2;
         final double posY = this.getDimension().getHeight() * 0.7;
-        final int ballId = this.getLastBallId() + 1;
-        final Ball defaultBall = new BallImpl.Builder()
-                .ballType(BallType.NORMAL_BALL)
-                .initialPosition(new CoordImpl(posX, posY))
-                .id(ballId)
-                .pace(new VectorImpl(1.0, 1.0))
-                .build();
-        this.addBall(defaultBall);
+        final Pad defaultPad = new PadImpl(new CoordImpl(posX, posY));
+        this.setPad(defaultPad);
     }
-
     @Override
-    public void addPowerup(final Powerup powerup) {
-        this.powerupSet.add(powerup);
-    }
-
-    @Override
-    public boolean isCleared() {
-        return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
-    }
-
-    @Override
-    public void cleanUp() {
-        this.clearBalls();
-        this.clearBricks();
-        this.clearPowerup();
-        this.powerupHandler.shutdown();
-        if (EventBus.getDefault().isRegistered(this.getPad())) {
-            EventBus.getDefault().unregister(this.getPad());
+    public void setPad(final Pad inputPad) {
+        if (Objects.isNull(this.startingPadPosition)) {
+            this.startingPadPosition = inputPad.getPosition();
         }
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
+        this.pad = inputPad;
     }
-
     @Override
     public String toString() {
         final int ballsNumber = this.getBalls().size();
@@ -406,5 +383,13 @@ public final class ArenaImpl implements Arena {
                 + ", #Powerup : " + powerupsNumber
                 + ", #Brick : " + brickNumbers
                 + "]";
+    }
+    @Override
+    public void update(final double delta) {
+        this.checkBorderCollision();
+        final Set<Ball> ballSetCopy = Set.copyOf(this.ballSet);
+        final Set<Powerup> powerupSetCopy = Set.copyOf(this.powerupSet);
+        ballSetCopy.forEach(b -> b.update(delta));
+        powerupSetCopy.forEach(p -> p.update(delta));
     }
 }
