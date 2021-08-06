@@ -3,32 +3,33 @@ package it.unibo.pyxis.model.powerup.effect;
 import it.unibo.pyxis.model.arena.Arena;
 
 public interface PowerupEffect {
-
     /**
-     * Apply the effect of the powerup.
+     * Apply the effect of the {@link it.unibo.pyxis.model.element.powerup.Powerup}.
+     *
      * @param arena
-     *                 The instance of {@link Arena}
+     *          The instance of {@link Arena}.
      */
     void applyEffect(Arena arena);
-
     /**
-     * Remove the effect of the powerup.
-     * @param arena
-     *                 The instance of {@link Arena}
-     */
-    void removeEffect(Arena arena);
-
-    /**
-     * Return the time of the powerup.
+     * Return the time of the {@link it.unibo.pyxis.model.element.powerup.Powerup}.
+     *
      * @return
-     *                  The time of the powerup's application.
+     *          The time of the {@link it.unibo.pyxis.model.element.powerup.Powerup}'s
+     *          application.
      */
-     int getApplyTime();
-
+    int getApplyTime();
     /**
      * Return the type of the effect.
+     *
      * @return
-     *                 The type of effect applied
+     *          The type of effect applied.
      */
     PowerupEffectType getType();
+    /**
+     * Remove the effect of the {@link it.unibo.pyxis.model.element.powerup.Powerup}.
+     *
+     * @param arena
+     *          The instance of {@link Arena}.
+     */
+    void removeEffect(Arena arena);
 }

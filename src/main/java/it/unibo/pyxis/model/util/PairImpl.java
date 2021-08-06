@@ -40,12 +40,13 @@ public final class PairImpl<T> implements Pair<T> {
         if (!(o instanceof PairImpl)) {
             return false;
         }
-        PairImpl<?> pair = (PairImpl<?>) o;
-        return getFirst().equals(pair.getFirst()) && getSecond().equals(pair.getSecond());
+        final PairImpl<?> pair = (PairImpl<?>) o;
+        return this.getFirst().equals(pair.getFirst()) && this.getSecond().equals(pair.getSecond());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirst(), getSecond());
+        return Objects.hash(this.getFirst(), this.getSecond());
     }
+
 }

@@ -24,7 +24,7 @@ class LevelTest {
     @BeforeEach
     public void init() {
         this.arena = new ArenaImpl(new DimensionImpl(1,1));
-        this.level = new LevelImpl(DEFAULT_STARTING_LIVES, arena);
+        this.level = new LevelImpl(DEFAULT_STARTING_LIVES, arena,1);
     }
 
     @Test
@@ -45,18 +45,12 @@ class LevelTest {
     }
 
     @Test
-    void increaseScore() {
-
-        DecreaseLifeEvent lifeEvent = Events.newDecreaseLifeEvent(Optional.of(SCORE_INCREMENT));
-        assertEquals(0, this.level.getScore());
-        EventBus.getDefault().post(lifeEvent);
-        assertEquals(SCORE_INCREMENT, this.level.getScore());
-        EventBus.getDefault().post(lifeEvent);
-        assertEquals(2 * SCORE_INCREMENT, this.level.getScore());
+    void getArena() {
+        assertEquals(this.arena, this.level.getArena());
     }
 
     @Test
-    void getArena() {
-        assertEquals(this.arena, this.level.getArena());
+    void getLevelNumber() {
+        assertEquals(1, this.level.getLevelNumber());
     }
 }

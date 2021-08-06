@@ -9,6 +9,20 @@ import java.util.Set;
 
 public interface LevelSkeleton {
     /**
+     * Return the {@link it.unibo.pyxis.model.level.Level} number.
+     * @return
+     *          An integer representing the input {@link it.unibo.pyxis.model.level.Level} number.
+     */
+    int getLevelNumber();
+
+    /**
+     * Set the {@link it.unibo.pyxis.model.level.Level} number.
+     * @param number
+     *              The input {@link it.unibo.pyxis.model.level.Level} number
+     */
+    void setLevelNumber(int number);
+
+    /**
      * Return the number of lives of the {@link it.unibo.pyxis.model.arena.Arena}.
      * @return
      *              The number of lives.

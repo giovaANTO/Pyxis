@@ -1,23 +1,49 @@
+!!it.unibo.model.level.loader.skeleton.level.LevelSkeletonImpl
 lives: 3
-width: 1000
-height: 1000
+width: 378
+height: 420
+levelNumber: 2
 pad:
-    x: 1
-    y: 2
+    x: 189
+    y: 380
 balls:
-  - x: 10
-    y: 2
-    paceX: 20
-    paceY: 10
+  - x: 189
+    y: 320
+    paceX: 0
+    paceY: 160
     ballType: "NORMAL"
     id: 1
 bricks:
-  - x: 3
-    y: 4
+  - x: 84
+    y: 102
     type: "RED"
-  - x: 3
-    y: 7
+  - x: 294
+    y: 102
     type: "RED"
-  - x: 3
-    y: 5
-    type: "RED"
+  - x: 21
+    y: 120
+    type: "GREEN"
+  - x: 63
+    y: 120
+    type: "YELLOW"
+  - x: 105
+    y: 120
+    type: "INDESTRUCTIBLE"
+  - x: 147
+    y: 120
+    type: "INDESTRUCTIBLE"
+  - x: 189
+    y: 120
+    type: "ORANGE"
+  - x: 231
+    y: 120
+    type: "INDESTRUCTIBLE"
+  - x: 273
+    y: 120
+    type: "INDESTRUCTIBLE"
+  - x: 315
+    y: 120
+    type: "YELLOW"
+  - x: 357
+    y: 120
+    type: "GREEN"

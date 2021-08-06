@@ -6,12 +6,21 @@ import it.unibo.pyxis.model.util.Coord;
 /**
  * Event fired when a brick is destroyed.
  */
-@FunctionalInterface
 public interface BrickDestructionEvent extends Event {
     /**
-     * Return the coords of the destroyed {@link it.unibo.pyxis.model.element.brick.Brick}.
+     * Return the coords of the destroyed
+     * {@link it.unibo.pyxis.model.element.brick.Brick}.
      * @return
-     *          The {@link Coord} of the destroyed {@link it.unibo.pyxis.model.element.brick.Brick}.
+     *          The {@link Coord} of the destroyed
+     *          {@link it.unibo.pyxis.model.element.brick.Brick}.
      */
     Coord getBrickCoord();
+    /**
+     * Return the points gained on the destruction of the
+     * {@link it.unibo.pyxis.model.element.brick.Brick}.
+     * @return
+     *          An integer representing the number of points gained on the destruction
+     *          of a {@link it.unibo.pyxis.model.element.brick.Brick}
+     */
+    int getPoints();
 }

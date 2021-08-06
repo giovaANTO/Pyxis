@@ -10,6 +10,10 @@ public final class DimensionImpl implements Dimension {
         this.internalPair = new PairImpl<>(width, height);
     }
 
+    public DimensionImpl() {
+        this(0, 0);
+    }
+
     @Override
     public double getWidth() {
         return this.internalPair.getFirst();
@@ -32,7 +36,9 @@ public final class DimensionImpl implements Dimension {
 
     @Override
     public void increaseWidth(final double increaseValue) {
+        System.out.println("DimensionImpl - Increasing starting width: " + this.getWidth() + " with " + increaseValue);
         this.setWidth(this.getWidth() + increaseValue);
+        System.out.println("DimensionImpl - After increase: " + this.getWidth());
     }
 
     @Override
@@ -53,12 +59,16 @@ public final class DimensionImpl implements Dimension {
         if (!(o instanceof DimensionImpl)) {
             return false;
         }
-        DimensionImpl dimension = (DimensionImpl) o;
-        return internalPair.equals(dimension.internalPair);
+        final DimensionImpl dimension = (DimensionImpl) o;
+        return Objects.equals(this.internalPair, dimension.internalPair);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(internalPair);
+    }
+
+    public String toString() {
+        return "Dimension X: " + this.internalPair.getFirst() + " and Y: " + this.internalPair.getSecond();
     }
 }

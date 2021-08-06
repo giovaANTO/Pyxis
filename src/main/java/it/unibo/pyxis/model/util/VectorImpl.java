@@ -11,8 +11,8 @@ public final class VectorImpl implements Vector {
         this.components = initialComponents;
     }
 
-    public VectorImpl(final double paceX, final double paceY) {
-        this(new PairImpl<Double>(paceX, paceY));
+    public VectorImpl(final double x, final double y) {
+        this(new PairImpl<Double>(x, y));
     }
 
     @Override
@@ -42,14 +42,28 @@ public final class VectorImpl implements Vector {
     }
 
     @Override
+    public Vector rotationBy(final double rotationAngle) {
+        double cos = Math.cos(rotationAngle);
+        double sin = Math.sin(rotationAngle);
+        return new VectorImpl(this.getX() * cos - this.getY() * sin, this.getX() * sin + this.getY() * cos);
+    }
+
+    @Override
+    public Vector copyOf() {
+        final double firstComponent = this.components.getFirst();
+        final double secondComponent = this.components.getSecond();
+        return new VectorImpl(firstComponent, secondComponent);
+    }
+
+    @Override
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof VectorImpl)) {
             return false;
         }
-        VectorImpl vector = (VectorImpl) o;
+        final VectorImpl vector = (VectorImpl) o;
         return Objects.equals(components, vector.components);
     }
 
@@ -57,12 +71,4 @@ public final class VectorImpl implements Vector {
     public int hashCode() {
         return Objects.hash(components);
     }
-
-    @Override
-    public Vector copyOf() {
-        double firstComponent = this.components.getFirst();
-        double secondComponent = this.components.getSecond();
-        return new VectorImpl(firstComponent, secondComponent);
-    }
-
 }

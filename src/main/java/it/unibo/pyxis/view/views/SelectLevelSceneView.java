@@ -20,8 +20,8 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
     @FXML
     private Button backButton;
 
-    private final int numLevel = 25;
-    private final int levelsDone = 25;
+    private int numLevel;
+    private int levelsDone;
     private static final String SEPARATOR = File.separator;
     private static final String STARTING_PATH = "images" + SEPARATOR;
     private static final String LOCKER_PATH = STARTING_PATH + "Lucchetto.png";
@@ -32,6 +32,9 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+
+        this.numLevel = this.getController().getTotalLevels();
+        this.levelsDone = 5;//this.getController().getLevelsDone();
 
         GridPane gridPane = this.populateButton();
 
@@ -50,13 +53,13 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
 
         GridPane gridPane = new GridPane();
 
-        int col = (int) Math.ceil(Math.sqrt(this.numLevel));
+        final int col = (int) Math.ceil(Math.sqrt(this.numLevel));
 
         int countX = 0;
         int countY = 0;
 
-        for (int i = 0; i < this.numLevel; i++) {
-            Button butt = new Button(String.valueOf(i + 1));
+        for (int i = 1; i <= this.numLevel; i++) {
+            final Button butt = new Button(String.valueOf(i));
             butt.setOnAction(event -> {
                 this.getLevel(Integer.parseInt(butt.getText()));
             });
@@ -78,8 +81,8 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
         return gridPane;
     }
 
-    public void getLevel(final int level) {
-        System.out.println("Lvl" + level);
+    public void getLevel(final int inputLevel) {
+        this.getController().runLevel(inputLevel);
     }
 
     public void back() {

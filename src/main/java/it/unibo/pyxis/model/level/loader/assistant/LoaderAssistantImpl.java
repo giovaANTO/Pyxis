@@ -6,10 +6,10 @@ import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
-import it.unibo.pyxis.model.element.brick.BrickImpl;
 import it.unibo.pyxis.model.element.brick.BrickType;
+import it.unibo.pyxis.model.element.factory.ElementFactory;
+import it.unibo.pyxis.model.element.factory.ElementFactoryImpl;
 import it.unibo.pyxis.model.element.pad.Pad;
-import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.LevelImpl;
 import it.unibo.pyxis.model.level.loader.skeleton.ball.BallSkeleton;
@@ -27,18 +27,14 @@ import java.util.Set;
 
 public final class LoaderAssistantImpl implements LoaderAssistant {
 
-    @Override
-    public Level createLevel(final LevelSkeleton skeleton) {
-        return new LevelImpl(skeleton.getLives(), this.arenaFromSkeleton(skeleton));
-    }
+    private final ElementFactory elementFactory = new ElementFactoryImpl();
 
     /**
      * Create an {@link Arena} instance from a skeleton.
-     * @param skeleton
-     *                  An {@link LevelSkeleton} object that contains the information about the {@link Arena}
-     *                  that should be created.
-     * @return
-     *                  An instance of {@link Arena}
+     *
+     * @param skeleton An {@link LevelSkeleton} object that contains the information about
+     *                 the {@link Arena} that should be created.
+     * @return An instance of {@link Arena}
      */
     private Arena arenaFromSkeleton(final LevelSkeleton skeleton) {
         final Arena outputArena = new ArenaImpl(new DimensionImpl(skeleton.getWidth(), skeleton.getHeight()));
@@ -49,28 +45,20 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
         }
         if (!Objects.isNull(ballSkeletonSet)) {
            ballSkeletonSet.forEach(bls -> outputArena.addBall(this.ballFromSkeleton(bls)));
-        } else {
-            outputArena.addDefaultBall();
         }
         if (!Objects.isNull(skeleton.getPad())) {
             outputArena.setPad(this.padFromSkeleton(skeleton.getPad()));
-        } else {
-            outputArena.setDefaultPad();
         }
         return outputArena;
     }
-
-    private Pad padFromSkeleton(final PadSkeleton skeleton) {
-        return new PadImpl(new CoordImpl(skeleton.getX(), skeleton.getY()));
-    }
-
     /**
      * Create a {@link Ball} instance from a skeleton.
+     *
      * @param skeleton
-     *                A {@link BallSkeleton} object that contains the information about the {@link Ball}
-     *                that should be created.
+     *          A {@link BallSkeleton} object that contains the information about
+     *          the {@link Ball} that should be created.
      * @return
-     *                An instance of a {@link Ball}
+     *          An instance of a {@link Ball}.
      */
     private Ball ballFromSkeleton(final BallSkeleton skeleton) {
         return new BallImpl.Builder()
@@ -83,24 +71,41 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
 
     /**
      * Create a {@link Brick} instance from a skeleton.
+     *
      * @param skeleton
-     *                A {@link BrickSkeleton} object that contains the information about the {@link Brick}
-     *                that should be created.
+     *          A {@link BrickSkeleton} object that contains the information about
+     *          the {@link Brick} that should be created.
      * @return
-     *                An instance of a {@link Brick}
+     *          An instance of a {@link Brick}.
      */
     private Brick brickFromSkeleton(final BrickSkeleton skeleton) {
         final Coord brickCoord = new CoordImpl(skeleton.getX(), skeleton.getY());
         final BrickType brickType = this.getBrickType(skeleton.getType());
-        return new BrickImpl(brickType, brickCoord);
+        return this.elementFactory.createBrickFromType(brickType, brickCoord);
+    }
+
+    /**
+     * Get a {@link BallType} from a type string loaded in a skeleton.
+     *
+     * @param typeString
+     *          A type string loaded from a skeleton.
+     * @return
+     *          A {@link BallType}.
+     */
+    private BallType getBallType(final String typeString) {
+        return Arrays.stream(BallType.values())
+                .filter(t -> t.getType().equals(typeString))
+                .findFirst()
+                .orElseThrow();
     }
 
     /**
      * Get a {@link BrickType} from a type string loaded in a skeleton.
+     *
      * @param typeString
-     *                 A type string loaded from a skeleton
+     *          A type string loaded from a skeleton.
      * @return
-     *                  A {@link BrickType}
+     *          A {@link BrickType}.
      */
     private BrickType getBrickType(final String typeString) {
         return Arrays.stream(BrickType.values())
@@ -108,18 +113,16 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
                 .findFirst()
                 .orElseThrow();
     }
-
     /**
-     * Get a {@link BallType} from a type string loaded in a skeleton.
-     * @param typeString
-     *                 A type string loaded from a skeleton
+     *
+     * @param skeleton
      * @return
-     *                  A {@link BallType}
      */
-    private BallType getBallType(final  String typeString) {
-        return Arrays.stream(BallType.values())
-                .filter(t -> t.getType().equals(typeString))
-                .findFirst()
-                .orElseThrow();
+    private Pad padFromSkeleton(final PadSkeleton skeleton) {
+        return this.elementFactory.createDefaultPad(new CoordImpl(skeleton.getX(), skeleton.getY()));
+    }
+    @Override
+    public Level createLevel(final LevelSkeleton skeleton) {
+        return new LevelImpl(skeleton.getLives(), this.arenaFromSkeleton(skeleton), skeleton.getLevelNumber());
     }
 }

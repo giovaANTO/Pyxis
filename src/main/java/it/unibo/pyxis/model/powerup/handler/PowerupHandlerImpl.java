@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+
 import it.unibo.pyxis.model.arena.Arena;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
@@ -26,50 +27,65 @@ public final class PowerupHandlerImpl implements PowerupHandler {
         this.insertionPolicy = policy;
         this.arena = inputArena;
     }
-
+    /**
+     * Return the {@link Arena} where this {@link PowerupHandler} is currently
+     * attached.
+     *
+     * @return
+     *          The instance of {@link Arena}.
+     */
+    private Arena getArena() {
+        return this.arena;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int activeCount() {
+        return this.executor.getActiveCount();
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Future<?> addPowerup(final PowerupEffect effect) {
         this.insertionPolicy.execute(effect.getType(), this.executor.getTypeMap(effect.getType()));
         return this.executor.submit(effect);
     }
-
-    @Override
-    public void pause() {
-        this.executor.pause();
-    }
-
-    @Override
-    public void resume() {
-        this.executor.resume();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPaused() {
         return this.executor.isPaused();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void stop() {
-        this.executor.stop();
+    public void pause() {
+        this.executor.pause();
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resume() {
+        this.executor.resume();
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void shutdown() {
         this.executor.shutdown();
     }
-
-    @Override
-    public int activeCount() {
-        return this.executor.getActiveCount();
-    }
-
     /**
-     * Return the arena where this handler is currently attached.
-     * @return
-     *              The instance of {@link Arena}
+     * {@inheritDoc}
      */
-    private Arena getArena() {
-        return this.arena;
+    @Override
+    public void stop() {
+        this.executor.stop();
     }
 
     private class InternalExecutor extends PausablePoolImpl implements PowerupPool {
@@ -82,31 +98,20 @@ public final class PowerupHandlerImpl implements PowerupHandler {
             this.threadMap = new ConcurrentHashMap<>();
             this.threadMap.put(PowerupEffectType.PAD_POWERUP, new ConcurrentHashMap<>());
             this.threadMap.put(PowerupEffectType.BALL_POWERUP, new ConcurrentHashMap<>());
-        }
-
-        @Override
-        public Future<?> submit(final PowerupEffect effect) {
-            return this.submit(this.buildRunnable(effect));
-        }
-
-        @Override
-        public Map<Long, Thread> getTypeMap(final PowerupEffectType type) {
-            return this.threadMap.get(type);
-        }
-
-        @Override
-        public void stop() {
-            this.threadMap.values().stream().flatMap(m -> m.values().stream()).forEach(Thread::interrupt);
+            this.threadMap.put(PowerupEffectType.ARENA_POWERUP, new ConcurrentHashMap<>());
         }
 
         /**
-         * This method is used for building a new runnable used for creating a powerup thread.
-         * The newly created {@link Runnable} will implement the logics for applying and remove a {@link PowerupEffect},
-         * pausing the thread and safely handling any interruptions.
+         * This method is used for building a new runnable used for creating a
+         * {@link it.unibo.pyxis.model.element.powerup.Powerup} thread.
+         * The newly created {@link Runnable} will implement the logics for applying and
+         * remove a {@link PowerupEffect}, pausing the thread and safely handling any
+         * interruptions.
+         *
          * @param effect
-         *                  The effect to apply
+         *          The effect to apply.
          * @return
-         *                  A new {@link Runnable} to pass to the pool
+         *          A new {@link Runnable} to pass to the pool.
          */
         private Runnable buildRunnable(final PowerupEffect effect) {
             return new Runnable() {
@@ -134,32 +139,54 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                 }
             };
         }
-
         /**
-         * Start tracking a new powerup thread adding a new record
-         * in the internal thread map.
+         * Start tracking a new {@link it.unibo.pyxis.model.element.powerup.Powerup}
+         * thread adding a new record in the internal thread map.
+         *
          * @param type
-         *              The {@link PowerupEffectType} of the powerup.
+         *          The {@link PowerupEffectType} of the powerup.
          * @param tid
-         *              The thread identifier of the {@link Thread} instance.
+         *          The thread identifier of the {@link Thread} instance.
          * @param thread
-         *              The instance of the {@link Thread}.
+         *          The instance of the {@link Thread}.
          */
         private void trackThread(final PowerupEffectType type, final long tid, final Thread thread) {
             this.threadMap.get(type).put(tid, thread);
         }
 
         /**
-         * Stop tracking a powerup thread.
+         * Stop tracking a {@link it.unibo.pyxis.model.element.powerup.Powerup}
+         * thread.
          *
          * @param type
-         *              The {@link PowerupEffectType} of the powerup that should be removed.
+         *          The {@link PowerupEffectType} of the powerup that should be
+         *          removed.
          * @param tid
-         *              the thread identifier of the {@link Thread} instance.
+         *          the thread identifier of the {@link Thread} instance.
          */
         private void untrackThread(final PowerupEffectType type, final long tid) {
             this.threadMap.get(type).remove(tid);
         }
-
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Map<Long, Thread> getTypeMap(final PowerupEffectType type) {
+            return this.threadMap.get(type);
+        }
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void stop() {
+            this.threadMap.values().stream().flatMap(m -> m.values().stream()).forEach(Thread::interrupt);
+        }
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Future<?> submit(final PowerupEffect effect) {
+            return this.submit(this.buildRunnable(effect));
+        }
     }
 }

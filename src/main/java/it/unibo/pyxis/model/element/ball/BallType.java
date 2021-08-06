@@ -31,23 +31,6 @@ public enum BallType {
     }
 
     /**
-     * Returns the {@link Ball}'s damage as Optional<Integer>.
-     * @return  Optional empty if damage is infinite,
-     *          Optional of an integer representing damage.
-     */
-    public Optional<Integer> getDamage() {
-        return this.damage;
-    }
-
-    /**
-     * Returns the {@link Ball}'s pace multiplier.
-     * @return double representing ball's pace multiplier
-     */
-    public double getPaceMultiplier() {
-        return this.paceMultiplier;
-    }
-
-    /**
      * Returns the {@link Ball}'s property of bouncing if collided with a destructible {@link it.unibo.pyxis.model.element.brick.Brick}.
      * @return  true if the {@link Ball} bounces,
      *          false if the {@link Ball} doesn't bounce.
@@ -55,7 +38,21 @@ public enum BallType {
     public boolean bounce() {
         return this.bounce;
     }
-
+    /**
+     * Returns the {@link Ball}'s damage as Optional<Integer>.
+     * @return  Optional empty if damage is infinite,
+     *          Optional of an integer representing damage.
+     */
+    public Optional<Integer> getDamage() {
+        return this.damage;
+    }
+    /**
+     * Returns the {@link Ball}'s pace multiplier.
+     * @return double representing ball's pace multiplier
+     */
+    public double getPaceMultiplier() {
+        return this.paceMultiplier;
+    }
     /**
      * Return the {@link String} representing the {@link Ball} type.
      * @return

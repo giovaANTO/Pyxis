@@ -1,17 +1,11 @@
 package it.unibo.pyxis.model.event.notify;
 
 import it.unibo.pyxis.model.event.Event;
-import java.util.Optional;
-
 /**
- * Event fired when the ball's position in the lower part of the arena.
+ * Event fired when the {@link it.unibo.pyxis.model.element.ball.Ball}'s Y
+ * {@link it.unibo.pyxis.model.util.Coord} is equal of the
+ * {@link it.unibo.pyxis.model.arena.Arena}'s height
+ * {@link it.unibo.pyxis.model.util.Dimension}.
  */
-@FunctionalInterface
 public interface DecreaseLifeEvent extends Event {
-    /**
-     * Return the score gained.
-     * @return
-     *          The gained score.
-     */
-    Optional<Integer> getScore();
 }

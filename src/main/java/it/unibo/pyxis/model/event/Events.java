@@ -1,67 +1,126 @@
 package it.unibo.pyxis.model.event;
 
+import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.powerup.Powerup;
-import it.unibo.pyxis.model.event.collision.CollisionEvent;
-import it.unibo.pyxis.model.event.collision.PadCollisionEvent;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
+import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
-import it.unibo.pyxis.model.hitbox.HitEdge;
-import it.unibo.pyxis.model.hitbox.Hitbox;
+import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.util.Coord;
-
-import java.util.Optional;
 
 public final class Events {
 
     private Events() {
-        throw new AssertionError("This class can't be instantiated , why are you here?");
-    };
+        throw new AssertionError("This class can't be instantiated");
+    }
 
     /**
      * Create a new {@link BrickDestructionEvent} instance passing the coords of the destroyed brick.
      * @param coords
      *                  The coords of destroyed brick.
+     * @param points
+     *                  The amount of points to be registered.
      * @return
      *                  The {@link BrickDestructionEvent} instance.
      */
-    public static BrickDestructionEvent newBrickDestructionEvent(final Coord coords) {
-        return () -> coords;
-    }
-
-    /**
-     * Create a new {@link CollisionEvent} instance passing a {@link HitEdge}.
-     * @param hitEdge
-     *                  The edge of the {@link it.unibo.pyxis.model.element.brick.Brick} 
-     *                  or border of the {@link it.unibo.pyxis.model.Arena} that has been hit.
-     * @return
-     *         The {@link CollisionEvent} instance.
-     */
-    public static CollisionEvent newCollisionEvent(final HitEdge hitEdge) {
-        return () -> hitEdge;
-    }
-
-    /**
-     * Create a new {@link PadCollisionEvent} instance passing a {@link HitEdge}.
-     * @param hitEdge
-     *                  The edge of the {@link it.unibo.pyxis.model.element.pad.Pad} that has been hit.
-     * @param padWidth
-     *                  The current width of the {@link it.unibo.pyxis.model.element.pad.Pad}
-     * @return
-     *           The {@link PadCollisionEvent} instance.
-     */
-    public static PadCollisionEvent newPadCollisionEvent(final HitEdge hitEdge, final double padWidth) {
-        return new PadCollisionEvent() {
+    public static BrickDestructionEvent newBrickDestructionEvent(final Coord coords, final int points) {
+        return new BrickDestructionEvent() {
             @Override
-            public double getPadWidth() {
+            public Coord getBrickCoord() {
+                return coords;
+            }
+
+            @Override
+            public int getPoints() {
+                return points;
+            }
+        };
+    }
+
+    /**
+     * Create a new {@link BallCollisionWithBrickEvent} instance.
+     * @param id
+     *              The {@link Ball} id
+     * @param collisionInformation
+     *              The {@link CollisionInformation} instance.
+     * @return
+     *          The {@link BallCollisionWithBrickEvent} instance.
+     */
+    public static BallCollisionWithBrickEvent newBallCollisionWithBrickEvent(final int id, final boolean isIndestructible,
+                                                                             final CollisionInformation collisionInformation) {
+        return new BallCollisionWithBrickEvent() {
+            @Override
+            public int getBallId() {
+                return id;
+            }
+
+            @Override
+            public boolean isBrickIndestructible() {
+                return isIndestructible;
+            }
+
+            @Override
+            public CollisionInformation getCollisionInformation() {
+                return collisionInformation;
+            }
+        };
+    }
+
+    /**
+     * Create a new {@link BallCollisionWithBorderEvent} instance.
+     * @param id
+     *              The {@link Ball} id
+     * @param collisionInformation
+     *              The {@link CollisionInformation} instance.
+     * @return
+     *          The {@link BallCollisionWithBorderEvent} instance.
+     */
+    public static BallCollisionWithBorderEvent newBallCollisionWithBorderEvent(final int id, final CollisionInformation collisionInformation) {
+        return new BallCollisionWithBorderEvent() {
+            @Override
+            public int getBallId() {
+                return id;
+            }
+
+            @Override
+            public CollisionInformation getCollisionInformation() {
+                return collisionInformation;
+            }
+        };
+    }
+
+    /**
+     * Create a new {@link BallCollisionWithPadEvent} instance.
+     * @param id
+     *              The {@link Ball} id
+     * @param collisionInformation
+     *              The {@link CollisionInformation} instance.
+     * @param padWidth
+     *              The width property of the {@link it.unibo.pyxis.model.element.pad.Pad}.
+     * @return
+     *          The {@link BallCollisionWithPadEvent} instance.
+     */
+    public static BallCollisionWithPadEvent newBallCollisionWithPadEvent(final int id, final CollisionInformation collisionInformation,
+                                                                         final double padWidth) {
+        return new BallCollisionWithPadEvent() {
+            @Override
+            public int getBallId() {
+                return id;
+            }
+
+            @Override
+            public double getPadHitPercentage() {
                 return padWidth;
             }
 
             @Override
-            public HitEdge getCollidedEdge() {
-                return hitEdge;
+            public CollisionInformation getCollisionInformation() {
+                return collisionInformation;
             }
         };
     }
@@ -81,55 +140,40 @@ public final class Events {
      * Create a new {@link BallMovementEvent} instance passing a {@link Coord} representing the current position
      * of the {@link it.unibo.pyxis.model.element.ball.Ball} inside the {@link it.unibo.pyxis.model.arena.Arena}.
      *
-     * @param hitbox
-     *                  The {@link it.unibo.pyxis.model.element.ball.Ball}'s {@link Hitbox}.
-     * @param id
-     *                  The {@link it.unibo.pyxis.model.element.ball.Ball}'s identifier.
+     * @param ball
+     *                  The {@link Ball} moving
      * @return
      *                  The {@link BallMovementEvent} instance.
      */
-    public static BallMovementEvent newBallMovementEvent(final int id, final Hitbox hitbox,
-                                                         final Optional<Integer> dmg) {
-        return new BallMovementEvent() {
-            @Override
-            public int getBallId() {
-                return id;
-            }
-
-            @Override
-            public Optional<Integer> getDamage() {
-                return dmg;
-            }
-
-            @Override
-            public Hitbox getHitbox() {
-                return hitbox;
-            }
-        };
+    public static BallMovementEvent newBallMovementEvent(final Ball ball) {
+        return () -> ball;
     }
 
     /**
      * Create a new {@link PowerupMovementEvent} instance passing a {@link Coord} representing the current position
      * of the {@link it.unibo.pyxis.model.element.powerup.Powerup} inside the {@link it.unibo.pyxis.model.arena.Arena}.
      *
-     * @param hitbox
+     * @param powerup
      *               The {@link it.unibo.pyxis.model.element.powerup.Powerup}'s {@link Coord} position.
      * @return
      *               The {@link PowerupMovementEvent} instance.
      */
-    public static PowerupMovementEvent newPowerupMovementEvent(final Hitbox hitbox) {
-        return () -> hitbox;
+    public static PowerupMovementEvent newPowerupMovementEvent(final Powerup powerup) {
+        return () -> powerup;
     }
 
     /**
-     * Create a new {@link DecreaseLifeEvent} instance passing an {@link Optional} indicating the score gained.
+     * Create a new {@link DecreaseLifeEvent} instance.
      *
-     * @param score
-     *              An {@link Optional} with the score gained
      * @return
      *              The {@link DecreaseLifeEvent} instance.
      */
-    public static DecreaseLifeEvent newDecreaseLifeEvent(final Optional<Integer> score) {
-        return () -> score;
+    public static DecreaseLifeEvent newDecreaseLifeEvent() {
+        return new DecreaseLifeEvent() {
+            @Override
+            public String toString() {
+                return super.toString();
+            }
+        };
     }
 }

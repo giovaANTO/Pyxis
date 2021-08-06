@@ -1,19 +1,16 @@
 package it.unibo.pyxis.model.element.brick;
 
 import it.unibo.pyxis.model.element.Element;
-import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 
 
 public interface Brick extends Element {
 
     /**
-     * Handles the ball's movement event.
-     *
-     * @param movementEvent
-     *                          The movement event caused by the {@link it.unibo.pyxis.element.ball.Ball}
-     *                          that should be handled
+     * Allow to access the typology of the brick.
+     * @return
+     *          The {@link BrickType} value for this brick
      */
-    void handleBallMovement(BallMovementEvent movementEvent);
+    BrickType getBrickType();
 
     /**
      * Returns the brick's durability.
@@ -23,10 +20,9 @@ public interface Brick extends Element {
     int getDurability();
 
     /**
-     * Allow to access the typology of the brick.
-     *
-     * @return
-     *          The {@link BrickType} value for this brick
+     * Sets the brick's durability.
+     * @param inputDurability
+     *                        The durability to set.
      */
-    BrickType getBrickType();
+    void setDurability(int inputDurability);
 }

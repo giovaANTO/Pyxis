@@ -1,12 +1,14 @@
 package it.unibo.pyxis.model.element;
 
+import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
+import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
 import java.util.Objects;
 
-public abstract class AbstractElement implements Element {
+public abstract class AbstractElement extends EntityImpl implements Element {
 
     private static final double UPDATE_TIME_MULTIPLIER = 0.001;
     private final Dimension dimension;
@@ -18,72 +20,27 @@ public abstract class AbstractElement implements Element {
         this.position = inputPosition;
     }
 
-    @Override
-    public final synchronized Dimension getDimension() {
-        return this.dimension.copyOf();
-    }
-
-    @Override
-    public final synchronized Coord getPosition() {
-        return this.position.copyOf();
-    }
-
-    @Override
-    public final double getUpdateTimeMultiplier() {
-        return UPDATE_TIME_MULTIPLIER;
-    }
-
     /**
-     * Sets the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
+     * Set the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
      * @param hitbox
+     *          The {@link Hitbox} to set.
      */
     protected void setHitbox(final Hitbox hitbox) {
         this.hitbox = hitbox;
     }
 
-    @Override
-    public final Hitbox getHitbox() {
-        return this.hitbox;
-    }
-
-    @Override
-    public final synchronized void setPosition(final Coord inputPosition) {
-        Objects.requireNonNull(inputPosition, "Error, tried to set null position.");
-        this.position.setXY(inputPosition.getX(), inputPosition.getY());
-    }
-
-    @Override
-    public final synchronized void setWidth(final double inputWidth) {
-        this.dimension.setWidth(inputWidth);
-    }
-
-    @Override
-    public final synchronized void setHeight(final double inputHeight) {
-        this.dimension.setHeight(inputHeight);
-    }
-
-    @Override
-    public final synchronized void increaseWidth(final double increaseValue) {
-        this.dimension.increaseWidth(increaseValue);
-    }
-
-    @Override
-    public final synchronized void increaseHeight(final double increaseValue) {
-        this.dimension.increaseHeight(increaseValue);
-    }
-
-    @Override
-    public abstract void update(int dt);
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object o) {
-        if (this == o)  {
+        if (this == o) {
             return true;
         }
         if (!(o instanceof AbstractElement)) {
             return false;
         }
-        AbstractElement that = (AbstractElement) o;
+        final AbstractElement that = (AbstractElement) o;
         final boolean testDimensions = Objects.equals(this.getDimension(), that.getDimension());
         final boolean testPositions = Objects.equals(this.getPosition(), that.getPosition());
         final boolean testHitbox = Objects.equals(this.getHitbox(), that.getHitbox());
@@ -91,7 +48,80 @@ public abstract class AbstractElement implements Element {
     }
 
     @Override
+    public final Dimension getDimension() {
+        return this.dimension.copyOf();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Hitbox getHitbox() {
+        return this.hitbox;
+    }
+
+
+    @Override
+    public final Coord getPosition() {
+        return this.position.copyOf();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final double getUpdateTimeMultiplier() {
+        return UPDATE_TIME_MULTIPLIER;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int hashCode() {
         return Objects.hash(this.getDimension(), this.getPosition(), this.getHitbox());
     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void increaseHeight(final double increaseValue) {
+        this.dimension.increaseHeight(increaseValue);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void increaseWidth(final double increaseValue) {
+        this.dimension.increaseWidth(increaseValue);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setHeight(final double inputHeight) {
+        this.dimension.setHeight(inputHeight);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setPosition(final Coord inputPosition) {
+        Objects.requireNonNull(inputPosition, "Error, tried to set null position.");
+        this.position.setXY(inputPosition.getX(), inputPosition.getY());
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setWidth(final double inputWidth) {
+        this.dimension.setWidth(inputWidth);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+
+    public void update(final double dt) {
+        this.getComponent(PhysicsComponent.class).update(dt);
+    }
+
 }
