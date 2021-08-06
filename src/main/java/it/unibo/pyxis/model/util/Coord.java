@@ -3,39 +3,59 @@ package it.unibo.pyxis.model.util;
 public interface Coord {
 
     /**
-     * Returns the x coordinate.
+     * Return a copy of the {@link Coord}.
+     * @return The {@link Coord}
+     */
+    Coord copyOf();
+
+    /**
+     *
+     * @param position
      * @return
-     *          The value of the x coordinate
+     */
+    double distance(Coord position);
+
+    /**
+     *
+     * @param px
+     * @param py
+     * @return
+     */
+    double distance(double px, double py);
+
+    /**
+     * Return the x coordinate.
+     *
+     * @return The value of the x coordinate
      */
     double getX();
 
     /**
-     * Returns the y coordinate.
-     * @return
-     *          The value of the y coordinate
+     * Return the y coordinate.
+     *
+     * @return The value of the y coordinate
      */
     double getY();
 
     /**
-     * Sets the x coordinate.
-     * @param xCoord
-     *          The value of the x coordinate
+     * Set the x coordinate.
+     *
+     * @param xCoord The value of the x coordinate
      */
     void setX(double xCoord);
 
     /**
-     * Sets the y coordinate.
-     * @param yCoord
-     *          The value of the y coordinate
+     * Set the y coordinate.
+     *
+     * @param yCoord The value of the y coordinate
      */
     void setY(double yCoord);
 
     /**
-     * Sets the x, y coordinates.
-     * @param xCoord
-     *          The value of the x coordinate
-     * @param yCoord
-     *          The value of the y coordinate
+     * Set the x, y coordinates.
+     *
+     * @param xCoord The value of the x coordinate
+     * @param yCoord The value of the y coordinate
      */
     default void setXY(double xCoord, double yCoord) {
         this.setX(xCoord);
@@ -43,57 +63,48 @@ public interface Coord {
     }
 
     /**
-     * Sums the xValue to the internal X value of the {@link Coord}.
-     * @param xValue
+     * Sum the parameter values to the internal values of the {@link Coord}.
+     *
+     * @param coord
      */
-    void sumXValue(double xValue);
+    void sumCoord(Coord coord);
 
     /**
-     * Sums the yValue to the internal Y value of the {@link Coord}.
-     * @param yValue
-     */
-    void sumYValue(double yValue);
-
-    /**
-     * Sums the xValue and the yValue to the internal values of the {@link Coord}.
+     * Sum the xValue and the yValue to the internal values of the {@link Coord}.
+     *
      * @param xValue
      * @param yValue
      */
     void sumValues(double xValue, double yValue);
 
     /**
-     * Sums the parameter values to the internal values of the {@link Coord}.
-     * @param coord
-     */
-    void sumCoord(Coord coord);
-
-    /**
-     * Sums the x, y coordinates to the x, y, components of a
+     * Sum the x, y coordinates to the x, y, components of a
      * {@link Vector}.
-     * @param vector
-     *          The {@link Vector} to sum
+     *
+     * @param vector The {@link Vector} to sum
      */
     void sumVector(Vector vector);
 
     /**
-     * Sums the x, y coordinates to the x, y components of a
+     * Sum the x, y coordinates to the x, y components of a
      * {@link Vector} multiplied by a certain value.
-     * @param vector
-     *          The {@link Vector} to sum
-     * @param multiplier
-     *          The multiplier value
+     *
+     * @param vector     The {@link Vector} to sum
+     * @param multiplier The multiplier value
      */
     void sumVector(Vector vector, double multiplier);
 
     /**
-     * Returns a copy of the {@link Coord}.
-     * @return
-     *          The {@link Coord}
+     * Sum the xValue to the internal X value of the {@link Coord}.
+     *
+     * @param xValue
      */
-    Coord copyOf();
+    void sumXValue(double xValue);
 
-    
-    double distance(Coord position);
-    
-    double distance(double px, double py);
+    /**
+     * Sum the yValue to the internal Y value of the {@link Coord}.
+     *
+     * @param yValue
+     */
+    void sumYValue(double yValue);
 }

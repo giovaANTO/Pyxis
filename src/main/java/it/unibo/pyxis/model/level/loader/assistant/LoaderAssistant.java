@@ -7,9 +7,9 @@ public interface LoaderAssistant {
     /**
      * Create a new {@link Level} instance from an {@link LevelSkeleton}.
      * @param skeleton
-     *                  The input {@link LevelSkeleton}
+     *          The input {@link LevelSkeleton}
      * @return
-     *                  An instance of the {@link Level}
+     *          An instance of the {@link Level}
      */
     Level createLevel(LevelSkeleton skeleton);
 }

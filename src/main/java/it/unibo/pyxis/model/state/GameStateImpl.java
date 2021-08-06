@@ -26,40 +26,14 @@ public final class GameStateImpl implements GameState {
         this.score = 0;
     }
 
-    /**
-     * Change the current playing {@link Level}.
-     * If no other levels are available set the {@link GameState} in a stopped mode.
-     */
-    public void switchLevel() {
-        if (this.gameStateEnum != StateEnum.PAUSE) {
-            this.setState(StateEnum.PAUSE);
-        }
-        this.currentLevel.cleanUp();
-        if (this.iterator.hasNext()) {
-            this.currentLevel = this.iterator.next();
-        }
-    }
-
     @Override
-    public void reset() {
-        this.getCurrentLevel().cleanUp();
-        this.initialize();
-    }
-
-    @Override
-    public void selectStartingLevel(final int levelNumber) {
-        this.iterator = new LevelIterator(levelNumber);
-        this.initialize();
+    public Level getCurrentLevel() {
+        return this.currentLevel;
     }
 
     @Override
     public LevelIterator getLevelIterator() {
         return this.iterator;
-    }
-
-    @Override
-    public Level getCurrentLevel() {
-        return this.currentLevel;
     }
 
     @Override
@@ -75,6 +49,29 @@ public final class GameStateImpl implements GameState {
     @Override
     public void setState(final StateEnum stateEnum) {
         this.gameStateEnum = stateEnum;
+    }
+
+    @Override
+    public void reset() {
+        this.getCurrentLevel().cleanUp();
+        this.initialize();
+    }
+
+    @Override
+    public void selectStartingLevel(final int levelNumber) {
+        this.iterator = new LevelIterator(levelNumber);
+        this.initialize();
+    }
+
+    @Override
+    public void switchLevel() {
+        if (this.gameStateEnum != StateEnum.PAUSE) {
+            this.setState(StateEnum.PAUSE);
+        }
+        this.currentLevel.cleanUp();
+        if (this.iterator.hasNext()) {
+            this.currentLevel = this.iterator.next();
+        }
     }
 
     @Override

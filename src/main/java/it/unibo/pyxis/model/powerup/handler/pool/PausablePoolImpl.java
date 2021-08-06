@@ -22,6 +22,9 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         this.waitCond = lock.newCondition();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void beforeExecute(final Thread t, final Runnable r) {
         super.beforeExecute(t, r);
@@ -37,6 +40,33 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Condition getWaitCondition() {
+        return this.waitCond;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ReentrantLock getLock() {
+        return this.lock;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPaused() {
+        return this.isPaused;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void pause() {
         lock.lock();
@@ -47,6 +77,9 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resume() {
         lock.lock();
@@ -56,20 +89,5 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         } finally {
             lock.unlock();
         }
-    }
-
-    @Override
-    public ReentrantLock getLock() {
-        return this.lock;
-    }
-
-    @Override
-    public Condition getWaitCondition() {
-        return this.waitCond;
-    }
-
-    @Override
-    public boolean isPaused() {
-        return this.isPaused;
     }
 }

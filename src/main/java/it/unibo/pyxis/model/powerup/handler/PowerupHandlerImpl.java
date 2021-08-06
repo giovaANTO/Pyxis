@@ -9,6 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+
 import it.unibo.pyxis.model.arena.Arena;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
@@ -33,49 +34,64 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                 TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         this.arena = inputArena;
     }
-
-    @Override
-    public Future<?> addPowerup(final PowerupEffect effect) {
-        return this.executor.submit(effect);
+    /**
+     * Return the {@link Arena} where this {@link PowerupHandler} is currently
+     * attached.
+     *
+     * @return
+     *          The instance of {@link Arena}.
+     */
+    private Arena getArena() {
+        return this.arena;
     }
-
-    @Override
-    public void pause() {
-        this.executor.pause();
-    }
-
-    @Override
-    public void resume() {
-        this.executor.resume();
-    }
-
-    @Override
-    public boolean isPaused() {
-        return this.executor.isPaused();
-    }
-
-    @Override
-    public void stop() {
-        this.executor.stop();
-    }
-
-    @Override
-    public void shutdown() {
-        this.executor.shutdown();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int activeCount() {
         return this.executor.getActiveCount();
     }
-
     /**
-     * Return the arena where this handler is currently attached.
-     * @return
-     *              The instance of {@link Arena}
+     * {@inheritDoc}
      */
-    private Arena getArena() {
-        return this.arena;
+    @Override
+    public Future<?> addPowerup(final PowerupEffect effect) {
+        return this.executor.submit(effect);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPaused() {
+        return this.executor.isPaused();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void pause() {
+        this.executor.pause();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resume() {
+        this.executor.resume();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void shutdown() {
+        this.executor.shutdown();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void stop() {
+        this.executor.stop();
     }
 
     private class InternalExecutor extends PausablePoolImpl implements PowerupPool {
@@ -118,13 +134,16 @@ public final class PowerupHandlerImpl implements PowerupHandler {
         }
 
         /**
-         * This method is used for building a new runnable used for creating a powerup thread.
-         * The newly created {@link Runnable} will implement the logics for applying and remove a {@link PowerupEffect},
-         * pausing the thread and safely handling any interruptions.
+         * This method is used for building a new runnable used for creating a
+         * {@link it.unibo.pyxis.model.element.powerup.Powerup} thread.
+         * The newly created {@link Runnable} will implement the logics for applying and
+         * remove a {@link PowerupEffect}, pausing the thread and safely handling any
+         * interruptions.
+         *
          * @param effect
-         *                  The effect to apply
+         *          The effect to apply.
          * @return
-         *                  A new {@link Runnable} to pass to the pool
+         *          A new {@link Runnable} to pass to the pool.
          */
         private Runnable buildRunnable(final PowerupEffect effect) {
             return new Runnable() {
@@ -160,16 +179,25 @@ public final class PowerupHandlerImpl implements PowerupHandler {
             };
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public Future<?> submit(final PowerupEffect effect) {
             return this.submit(this.buildRunnable(effect));
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public synchronized Map<Long, Thread> getTypeMap(final PowerupEffectType type) {
             return this.threadMap.get(type);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void stop() {
             this.threadMap.values().stream().flatMap(m -> m.values().stream()).forEach(Thread::interrupt);

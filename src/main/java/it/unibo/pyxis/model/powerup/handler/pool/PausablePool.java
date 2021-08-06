@@ -6,40 +6,45 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public interface PausablePool extends ExecutorService {
     /**
-     * Pause the execution of the thread pool.
+     * Return the number of active threads that are executing a task running.
+     *
+     * @return
+     *          The number of threads.
      */
-    void pause();
+    int getActiveCount();
 
     /**
-     * Resume the execution of the thread pool.
+     * Return the waiting condition of the lock.
+     *
+     * @return
+     *          An instance of {@link Condition}.
      */
-    void resume();
+    Condition getWaitCondition();
+
+    /**
+     * Return a {@link ReentrantLock} of the pause condition flag.
+     *
+     * @return
+     *          An instance of {@link ReentrantLock}.
+     */
+    ReentrantLock getLock();
 
     /**
      * Return the paused flag of the thread pool.
+     *
      * @return
      *          true if the thread pool is paused.
      */
     boolean isPaused();
 
     /**
-     * Return the number of active threads that are executing a task running.
-     * @return
-     *          the number of threads
+     * Pause the execution of the thread pool.
      */
-    int getActiveCount();
+    void pause();
+
 
     /**
-     * Return a {@link ReentrantLock} of the pause condition flag.
-     * @return
-     *          an instance of {@link ReentrantLock}
+     * Resume the execution of the Threads in the {@link PausablePool}.
      */
-    ReentrantLock getLock();
-
-    /**
-     * Return the waiting condition of the lock.
-     * @return
-     *          an instance of {@link Condition}
-     */
-    Condition getWaitCondition();
+    void resume();
 }
