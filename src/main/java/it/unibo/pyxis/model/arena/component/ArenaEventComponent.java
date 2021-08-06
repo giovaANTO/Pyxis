@@ -14,7 +14,7 @@ import java.util.Random;
 
 public final class ArenaEventComponent extends AbstractEventComponent<Arena> {
 
-    private static final double POWERUP_SPAWN_PROBABILITY = 1.0 / 10;
+    private static final double POWERUP_SPAWN_PROBABILITY = 3.0 / 10;
 
     private final Random randomNumberGenerator;
 
