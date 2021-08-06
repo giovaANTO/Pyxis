@@ -23,12 +23,14 @@ public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneCon
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+        backgroundSlider.setValue(SoundPlayer.getBackgroundVolume());
         backgroundSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {
                 SoundPlayer.setBackgroundVolume(backgroundSlider.getValue());
             }
         });
+        soundEffectSlider.setValue(SoundPlayer.getSoundEffectVolume());
         soundEffectSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {

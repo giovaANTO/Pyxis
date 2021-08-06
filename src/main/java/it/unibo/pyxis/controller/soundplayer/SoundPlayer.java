@@ -48,25 +48,21 @@ public final class SoundPlayer {
     }
 
     /**
-     * Set the volume of the background music.
-     * @param volume
+     * Return the background music volume.
+     * @return
+     *          The background music volume.
      */
-    public static void setBackgroundVolume(final double volume) {
-        backgroundVolume = volume;
-        if (!Objects.isNull(backgroundMusicPlayer)) {
-            backgroundMusicPlayer.setVolume(backgroundVolume);
-        }
+    public static double getBackgroundVolume() {
+        return backgroundVolume;
     }
 
     /**
-     * Set the volume of the sound effects.
-     * @param volume
+     * Return the sound effect volume.
+     * @return
+     *          The sound effect volume.
      */
-    public static void setSoundEffectVolume(final double volume) {
-        soundEffectVolume = volume;
-        if (!Objects.isNull(soundEffectPlayer)) {
-            soundEffectPlayer.setVolume(soundEffectVolume);
-        }
+    public static double getSoundEffectVolume() {
+        return soundEffectVolume;
     }
 
     /**
@@ -94,6 +90,28 @@ public final class SoundPlayer {
         soundEffectPlayer = loadMediaPlayer(soundEffect);
         soundEffectPlayer.play();
         soundEffectPlayer.setVolume(soundEffectVolume);
+    }
+
+    /**
+     * Set the volume of the background music.
+     * @param volume
+     */
+    public static void setBackgroundVolume(final double volume) {
+        backgroundVolume = volume;
+        if (!Objects.isNull(backgroundMusicPlayer)) {
+            backgroundMusicPlayer.setVolume(backgroundVolume);
+        }
+    }
+
+    /**
+     * Set the volume of the sound effects.
+     * @param volume
+     */
+    public static void setSoundEffectVolume(final double volume) {
+        soundEffectVolume = volume;
+        if (!Objects.isNull(soundEffectPlayer)) {
+            soundEffectPlayer.setVolume(soundEffectVolume);
+        }
     }
 
     /**
