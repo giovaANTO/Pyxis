@@ -59,6 +59,7 @@ public final class GameStateImpl implements GameState {
 
     @Override
     public void selectStartingLevel(final int levelNumber) {
+        this.getCurrentLevel().cleanUp();
         this.iterator = new LevelIterator(levelNumber);
         this.initialize();
     }
