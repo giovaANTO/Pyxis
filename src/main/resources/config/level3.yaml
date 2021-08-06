@@ -41,81 +41,54 @@ bricks:
   - x: 357
     y: 9
     type: "INDESTRUCTIBLE"
-  - x: 315
+  - x: 63
+    y: 27
+    type: "YELLOW"
+  - x: 147
     y: 27
     type: "YELLOW"
   - x: 231
     y: 27
     type: "YELLOW"
-  - x: 147
+  - x: 315
     y: 27
     type: "YELLOW"
   - x: 63
-    y: 27
-    type: "YELLOW"
-  - x: 315
-    y: 45
-    type: "YELLOW"
-  - x: 231
     y: 45
     type: "YELLOW"
   - x: 147
     y: 45
     type: "YELLOW"
-  - x: 63
+  - x: 231
     y: 45
     type: "YELLOW"
   - x: 315
-    y: 63
+    y: 45
     type: "YELLOW"
-  - x: 231
+  - x: 63
     y: 63
     type: "YELLOW"
   - x: 147
     y: 63
     type: "YELLOW"
-  - x: 63
+  - x: 231
     y: 63
     type: "YELLOW"
   - x: 315
     y: 63
-    type: "PURPLE"
-  - x: 231
-    y: 63
-    type: "PURPLE"
-  - x: 147
-    y: 63
-    type: "PURPLE"
-  - x: 63
-    y: 63
-    type: "PURPLE"
-  - x: 21
-    y: 81
-    type: "RED"
+    type: "YELLOW"
   - x: 63
     y: 81
-    type: "RED"
-  - x: 105
-    y: 81
-    type: "RED"
+    type: "PURPLE"
   - x: 147
     y: 81
-    type: "RED"
-  - x: 189
-    y: 81
-    type: "RED"
+    type: "PURPLE"
   - x: 231
     y: 81
-    type: "RED"
-  - x: 273
-    y: 81
-    type: "RED"
+    type: "PURPLE"
   - x: 315
     y: 81
-    type: "RED"
-  - x: 357
-    y: 81
-    type: "RED"
+    type: "PURPLE"
   - x: 21
     y: 99
     type: "RED"
@@ -142,4 +115,31 @@ bricks:
     type: "RED"
   - x: 357
     y: 99
+    type: "RED"
+  - x: 21
+    y: 117
+    type: "RED"
+  - x: 63
+    y: 117
+    type: "RED"
+  - x: 105
+    y: 117
+    type: "RED"
+  - x: 147
+    y: 117
+    type: "RED"
+  - x: 189
+    y: 117
+    type: "RED"
+  - x: 231
+    y: 117
+    type: "RED"
+  - x: 273
+    y: 117
+    type: "RED"
+  - x: 315
+    y: 117
+    type: "RED"
+  - x: 357
+    y: 117
     type: "RED"
