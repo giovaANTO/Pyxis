@@ -15,6 +15,10 @@ import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.model.powerup.handler.pool.PausablePoolImpl;
 import it.unibo.pyxis.model.powerup.handler.pool.PowerupPool;
 
+import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.BALL_POWERUP;
+import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.PAD_POWERUP;
+import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.ARENA_POWERUP;
+
 public final class PowerupHandlerImpl implements PowerupHandler {
 
     private static final int MIN_POOL_SIZE = 6;
@@ -22,19 +26,16 @@ public final class PowerupHandlerImpl implements PowerupHandler {
     private static final int KEEP_ALIVE_TIMEOUT = 10;
 
     private final InternalExecutor executor;
-    private final PowerupHandlerPolicy insertionPolicy;
     private final Arena arena;
 
-    public PowerupHandlerImpl(final PowerupHandlerPolicy policy, final Arena inputArena) {
+    public PowerupHandlerImpl(final Arena inputArena) {
         this.executor = new InternalExecutor(MIN_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIMEOUT,
                 TimeUnit.SECONDS, new LinkedBlockingQueue<>());
-        this.insertionPolicy = policy;
         this.arena = inputArena;
     }
 
     @Override
     public Future<?> addPowerup(final PowerupEffect effect) {
-        this.insertionPolicy.execute(effect.getType(), this.executor.getTypeMap(effect.getType()));
         return this.executor.submit(effect);
     }
 
@@ -85,9 +86,9 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                          final TimeUnit unit, final BlockingQueue<Runnable> workQueue) {
             super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
             this.threadMap = new ConcurrentHashMap<>();
-            this.threadMap.put(PowerupEffectType.PAD_POWERUP, new ConcurrentHashMap<>());
-            this.threadMap.put(PowerupEffectType.BALL_POWERUP, new ConcurrentHashMap<>());
-            this.threadMap.put(PowerupEffectType.ARENA_POWERUP, new ConcurrentHashMap<>());
+            this.threadMap.put(PAD_POWERUP, new ConcurrentHashMap<>());
+            this.threadMap.put(BALL_POWERUP, new ConcurrentHashMap<>());
+            this.threadMap.put(ARENA_POWERUP, new ConcurrentHashMap<>());
         }
 
         /**
@@ -130,7 +131,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                 @Override
                 public void run() {
                     final ReentrantLock lock = InternalExecutor.this.getLock();
-                    final Condition cond = InternalExecutor.this.getCondition();
+                    final Condition cond = InternalExecutor.this.getWaitCondition();
                     InternalExecutor.this.trackThread(effect.getType(), Thread.currentThread().getId(), Thread.currentThread());
                     try {
                         effect.applyEffect(PowerupHandlerImpl.this.getArena());
@@ -145,7 +146,14 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                     } catch (InterruptedException e) {
                         System.out.println(e.getMessage());
                     } finally {
-                        effect.removeEffect(PowerupHandlerImpl.this.getArena());
+                        if (effect.getType() == BALL_POWERUP) {
+                            final Map<Long, Thread> typeMap = InternalExecutor.this.getTypeMap(BALL_POWERUP);
+                            if (typeMap.size() == 1) {
+                                effect.removeEffect(PowerupHandlerImpl.this.getArena());
+                            }
+                        } else {
+                            effect.removeEffect(PowerupHandlerImpl.this.getArena());
+                        }
                         InternalExecutor.this.untrackThread(effect.getType(), Thread.currentThread().getId());
                     }
                 }

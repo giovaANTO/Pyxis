@@ -21,10 +21,8 @@ import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
-import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
-import it.unibo.pyxis.model.powerup.handler.PowerupHandlerPolicy;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
@@ -49,13 +47,8 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         this.ballSet = new HashSet<>();
         this.powerupSet = new HashSet<>();
         this.dimension = inputDimension;
-        final PowerupHandlerPolicy policy = (type, map) -> {
-            if (type == PowerupEffectType.BALL_POWERUP) {
-                map.values().forEach(Thread::interrupt);
-                map.clear();
-            }
-        };
-        this.powerupHandler = new PowerupHandlerImpl(policy, this);
+
+        this.powerupHandler = new PowerupHandlerImpl(this);
         this.registerComponent(new ArenaPhysicsComponent(this));
         this.registerComponent(new ArenaEventComponent(this));
     }
