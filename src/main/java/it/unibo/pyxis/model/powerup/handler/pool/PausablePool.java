@@ -12,13 +12,14 @@ public interface PausablePool extends ExecutorService {
      *          The number of threads.
      */
     int getActiveCount();
+
     /**
      * Return the waiting condition of the lock.
      *
      * @return
      *          An instance of {@link Condition}.
      */
-    Condition getCondition();
+    Condition getWaitCondition();
 
     /**
      * Return a {@link ReentrantLock} of the pause condition flag.
@@ -41,8 +42,9 @@ public interface PausablePool extends ExecutorService {
      */
     void pause();
 
+
     /**
-     * Resume the execution of the thread pool.
+     * Resume the execution of the Threads in the {@link PausablePool}.
      */
     void resume();
 }

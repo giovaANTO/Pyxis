@@ -118,8 +118,12 @@ public final class SoundPlayer {
      * Shuts down the {@link SoundPlayer}.
      */
     public static void shutdown() {
-        backgroundMusicPlayer.stop();
-        soundEffectPlayer.stop();
+        if (!Objects.isNull(backgroundMusicPlayer)) {
+            backgroundMusicPlayer.stop();
+        }
+        if (!Objects.isNull(soundEffectPlayer)) {
+            soundEffectPlayer.stop();
+        }
         modelSoundEffectHandler.shutdown();
     }
 }

@@ -8,8 +8,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * A pausable {@link java.util.concurrent.ExecutorService} based on a ThreadPoolExecutor.
- *
- * @see <a href="shorturl.at/opDNS">JavaDoc 11 ThreadPoolExecutor</a>
  */
 public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool {
     private final ReentrantLock lock;
@@ -23,6 +21,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         this.lock = new ReentrantLock();
         this.waitCond = lock.newCondition();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -32,7 +31,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         lock.lock();
         try {
             while (this.isPaused) {
-                waitCond.await();
+                this.waitCond.await();
             }
         } catch (InterruptedException ie) {
             t.interrupt();
@@ -40,13 +39,15 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
             lock.unlock();
         }
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public Condition getCondition() {
+    public Condition getWaitCondition() {
         return this.waitCond;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -54,6 +55,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     public ReentrantLock getLock() {
         return this.lock;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -61,6 +63,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     public boolean isPaused() {
         return this.isPaused;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -73,6 +76,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
             lock.unlock();
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -81,7 +85,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         lock.lock();
         try {
             this.isPaused = false;
-            waitCond.signalAll();
+            this.waitCond.signalAll();
         } finally {
             lock.unlock();
         }

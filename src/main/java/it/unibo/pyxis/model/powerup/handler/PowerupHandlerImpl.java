@@ -1,7 +1,12 @@
 package it.unibo.pyxis.model.powerup.handler;
 
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -11,6 +16,10 @@ import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 import it.unibo.pyxis.model.powerup.handler.pool.PausablePoolImpl;
 import it.unibo.pyxis.model.powerup.handler.pool.PowerupPool;
 
+import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.BALL_POWERUP;
+import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.PAD_POWERUP;
+import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.ARENA_POWERUP;
+
 public final class PowerupHandlerImpl implements PowerupHandler {
 
     private static final int MIN_POOL_SIZE = 6;
@@ -18,13 +27,11 @@ public final class PowerupHandlerImpl implements PowerupHandler {
     private static final int KEEP_ALIVE_TIMEOUT = 10;
 
     private final InternalExecutor executor;
-    private final PowerupHandlerPolicy insertionPolicy;
     private final Arena arena;
 
-    public PowerupHandlerImpl(final PowerupHandlerPolicy policy, final Arena inputArena) {
+    public PowerupHandlerImpl(final Arena inputArena) {
         this.executor = new InternalExecutor(MIN_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_TIMEOUT,
                 TimeUnit.SECONDS, new LinkedBlockingQueue<>());
-        this.insertionPolicy = policy;
         this.arena = inputArena;
     }
     /**
@@ -49,7 +56,6 @@ public final class PowerupHandlerImpl implements PowerupHandler {
      */
     @Override
     public Future<?> addPowerup(final PowerupEffect effect) {
-        this.insertionPolicy.execute(effect.getType(), this.executor.getTypeMap(effect.getType()));
         return this.executor.submit(effect);
     }
     /**
@@ -96,9 +102,35 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                          final TimeUnit unit, final BlockingQueue<Runnable> workQueue) {
             super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
             this.threadMap = new ConcurrentHashMap<>();
-            this.threadMap.put(PowerupEffectType.PAD_POWERUP, new ConcurrentHashMap<>());
-            this.threadMap.put(PowerupEffectType.BALL_POWERUP, new ConcurrentHashMap<>());
-            this.threadMap.put(PowerupEffectType.ARENA_POWERUP, new ConcurrentHashMap<>());
+            this.threadMap.put(PAD_POWERUP, new ConcurrentHashMap<>());
+            this.threadMap.put(BALL_POWERUP, new ConcurrentHashMap<>());
+            this.threadMap.put(ARENA_POWERUP, new ConcurrentHashMap<>());
+        }
+
+        /**
+         * Start tracking a new powerup thread adding a new record
+         * in the internal thread map.
+         * @param type
+         *              The {@link PowerupEffectType} of the powerup.
+         * @param tid
+         *              The thread identifier of the {@link Thread} instance.
+         * @param thread
+         *              The instance of the {@link Thread}.
+         */
+        private synchronized void trackThread(final PowerupEffectType type, final long tid, final Thread thread) {
+            this.threadMap.get(type).put(tid, thread);
+        }
+
+        /**
+         * Stop tracking a powerup thread.
+         *
+         * @param type
+         *              The {@link PowerupEffectType} of the powerup that should be removed.
+         * @param tid
+         *              the thread identifier of the {@link Thread} instance.
+         */
+        private synchronized void untrackThread(final PowerupEffectType type, final long tid) {
+            this.threadMap.get(type).remove(tid);
         }
 
         /**
@@ -118,7 +150,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                 @Override
                 public void run() {
                     final ReentrantLock lock = InternalExecutor.this.getLock();
-                    final Condition cond = InternalExecutor.this.getCondition();
+                    final Condition cond = InternalExecutor.this.getWaitCondition();
                     InternalExecutor.this.trackThread(effect.getType(), Thread.currentThread().getId(), Thread.currentThread());
                     try {
                         effect.applyEffect(PowerupHandlerImpl.this.getArena());
@@ -133,60 +165,42 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                     } catch (InterruptedException e) {
                         System.out.println(e.getMessage());
                     } finally {
-                        effect.removeEffect(PowerupHandlerImpl.this.getArena());
+                        if (effect.getType() == BALL_POWERUP) {
+                            final Map<Long, Thread> typeMap = InternalExecutor.this.getTypeMap(BALL_POWERUP);
+                            if (typeMap.size() == 1) {
+                                effect.removeEffect(PowerupHandlerImpl.this.getArena());
+                            }
+                        } else {
+                            effect.removeEffect(PowerupHandlerImpl.this.getArena());
+                        }
                         InternalExecutor.this.untrackThread(effect.getType(), Thread.currentThread().getId());
                     }
                 }
             };
         }
-        /**
-         * Start tracking a new {@link it.unibo.pyxis.model.element.powerup.Powerup}
-         * thread adding a new record in the internal thread map.
-         *
-         * @param type
-         *          The {@link PowerupEffectType} of the powerup.
-         * @param tid
-         *          The thread identifier of the {@link Thread} instance.
-         * @param thread
-         *          The instance of the {@link Thread}.
-         */
-        private void trackThread(final PowerupEffectType type, final long tid, final Thread thread) {
-            this.threadMap.get(type).put(tid, thread);
-        }
 
-        /**
-         * Stop tracking a {@link it.unibo.pyxis.model.element.powerup.Powerup}
-         * thread.
-         *
-         * @param type
-         *          The {@link PowerupEffectType} of the powerup that should be
-         *          removed.
-         * @param tid
-         *          the thread identifier of the {@link Thread} instance.
-         */
-        private void untrackThread(final PowerupEffectType type, final long tid) {
-            this.threadMap.get(type).remove(tid);
-        }
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public Map<Long, Thread> getTypeMap(final PowerupEffectType type) {
-            return this.threadMap.get(type);
-        }
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void stop() {
-            this.threadMap.values().stream().flatMap(m -> m.values().stream()).forEach(Thread::interrupt);
-        }
         /**
          * {@inheritDoc}
          */
         @Override
         public Future<?> submit(final PowerupEffect effect) {
             return this.submit(this.buildRunnable(effect));
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public synchronized Map<Long, Thread> getTypeMap(final PowerupEffectType type) {
+            return this.threadMap.get(type);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void stop() {
+            this.threadMap.values().stream().flatMap(m -> m.values().stream()).forEach(Thread::interrupt);
         }
     }
 }
