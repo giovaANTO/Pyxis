@@ -19,8 +19,8 @@ public final class SoundPlayer {
     private static final String SOUNDS_PATH = "soundeffects" + SEPARATOR;
     private static final String SOUNDS_END_PATH = ".wav";
 
-    private static double backgroundVolume = 0.5;
-    private static double soundEffectVolume = 0.5;
+    private static double backgroundVolume = 0.2;
+    private static double soundEffectVolume = 0.2;
     private static final Map<Sound, Media> allSounds;
 
     private static MediaPlayer backgroundMusicPlayer;
@@ -74,8 +74,8 @@ public final class SoundPlayer {
             backgroundMusicPlayer.stop();
         }
         backgroundMusicPlayer = loadMediaPlayer(backgroundMusic);
-        backgroundMusicPlayer.play();
         backgroundMusicPlayer.setVolume(backgroundVolume);
+        backgroundMusicPlayer.play();
         backgroundMusicPlayer.setOnEndOfMedia(() -> {
             backgroundMusicPlayer.seek(Duration.ZERO);
             backgroundMusicPlayer.play();
@@ -88,8 +88,8 @@ public final class SoundPlayer {
      */
     public static void playSoundEffect(final Sound soundEffect) {
         soundEffectPlayer = loadMediaPlayer(soundEffect);
-        soundEffectPlayer.play();
         soundEffectPlayer.setVolume(soundEffectVolume);
+        soundEffectPlayer.play();
     }
 
     /**
