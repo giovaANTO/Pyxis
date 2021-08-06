@@ -33,7 +33,9 @@ public class InputHandlerImpl implements InputHandler {
                     });
                     break;
                 case ESCAPE:
-                    inputLinker.pause();
+                    inputLinker.insertCommand(gameState -> {
+                        inputLinker.pause();
+                    });
                     break;
                 default:
                     break;

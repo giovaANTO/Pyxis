@@ -4,7 +4,6 @@ public interface Coord {
 
     /**
      * Return a copy of the {@link Coord}.
-     *
      * @return The {@link Coord}
      */
     Coord copyOf();
