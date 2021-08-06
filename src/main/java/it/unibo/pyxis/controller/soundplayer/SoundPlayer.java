@@ -72,6 +72,7 @@ public final class SoundPlayer {
     public static void playBackgroundMusic(final Sound backgroundMusic) {
         if (!Objects.isNull(backgroundMusicPlayer)) {
             backgroundMusicPlayer.stop();
+            backgroundMusicPlayer.dispose();
         }
         backgroundMusicPlayer = loadMediaPlayer(backgroundMusic);
         backgroundMusicPlayer.setVolume(backgroundVolume);
@@ -90,6 +91,7 @@ public final class SoundPlayer {
         soundEffectPlayer = loadMediaPlayer(soundEffect);
         soundEffectPlayer.setVolume(soundEffectVolume);
         soundEffectPlayer.play();
+        soundEffectPlayer.setOnEndOfMedia(soundEffectPlayer::dispose);
     }
 
     /**
