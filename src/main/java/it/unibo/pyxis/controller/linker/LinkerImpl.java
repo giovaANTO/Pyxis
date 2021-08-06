@@ -40,7 +40,7 @@ public class LinkerImpl implements Linker {
      * @return
      *          True if the {@link GameState}'s {@link StateEnum} is RUN
      *          or WAITING_FOR_STARTING_COMMAND.
-     *          False if the {@link GameState}'s {@link StateEnum} is different.
+     *          False otherwise.
      */
     private boolean conditionInsertCommand() {
         return this.getGameState().getState() == StateEnum.RUN

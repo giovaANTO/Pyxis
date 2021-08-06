@@ -32,7 +32,7 @@ public final class LevelIterator implements Iterator<Level> {
      * Build the name of the level file to load.
      *
      * @return
-     *          A String containing the name of the level configuration file that
+     *          A String containing the name of the {@link Level} configuration file that
      *          should be loaded.
      */
     private String buildFilename() {
@@ -47,5 +47,8 @@ public final class LevelIterator implements Iterator<Level> {
         final Level loadedLevel = this.loader.fromFile(this.buildFilename());
         this.currentLevel++;
         return loadedLevel;
+    }
+    public int size() {
+        return this.finalLevel;
     }
 }

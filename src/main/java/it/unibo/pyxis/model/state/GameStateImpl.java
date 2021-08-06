@@ -21,7 +21,6 @@ public final class GameStateImpl implements GameState {
      */
     private void initialize() {
         this.gameStateEnum = StateEnum.WAITING_FOR_NEW_GAME;
-        this.iterator = new LevelIterator();
         this.currentLevel = this.iterator.next();
         this.score = 0;
     }
@@ -54,11 +53,13 @@ public final class GameStateImpl implements GameState {
     @Override
     public void reset() {
         this.getCurrentLevel().cleanUp();
+        this.iterator = new LevelIterator();
         this.initialize();
     }
 
     @Override
     public void selectStartingLevel(final int levelNumber) {
+        this.getCurrentLevel().cleanUp();
         this.iterator = new LevelIterator(levelNumber);
         this.initialize();
     }
