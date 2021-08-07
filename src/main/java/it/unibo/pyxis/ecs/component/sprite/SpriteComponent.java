@@ -3,7 +3,6 @@ package it.unibo.pyxis.ecs.component.sprite;
 import it.unibo.pyxis.ecs.component.Component;
 import it.unibo.pyxis.ecs.Entity;
 import javafx.scene.image.Image;
-import java.io.File;
 
 public interface SpriteComponent<T extends Entity> extends Component<T> {
     /**
@@ -26,7 +25,7 @@ public interface SpriteComponent<T extends Entity> extends Component<T> {
      *          A string containing the sprites path
      */
     default String getSpritesPath() {
-        return "sprites" + File.separator;
+        return "sprites/";
     }
 
     /**
@@ -35,7 +34,7 @@ public interface SpriteComponent<T extends Entity> extends Component<T> {
      *          A string containing the sprites path
      */
     default String getBackgroundPath() {
-        return "backgrounds" + File.separator;
+        return "backgrounds/";
     }
 
 

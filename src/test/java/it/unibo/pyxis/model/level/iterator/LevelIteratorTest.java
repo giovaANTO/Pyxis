@@ -23,6 +23,6 @@ class LevelIteratorTest {
         levelIterated = levelIterator.next();
         assertNotNull(levelIterated);
         assertEquals(2, levelIterated.getLevelNumber());
-        assertFalse(levelIterator.hasNext());
+        assertTrue(levelIterator.hasNext());
     }
 }
