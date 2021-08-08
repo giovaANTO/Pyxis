@@ -23,7 +23,6 @@ public abstract class AbstractEventComponent<E extends Entity> extends AbstractC
     public final void detach() {
         EventBus.getDefault().unregister(this);
     }
-
     /**
      * {@inheritDoc}
      */
