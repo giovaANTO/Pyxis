@@ -11,17 +11,28 @@ public class CollisionInformation {
         this.hitEdge = hitEdge;
         this.borderOffset = borderOffset;
     }
-
-    public Dimension getBorderOffset() {
-        return borderOffset;
+    /**
+     * Returns the border offset of the collision.
+     *
+     * @return The border offset's {@link Dimension}.
+     */
+    public final Dimension getBorderOffset() {
+        return this.borderOffset;
     }
-
-    public HitEdge getHitEdge() {
-        return hitEdge;
+    /**
+     * Returns the {@link HitEdge} of the collision.
+     *
+     * @return The {@link HitEdge}.
+     */
+    public final HitEdge getHitEdge() {
+        return this.hitEdge;
     }
-
-    public void setHitEdge(final HitEdge hitEdge) {
+    /**
+     * Sets the {@link HitEdge} of the collision.
+     *
+     * @param hitEdge The {@link HitEdge} to set.
+     */
+    public final void setHitEdge(final HitEdge hitEdge) {
         this.hitEdge = hitEdge;
     }
-
 }

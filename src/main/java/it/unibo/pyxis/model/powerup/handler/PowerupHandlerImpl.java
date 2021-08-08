@@ -35,11 +35,10 @@ public final class PowerupHandlerImpl implements PowerupHandler {
         this.arena = inputArena;
     }
     /**
-     * Return the {@link Arena} where this {@link PowerupHandler} is currently
+     * Returns the {@link Arena} where this {@link PowerupHandler} is currently
      * attached.
      *
-     * @return
-     *          The instance of {@link Arena}.
+     * @return The instance of {@link Arena}.
      */
     private Arena getArena() {
         return this.arena;
@@ -108,42 +107,37 @@ public final class PowerupHandlerImpl implements PowerupHandler {
         }
 
         /**
-         * Start tracking a new powerup thread adding a new record
-         * in the internal thread map.
-         * @param type
-         *              The {@link PowerupEffectType} of the powerup.
-         * @param tid
-         *              The thread identifier of the {@link Thread} instance.
-         * @param thread
-         *              The instance of the {@link Thread}.
+         * Starts tracking a new {@link it.unibo.pyxis.model.element.powerup.Powerup}
+         * thread adding a new record in the internal thread map.
+         *
+         * @param type The {@link PowerupEffectType} of the
+         *             {@link it.unibo.pyxis.model.element.powerup.Powerup}.
+         * @param tid The thread identifier of the {@link Thread} instance.
+         * @param thread The instance of the {@link Thread}.
          */
         private synchronized void trackThread(final PowerupEffectType type, final long tid, final Thread thread) {
             this.threadMap.get(type).put(tid, thread);
         }
-
         /**
-         * Stop tracking a powerup thread.
+         * Stop tracking a {@link it.unibo.pyxis.model.element.powerup.Powerup} thread.
          *
-         * @param type
-         *              The {@link PowerupEffectType} of the powerup that should be removed.
-         * @param tid
-         *              the thread identifier of the {@link Thread} instance.
+         * @param type The {@link PowerupEffectType} of the
+         *             {@link it.unibo.pyxis.model.element.powerup.Powerup}
+         *             that should be removed.
+         * @param tid The thread identifier of the {@link Thread} instance.
          */
         private synchronized void untrackThread(final PowerupEffectType type, final long tid) {
             this.threadMap.get(type).remove(tid);
         }
-
         /**
          * This method is used for building a new runnable used for creating a
          * {@link it.unibo.pyxis.model.element.powerup.Powerup} thread.
-         * The newly created {@link Runnable} will implement the logics for applying and
-         * remove a {@link PowerupEffect}, pausing the thread and safely handling any
-         * interruptions.
+         * The newly created {@link Runnable} will implement the logics for applying
+         * and remove a {@link PowerupEffect}, pausing the thread and safely handling
+         * any interruptions.
          *
-         * @param effect
-         *          The effect to apply.
-         * @return
-         *          A new {@link Runnable} to pass to the pool.
+         * @param effect The effect to apply.
+         * @return A new {@link Runnable} to pass to the pool.
          */
         private Runnable buildRunnable(final PowerupEffect effect) {
             return new Runnable() {
@@ -178,7 +172,6 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                 }
             };
         }
-
         /**
          * {@inheritDoc}
          */
@@ -186,7 +179,6 @@ public final class PowerupHandlerImpl implements PowerupHandler {
         public Future<?> submit(final PowerupEffect effect) {
             return this.submit(this.buildRunnable(effect));
         }
-
         /**
          * {@inheritDoc}
          */
@@ -194,7 +186,6 @@ public final class PowerupHandlerImpl implements PowerupHandler {
         public synchronized Map<Long, Thread> getTypeMap(final PowerupEffectType type) {
             return this.threadMap.get(type);
         }
-
         /**
          * {@inheritDoc}
          */

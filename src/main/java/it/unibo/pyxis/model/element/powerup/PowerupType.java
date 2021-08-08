@@ -1,13 +1,13 @@
 package it.unibo.pyxis.model.element.powerup;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffectFactory;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffectFactoryImpl;
 
 public enum PowerupType {
     /**
-     * {@link Powerup} that set the {@link it.unibo.pyxis.model.element.ball.Ball}s as atomic.
+     * The {@link Powerup} that set the {@link it.unibo.pyxis.model.element.ball.Ball}s'
+     * {@link it.unibo.pyxis.model.element.ball.BallType} as ATOMIC.
      */
     ATOMIC_BALL {
         @Override
@@ -17,7 +17,8 @@ public enum PowerupType {
         }
     },
     /**
-     * {@link Powerup} that decrease the length of the {@link it.unibo.pyxis.model.element.pad.Pad}.
+     * The {@link Powerup} that decrease the length of the
+     * {@link it.unibo.pyxis.model.element.pad.Pad}.
      */
     DECREASE_PAD {
         @Override
@@ -27,7 +28,8 @@ public enum PowerupType {
         }
     },
     /**
-     * {@link Powerup} that increase the length of the {@link it.unibo.pyxis.model.element.pad.Pad}.
+     * The {@link Powerup} that increase the length of the
+     * {@link it.unibo.pyxis.model.element.pad.Pad}.
      */
     INCREASE_PAD {
         @Override
@@ -37,8 +39,9 @@ public enum PowerupType {
         }
     },
     /**
-     * {@link Powerup} that spawns multiple {@link it.unibo.pyxis.model.element.ball.Ball}s
-     * in the {@link it.unibo.pyxis.model.arena.Arena}.
+     * The {@link Powerup} that spawns multiple
+     * {@link it.unibo.pyxis.model.element.ball.Ball}s in the
+     * {@link it.unibo.pyxis.model.arena.Arena}.
      */
     MULTIPLE_BALLS {
         @Override
@@ -48,7 +51,8 @@ public enum PowerupType {
         }
     },
     /**
-     * {@link Powerup} that set the {@link it.unibo.pyxis.model.element.ball.Ball}s as atomic.
+     * The {@link Powerup} that set the {@link it.unibo.pyxis.model.element.ball.Ball}s'
+     * {@link it.unibo.pyxis.model.element.ball.BallType} as STEEL.
      */
     STEEL_BALL {
         @Override
@@ -62,9 +66,9 @@ public enum PowerupType {
     private static final int PAD_MOD_FACTOR = 40;
 
     /**
-     * Return the {@link Powerup} effect associated to a {@link PowerupType}.
-     * @return effect
-     *                  The powerup effect.
+     * Returns the {@link Powerup} effect associated to a {@link PowerupType}.
+     *
+     * @return effect The {@link Powerup} effect.
      */
     public abstract PowerupEffect getEffect();
 }

@@ -21,14 +21,13 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     }
 
     /**
-     * Set the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
-     * @param hitbox
-     *          The {@link Hitbox} to set.
+     * Sets the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
+     *
+     * @param hitbox The {@link Hitbox} to set.
      */
     protected void setHitbox(final Hitbox hitbox) {
         this.hitbox = hitbox;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -46,7 +45,9 @@ public abstract class AbstractElement extends EntityImpl implements Element {
         final boolean testHitbox = Objects.equals(this.getHitbox(), that.getHitbox());
         return testDimensions && testPositions && testHitbox;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Dimension getDimension() {
         return this.dimension.copyOf();
@@ -58,8 +59,9 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public final Hitbox getHitbox() {
         return this.hitbox;
     }
-
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Coord getPosition() {
         return this.position.copyOf();
@@ -71,7 +73,6 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public final double getUpdateTimeMultiplier() {
         return UPDATE_TIME_MULTIPLIER;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -119,7 +120,6 @@ public abstract class AbstractElement extends EntityImpl implements Element {
      * {@inheritDoc}
      */
     @Override
-
     public void update(final double dt) {
         this.getComponent(PhysicsComponent.class).update(dt);
     }

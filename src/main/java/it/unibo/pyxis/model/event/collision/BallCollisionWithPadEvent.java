@@ -8,9 +8,9 @@ public interface BallCollisionWithPadEvent extends CollisionEvent {
     /**
      * Returns the percentage of the {@link it.unibo.pyxis.model.element.pad.Pad}
      * width calculated on the X {@link it.unibo.pyxis.model.util.Coord} of the point
-     * of collision.
-     * @return
-     *          The width percentage of the pad.
+     * of collision and the {@link it.unibo.pyxis.model.element.pad.Pad} width.
+     *
+     * @return The width percentage of the pad.
      */
     double getPadHitPercentage();
 }

@@ -16,161 +16,140 @@ import org.greenrobot.eventbus.EventBus;
 public interface Arena extends Entity {
 
     /**
-     * Add a {@link Ball} in the {@link Arena}.
+     * Adds a {@link Ball} in the {@link Arena}.
      *
      * @param ball The {@link Ball} to add.
      */
     void addBall(Ball ball);
-
     /**
-     * Add a {@link Brick} in the {@link Arena}.
+     * Adds a {@link Brick} in the {@link Arena}.
      *
      * @param brick The {@link Brick} to add.
      */
     void addBrick(Brick brick);
-
     /**
-     * Add a new {@link Powerup} in the {@link Arena}.
+     * Adds a new {@link Powerup} in the {@link Arena}.
      *
      * @param powerup The {@link Powerup} to add.
      */
     void addPowerup(Powerup powerup);
-
     /**
      * Procedure of cleanup of the {@link Arena}.
-     * Unregister all the elements from the {@link org.greenrobot.eventbus.EventBus}
+     * Unregisters all the elements from the {@link org.greenrobot.eventbus.EventBus}
      * and shutdown the {@link it.unibo.pyxis.model.powerup.handler.PowerupHandler}.
      */
     void cleanUp();
-
     /**
-     * Remove all the {@link Ball}s in the {@link Arena} unsubscribing them
+     * Removes all the {@link Ball}s in the {@link Arena} unsubscribing them
      * from the {@link EventBus}.
      */
     void clearBalls();
 
     /**
-     * Remove all the {@link Brick}s in the {@link Arena} unsubscribing them
+     * Removes all the {@link Brick}s in the {@link Arena} unsubscribing them
      * from the {@link EventBus}.
      */
     void clearBricks();
-
     /**
-     * Remove all the {@link Powerup}s in the {@link Arena} unsubscribing them
+     * Removes all the {@link Powerup}s in the {@link Arena} unsubscribing them
      * from the {@link org.greenrobot.eventbus.EventBus}.
      */
     void clearPowerups();
-
     /**
-     * Decrease the {@link Pad}'s {@link Dimension}'s width of an input amount.
+     * Decreases the {@link Pad}'s {@link Dimension}'s width of an input amount.
      *
      * @param amount The amount to decrease.
      */
-
     void decreasePadWidth(double amount);
-
     /**
-     * Return a {@link java.util.Set} of {@link Ball} that are currently present in
+     * Returns a {@link java.util.Set} of {@link Ball} that are currently present in
      * the {@link Arena}.
      *
      * @return A {@link java.util.Set} of {@link Ball}.
      */
     Set<Ball> getBalls();
-
     /**
-     * Return a {@link java.util.Set} of {@link Brick} that are currently present in
+     * Returns a {@link java.util.Set} of {@link Brick} that are currently present in
      * the {@link Arena}.
      *
      * @return A {@link java.util.Set} of {@link Brick}.
      */
     Set<Brick> getBricks();
-
     /**
      * Returns the dimensions of the {@link Arena}.
      *
      * @return A {@link Dimension} instance.
      */
     Dimension getDimension();
-
     /**
-     * Return the last {@link Ball} id inserted in the {@link Arena}.
+     * Returns the last {@link Ball} id inserted in the {@link Arena}.
      *
      * @return The integer representing the last id inserted
-     * in the {@link Arena}
+     *         in the {@link Arena}.
      */
     int getLastBallId();
-
     /**
-     * Get the current {@link Pad} in the {@link Arena}.
+     * Gets the current {@link Pad} in the {@link Arena}.
      *
      * @return The {@link Pad} actually present in the {@link Arena}.
      */
     Pad getPad();
-
     /**
-     * Return the {@link PowerupHandler} of the {@link Arena}.
+     * Returns the {@link PowerupHandler} of the {@link Arena}.
      *
      * @return A {@link PowerupHandler}.
      */
     PowerupHandler getPowerupHandler();
-
     /**
-     * Return a {@link java.util.Set} of {@link Powerup} that are currently present in
+     * Returns a {@link java.util.Set} of {@link Powerup} that are currently present in
      * the {@link Arena}.
      *
      * @return A {@link java.util.Set} of {@link Powerup}.
      */
     Set<Powerup> getPowerups();
-
     /**
-     * Return a random {@link Ball} registered in this {@link Arena}.
+     * Returns a random {@link Ball} registered in this {@link Arena}.
      *
-     * @return A {@link Ball} in the {@link Arena}
+     * @return A {@link Ball} in the {@link Arena}.
      */
     Ball getRandomBall();
-
     /**
-     * Increase the {@link Pad}'s {@link Dimension}'s width of an input amount.
+     * Increases the {@link Pad}'s {@link Dimension}'s width of an input amount.
      *
      * @param amount The amount to increase.
      */
     void increasePadWidth(double amount);
-
     /**
-     * Check if the {@link Arena} is cleared, or rather, there aren't any bricks left except for the ones
+     * Checks if the {@link Arena} is cleared, or rather, there aren't any bricks left except for the ones
      * of indestructible type.
      *
-     * @return True if the {@link Arena} is cleared, False otherwise.
+     * @return True if the {@link Arena} is cleared.
+     *         False otherwise.
      */
     boolean isCleared();
-
     /**
-     * Move pad to the left of the {@link Arena}.
+     * Moves pad to the left of the {@link Arena}.
      */
     void movePadLeft();
-
     /**
-     * Move pad to the rigth of the {@link Arena}.
+     * Moves pad to the right of the {@link Arena}.
      */
     void movePadRight();
-
     /**
-     * Remove a {@link Ball} from the {@link Arena}.
+     * Removes a {@link Ball} from the {@link Arena}.
      *
-     * @param ball The {@link Ball} to remove from the {@link Arena}
+     * @param ball The {@link Ball} to remove from the {@link Arena}.
      */
     void removeBall(Ball ball);
-
     /**
-     * Remove a {@link Brick} in the {@link Arena}.
+     * Removes a {@link Brick} in the {@link Arena}.
      *
-     * @param brickCoord The {@link Coord} of the {@link Brick}
-     *                   to remove.
+     * @param brickCoord The {@link Coord} of the {@link Brick} to remove.
      */
     void removeBrick(Coord brickCoord);
 
     /**
-     * Remove a {@link Powerup} from the {@link Arena}.
+     * Removes a {@link Powerup} from the {@link Arena}.
      *
      * @param powerup The {@link Powerup} to remove.
      */
@@ -182,16 +161,16 @@ public interface Arena extends Entity {
     void resetStartingPosition();
 
     /**
-     * Set the {@link Pad} in the {@link Arena}.
+     * Sets the {@link Pad} in the {@link Arena}.
      *
      * @param pad The {@link Pad} to add.
      */
     void setPad(Pad pad);
 
     /**
-     * Update the elements of the {@link Arena}.
+     * Updates the elements of the {@link Arena}.
      *
-     * @param delta The passed time.
+     * @param delta The elapsed time.
      */
     void update(double delta);
 }

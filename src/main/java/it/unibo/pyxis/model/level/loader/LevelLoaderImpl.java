@@ -33,12 +33,10 @@ public final class LevelLoaderImpl implements LevelLoader {
         return formatter.format("/%s/%s", this.configurationDirectory, filename).toString();
     }
     /**
-     * Create a skeleton file from a yaml source.
+     * Creates a skeleton file from a yaml source.
      *
-     * @param filename
-     *          The yaml file name used for loading the level.
-     * @return
-     *          A {@link LevelSkeleton} object with the loaded data.
+     * @param filename The yaml file name used for loading the {@link Level}.
+     * @return A {@link LevelSkeleton} object with the loaded data.
      */
     private LevelSkeleton skeletonFromFile(final String filename) {
         try (InputStream stream = this.getClass().getResourceAsStream(this.getFilePath(filename))) {
@@ -54,6 +52,9 @@ public final class LevelLoaderImpl implements LevelLoader {
         }
         return new LevelSkeletonImpl();
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Level fromFile(final String filename) {
         return loaderAssistant.createLevel(this.skeletonFromFile(filename));

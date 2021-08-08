@@ -6,52 +6,50 @@ import java.util.concurrent.Future;
 
 public interface PowerupHandler {
     /**
-     * Return the number of threads that are currently running.
+     * Returns the number of threads that are currently running.
      *
-     * @return
-     *          The threads number.
+     * @return The threads number.
      */
     int activeCount();
 
     /**
-     * Insert a new {@link it.unibo.pyxis.model.element.powerup.Powerup}.
+     * Inserts a new {@link it.unibo.pyxis.model.element.powerup.Powerup}.
      *
-     * @param effect
-     *          The effect to insert.
+     * @param effect The effect to insert.
      */
     Future<?> addPowerup(PowerupEffect effect);
     /**
-     * Return the paused status of the {@link PowerupHandler}.
+     * Returns the paused status of the {@link PowerupHandler}.
      *
-     * @return
-     *          true if the internal executor of {@link PowerupHandler} is in
-     *          a paused state, otherwise false.
+     * @return True if the internal executor of {@link PowerupHandler} is in
+     *         a paused state.
+     *         False otherwise.
      */
     boolean isPaused();
     /**
-     * Pause the execution {@link PowerupHandler}.
+     * Pauses the execution {@link PowerupHandler}.
      * The handler will continue to register new
-     * {@link it.unibo.pyxis.model.element.powerup.Powerup} but these will applied
+     * {@link it.unibo.pyxis.model.element.powerup.Powerup} but these will be applied
      * after a successive call of {@link PowerupHandler#resume()}.
      * All the active {@link it.unibo.pyxis.model.element.powerup.Powerup}s will be
-     * set to a paused state and they'll continue their execution only when the
+     * set to a paused state and they will continue their execution only when the
      * {@link PowerupHandler} will be resumed.
      * This method should be called only when the
      * {@link it.unibo.pyxis.model.state.GameState} is pause.
      */
     void pause();
     /**
-     * Resume the execution of the {@link PowerupHandler}.
-     * The active {@link it.unibo.pyxis.model.element.powerup.Powerup}
+     * Resumes the execution of the {@link PowerupHandler}.
+     * The active {@link it.unibo.pyxis.model.element.powerup.Powerup}s
      * can continue their executions.
      */
     void resume();
     /**
-     * Shutdown the internal executor of the {@link PowerupHandler}.
+     * Shutdowns the internal executor of the {@link PowerupHandler}.
      */
     void shutdown();
     /**
-     * Interrupt all the currently active
+     * Interrupts all the currently active
      * {@link it.unibo.pyxis.model.element.powerup.Powerup}s.
      */
     void stop();

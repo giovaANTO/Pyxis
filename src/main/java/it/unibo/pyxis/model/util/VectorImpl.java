@@ -14,47 +14,18 @@ public final class VectorImpl implements Vector {
     public VectorImpl(final double x, final double y) {
         this(new PairImpl<Double>(x, y));
     }
-
-    @Override
-    public double getX() {
-        return this.components.getFirst();
-    }
-
-    @Override
-    public double getY() {
-        return this.components.getSecond();
-    }
-
-    @Override
-    public double getModule() {
-        return Math.sqrt(Math.pow(this.components.getFirst(), 2)
-                + Math.pow(this.components.getSecond(), 2));
-    }
-
-    @Override
-    public void setX(final double xCoord) {
-        this.components.setFirst(xCoord);
-    }
-
-    @Override
-    public void setY(final double yCoord) {
-        this.components.setSecond(yCoord);
-    }
-
-    @Override
-    public Vector rotationBy(final double rotationAngle) {
-        double cos = Math.cos(rotationAngle);
-        double sin = Math.sin(rotationAngle);
-        return new VectorImpl(this.getX() * cos - this.getY() * sin, this.getX() * sin + this.getY() * cos);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Vector copyOf() {
         final double firstComponent = this.components.getFirst();
         final double secondComponent = this.components.getSecond();
         return new VectorImpl(firstComponent, secondComponent);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -66,9 +37,61 @@ public final class VectorImpl implements Vector {
         final VectorImpl vector = (VectorImpl) o;
         return Objects.equals(components, vector.components);
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getX() {
+        return this.components.getFirst();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getY() {
+        return this.components.getSecond();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double getModule() {
+        return Math.sqrt(Math.pow(this.components.getFirst(), 2)
+                + Math.pow(this.components.getSecond(), 2));
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(components);
     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Vector rotationBy(final double rotationAngle) {
+        double cos = Math.cos(rotationAngle);
+        double sin = Math.sin(rotationAngle);
+        return new VectorImpl(this.getX() * cos - this.getY() * sin, this.getX() * sin + this.getY() * cos);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setX(final double xCoord) {
+        this.components.setFirst(xCoord);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setY(final double yCoord) {
+        this.components.setSecond(yCoord);
+    }
+
+
+
+
+
 }

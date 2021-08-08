@@ -14,9 +14,8 @@ public class LevelEventComponent extends AbstractEventComponent<Level> {
     }
 
     /**
-     * Handle a {@link DecreaseLifeEvent}.
-     * @param event
-     *              The instance of {@link DecreaseLifeEvent}.
+     * Handles a {@link DecreaseLifeEvent}.
+     * @param event The instance of {@link DecreaseLifeEvent}.
      */
     @Subscribe
     public void handleDecreaseLife(final DecreaseLifeEvent event) {
@@ -25,11 +24,9 @@ public class LevelEventComponent extends AbstractEventComponent<Level> {
             this.getEntity().setLevelStatus(LevelStatus.GAME_OVER);
         }
     }
-
     /**
-     * Handle a {@link BrickDestructionEvent}.
-     * @param event
-     *              The instance of {@link BrickDestructionEvent}
+     * Handles a {@link BrickDestructionEvent}.
+     * @param event The instance of {@link BrickDestructionEvent}.
      */
     @Subscribe
     public void handleBrickDestruction(final BrickDestructionEvent event) {

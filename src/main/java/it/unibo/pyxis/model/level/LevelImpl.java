@@ -25,43 +25,73 @@ public final class LevelImpl extends EntityImpl implements Level {
         this.registerComponent(new LevelPhysicsComponent(this));
         this.registerComponent(new LevelEventComponent(this));
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void cleanUp() {
         this.getArena().cleanUp();
         this.removeComponent(EventComponent.class);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void decreaseLife() {
         this.lives--;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Arena getArena() {
         return this.arena;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getLevelNumber() {
         return this.levelNumber;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LevelStatus getLevelStatus() {
         return this.levelStatus;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getLives() {
         return this.lives;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getScore() {
         return this.score;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void increaseScore(final int score) {
         this.score += score;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setLevelStatus(final LevelStatus levelStatus) {
         this.levelStatus = levelStatus;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final double delta) {
         this.getComponent(PhysicsComponent.class).update(delta);

@@ -12,7 +12,9 @@ public final class PowerupSpriteComponent extends AbstractSpriteComponent<Poweru
     public PowerupSpriteComponent(final Powerup entity) {
         super(entity);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFileName() {
         return this.getSpritesPath() + POWERUP_FOLDER + this.getEntity().getType().toString() + "_POWERUP.png";

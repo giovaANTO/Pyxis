@@ -19,6 +19,11 @@ public class BallPhysicsComponent extends AbstractPhysicsComponent<Ball> {
         super(entity);
     }
 
+    /**
+     * Calculates and successively apply the new {@link Coord} to the {@link Ball}.
+     *
+     * @param dt The time gap used to calculate the new {@link Coord}.
+     * */
     private void applicateMovement(final double dt) {
         final Coord updatedCoord = this.getEntity().getPosition();
         final BallType ballType = this.getEntity().getType();
@@ -26,19 +31,27 @@ public class BallPhysicsComponent extends AbstractPhysicsComponent<Ball> {
         updatedCoord.sumVector(this.getEntity().getPace(), movementTime);
         this.getEntity().setPosition(updatedCoord);
     }
-
+    /**
+     * Inverts the {@link Ball}'s X {@link Vector} pace component.
+     */
     private void invertPaceX() {
         final Vector newPace = this.getEntity().getPace();
         newPace.setX(-this.getEntity().getPace().getX());
         this.getEntity().setPace(newPace);
     }
-
+    /**
+     * Inverts the {@link Ball}'s Y {@link Vector} pace component.
+     */
     private void invertPaceY() {
         final Vector newPace = this.getEntity().getPace();
         newPace.setY(-this.getEntity().getPace().getY());
         this.getEntity().setPace(newPace);
     }
-
+    /**
+     * a
+     *
+     * @param borderOffset
+     */
     private void applyOffset(final Dimension borderOffset) {
         final Coord updatedCoord = this.getEntity().getPosition();
         final double paceX = this.getEntity().getPace().getX();
@@ -47,9 +60,11 @@ public class BallPhysicsComponent extends AbstractPhysicsComponent<Ball> {
         updatedCoord.sumYValue(paceY > 0 ? borderOffset.getHeight() : -borderOffset.getHeight());
         this.getEntity().setPosition(updatedCoord);
     }
-
+    /**
+     *
+     */
     private void applicateCollisions() {
-        final Map<HitEdge, Dimension> collInfo = this.getEntity().getCollisionInformations();
+        final Map<HitEdge, Dimension> collInfo = this.getEntity().getCollisionInformation();
         if (collInfo.containsKey(HitEdge.HORIZONTAL) && collInfo.containsKey(HitEdge.VERTICAL)) {
             this.invertPaceX();
             this.invertPaceY();
@@ -67,11 +82,13 @@ public class BallPhysicsComponent extends AbstractPhysicsComponent<Ball> {
             this.invertPaceY();
             this.applyOffset(collInfo.get(HitEdge.CORNER));
         }
-        this.getEntity().clearCollisionInformations();
+        this.getEntity().clearCollisionInformation();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void update(final double elapsed) {
+    public final void update(final double elapsed) {
         this.applicateCollisions();
         this.applicateMovement(elapsed);
         EventBus.getDefault().post(Events.newBallMovementEvent(this.getEntity()));

@@ -6,13 +6,12 @@ package it.unibo.pyxis.model.event.collision;
  */
 public interface BallCollisionWithBrickEvent extends CollisionEvent {
     /**
-     * Returns true if the {@link it.unibo.pyxis.model.element.brick.Brick}
-     * that collided in the event is indestructible,
-     * false otherwise.
-     * @return
-     *          Return true if the {@link it.unibo.pyxis.model.element.brick.Brick}
-     *          that collided in the event is indestructible,
-     *          false otherwise.
+     * Indicates if the {@link it.unibo.pyxis.model.element.brick.Brick}
+     * that collided in the event is indestructible.
+     *
+     * @return True if the {@link it.unibo.pyxis.model.element.brick.Brick}
+     *         that collided in the event is indestructible.
+     *         False otherwise.
      */
     boolean isBrickIndestructible();
 }

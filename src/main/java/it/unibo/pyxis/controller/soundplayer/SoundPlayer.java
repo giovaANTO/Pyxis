@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import it.unibo.pyxis.controller.soundplayer.eventplayer.SoundEffectEventHandler;
 import it.unibo.pyxis.controller.soundplayer.eventplayer.SoundEffectEventHandlerImpl;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -18,25 +17,27 @@ public final class SoundPlayer {
     private static final String SEPARATOR = File.separator;
     private static final String SOUNDS_PATH = "soundeffects" + SEPARATOR;
     private static final String SOUNDS_END_PATH = ".wav";
+    private static final double STARTING_BACKGROUND_VOLUME = 0.2;
+    private static final double STARTING_SOUND_EFFECT_VOLUME = 0.2;
 
-    private static double backgroundVolume = 0.2;
-    private static double soundEffectVolume = 0.2;
-    private static final Map<Sound, Media> allSounds;
+    private static double backgroundVolume = STARTING_BACKGROUND_VOLUME;
+    private static double soundEffectVolume = STARTING_SOUND_EFFECT_VOLUME;
+    private static final Map<Sound, Media> ALL_SOUNDS;
 
     private static MediaPlayer backgroundMusicPlayer;
     private static MediaPlayer soundEffectPlayer;
 
-    private static final SoundEffectEventHandlerImpl modelSoundEffectHandler = new SoundEffectEventHandlerImpl();
+    private static final SoundEffectEventHandlerImpl MODEL_SOUND_EFFECT_HANDLER = new SoundEffectEventHandlerImpl();
 
     private SoundPlayer() { }
 
     static {
-        allSounds = new HashMap<>(Map.of());
+        ALL_SOUNDS = new HashMap<>(Map.of());
         Set.of(Sound.values()).forEach(s -> {
                 try {
                     final Media sound = new Media(
                             ClassLoader.getSystemResource(SOUNDS_PATH + s.getSoundName() + SOUNDS_END_PATH).toURI().toString());
-                    allSounds.put(s, sound);
+                    ALL_SOUNDS.put(s, sound);
                 } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
@@ -44,29 +45,30 @@ public final class SoundPlayer {
     }
 
     private static MediaPlayer loadMediaPlayer(final Sound sound) {
-        return new MediaPlayer(allSounds.get(sound));
+        return new MediaPlayer(ALL_SOUNDS.get(sound));
     }
 
     /**
-     * Return the background music volume.
-     * @return
-     *          The background music volume.
+     * Returns the background music volume.
+     *
+     * @return The background music volume.
      */
     public static double getBackgroundVolume() {
         return backgroundVolume;
     }
 
     /**
-     * Return the sound effect volume.
-     * @return
-     *          The sound effect volume.
+     * Returns the sound effect volume.
+     *
+     * @return The sound effect volume.
      */
     public static double getSoundEffectVolume() {
         return soundEffectVolume;
     }
 
     /**
-     * Play a {@link Sound} on a loop.
+     * Plays a {@link Sound} on a loop.
+     *
      * @param backgroundMusic
      */
     public static void playBackgroundMusic(final Sound backgroundMusic) {
@@ -84,7 +86,8 @@ public final class SoundPlayer {
     }
 
     /**
-     * Play a {@link Sound} for its duration.
+     * Plays a {@link Sound} for its duration.
+     *
      * @param soundEffect
      */
     public static void playSoundEffect(final Sound soundEffect) {
@@ -95,7 +98,8 @@ public final class SoundPlayer {
     }
 
     /**
-     * Set the volume of the background music.
+     * Sets the volume of the background music.
+     *
      * @param volume
      */
     public static void setBackgroundVolume(final double volume) {
@@ -106,7 +110,8 @@ public final class SoundPlayer {
     }
 
     /**
-     * Set the volume of the sound effects.
+     * Sets the volume of the sound effects.
+     *
      * @param volume
      */
     public static void setSoundEffectVolume(final double volume) {
@@ -126,6 +131,6 @@ public final class SoundPlayer {
         if (!Objects.isNull(soundEffectPlayer)) {
             soundEffectPlayer.stop();
         }
-        modelSoundEffectHandler.shutdown();
+        MODEL_SOUND_EFFECT_HANDLER.shutdown();
     }
 }

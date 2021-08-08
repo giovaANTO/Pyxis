@@ -8,6 +8,7 @@ import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
 import it.unibo.pyxis.model.util.Vector;
 import it.unibo.pyxis.model.util.VectorImpl;
+
 import java.util.Objects;
 
 public final class PadImpl extends AbstractElement implements Pad {
@@ -31,21 +32,9 @@ public final class PadImpl extends AbstractElement implements Pad {
         this(DIMENSION, inputPosition, DEFAULT_TAG);
     }
 
-    @Override
-    public Vector getPace() {
-        return new VectorImpl(0, 0);
-    }
-
-    @Override
-    public void setPace(final Vector inputPace) {
-        throw new UnsupportedOperationException("You can't set the pace on a Pad");
-    }
-
-    @Override
-    public void update(final double dt) {
-        throw new UnsupportedOperationException("You can't call an update on the Pad");
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -60,13 +49,39 @@ public final class PadImpl extends AbstractElement implements Pad {
         final PadImpl pad = (PadImpl) o;
         return Objects.equals(this.getTag(), pad.getTag());
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Vector getPace() {
+        return new VectorImpl(0, 0);
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTag() {
         return this.tag;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(this.getTag());
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setPace(final Vector inputPace) {
+        throw new UnsupportedOperationException("You can't set the pace on a Pad");
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(final double dt) {
+        throw new UnsupportedOperationException("You can't call an update on the Pad");
     }
 }

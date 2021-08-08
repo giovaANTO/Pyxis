@@ -24,7 +24,9 @@ public final class CanvasRatioBinder implements Binder {
         this.xScaleFactor = canvas.getWidth() / pane.getPrefWidth();
         this.yScaleFactor = canvas.getHeight() / pane.getPrefHeight();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void bind() {
         if (wC.get() * xScaleFactor > hC.get() * yScaleFactor * aspectRatio) {

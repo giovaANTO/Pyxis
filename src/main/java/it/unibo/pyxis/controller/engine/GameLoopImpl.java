@@ -37,12 +37,11 @@ public final class GameLoopImpl extends Thread implements GameLoop {
         }
     }
     /**
-     * Establish if the {@link Command} can be processed.
-     * @return
-     *          True if {@link it.unibo.pyxis.model.state.GameState}'s
-     *          {@link StateEnum} is RUN or WAITING_FOR_STARTING_COMMAND.
-     *          False if {@link it.unibo.pyxis.model.state.GameState}'s
-     *          {@link StateEnum} is different.
+     * Establishes if the {@link Command} can be processed.
+     *
+     * @return True if {@link it.unibo.pyxis.model.state.GameState}'s
+     *         {@link StateEnum} is RUN or WAITING_FOR_STARTING_COMMAND.
+     *         False otherwise.
      */
     private boolean conditionProcessInput() {
         return this.linker.getGameState().getState() == StateEnum.RUN
@@ -50,33 +49,37 @@ public final class GameLoopImpl extends Thread implements GameLoop {
                 == StateEnum.WAITING_FOR_STARTING_COMMAND;
     }
     /**
-     * Establish if the updates can be processed.
-     * @return
-     *          True if {@link it.unibo.pyxis.model.state.GameState}'s
-     *          {@link StateEnum} is RUN.
-     *          False if {@link it.unibo.pyxis.model.state.GameState}'s
-     *          {@link StateEnum} is different.
+     * Establishes if the updates can be processed.
+     *
+     * @return True if {@link it.unibo.pyxis.model.state.GameState}'s
+     *         {@link StateEnum} is RUN.
+     *         False otherwise.
      */
     private boolean conditionProcessUpdate() {
         return this.linker.getGameState().getState() == StateEnum.RUN;
     }
     /**
-     * Establish if the render can be processed.
-     * @return
-     *          True if {@link it.unibo.pyxis.model.state.GameState}'s
-     *          {@link StateEnum} is RUN or WAITING_FOR_STARTING_COMMAND.
-     *          False if {@link it.unibo.pyxis.model.state.GameState}'s
-     *          {@link StateEnum} is different.
+     * Establishes if the render can be processed.
+     *
+     * @return True if {@link it.unibo.pyxis.model.state.GameState}'s
+     *         {@link StateEnum} is RUN or WAITING_FOR_STARTING_COMMAND.
+     *         False otherwise.
      */
     private boolean conditionProcessRender() {
         return this.linker.getGameState().getState() == StateEnum.RUN
                 || this.linker.getGameState().getState()
                 == StateEnum.WAITING_FOR_STARTING_COMMAND;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addCommand(final Command<Level> command) {
         this.commandQueue.add(command);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void processInput() {
         if (!this.commandQueue.isEmpty()) {
@@ -84,10 +87,16 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             nextCommand.execute(this.linker.getGameState().getCurrentLevel());
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
         Platform.runLater(this.linker::render);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         long lastTime = System.currentTimeMillis();
@@ -107,6 +116,9 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             lastTime = current;
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final double elapsed) {
         this.linker.getGameState().update(elapsed);

@@ -5,22 +5,21 @@ import javafx.scene.image.Image;
 
 public interface Drawer {
     /**
-     * Clear the linked {@link javafx.scene.canvas.Canvas} removing all
+     * Clears the linked {@link javafx.scene.canvas.Canvas} removing all
      * {@link it.unibo.pyxis.model.element.Element}s inside it.
      */
     void clear();
-
     /**
-     * Draw an {@link it.unibo.pyxis.model.element.Element} inside the {@link javafx.scene.canvas.Canvas}.
-     * @param element
-     *                  The element to draw.
+     * Draws an {@link it.unibo.pyxis.model.element.Element} inside the
+     * {@link javafx.scene.canvas.Canvas}.
+     *
+     * @param element The {@link Element} to draw.
      */
     void draw(Element element);
-
     /**
-     * Draw the {@link javafx.scene.canvas.Canvas} backround.
-     * @param levelImage
-     *               The current level to be drawed
+     * Draws the {@link javafx.scene.canvas.Canvas} background.
+     *
+     * @param levelImage The {@link it.unibo.pyxis.model.level.Level} to be drawn.
      */
     void drawBackground(Image levelImage);
 

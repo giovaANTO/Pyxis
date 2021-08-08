@@ -16,31 +16,39 @@ public abstract class AbstractPhysicsComponent<E extends Entity> extends Abstrac
     }
 
     /**
-     * Return a {@link Logger} instance.
-     * @return
-     *          A {@link Logger} instance
+     * Returns a {@link Logger} instance.
+     *
+     * @return A {@link Logger} instance
      */
     private Logger getLogger() {
         return Logger.getLogger(this.getClass().getName());
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void attach() {
+    public final void attach() {
         this.isAttached = true;
         this.getLogger().log(Level.INFO, "Physics component attached");
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void detach() {
+    public final void detach() {
         this.isAttached = false;
         this.getLogger().log(Level.INFO, "Physics component detached");
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean isAttached() {
+    public final boolean isAttached() {
         return this.isAttached;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public abstract void update(double elapsed);
 }

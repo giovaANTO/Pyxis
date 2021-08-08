@@ -30,10 +30,10 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
     private final ElementFactory elementFactory = new ElementFactoryImpl();
 
     /**
-     * Create an {@link Arena} instance from a skeleton.
+     * Creates an {@link Arena} instance from a skeleton.
      *
-     * @param skeleton An {@link LevelSkeleton} object that contains the information about
-     *                 the {@link Arena} that should be created.
+     * @param skeleton An {@link LevelSkeleton} object that contains the information
+     *                 about the {@link Arena} that should be created.
      * @return An instance of {@link Arena}
      */
     private Arena arenaFromSkeleton(final LevelSkeleton skeleton) {
@@ -52,13 +52,11 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
         return outputArena;
     }
     /**
-     * Create a {@link Ball} instance from a skeleton.
+     * Creates a {@link Ball} instance from a skeleton.
      *
-     * @param skeleton
-     *          A {@link BallSkeleton} object that contains the information about
-     *          the {@link Ball} that should be created.
-     * @return
-     *          An instance of a {@link Ball}.
+     * @param skeleton A {@link BallSkeleton} object that contains the information
+     *                 about the {@link Ball} that should be created.
+     * @return An instance of a {@link Ball}.
      */
     private Ball ballFromSkeleton(final BallSkeleton skeleton) {
         return new BallImpl.Builder()
@@ -68,29 +66,23 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
                 .id(skeleton.getId())
                 .build();
     }
-
     /**
-     * Create a {@link Brick} instance from a skeleton.
+     * Creates a {@link Brick} instance from a skeleton.
      *
-     * @param skeleton
-     *          A {@link BrickSkeleton} object that contains the information about
-     *          the {@link Brick} that should be created.
-     * @return
-     *          An instance of a {@link Brick}.
+     * @param skeleton A {@link BrickSkeleton} object that contains the information
+     *                about the {@link Brick} that should be created.
+     * @return An instance of a {@link Brick}.
      */
     private Brick brickFromSkeleton(final BrickSkeleton skeleton) {
         final Coord brickCoord = new CoordImpl(skeleton.getX(), skeleton.getY());
         final BrickType brickType = this.getBrickType(skeleton.getType());
         return this.elementFactory.createBrickFromType(brickType, brickCoord);
     }
-
     /**
      * Get a {@link BallType} from a type string loaded in a skeleton.
      *
-     * @param typeString
-     *          A type string loaded from a skeleton.
-     * @return
-     *          A {@link BallType}.
+     * @param typeString A type string loaded from a skeleton.
+     * @return A {@link BallType}.
      */
     private BallType getBallType(final String typeString) {
         return Arrays.stream(BallType.values())
@@ -98,14 +90,11 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
                 .findFirst()
                 .orElseThrow();
     }
-
     /**
-     * Get a {@link BrickType} from a type string loaded in a skeleton.
+     * Gets a {@link BrickType} from a type string loaded in a skeleton.
      *
-     * @param typeString
-     *          A type string loaded from a skeleton.
-     * @return
-     *          A {@link BrickType}.
+     * @param typeString A type string loaded from a skeleton.
+     * @return A {@link BrickType}.
      */
     private BrickType getBrickType(final String typeString) {
         return Arrays.stream(BrickType.values())
@@ -114,13 +103,18 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
                 .orElseThrow();
     }
     /**
+     * Creates a {@link Pad} instance from a skeleton.
      *
-     * @param skeleton
-     * @return
+     * @param skeleton A {@link BrickSkeleton} object that contains the information
+     *                 about the {@link Pad} that should be created.
+     * @return An instance of a {@link Pad}.
      */
     private Pad padFromSkeleton(final PadSkeleton skeleton) {
         return this.elementFactory.createDefaultPad(new CoordImpl(skeleton.getX(), skeleton.getY()));
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Level createLevel(final LevelSkeleton skeleton) {
         return new LevelImpl(skeleton.getLives(), this.arenaFromSkeleton(skeleton), skeleton.getLevelNumber());

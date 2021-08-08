@@ -5,7 +5,8 @@ import javafx.stage.Stage;
 
 public interface InputHandler {
     /**
-     * Define all the commands that the application can handle.
+     * Defines all the commands that the application can handle.
+     *
      * @param linker The {@link Linker} to apply the effects.
      * @param stage The {@link Stage} to capture {@link javafx.scene.input.KeyEvent}.
      */

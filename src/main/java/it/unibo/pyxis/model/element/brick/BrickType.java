@@ -7,27 +7,27 @@ import java.util.Optional;
  */
 public enum BrickType {
     /**
-     * Brick that can handle only one collision.
+     * Brick that is destroyed by only one collision.
      */
     RED(Optional.of(1), "RED", 100),
     /**
-     * Brick that can handle two collisions.
+     * Brick that is destroyed by two collisions.
      */
     ORANGE(Optional.of(2), "ORANGE", 200),
     /**
-     * Brick that can handle three collisions.
+     * Brick that is destroyed by three collisions.
      */
     YELLOW(Optional.of(3), "YELLOW", 300),
     /**
-     * Brick that can handle four collisions.
+     * Brick that is destroyed by four collisions.
      */
     GREEN(Optional.of(4), "GREEN", 400),
     /**
-     * Brick that can handle five collisions.
+     * Brick that is destroyed by five collisions.
      */
     BLUE(Optional.of(5), "BLUE", 500),
     /**
-     * Brick that can handle six collisions.
+     * Brick that is destroyed by six collisions.
      */
     PURPLE(Optional.of(6), "PURPLE", 600),
     /**
@@ -45,33 +45,34 @@ public enum BrickType {
         this.points = inputPoints;
     }
     /**
-     * Return the initial durability of the brick.
-     * @return
-     *           An integer representing the durability of the the brick
+     * Returns the initial durability of the {@link Brick}.
+     *
+     * @return An integer representing the durability of the {@link Brick}.
      */
     public int getDurability() {
         return durability.orElse(0);
     }
     /**
-     * Return the number of points obtained on the {@link Brick} destruction.
-     * @return
-     *          An integer value representing the points gained
+     * Returns the number of points obtained on the {@link Brick} destruction.
+     *
+     * @return An integer value representing the points gained.
      */
     public int getPoints() {
         return this.points;
     }
     /**
-     * Return a string indicating the type of the brick.
-     * @return
-     *          The string indicating the type of brick.
+     * Returns a string indicating the type of the {@link Brick}.
+     *
+     * @return The string indicating the type of {@link Brick}.
      */
     public String getTypeString() {
         return this.typeString;
     }
     /**
-     * Check if a certain brick type is indestructible.
-     * @return
-     *          True if the brick is indestructible, false otherwise.
+     * Checks if a certain {@link BrickType} is indestructible.
+     *
+     * @return True if the brick is indestructible.
+     *         False otherwise.
      */
     public boolean isIndestructible() {
         return durability.isEmpty();

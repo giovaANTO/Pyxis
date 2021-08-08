@@ -13,16 +13,18 @@ public final class PowerupPhysicsComponent extends AbstractPhysicsComponent<Powe
     }
 
     /**
-     * Calculate the new coordinate of the {@link Powerup}.
-     * @param dt
-     *             elapsed time between two updates
+     * Calculates the new {@link Coord} of the {@link Powerup}.
+     *
+     * @param dt The elapsed time between two updates.
      */
     private void calculateNewCoord(final double dt) {
         final Coord updatedCoord = this.getEntity().getPosition();
         updatedCoord.sumVector(this.getEntity().getPace(), dt * this.getEntity().getUpdateTimeMultiplier());
         this.getEntity().setPosition(updatedCoord);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(final double elapsed) {
         this.calculateNewCoord(elapsed);

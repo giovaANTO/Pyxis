@@ -12,7 +12,9 @@ import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 
 public final class ElementFactoryImpl implements ElementFactory {
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Ball copyBallWithType(final Ball ball, final double angle, final int id, final BallType type) {
         return new BallImpl.Builder()
@@ -22,46 +24,79 @@ public final class ElementFactoryImpl implements ElementFactory {
                 .initialPosition(ball.getPosition())
                 .build();
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Ball copyBallWithAngle(final Ball ball, final double angle, final int id) {
         return this.copyBallWithType(ball, angle, id, ball.getType());
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Brick createBlueBrick(final Coord position) {
         return this.createBrickFromType(BrickType.BLUE, position);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Brick createBrickFromType(final BrickType type, final Coord position) {
         return new BrickImpl(type, position);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Pad createDefaultPad(final Coord position) {
         return new PadImpl(position);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Brick createGreenBrick(final Coord position) {
         return this.createBrickFromType(BrickType.GREEN, position);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Brick createIndestructibleBrick(final Coord position) {
         return this.createBrickFromType(BrickType.INDESTRUCTIBLE, position);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Brick createOrangeBrick(final Coord position) {
         return this.createBrickFromType(BrickType.ORANGE, position);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Pad createPad(final Dimension dimension, final Coord position) {
         return new PadImpl(dimension, position);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Brick createPurpleBrick(final Coord position) {
         return this.createBrickFromType(BrickType.PURPLE, position);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Brick createRedBrick(final Coord position) {
         return this.createBrickFromType(BrickType.RED, position);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Brick createYellowBrick(final Coord position) {
         return this.createBrickFromType(BrickType.YELLOW, position);

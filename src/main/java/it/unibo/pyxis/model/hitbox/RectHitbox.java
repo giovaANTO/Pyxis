@@ -14,7 +14,7 @@ public class RectHitbox extends AbstractHitbox {
     }
 
     /**
-     * Check what's the closest point of the {@link RectHitbox} to the center
+     * Checks which is the closest point of the {@link RectHitbox} to the center
      * of the {@link BallHitbox}.
      *
      * @param cHBCenterCoord

@@ -12,7 +12,9 @@ public final class BallSpriteComponent extends AbstractSpriteComponent<Ball> {
     public BallSpriteComponent(final Ball entity) {
         super(entity);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFileName() {
         return this.getSpritesPath() + BALL_FOLDER + this.getEntity().getType().getType() + "_BALL.png";
