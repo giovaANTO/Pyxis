@@ -1,14 +1,13 @@
 package it.unibo.pyxis.ecs.component.event;
 
 import it.unibo.pyxis.ecs.Entity;
+import it.unibo.pyxis.ecs.component.AbstractComponent;
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class AbstractEventComponent<E extends Entity> implements EventComponent<E> {
-
-    private final E entity;
+public abstract class AbstractEventComponent<E extends Entity> extends AbstractComponent<E> implements EventComponent<E> {
 
     protected AbstractEventComponent(final E entity) {
-        this.entity = entity;
+        super(entity);
     }
 
     @Override
@@ -19,11 +18,6 @@ public abstract class AbstractEventComponent<E extends Entity> implements EventC
     @Override
     public void detach() {
         EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public E getEntity() {
-        return this.entity;
     }
 
     @Override
