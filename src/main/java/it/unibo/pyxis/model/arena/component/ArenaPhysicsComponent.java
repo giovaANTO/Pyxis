@@ -19,10 +19,9 @@ public class ArenaPhysicsComponent extends AbstractPhysicsComponent<Arena> {
     }
 
     /**
-     * Check if {@link Ball} or {@link Powerup} is colliding with a border.
-     *
-     * Removes the {@link Ball} or {@link Powerup} colliding with the bottom border,
-     * Otherwise sends a {@link it.unibo.pyxis.model.event.collision.CollisionEvent}
+     * Checks if {@link Ball} or {@link Powerup} is colliding with a border.
+     * Remove the {@link Ball} or {@link Powerup} colliding with the bottom border,
+     * Otherwise send a {@link it.unibo.pyxis.model.event.collision.CollisionEvent}
      * with the edge the {@link Ball} is colliding with.
      */
     private void checkBorderCollision() {
@@ -47,9 +46,11 @@ public class ArenaPhysicsComponent extends AbstractPhysicsComponent<Arena> {
                 .filter(p -> p.getHitbox().isCollidingWithLowerBorder(arena.getDimension()))
                 .forEach(arena::removePowerup);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void update(final double elapsed) {
+    public final void update(final double elapsed) {
         this.checkBorderCollision();
         this.getEntity().getBalls().forEach(b -> b.update(elapsed));
         this.getEntity().getPowerups().forEach(p -> p.update(elapsed));

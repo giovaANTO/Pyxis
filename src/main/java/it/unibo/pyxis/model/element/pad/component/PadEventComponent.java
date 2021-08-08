@@ -22,9 +22,9 @@ public class PadEventComponent extends AbstractEventComponent<Pad> {
     }
 
     /**
-     * Handle a {@link BallMovementEvent}.
-     * @param movementEvent
-     *          The {@link BallMovementEvent} to handle.
+     * Handles a {@link BallMovementEvent}.
+     *
+     * @param movementEvent The {@link BallMovementEvent} to handle.
      */
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
@@ -43,9 +43,9 @@ public class PadEventComponent extends AbstractEventComponent<Pad> {
     }
 
     /**
-     * Handle a {@link PowerupMovementEvent}.
-     * @param movementEvent
-     *          The {@link PowerupMovementEvent} to handle.
+     * Handles a {@link PowerupMovementEvent}.
+     *
+     * @param movementEvent The {@link PowerupMovementEvent} to handle.
      */
     @Subscribe
     public void handlePowerupMovement(final PowerupMovementEvent movementEvent) {

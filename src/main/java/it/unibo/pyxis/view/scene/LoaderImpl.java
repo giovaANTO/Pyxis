@@ -14,7 +14,10 @@ public class LoaderImpl implements Loader {
     private static final String FIRST_ROOT_PATH = "layouts" + SEPARATOR + "scenebuilder"
             + SEPARATOR;
     private static final String SECOND_ROOT_PATH = ".fxml";
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final Parent getScene(final SceneType inputSceneType, final Controller inputController) {
         FXMLLoader loader = this.getFxLoader(inputSceneType);
         loader.setControllerFactory(param -> {
@@ -37,12 +40,25 @@ public class LoaderImpl implements Loader {
         return root;
     }
 
+    /**
+     * Returns the {@link FXMLLoader} located on the resources of the input
+     * {@link SceneType}.
+     *
+     * @param inputScene The {@link SceneType} to load.
+     * @return The {@link FXMLLoader} already located on the resources.
+     */
     private FXMLLoader getFxLoader(final SceneType inputScene) {
         return new FXMLLoader(ClassLoader.
                 getSystemResource(FIRST_ROOT_PATH + inputScene.getName()
                         + SECOND_ROOT_PATH));
     }
-
+    /**
+     * Bind the input {@link Controller} with the input {@link View}.
+     *
+     * @param inputView The input {@link View}.
+     * @param inputController The input {@link Controller}.
+     * @param <C> The {@link Controller} type bound to the {@link View}.
+     */
     private <C extends Controller> void setupController(final View<C> inputView, final C inputController) {
         inputController.setView(inputView);
     }

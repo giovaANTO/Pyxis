@@ -10,38 +10,38 @@ public interface SoundEffectEventHandler {
 
     /**
      * Handles the collision event between the ball and a brick.
-     * @param collisionEvent
-     *              Receive a {@link BallCollisionWithBrickEvent}
+     *
+     * @param collisionEvent Receive a {@link BallCollisionWithBrickEvent}.
      */
-    void handleBallBrickCollision(final BallCollisionWithBrickEvent collisionEvent);
+    void handleBallBrickCollision(BallCollisionWithBrickEvent collisionEvent);
 
     /**
      * Handles the collision event between the ball and the border.
-     * @param collisionEvent
-     *              Receive a {@link BallCollisionWithBorderEvent}
+     *
+     * @param collisionEvent Receive a {@link BallCollisionWithBorderEvent}.
      */
-    void handleBorderCollision(final BallCollisionWithBorderEvent collisionEvent);
+    void handleBorderCollision(BallCollisionWithBorderEvent collisionEvent);
 
     /**
      * Handles the collision event between the ball and the pad.
-     * @param collisionEvent
-     *              Receive a {@link BallCollisionWithPadEvent}
+     *
+     * @param collisionEvent Receive a {@link BallCollisionWithPadEvent}.
      */
-    void handlePadCollision(final BallCollisionWithPadEvent collisionEvent);
+    void handlePadCollision(BallCollisionWithPadEvent collisionEvent);
 
     /**
-     * Handle a {@link PowerupActivationEvent}.
-     * @param event
-     *              The instance of {@link PowerupActivationEvent}
+     * Handles a {@link PowerupActivationEvent}.
+     *
+     * @param event The instance of {@link PowerupActivationEvent}.
      */
-    void handlePowerupActivation(final PowerupActivationEvent event);
+    void handlePowerupActivation(PowerupActivationEvent event);
 
     /**
-     * Handle a {@link DecreaseLifeEvent}.
-     * @param event
-     *              The instance of {@link DecreaseLifeEvent}.
+     * Handles a {@link DecreaseLifeEvent}.
+     *
+     * @param event The instance of {@link DecreaseLifeEvent}.
      */
-    void handleDecreaseLife(final DecreaseLifeEvent event);
+    void handleDecreaseLife(DecreaseLifeEvent event);
 
     /**
      * Shuts down the {@link SoundEffectEventHandler}.

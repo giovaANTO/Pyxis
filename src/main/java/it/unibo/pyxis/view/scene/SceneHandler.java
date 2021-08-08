@@ -5,10 +5,20 @@ import it.unibo.pyxis.model.level.Level;
 import javafx.stage.Stage;
 
 public interface SceneHandler {
-
+    /**
+     *
+     * @param sceneType
+     */
     void switchScene(SceneType sceneType);
 
+    /**
+     *
+     */
     void close();
 
+    /**
+     *
+     * @return
+     */
     Controller getCurrentController();
 }

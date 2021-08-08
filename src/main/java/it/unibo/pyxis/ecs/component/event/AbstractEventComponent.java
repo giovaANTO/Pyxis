@@ -9,19 +9,26 @@ public abstract class AbstractEventComponent<E extends Entity> extends AbstractC
     protected AbstractEventComponent(final E entity) {
         super(entity);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void attach() {
+    public final void attach() {
         EventBus.getDefault().register(this);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void detach() {
+    public final void detach() {
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean isAttached() {
+    public final boolean isAttached() {
         return EventBus.getDefault().isRegistered(this);
     }
 }

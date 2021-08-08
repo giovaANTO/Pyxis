@@ -9,11 +9,11 @@ public enum BallType {
      */
     NORMAL_BALL(Optional.of(1), 1, true, "NORMAL"),
     /**
-     * A {@link Ball}'s type that gives infinite damage and no bouncing peculiarity.
+     * The {@link Ball}'s type that gives infinite damage and no bouncing peculiarities.
      */
     ATOMIC_BALL(Optional.empty(), 1, false, "ATOMIC"),
     /**
-     * A {@link Ball}'s type that gives infinite damage.
+     * The {@link Ball}'s type that gives infinite damage.
      */
     STEEL_BALL(Optional.empty(), 1, true, "STEEL");
 
@@ -31,32 +31,38 @@ public enum BallType {
     }
 
     /**
-     * Returns the {@link Ball}'s property of bouncing if collided with a destructible {@link it.unibo.pyxis.model.element.brick.Brick}.
-     * @return  true if the {@link Ball} bounces,
-     *          false if the {@link Ball} doesn't bounce.
+     * Returns the {@link Ball}'s property of bouncing if collided with a destructible
+     * {@link it.unibo.pyxis.model.element.brick.Brick}.
+     *
+     * @return True if the {@link Ball} bounces.
+     *         False if the {@link Ball} doesn't bounce.
      */
     public boolean bounce() {
         return this.bounce;
     }
     /**
      * Returns the {@link Ball}'s damage as Optional<Integer>.
-     * @return  Optional empty if damage is infinite,
+     *
+     * @return  Optional empty if damage is infinite.
      *          Optional of an integer representing damage.
      */
     public Optional<Integer> getDamage() {
         return this.damage;
     }
     /**
-     * Returns the {@link Ball}'s pace multiplier.
-     * @return double representing ball's pace multiplier
+     * Returns the {@link Ball}'s {@link it.unibo.pyxis.model.util.Vector} pace
+     * multiplier.
+     *
+     * @return double representing {@link Ball}'s
+     * {@link it.unibo.pyxis.model.util.Vector} pace multiplier.
      */
     public double getPaceMultiplier() {
         return this.paceMultiplier;
     }
     /**
-     * Return the {@link String} representing the {@link Ball} type.
-     * @return
-     *          The {@link Ball} type
+     * Returns the {@link String} representing the {@link BallType}.
+     *
+     * @return The {@link BallType}.
      */
     public String getType() {
         return this.typeString;

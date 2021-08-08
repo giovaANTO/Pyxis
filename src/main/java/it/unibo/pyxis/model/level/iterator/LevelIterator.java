@@ -29,25 +29,35 @@ public final class LevelIterator implements Iterator<Level> {
     }
 
     /**
-     * Build the name of the level file to load.
+     * Builds the name of the level file to load.
      *
-     * @return
-     *          A String containing the name of the {@link Level} configuration file that
-     *          should be loaded.
+     * @return A String containing the name of the {@link Level} configuration file
+     *         that should be loaded.
      */
     private String buildFilename() {
         return Config.LEVEL_FILE_PREFIX.getValue() + this.currentLevel + Config.LEVEL_FILE_EXTENSION.getValue();
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasNext() {
         return this.currentLevel <= this.finalLevel;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Level next() {
         final Level loadedLevel = this.loader.fromFile(this.buildFilename());
         this.currentLevel++;
         return loadedLevel;
     }
+    /**
+     * Return the number of {@link Level} inside the {@link LevelIterator}.
+     *
+     * @return The index of the last {@link Level}.
+     */
     public int size() {
         return this.finalLevel;
     }

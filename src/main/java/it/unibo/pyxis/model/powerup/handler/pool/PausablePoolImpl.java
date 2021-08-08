@@ -21,7 +21,6 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         this.lock = new ReentrantLock();
         this.waitCond = lock.newCondition();
     }
-
     /**
      * {@inheritDoc}
      */
@@ -39,7 +38,6 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
             lock.unlock();
         }
     }
-
     /**
      * {@inheritDoc}
      */
@@ -47,7 +45,6 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     public Condition getWaitCondition() {
         return this.waitCond;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -55,7 +52,6 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     public ReentrantLock getLock() {
         return this.lock;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -63,7 +59,6 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     public boolean isPaused() {
         return this.isPaused;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -76,7 +71,6 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
             lock.unlock();
         }
     }
-
     /**
      * {@inheritDoc}
      */

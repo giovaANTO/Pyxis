@@ -8,7 +8,9 @@ public final class LevelSpriteComponent extends AbstractSpriteComponent<Level> {
     public LevelSpriteComponent(final Level entity) {
         super(entity);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFileName() {
         return this.getBackgroundPath() + this.getEntity().getLevelNumber() + "BACKGROUND.png";

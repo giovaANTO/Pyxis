@@ -18,47 +18,60 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     }
 
     /**
-     * Plays the given {@link it.unibo.pyxis.controller.soundplayer.Sound}
-     * @param soundEffect
-     *          the {@link it.unibo.pyxis.controller.soundplayer.Sound} to be played.
+     * Plays the given {@link it.unibo.pyxis.controller.soundplayer.Sound}.
+     *
+     * @param soundEffect The {@link it.unibo.pyxis.controller.soundplayer.Sound}
+     *                    to be played.
      */
     private void playSoundEffect(final Sound soundEffect) {
         SoundPlayer.playSoundEffect(soundEffect);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Subscribe
-    public void handleBallBrickCollision(final BallCollisionWithBrickEvent collisionEvent) {
+    public final void handleBallBrickCollision(final BallCollisionWithBrickEvent collisionEvent) {
         final Sound soundEffect = collisionEvent.isBrickIndestructible()
-                                    ? Sound.UNBREAKABLE_BRICK_COLLISION
-                                    : Sound.BREAKABLE_BRICK_COLLISION;
+                ? Sound.UNBREAKABLE_BRICK_COLLISION
+                : Sound.BREAKABLE_BRICK_COLLISION;
         this.playSoundEffect(soundEffect);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Subscribe
-    public void handleBorderCollision(final BallCollisionWithBorderEvent collisionEvent) {
+    public final void handleBorderCollision(final BallCollisionWithBorderEvent collisionEvent) {
         this.playSoundEffect(Sound.BORDER_COLLISION);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Subscribe
-    public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
-        this.playSoundEffect(Sound.PAD_COLLISION);
-    }
-
-    @Override
-    @Subscribe
-    public void handlePowerupActivation(final PowerupActivationEvent event) {
-        this.playSoundEffect(Sound.POWERUP_ACTIVATION);
-    }
-
-    @Override
-    @Subscribe
-    public void handleDecreaseLife(final DecreaseLifeEvent event) {
+    public final void handleDecreaseLife(final DecreaseLifeEvent event) {
         this.playSoundEffect(Sound.LIFE_DECREASED);
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Subscribe
+    public final void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
+        this.playSoundEffect(Sound.PAD_COLLISION);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Subscribe
+    public final void handlePowerupActivation(final PowerupActivationEvent event) {
+        this.playSoundEffect(Sound.POWERUP_ACTIVATION);
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void shutdown() {
         EventBus.getDefault().unregister(this);

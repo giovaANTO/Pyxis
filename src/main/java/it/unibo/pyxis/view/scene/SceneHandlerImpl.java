@@ -33,6 +33,10 @@ public final class SceneHandlerImpl implements SceneHandler {
         this.stage.show();
     }
 
+    /**
+     *
+     * @param inputSceneType
+     */
     private void currentControllerSetup(final SceneType inputSceneType) {
         this.currentController = inputSceneType.getController();
         this.currentController.setLinker(this.linker);
@@ -43,6 +47,11 @@ public final class SceneHandlerImpl implements SceneHandler {
         return this.currentController;
     }
 
+    /**
+     *
+     * @param inputSceneType
+     * @return
+     */
     private Scene loadNewScene(final SceneType inputSceneType) {
         return new Scene(this.loader.getScene(inputSceneType, this.currentController));
     }

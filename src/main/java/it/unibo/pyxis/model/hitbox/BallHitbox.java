@@ -17,7 +17,7 @@ public class BallHitbox extends AbstractHitbox {
     }
 
     /**
-     * Checks what's the closest point of the {@link RectHitbox} to the center of the {@link BallHitbox}.
+     * Checks which is the closest point of the {@link RectHitbox} to the center of the {@link BallHitbox}.
      *
      * @param cHBCenterCoord
      * @param rHBCenterCoord
@@ -33,7 +33,7 @@ public class BallHitbox extends AbstractHitbox {
     }
 
     /**
-     * Return the offset to apply to the {@link Element} after the collision.
+     * Returns the offset to apply to the {@link Element} after the collision.
      *
      * @param distanceFromClosestPoint
      * @param componentDistance
@@ -44,7 +44,7 @@ public class BallHitbox extends AbstractHitbox {
     }
 
     /**
-     * Return the radius of the {@link BallHitbox}.
+     * Returns the radius of the {@link BallHitbox}.
      *
      * @return The radius of the {@link BallHitbox}.
      */

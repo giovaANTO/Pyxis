@@ -18,17 +18,28 @@ public final class DrawerImpl implements Drawer {
         this.gc = gc;
         this.arenaDimension = arenaDimension;
     }
-
+    /**
+     *
+     * @param spriteImage
+     * @param position
+     * @param dimension
+     */
+    private void drawImg(final Image spriteImage, final Coord position, final Dimension dimension) {
+        final Coord scalePos = this.modelToViewPositionScale(position, dimension);
+        final Dimension scaleDim = this.modelToViewDimensionScale(dimension);
+        gc.drawImage(spriteImage, scalePos.getX(), scalePos.getY(), scaleDim.getWidth(), scaleDim.getHeight());
+    }
     /**
      * Converts the {@link Coord} of an {@link it.unibo.pyxis.model.element.Element}
      * of the model to the relative {@link Coord} of the View.
-     * @param position
-     *                      {@link Coord} of the {@link it.unibo.pyxis.model.element.Element} to draw.
-     * @param dimension
-     *                      {@link Dimension} of the {@link it.unibo.pyxis.model.element.Element} to draw.
-     * @return
-     *          the converted {@link Coord} of an {@link it.unibo.pyxis.model.element.Element}
-     *          of the model to the relative {@link Coord} of the View.
+     *
+     * @param position The {@link Coord} of the
+     *                 {@link it.unibo.pyxis.model.element.Element} to draw.
+     * @param dimension The {@link Dimension} of the
+     *                 {@link it.unibo.pyxis.model.element.Element} to draw.
+     * @return The converted {@link Coord} of an
+     *         {@link it.unibo.pyxis.model.element.Element} of the model to the
+     *         relative {@link Coord} of the View.
      */
     private Coord modelToViewPositionScale(final Coord position, final Dimension dimension) {
         final double widthProportion = this.gc.getCanvas().getWidth() / this.arenaDimension.getWidth();
@@ -37,15 +48,16 @@ public final class DrawerImpl implements Drawer {
         final double scaledY = (position.getY() - dimension.getHeight() / 2) * heightProportion;
         return new CoordImpl(scaledX, scaledY);
     }
-
     /**
-     * Converts the {@link Dimension} of an {@link it.unibo.pyxis.model.element.Element} of the model
-     * to the relative {@link Dimension} of the View.
-     * @param dimension
-     *                {@link Dimension} of the {@link it.unibo.pyxis.model.element.Element} to draw.
-     * @return
-     *          the converted {@link Dimension} of an {@link it.unibo.pyxis.model.element.Element}
-     *          of the model to the relative {@link Dimension} of the View.
+     * Converts the {@link Dimension} of an
+     * {@link it.unibo.pyxis.model.element.Element} of the model to the relative
+     * {@link Dimension} of the View.
+     *
+     * @param dimension The {@link Dimension} of the
+     *                  {@link it.unibo.pyxis.model.element.Element} to draw.
+     * @return The converted {@link Dimension} of an
+     *         {@link it.unibo.pyxis.model.element.Element} of the model to the
+     *         relative {@link Dimension} of the View.
      */
     private Dimension modelToViewDimensionScale(final Dimension dimension) {
         final double widthProportion = this.gc.getCanvas().getWidth() / this.arenaDimension.getWidth();
@@ -54,24 +66,24 @@ public final class DrawerImpl implements Drawer {
         final double scaledHeight = dimension.getHeight() * heightProportion;
         return new DimensionImpl(scaledWidth, scaledHeight);
     }
-
-    private void drawImg(final Image spriteImage, final Coord position, final Dimension dimension) {
-        final Coord scalePos = this.modelToViewPositionScale(position, dimension);
-        final Dimension scaleDim = this.modelToViewDimensionScale(dimension);
-        gc.drawImage(spriteImage, scalePos.getX(), scalePos.getY(), scaleDim.getWidth(), scaleDim.getHeight());
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void draw(final Element element) {
         final Image spriteImage = element.getComponent(SpriteComponent.class).obtainSprite();
         this.drawImg(spriteImage, element.getPosition(), element.getDimension());
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void drawBackground(final Image levelImage) {
         final Dimension arenaDim = this.arenaDimension;

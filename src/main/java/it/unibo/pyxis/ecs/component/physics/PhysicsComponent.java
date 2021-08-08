@@ -5,9 +5,9 @@ import it.unibo.pyxis.ecs.Entity;
 
 public interface PhysicsComponent<T extends Entity> extends Component<T> {
     /**
-     * Execute an update on the {@link Entity}.
-     * @param elapsed
-     *                  Time gap between two call of the update method
+     * Executes an update on the {@link Entity}.
+     *
+     * @param elapsed The time elapsed between two call of the update method.
      */
     void update(double elapsed);
 }

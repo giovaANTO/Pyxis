@@ -36,7 +36,7 @@ public abstract class AbstractHitbox implements Hitbox {
      * @return An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
      * an EMPTY {@link Optional} if they are the same or not colliding.
      */
-    protected abstract Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox);
+    protected abstract Optional<CollisionInformation> collidingEdgeWithOtherHB(Hitbox hitbox);
 
     /**
      * Checks for a collision with the same {@link Hitbox}.
@@ -45,7 +45,7 @@ public abstract class AbstractHitbox implements Hitbox {
      * @return An {@link Optional} with the specified {@link HitEdge} the {@link RectHitbox} is colliding with,
      * an EMPTY {@link Optional} if they are different or not colliding.
      */
-    protected abstract Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox);
+    protected abstract Optional<CollisionInformation> collidingEdgeWithSameHB(Hitbox hitbox);
 
     /**
      * Return the offset to apply to the {@link Element} after the collision.
@@ -78,7 +78,7 @@ public abstract class AbstractHitbox implements Hitbox {
     }
 
     /**
-     * Return the offset to apply to the {@link Element} after the collision.
+     * Returns the offset to apply to the {@link Element} after the collision.
      *
      * @param distanceFromCenter
      * @return The offset to apply to the {@link Element} after the collision.
@@ -86,9 +86,11 @@ public abstract class AbstractHitbox implements Hitbox {
     protected Double widthOffsetCalculation(final Double distanceFromCenter) {
         return this.getDimension().getWidth() / 2 - distanceFromCenter;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Optional<CollisionInformation> collidingEdgeWithBorder(final Dimension borderDimension) {
+    public final Optional<CollisionInformation> collidingEdgeWithBorder(final Dimension borderDimension) {
 
         final double cHBCenterX = getPosition().getX();
         final double cHBCenterY = getPosition().getY();
@@ -116,36 +118,52 @@ public abstract class AbstractHitbox implements Hitbox {
                 ? Optional.of(new CollisionInformation(hitEdge, borderOffset))
                 : Optional.empty();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public abstract Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox);
-
+    public abstract Optional<CollisionInformation> collidingEdgeWithHB(Hitbox hitbox);
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Dimension getDimension() {
+    public final Dimension getDimension() {
         return element.getDimension();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Element getElement() {
+    public final Element getElement() {
         return element;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Coord getPosition() {
+    public final Coord getPosition() {
         return element.getPosition();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public abstract boolean isCollidingWithHB(final Hitbox hitbox);
-
+    public abstract boolean isCollidingWithHB(Hitbox hitbox);
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean isCollidingWithLowerBorder(final Dimension borderDimension) {
+    public final boolean isCollidingWithLowerBorder(final Dimension borderDimension) {
         return checkBC(borderDimension.getHeight() - this.getPosition().getY(), this.getDimension().getHeight() / 2);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public abstract boolean isCollidingWithPoint(final Coord position);
-
+    public abstract boolean isCollidingWithPoint(Coord position);
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public abstract boolean isCollidingWithPoint(final double px, final double py);
+    public abstract boolean isCollidingWithPoint(double px, double py);
 }

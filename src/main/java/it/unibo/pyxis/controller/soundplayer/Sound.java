@@ -19,6 +19,11 @@ public enum Sound {
         this.soundName = soundName;
     }
 
+    /**
+     * Returns the sound name.
+     *
+     * @return The name.
+     */
     public String getSoundName() {
         return this.soundName;
     }

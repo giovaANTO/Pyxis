@@ -13,8 +13,9 @@ public final class BrickSpriteComponent extends AbstractSpriteComponent<Brick> {
     public BrickSpriteComponent(final Brick entity) {
         super(entity);
     }
-
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getFileName() {
         return this.getSpritesPath() + BRICK_FOLDER + this.getEntity().getBrickType().getTypeString() + "_BRICK.png";

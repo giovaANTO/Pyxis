@@ -20,6 +20,11 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
         super(entity);
     }
 
+    /**
+     * Registers a new {@link CollisionEvent}.
+     *
+     * @param collisionEvent The event to register.
+     */
     private void registerCollision(final CollisionEvent collisionEvent) {
         if (collisionEvent.getCollisionInformation().getHitEdge() == HitEdge.TOP) {
             collisionEvent.getCollisionInformation().setHitEdge(HitEdge.HORIZONTAL);
@@ -28,7 +33,12 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
         final Dimension borderOffset = collisionEvent.getCollisionInformation().getBorderOffset();
         this.getEntity().registerCollision(hitEdge, borderOffset);
     }
-
+    /**
+     * Calculates and successively apply the new {@link Vector} pace to the {@link Ball}
+     * after a {@link it.unibo.pyxis.model.element.pad.Pad} collision.
+     *
+     * @param padHitPercentage The parameter to calculate the new {@link Vector}.
+     */
     private void applyPaceChange(final double padHitPercentage) {
         final double angle = Math.PI * Math.min(Math.max(padHitPercentage, MIN_LEFT_PERCENTAGE), MIN_RIGHT_PERCENTAGE);
         final double module = this.getEntity().getPace().getModule();
@@ -37,11 +47,11 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
         newPace.setY(Math.sin(angle) * module);
         this.getEntity().setPace(newPace);
     }
-
     /**
-     * Handles the collision event between the ball and a brick.
-     * @param collisionEvent
-     *              Receive a {@link BallCollisionWithBrickEvent}
+     * Handles the {@link CollisionEvent} between the {@link Ball} and a
+     * {@link it.unibo.pyxis.model.element.brick.Brick}.
+     *
+     * @param collisionEvent The {@link BallCollisionWithBrickEvent} to handle.
      */
     @Subscribe
     public void handleBrickCollision(final BallCollisionWithBrickEvent collisionEvent) {
@@ -49,11 +59,10 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
             this.registerCollision(collisionEvent);
         }
     }
-
     /**
-     * Handles the collision event between the ball and the border.
-     * @param collisionEvent
-     *              Receive a {@link BallCollisionWithBorderEvent}
+     * Handles the {@link CollisionEvent} between the {@link Ball} and the border.
+     *
+     * @param collisionEvent The {@link BallCollisionWithBorderEvent} to handle.
      */
     @Subscribe
     public void handleBorderCollision(final BallCollisionWithBorderEvent collisionEvent) {
@@ -61,11 +70,11 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
             this.registerCollision(collisionEvent);
         }
     }
-
     /**
-     * Handles the collision event between the ball and the pad.
-     * @param collisionEvent
-     *              Receive a {@link BallCollisionWithPadEvent}
+     * Handles the {@link CollisionEvent} between the {@link Ball} and the
+     * {@link it.unibo.pyxis.model.element.pad.Pad}.
+     *
+     * @param collisionEvent The {@link BallCollisionWithPadEvent} to handle.
      */
     @Subscribe
     public void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {

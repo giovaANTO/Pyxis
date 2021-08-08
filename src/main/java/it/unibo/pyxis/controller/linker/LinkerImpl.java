@@ -34,13 +34,12 @@ public class LinkerImpl implements Linker {
         this.switchScene(SceneType.MENU_SCENE);
         this.maximumLevelReached = 1;
     }
-
     /**
-     * Establish if a command can be handled.
-     * @return
-     *          True if the {@link GameState}'s {@link StateEnum} is RUN
-     *          or WAITING_FOR_STARTING_COMMAND.
-     *          False otherwise.
+     * Establishes if a command can be handled.
+     *
+     * @return True if the {@link GameState}'s {@link StateEnum} is RUN
+     *         or WAITING_FOR_STARTING_COMMAND.
+     *         False otherwise.
      */
     private boolean conditionInsertCommand() {
         return this.getGameState().getState() == StateEnum.RUN
@@ -48,45 +47,48 @@ public class LinkerImpl implements Linker {
                 == StateEnum.WAITING_FOR_STARTING_COMMAND;
     }
     /**
-     * Create and start a new {@link GameLoop} instance.
+     * Creates and start a new {@link GameLoop} instance.
      */
     private void createGameLoop() {
         this.gameLoop = new GameLoopImpl(this);
         this.gameLoop.start();
     }
     /**
-     * Create a new {@link GameState} instance.
+     * Creates a new {@link GameState} instance.
      */
     private void createGameState() {
         this.gameState = new GameStateImpl();
     }
     /**
-     * Create a new {@link InputHandler} instance and bind it with the
+     * Creates a new {@link InputHandler} instance and bind it with the
      * current {@link Stage}.
-     * @param inputStage
-     *          The {@link Stage} to bind.
+     *
+     * @param inputStage The {@link Stage} to bind.
      */
     private void createInputHandler(final Stage inputStage) {
         this.inputHandler = new InputHandlerImpl();
         this.inputHandler.bindCommands(this, inputStage);
     }
     /**
-     * Create a new {@link SceneHandler} instance and bind it with the
+     * Creates a new {@link SceneHandler} instance and bind it with the
      * current {@link Stage}.
-     * @param inputStage
-     *          The {@link Stage} to bind.
+     *
+     * @param inputStage The {@link Stage} to bind.
      */
     private void createSceneHandler(final Stage inputStage) {
         this.sceneHandler = new SceneHandlerImpl(inputStage, this);
     }
     /**
-     * Switch the actual {@link SceneType} to the input {@link SceneType}.
-     * @param inputSceneType
-     *          The {@link SceneType} to load.
+     * Switches the actual {@link SceneType} to the input {@link SceneType}.
+     *
+     * @param inputSceneType The {@link SceneType} to load.
      */
     private void switchScene(final SceneType inputSceneType) {
         this.sceneHandler.switchScene(inputSceneType);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void endLevel() {
         if (this.gameState.getState() != StateEnum.PAUSE) {
@@ -95,20 +97,32 @@ public class LinkerImpl implements Linker {
         this.gameState.updateTotalScore();
         this.switchScene(SceneType.END_LEVEL_SCENE);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final GameState getGameState() {
         return this.gameState;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int getMaximumLevelReached() {
         return this.maximumLevelReached;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void insertCommand(final Command<GameState> gameCommand) {
         if (this.conditionInsertCommand()) {
             gameCommand.execute(this.gameState);
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void menu() {
         this.switchScene(SceneType.MENU_SCENE);
@@ -121,6 +135,9 @@ public class LinkerImpl implements Linker {
             this.gameState.setState(StateEnum.WAITING_FOR_NEW_GAME);
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void pause() {
         if (this.gameState.getState() != StateEnum.PAUSE) {
@@ -129,6 +146,9 @@ public class LinkerImpl implements Linker {
         }
         this.switchScene(SceneType.PAUSE_SCENE);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void quit() {
         this.gameState.setState(StateEnum.STOP);
@@ -136,32 +156,50 @@ public class LinkerImpl implements Linker {
         SoundPlayer.shutdown();
         this.sceneHandler.close();
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void render() {
         if (this.sceneHandler.getCurrentController().getView() instanceof RenderableView) {
             ((RenderableView) this.sceneHandler.getCurrentController().getView()).render();
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void resume() {
         this.switchScene(SceneType.GAME_SCENE);
         this.gameState.setState(StateEnum.RUN);
         this.gameState.getCurrentLevel().getArena().getPowerupHandler().resume();
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void run() {
         this.switchScene(SceneType.GAME_SCENE);
         this.render();
         this.gameState.setState(StateEnum.WAITING_FOR_STARTING_COMMAND);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void selectLevel() {
         this.switchScene(SceneType.SELECT_LEVEL_SCENE);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void settings() {
         this.switchScene(SceneType.SETTINGS_SCENE);
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void switchLevel() {
         this.gameState.switchLevel();

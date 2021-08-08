@@ -22,14 +22,14 @@ public class BrickEventComponent extends AbstractEventComponent<Brick> {
     }
 
     /**
-     * Handle the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}
+     * Handles the damage received by a {@link it.unibo.pyxis.model.element.ball.Ball}
      * based on its {@link it.unibo.pyxis.model.element.ball.BallType}.
-     * If the durability of the {@link Brick} reaches the value 0 then the brick is destroyed.
+     * If the durability of the {@link Brick} reaches the value 0 then the brick is
+     * destroyed.
      *
-     * @param ballType
-     *                         The {@link it.unibo.pyxis.model.element.ball.BallType}
-     *                         of the {@link it.unibo.pyxis.model.element.ball.Ball}
-     *                         that is damaging the {@link Brick}.
+     * @param ballType The {@link it.unibo.pyxis.model.element.ball.BallType}
+     *                 of the {@link it.unibo.pyxis.model.element.ball.Ball}
+     *                 that is damaging the {@link Brick}.
      */
     private void handleIncomingDamage(final BallType ballType) {
         final int actualDurability = this.getEntity().getDurability();
@@ -46,10 +46,11 @@ public class BrickEventComponent extends AbstractEventComponent<Brick> {
     }
 
     /**
-     * Handles the ball's movement event.
-     * @param movementEvent
-     *          The movement event caused by the
-     *          {@link it.unibo.pyxis.model.element.ball.Ball} needs to be handled.
+     * Handles the {@link Ball}'s movement event.
+     *
+     * @param movementEvent The movement event caused by the
+     *                      {@link it.unibo.pyxis.model.element.ball.Ball} needs
+     *                      to be handled.
      */
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
