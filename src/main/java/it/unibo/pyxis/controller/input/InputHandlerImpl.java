@@ -28,7 +28,7 @@ public class InputHandlerImpl implements InputHandler {
                         }
                     });
                     break;
-                case S:
+                case SPACE:
                     inputLinker.insertCommand(gameState -> {
                         if (gameState.getState() != StateEnum.RUN) {
                             gameState.setState(StateEnum.RUN);

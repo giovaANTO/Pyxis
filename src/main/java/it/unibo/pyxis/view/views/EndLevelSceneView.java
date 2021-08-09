@@ -23,22 +23,29 @@ public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelSceneCon
     public EndLevelSceneView(final EndLevelSceneController inputController) {
         super(inputController);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        vBox.prefWidthProperty().bind(mainPane.prefWidthProperty());
-        vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
-
-        score.setText(this.getController().getScore().toString());
+        this.vBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.vBox.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
+        this.score.setText(this.getController().getScore().toString());
         this.nextLevelButton.setDisable(this.getController().disableNextLevelButton());
     }
-
+    /**
+     * Loads the {@link MenuSceneView}, applying all the
+     * {@link it.unibo.pyxis.controller.soundplayer.Sound}s.
+     */
     public void menu() {
         this.playMainMenuMusic();
         this.playGenericButtonPressSound();
         this.getController().menu();
     }
-
+    /**
+     * Loads the next {@link it.unibo.pyxis.model.level.Level}, applying all the
+     * {@link it.unibo.pyxis.controller.soundplayer.Sound}s.
+     */
     public void nextLevel() {
         this.playStartGameButtonPressSound();
         this.getController().nextLevel();

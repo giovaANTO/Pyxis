@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -42,7 +43,39 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     public GameSceneView(final GameSceneController inputController) {
         super(inputController);
     }
-
+    /**
+     * Draws all the {@link it.unibo.pyxis.model.element.Element}s of the
+     * {@link it.unibo.pyxis.model.arena.Arena}.
+     */
+    private void drawCanvas() {
+        this.drawer.clear();
+        this.drawer.drawBackground(this.getController().getLevelImage());
+        this.getController().getBricks().forEach(this.drawer::draw);
+        this.getController().getBalls().forEach(this.drawer::draw);
+        this.getController().getPowerups().forEach(this.drawer::draw);
+        this.drawer.draw(this.getController().getPad());
+    }
+    /**
+     *
+     */
+    private void setupBinders() {
+        this.canvasBinder = new CanvasRatioBinder(mainPane, arenaCanvas);
+        this.labelBinders = Stream.concat(leftVBox.getChildren().stream(), rightVBox.getChildren().stream())
+                .filter(n -> n instanceof Label)
+                .map(n -> new LabelSizeBinder(mainPane, (Label) n))
+                .collect(Collectors.toSet());
+    }
+    /**
+     *
+     */
+    private void updateBindNodesToContainer() {
+        this.labelBinders.forEach(LabelSizeBinder::bind);
+        this.canvasBinder.bind();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         stackPane.prefWidthProperty().bind(mainPane.widthProperty());
         stackPane.prefHeightProperty().bind(mainPane.heightProperty());
@@ -54,35 +87,15 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.currentLevel.setText(this.getController().getCurrentLevelNumber().toString());
         this.setupBinders();
     }
-
-    private void setupBinders() {
-        this.canvasBinder = new CanvasRatioBinder(mainPane, arenaCanvas);
-        this.labelBinders = Stream.concat(leftVBox.getChildren().stream(), rightVBox.getChildren().stream())
-                                .filter(n -> n instanceof Label)
-                                .map(n -> new LabelSizeBinder(mainPane, (Label) n))
-                                .collect(Collectors.toSet());
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
         this.updateBindNodesToContainer();
         this.currentLives.setText(this.getController().getLives().toString());
         this.currentScore.setText(this.getController().getScore().toString());
         this.drawCanvas();
-    }
-
-    private void updateBindNodesToContainer() {
-        this.labelBinders.forEach(LabelSizeBinder::bind);
-        this.canvasBinder.bind();
-    }
-
-    private void drawCanvas() {
-        this.drawer.clear();
-        this.drawer.drawBackground(this.getController().getLevelImage());
-        this.getController().getBricks().forEach(this.drawer::draw);
-        this.getController().getBalls().forEach(this.drawer::draw);
-        this.getController().getPowerups().forEach(this.drawer::draw);
-        this.drawer.draw(this.getController().getPad());
     }
 
 }

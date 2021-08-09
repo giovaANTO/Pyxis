@@ -20,39 +20,47 @@ public final class SceneHandlerImpl implements SceneHandler {
             this.linker.quit();
         });
     }
-
-    @Override
-    public void close() {
-        this.stage.close();
-    }
-
-    @Override
-    public void switchScene(final SceneType inputSceneType) {
-        this.currentControllerSetup(inputSceneType);
-        this.stage.setScene(this.loadNewScene(inputSceneType));
-        this.stage.show();
-    }
-
     /**
+     * Loads the new current {@link Controller} from the new {@link Scene} loaded,
+     * and binds it to the {@link Linker}.
      *
-     * @param inputSceneType
+     * @param inputSceneType The {@link SceneType} to get the current {@link Controller}
+     *                       from.
      */
     private void currentControllerSetup(final SceneType inputSceneType) {
         this.currentController = inputSceneType.getController();
         this.currentController.setLinker(this.linker);
     }
-
+    /**
+     * Loads and returns the new {@link Scene} loaded by the {@link Loader}.
+     *
+     * @param inputSceneType The {@link SceneType} to load.
+     * @return The new {@link Scene} loaded.
+     */
+    private Scene loadNewScene(final SceneType inputSceneType) {
+        return new Scene(this.loader.getScene(inputSceneType, this.currentController));
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void close() {
+        this.stage.close();
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Controller getCurrentController() {
         return this.currentController;
     }
-
     /**
-     *
-     * @param inputSceneType
-     * @return
+     * {@inheritDoc}
      */
-    private Scene loadNewScene(final SceneType inputSceneType) {
-        return new Scene(this.loader.getScene(inputSceneType, this.currentController));
+    @Override
+    public void switchScene(final SceneType inputSceneType) {
+        this.currentControllerSetup(inputSceneType);
+        this.stage.setScene(this.loadNewScene(inputSceneType));
+        this.stage.show();
     }
 }

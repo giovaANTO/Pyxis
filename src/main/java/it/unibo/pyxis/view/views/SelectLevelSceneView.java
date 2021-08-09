@@ -22,7 +22,9 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
     public SelectLevelSceneView(final SelectLevelSceneController inputController) {
         super(inputController);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
 

@@ -18,28 +18,38 @@ public final class PauseSceneView  extends AbstractJavaFXView<PauseSceneControll
     public PauseSceneView(final PauseSceneController inputController) {
         super(inputController);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         vBox.prefWidthProperty().bind(mainPane.prefWidthProperty());
         vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
     }
-
+    /**
+     * Quit the application.
+     */
     public void quit() {
         this.playGenericButtonPressSound();
         this.getController().quit();
     }
-
+    /**
+     *
+     */
     public void settings() {
         this.playGenericButtonPressSound();
         this.getController().settings();
     }
-
+    /**
+     *
+     */
     public void resume() {
         this.playStartGameButtonPressSound();
         this.getController().resume();
     }
-
+    /**
+     *
+     */
     public void menu() {
         this.playMainMenuMusic();
         this.playGenericButtonPressSound();

@@ -30,36 +30,47 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     public MenuSceneView(final MenuSceneController inputController) {
         super(inputController);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         vBox.prefWidthProperty().bind(mainPane.prefWidthProperty());
         vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
-
         newGameButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);
         settingsButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);
         levelsButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);
         quitButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);
-
         StackPane.setAlignment(vBox, Pos.CENTER);
     }
-
-    public void startNewGame() {
-        this.playInGameMusic();
-        this.playStartGameButtonPressSound();
-        this.getController().startNewGame();
-    }
-    public void showSettings() {
+    /**
+     * Quit the application.
+     */
+    public void quit() {
         this.playGenericButtonPressSound();
-        this.getController().showSettings();
+        this.getController().quit();
     }
+    /**
+     * Display the {@link SelectLevelSceneView}.
+     */
     public void selectLevels() {
         this.playGenericButtonPressSound();
         this.getController().selectLevel();
     }
-    public void quit() {
+    /**
+     * Display the {@link SettingsSceneView}.
+     */
+    public void showSettings() {
         this.playGenericButtonPressSound();
-        this.getController().quit();
+        this.getController().showSettings();
+    }
+    /**
+     * Display the {@link GameSceneView} to start a new game.
+     */
+    public void startNewGame() {
+        this.playInGameMusic();
+        this.playStartGameButtonPressSound();
+        this.getController().startNewGame();
     }
 
 }
