@@ -15,10 +15,11 @@ import it.unibo.pyxis.ecs.component.event.EventComponent;
 import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
 import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.element.ball.Ball;
-import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickType;
+import it.unibo.pyxis.model.element.factory.ElementFactory;
+import it.unibo.pyxis.model.element.factory.ElementFactoryImpl;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.powerup.handler.PowerupHandler;
@@ -300,15 +301,14 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      */
     @Override
     public void resetStartingPosition() {
+        final ElementFactory factory = new ElementFactoryImpl();
         this.getPad().setPosition(this.startingPadPosition.copyOf());
-        final Ball newBall = new BallImpl.Builder()
-                .initialPosition(this.startingBallPosition.copyOf())
-                .pace(this.startingBallPace.copyOf())
-                .ballType(BallType.NORMAL_BALL)
-                .id(1)
-                .build();
+        final double compX = Math.pow(this.startingBallPace.getX(), 2);
+        final double compY = Math.pow(this.startingBallPace.getY(), 2);
+        final double module = Math.sqrt(compX + compY);
+        System.out.println(module);
         this.ballSet.clear();
-        this.ballSet.add(newBall);
+        this.ballSet.add(factory.createBallWithRandomPace(1, BallType.NORMAL_BALL, this.startingBallPosition.copyOf(), module));
     }
     /**
      * {@inheritDoc}

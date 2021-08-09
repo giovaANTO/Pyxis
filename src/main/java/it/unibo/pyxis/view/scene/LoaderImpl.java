@@ -5,14 +5,11 @@ import it.unibo.pyxis.view.views.View;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-import java.io.File;
 import java.io.IOException;
 
 public class LoaderImpl implements Loader {
 
-    private static final String SEPARATOR = File.separator;
-    private static final String FIRST_ROOT_PATH = "layouts" + SEPARATOR + "scenebuilder"
-            + SEPARATOR;
+    private static final String FIRST_ROOT_PATH = "layouts/scenebuilder/";
     private static final String SECOND_ROOT_PATH = ".fxml";
 
     /**

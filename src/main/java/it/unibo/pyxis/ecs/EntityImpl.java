@@ -75,6 +75,9 @@ public class EntityImpl implements Entity {
      */
     @Override
     public final <C extends Component<?>> void registerComponent(final C component) {
+        if (component.isAttached()) {
+           throw new IllegalArgumentException("The input component is already attached to an entity");
+        }
         final Optional<Class<?>> componentClass = findComponentInterface(component);
         if (componentClass.isPresent() && !this.hasComponent(componentClass.get())) {
             component.attach();
