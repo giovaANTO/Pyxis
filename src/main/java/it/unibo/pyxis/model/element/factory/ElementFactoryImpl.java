@@ -17,8 +17,8 @@ import java.util.Random;
 
 public final class ElementFactoryImpl implements ElementFactory {
 
-    private static final double MIN_ANGLE = -40;
-    private static final double MAX_ANGLE = 40;
+    private static final double MIN_ANGLE = 70;
+    private static final double MAX_ANGLE = 90;
 
     /**
      * Generate a random angle between two values.
@@ -37,6 +37,7 @@ public final class ElementFactoryImpl implements ElementFactory {
         final double randomAngle = this.randomAngle();
         final double componentX = module * Math.cos(randomAngle);
         final double componentY = module * Math.sin(randomAngle);
+        System.out.println(componentX + " " + componentY);
         return new VectorImpl(componentX, componentY);
     }
     /**
