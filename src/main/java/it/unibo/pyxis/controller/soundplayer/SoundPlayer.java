@@ -1,6 +1,5 @@
 package it.unibo.pyxis.controller.soundplayer;
 
-import java.io.File;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +13,7 @@ import javafx.util.Duration;
 
 public final class SoundPlayer {
 
-    private static final String SEPARATOR = File.separator;
-    private static final String SOUNDS_PATH = "soundeffects" + SEPARATOR;
+    private static final String SOUNDS_PATH = "soundeffects/";
     private static final String SOUNDS_END_PATH = ".wav";
     private static final double STARTING_BACKGROUND_VOLUME = 0.2;
     private static final double STARTING_SOUND_EFFECT_VOLUME = 0.2;
