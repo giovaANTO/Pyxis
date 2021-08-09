@@ -47,6 +47,10 @@ public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneCon
         });
     }
 
+    /**
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * {@link SettingsSceneController#back()}.
+     */
     public void back() {
         this.playGenericButtonPressSound();
         this.getController().back();

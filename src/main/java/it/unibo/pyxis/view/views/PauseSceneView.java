@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public final class PauseSceneView  extends AbstractJavaFXView<PauseSceneController> {
+public final class PauseSceneView extends AbstractJavaFXView<PauseSceneController> {
 
     @FXML
     private StackPane mainPane;
@@ -18,6 +18,7 @@ public final class PauseSceneView  extends AbstractJavaFXView<PauseSceneControll
     public PauseSceneView(final PauseSceneController inputController) {
         super(inputController);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -27,32 +28,36 @@ public final class PauseSceneView  extends AbstractJavaFXView<PauseSceneControll
         vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
     }
     /**
-     * Quit the application.
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound}s and calls the
+     * {@link PauseSceneController#menu()}.
+     */
+    public void menu() {
+        this.playMainMenuMusic();
+        this.playGenericButtonPressSound();
+        this.getController().menu();
+    }
+    /**
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * {@link PauseSceneController#quit()}.
      */
     public void quit() {
         this.playGenericButtonPressSound();
         this.getController().quit();
     }
     /**
-     *
-     */
-    public void settings() {
-        this.playGenericButtonPressSound();
-        this.getController().settings();
-    }
-    /**
-     *
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * {@link PauseSceneController#resume()}.
      */
     public void resume() {
         this.playStartGameButtonPressSound();
         this.getController().resume();
     }
     /**
-     *
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * {@link PauseSceneController#settings()}.
      */
-    public void menu() {
-        this.playMainMenuMusic();
+    public void settings() {
         this.playGenericButtonPressSound();
-        this.getController().menu();
+        this.getController().settings();
     }
 }

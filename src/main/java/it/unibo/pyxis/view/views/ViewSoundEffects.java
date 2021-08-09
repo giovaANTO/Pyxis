@@ -1,12 +1,24 @@
 package it.unibo.pyxis.view.views;
 
 public interface ViewSoundEffects {
-
-    void playStartGameButtonPressSound();
-
+    /**
+     * Play the {@link it.unibo.pyxis.controller.soundplayer.Sound} of a pushed
+     * {@link javafx.scene.control.Button}.
+     */
     void playGenericButtonPressSound();
-
-    void playMainMenuMusic();
-
+    /**
+     * Play the {@link it.unibo.pyxis.controller.soundplayer.Sound} of the
+     * {@link GameSceneView}.
+     */
     void playInGameMusic();
+    /**
+     * Play the {@link it.unibo.pyxis.controller.soundplayer.Sound} of the
+     * {@link MenuSceneView}.
+     */
+    void playMainMenuMusic();
+    /**
+     * Play the {@link it.unibo.pyxis.controller.soundplayer.Sound} of a pushed
+     * start game {@link javafx.scene.control.Button}.
+     */
+    void playStartGameButtonPressSound();
 }

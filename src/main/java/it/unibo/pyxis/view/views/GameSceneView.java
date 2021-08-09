@@ -43,6 +43,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     public GameSceneView(final GameSceneController inputController) {
         super(inputController);
     }
+
     /**
      * Draws all the {@link it.unibo.pyxis.model.element.Element}s of the
      * {@link it.unibo.pyxis.model.arena.Arena}.
@@ -97,5 +98,4 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.currentScore.setText(this.getController().getScore().toString());
         this.drawCanvas();
     }
-
 }

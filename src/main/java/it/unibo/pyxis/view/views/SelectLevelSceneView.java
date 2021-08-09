@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelSceneController> {
+public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelSceneController> {
 
     @FXML
     private AnchorPane mainPane;
@@ -22,30 +22,14 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
     public SelectLevelSceneView(final SelectLevelSceneController inputController) {
         super(inputController);
     }
+
     /**
-     * {@inheritDoc}
+     * Create and populate a {@link GridPane} with a {@link Button} for each
+     * {@link it.unibo.pyxis.model.level.Level}.
+     *
+     * @return The {@link GridPane} already populated.
      */
-    @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
-
-        this.numLevel = this.getController().getTotalLevels();
-        this.levelsDone = this.getController().getLevelsDone();
-
-        GridPane gridPane = this.populateButton();
-
-        this.mainPane.getChildren().add(gridPane);
-
-        AnchorPane.setRightAnchor(gridPane, 0.0);
-        AnchorPane.setLeftAnchor(gridPane, 0.0);
-        AnchorPane.setBottomAnchor(gridPane, 0.0);
-        AnchorPane.setTopAnchor(gridPane, this.backButton.getPrefHeight() + 10);
-
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-    }
-
     private GridPane populateButton() {
-
         GridPane gridPane = new GridPane();
         final int col = (int) Math.ceil(Math.sqrt(this.numLevel));
         int countX = 0;
@@ -69,15 +53,44 @@ public final class SelectLevelSceneView  extends AbstractJavaFXView<SelectLevelS
         }
         return gridPane;
     }
-
-    public void getLevel(final int inputLevel) {
-        this.playInGameMusic();
-        this.getController().runLevel(inputLevel);
-    }
-
+    /**
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls
+     * {@link SelectLevelSceneController#back()}.
+     */
     public void back() {
         this.playGenericButtonPressSound();
         this.getController().back();
     }
+    /**
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls
+     * {@link SelectLevelSceneController#runLevel(int)}.
+     *
+     * @param inputLevel The index of the {@link it.unibo.pyxis.model.level.Level} to
+     *                   load.
+     */
+    public void getLevel(final int inputLevel) {
+        this.playInGameMusic();
+        this.getController().runLevel(inputLevel);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void initialize(final URL location, final ResourceBundle resources) {
 
+        this.numLevel = this.getController().getTotalLevels();
+        this.levelsDone = this.getController().getLevelsDone();
+
+        GridPane gridPane = this.populateButton();
+
+        this.mainPane.getChildren().add(gridPane);
+
+        AnchorPane.setRightAnchor(gridPane, 0.0);
+        AnchorPane.setLeftAnchor(gridPane, 0.0);
+        AnchorPane.setBottomAnchor(gridPane, 0.0);
+        AnchorPane.setTopAnchor(gridPane, this.backButton.getPrefHeight() + 10);
+
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+    }
 }

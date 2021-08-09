@@ -44,33 +44,36 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
         StackPane.setAlignment(vBox, Pos.CENTER);
     }
     /**
-     * Quit the application.
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * {@link MenuSceneController#quit()}.
      */
     public void quit() {
         this.playGenericButtonPressSound();
         this.getController().quit();
     }
     /**
-     * Display the {@link SelectLevelSceneView}.
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * {@link MenuSceneController#selectLevel()}.
      */
     public void selectLevels() {
         this.playGenericButtonPressSound();
         this.getController().selectLevel();
     }
     /**
-     * Display the {@link SettingsSceneView}.
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * {@link MenuSceneController#showSettings()}.
      */
     public void showSettings() {
         this.playGenericButtonPressSound();
         this.getController().showSettings();
     }
     /**
-     * Display the {@link GameSceneView} to start a new game.
+     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * {@link MenuSceneController#startNewGame()}.
      */
     public void startNewGame() {
         this.playInGameMusic();
         this.playStartGameButtonPressSound();
         this.getController().startNewGame();
     }
-
 }
