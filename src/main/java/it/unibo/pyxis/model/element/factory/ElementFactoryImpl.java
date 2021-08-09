@@ -10,8 +10,35 @@ import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
+import it.unibo.pyxis.model.util.Vector;
+import it.unibo.pyxis.model.util.VectorImpl;
+
+import java.util.Random;
 
 public final class ElementFactoryImpl implements ElementFactory {
+
+    private static final double MIN_ANGLE = -40;
+    private static final double MAX_ANGLE = 40;
+
+    /**
+     * Generate a random angle between two values.
+     * @return a dobule representing the value of an angle.
+     */
+    private double randomAngle() {
+        Random random = new Random();
+        return MIN_ANGLE + (MAX_ANGLE - MIN_ANGLE) * random.nextDouble();
+    }
+    /**
+     * Creates a new pace {@link Vector} with a random angle direction.
+     * @param module The module of the {@link Vector}
+     * @return A new {@link Vector} instance.
+     */
+    private Vector paceWithRandomAngle(final double module) {
+        final double randomAngle = this.randomAngle();
+        final double componentX = module * Math.cos(randomAngle);
+        final double componentY = module * Math.sin(randomAngle);
+        return new VectorImpl(componentX, componentY);
+    }
     /**
      * {@inheritDoc}
      */
@@ -28,8 +55,27 @@ public final class ElementFactoryImpl implements ElementFactory {
      * {@inheritDoc}
      */
     @Override
+    public Ball createBallWithRandomPace(final int id, final BallType type, final Coord pos, final double module) {
+        return new BallImpl.Builder()
+                .ballType(type)
+                .id(id)
+                .pace(this.paceWithRandomAngle(module))
+                .initialPosition(pos)
+                .build();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Ball copyBallWithAngle(final Ball ball, final double angle, final int id) {
         return this.copyBallWithType(ball, angle, id, ball.getType());
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Ball copyBallWithRandomAngle(final Ball ball, final int id) {
+        return this.copyBallWithAngle(ball, this.randomAngle(), id);
     }
     /**
      * {@inheritDoc}

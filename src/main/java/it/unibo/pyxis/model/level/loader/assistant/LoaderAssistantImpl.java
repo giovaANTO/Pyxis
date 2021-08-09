@@ -3,7 +3,6 @@ package it.unibo.pyxis.model.level.loader.assistant;
 import it.unibo.pyxis.model.arena.Arena;
 import it.unibo.pyxis.model.arena.ArenaImpl;
 import it.unibo.pyxis.model.element.ball.Ball;
-import it.unibo.pyxis.model.element.ball.BallImpl;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.brick.BrickType;
@@ -19,7 +18,6 @@ import it.unibo.pyxis.model.level.loader.skeleton.pad.PadSkeleton;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.DimensionImpl;
-import it.unibo.pyxis.model.util.VectorImpl;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -27,6 +25,7 @@ import java.util.Set;
 
 public final class LoaderAssistantImpl implements LoaderAssistant {
 
+    private static final double BALL_MODULE = 180;
     private final ElementFactory elementFactory = new ElementFactoryImpl();
 
     /**
@@ -59,12 +58,10 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
      * @return An instance of a {@link Ball}.
      */
     private Ball ballFromSkeleton(final BallSkeleton skeleton) {
-        return new BallImpl.Builder()
-                .pace(new VectorImpl(skeleton.getPaceX(), skeleton.getPaceY()))
-                .initialPosition(new CoordImpl(skeleton.getX(), skeleton.getY()))
-                .ballType(this.getBallType(skeleton.getBallType()))
-                .id(skeleton.getId())
-                .build();
+        final Coord initialPosition = new CoordImpl(skeleton.getX(), skeleton.getY());
+        final BallType ballType = this.getBallType(skeleton.getBallType());
+        final int id = skeleton.getId();
+        return this.elementFactory.createBallWithRandomPace(id, ballType, initialPosition, BALL_MODULE);
     }
     /**
      * Creates a {@link Brick} instance from a skeleton.

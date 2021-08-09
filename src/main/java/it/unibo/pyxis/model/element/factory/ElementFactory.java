@@ -24,6 +24,16 @@ public interface ElementFactory {
     Ball copyBallWithAngle(Ball ball, double angle, int id);
     /**
      * Creates a copy of a {@link Ball} maintaining the same properties of this but
+     * with the {@link it.unibo.pyxis.model.util.Vector} pace rotated by a random
+     * angle.
+     *
+     * @param ball The {@link Ball} to copy.
+     * @param id The id to assign to the new {@link Ball}.
+     * @return A new {@link Ball} instance.
+     */
+    Ball copyBallWithRandomAngle(Ball ball, int id);
+    /**
+     * Creates a copy of a {@link Ball} maintaining the same properties of this but
      * with the {@link it.unibo.pyxis.model.util.Vector} pace rotated by a certain
      * angle and with a specified angle.
      *
@@ -35,6 +45,18 @@ public interface ElementFactory {
      * @return A new {@link Ball} instance.
      */
     Ball copyBallWithType(Ball ball, double angle, int id, BallType type);
+    /**
+     * Creates a new {@link Ball} with a random pace {@link it.unibo.pyxis.model.util.Vector}.
+     *
+     * @param id  The id of the {@link Ball}
+     * @param type The {@link BallType} to assign
+     * @param position The initial position of the {@link Ball}
+     * @param module The module of the pace's
+     *               {@link it.unibo.pyxis.model.util.Vector}
+     * @return
+     *          A new {@link Ball} instance.
+     */
+    Ball createBallWithRandomPace(int id, BallType type, Coord position, double module);
     /**
      * Creates a {@link Brick} of blue {@link BrickType}.
      *
