@@ -46,7 +46,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
 
     /**
      * Draws all the {@link it.unibo.pyxis.model.element.Element}s of the
-     * {@link it.unibo.pyxis.model.arena.Arena}.
+     * {@link it.unibo.pyxis.model.arena.Arena} in the {@link javafx.scene.canvas.Canvas}.
      */
     private void drawCanvas() {
         this.drawer.clear();
@@ -57,7 +57,8 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.drawer.draw(this.getController().getPad());
     }
     /**
-     *
+     * Sets up the {@link it.unibo.pyxis.view.drawer.binder.Binder}s for the
+     * {@link javafx.scene.canvas.Canvas} and the {@link javafx.scene.control.Label}s.
      */
     private void setupBinders() {
         this.canvasBinder = new CanvasRatioBinder(mainPane, arenaCanvas);
@@ -67,7 +68,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
                 .collect(Collectors.toSet());
     }
     /**
-     *
+     * Updates the {@link it.unibo.pyxis.view.drawer.binder.Binder}s.
      */
     private void updateBindNodesToContainer() {
         this.labelBinders.forEach(LabelSizeBinder::bind);

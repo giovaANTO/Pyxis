@@ -19,12 +19,16 @@ public final class DrawerImpl implements Drawer {
         this.arenaDimension = arenaDimension;
     }
     /**
-     *
-     * @param spriteImage
-     * @param position
-     * @param dimension
+     * Draws an {@link javafx.scene.image.Image} into the
+     * destination of the canvas converted from the given {@link Coord} and {@link Dimension}.
+     * @param spriteImage The {@link javafx.scene.image.Image} to draw
+     *                  on the canvas.
+     * @param position The {@link Coord} in the model
+     *                  of the {@link javafx.scene.image.Image} to draw.
+     * @param dimension The {@link Dimension} in the model
+     *                  of the {@link javafx.scene.image.Image} to draw.
      */
-    private void drawImg(final Image spriteImage, final Coord position, final Dimension dimension) {
+    private void drawImage(final Image spriteImage, final Coord position, final Dimension dimension) {
         final Coord scalePos = this.modelToViewPositionScale(position, dimension);
         final Dimension scaleDim = this.modelToViewDimensionScale(dimension);
         gc.drawImage(spriteImage, scalePos.getX(), scalePos.getY(), scaleDim.getWidth(), scaleDim.getHeight());
@@ -79,7 +83,7 @@ public final class DrawerImpl implements Drawer {
     @Override
     public void draw(final Element element) {
         final Image spriteImage = element.getComponent(SpriteComponent.class).obtainSprite();
-        this.drawImg(spriteImage, element.getPosition(), element.getDimension());
+        this.drawImage(spriteImage, element.getPosition(), element.getDimension());
     }
     /**
      * {@inheritDoc}
@@ -88,6 +92,6 @@ public final class DrawerImpl implements Drawer {
     public void drawBackground(final Image levelImage) {
         final Dimension arenaDim = this.arenaDimension;
         final Coord position = new CoordImpl(arenaDim.getWidth() / 2, arenaDim.getHeight() / 2);
-        this.drawImg(levelImage, position, arenaDim);
+        this.drawImage(levelImage, position, arenaDim);
     }
 }

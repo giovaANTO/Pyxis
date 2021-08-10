@@ -4,84 +4,85 @@ public interface Coord {
     /**
      * Returns a copy of the {@link Coord}.
      *
-     * @return The {@link Coord}
+     * @return The {@link Coord}.
      */
     Coord copyOf();
     /**
-     *
-     *
-     * @param position
-     * @return
+     * Returns the distance with the specified {@link Coord}.
+     * @param coord The {@link Coord}.
+     * 
+     * @return The distance with the specified {@link Coord}.
      */
-    double distance(Coord position);
+    double distance(Coord coord);
     /**
-     *
-     *
-     * @param px
-     * @param py
-     * @return
+     * Returns the distance with the specified {@link Coord}
+     * in its value form.
+     * @param px The X value of the {@link Coord}.
+     * @param py The Y value of the {@link Coord}.
+     * @return The distance with the specified {@link Coord}.
      */
     double distance(double px, double py);
     /**
-     * Returns the X {@link Coord}.
+     * Returns the X value {@link Coord}.
      *
-     * @return The value of the X {@link Coord}.
+     * @return The X value of the {@link Coord}.
      */
     double getX();
 
     /**
-     * Returns the Y {@link Coord}.
+     * Returns the Y value of the {@link Coord}.
      *
-     * @return The value of the Y {@link Coord}.
+     * @return The Y value of the {@link Coord}.
      */
     double getY();
 
     /**
-     * Sets the X {@link Coord}.
+     * Sets the X value of the {@link Coord}.
      *
-     * @param xCoord The value of the X {@link Coord}.
+     * @param xValue The X value of the {@link Coord}.
      */
-    void setX(double xCoord);
+    void setX(double xValue);
 
     /**
-     * Sets the Y {@link Coord}.
+     * Sets the Y value of the {@link Coord}.
      *
-     * @param yCoord The value of the Y {@link Coord}.
+     * @param yValue The Y value of the {@link Coord}.
      */
-    void setY(double yCoord);
+    void setY(double yValue);
     /**
-     * Sets the X, Y {@link Coord}s.
+     * Sets the X and Y values of the {@link Coord}.
      *
-     * @param xCoord The value of the X {@link Coord}.
-     * @param yCoord The value of the Y {@link Coord}.
+     * @param xValue The X value of the {@link Coord}.
+     * @param yValue The Y value of the {@link Coord}.
      */
-    default void setXY(double xCoord, double yCoord) {
-        this.setX(xCoord);
-        this.setY(yCoord);
+    default void setXY(double xValue, double yValue) {
+        this.setX(xValue);
+        this.setY(yValue);
     }
     /**
      * Sums the parameter values to the internal values of the {@link Coord}.
      *
-     * @param coord The {@link Coord} values to sum.
+     * @param coord The {@link Coord} to sum.
      */
     void sumCoord(Coord coord);
     /**
      * Sums the xValue and the yValue to the internal values of the {@link Coord}.
      *
-     * @param xValue The X {@link Coord} value to sum.
-     * @param yValue The Y {@link Coord} value to sum.
+     * @param xValue The X value of the {@link Coord} to sum.
+     * @param yValue The Y value of the {@link Coord} to sum.
      */
     void sumValues(double xValue, double yValue);
     /**
-     * Sums the X, Y {@link Coord}s to the X, Y components of a
-     * {@link Vector}.
+     * Sums the X and Y components of the {@link Vector}
+     * to the X and Y values of a {@link Coord}.
      *
      * @param vector The {@link Vector} to sum.
      */
     void sumVector(Vector vector);
     /**
-     * Sums the X, Y {@link Coord} to the X, Y components of a
-     * {@link Vector} multiplied by a certain value.
+     * Sums the X and Y components of a {@link Vector},
+     * multiplied by a certain value, to the
+     * X and Y values of the {@link Coord}.
      *
      * @param vector     The {@link Vector} to sum.
      * @param multiplier The multiplier value.
