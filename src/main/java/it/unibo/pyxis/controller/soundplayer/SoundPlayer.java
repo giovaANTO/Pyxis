@@ -41,11 +41,20 @@ public final class SoundPlayer {
                 }
         });
     }
-
+    /**
+     * Returns the {@link javafx.scene.media.MediaPlayer} with the
+     * {@link javafx.scene.media.Media} relative to the given parameter {@link Sound}.
+     * @param sound The {@link Sound} relative to the
+     *                  {@link javafx.scene.media.Media} to play
+     *                  with the {@link javafx.scene.media.MediaPlayer}.
+     *
+     * @return The {@link javafx.scene.media.MediaPlayer} with the
+     *                  {@link javafx.scene.media.Media} relative
+     *                  to the given parameter {@link Sound}.
+     */
     private static MediaPlayer loadMediaPlayer(final Sound sound) {
         return new MediaPlayer(ALL_SOUNDS.get(sound));
     }
-
     /**
      * Returns the background music volume.
      *
@@ -54,7 +63,6 @@ public final class SoundPlayer {
     public static double getBackgroundVolume() {
         return backgroundVolume;
     }
-
     /**
      * Returns the sound effect volume.
      *
@@ -63,11 +71,9 @@ public final class SoundPlayer {
     public static double getSoundEffectVolume() {
         return soundEffectVolume;
     }
-
     /**
      * Plays a {@link Sound} on a loop.
-     *
-     * @param backgroundMusic
+     * @param backgroundMusic The {@link Sound} to loop.
      */
     public static void playBackgroundMusic(final Sound backgroundMusic) {
         if (!Objects.isNull(backgroundMusicPlayer)) {
@@ -82,11 +88,9 @@ public final class SoundPlayer {
             backgroundMusicPlayer.play();
         });
     }
-
     /**
      * Plays a {@link Sound} for its duration.
-     *
-     * @param soundEffect
+     * @param soundEffect The {@link Sound} to play.
      */
     public static void playSoundEffect(final Sound soundEffect) {
         soundEffectPlayer = loadMediaPlayer(soundEffect);
@@ -94,11 +98,9 @@ public final class SoundPlayer {
         soundEffectPlayer.play();
         soundEffectPlayer.setOnEndOfMedia(soundEffectPlayer::dispose);
     }
-
     /**
      * Sets the volume of the background music.
-     *
-     * @param volume
+     * @param volume The volume of the background music.
      */
     public static void setBackgroundVolume(final double volume) {
         backgroundVolume = volume;
@@ -106,11 +108,9 @@ public final class SoundPlayer {
             backgroundMusicPlayer.setVolume(backgroundVolume);
         }
     }
-
     /**
      * Sets the volume of the sound effects.
-     *
-     * @param volume
+     * @param volume The volume of the sound effects.
      */
     public static void setSoundEffectVolume(final double volume) {
         soundEffectVolume = volume;
@@ -118,7 +118,6 @@ public final class SoundPlayer {
             soundEffectPlayer.setVolume(soundEffectVolume);
         }
     }
-
     /**
      * Shuts down the {@link SoundPlayer}.
      */

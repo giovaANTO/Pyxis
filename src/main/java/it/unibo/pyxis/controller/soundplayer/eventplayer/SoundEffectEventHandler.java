@@ -14,35 +14,30 @@ public interface SoundEffectEventHandler {
      * @param collisionEvent Receive a {@link BallCollisionWithBrickEvent}.
      */
     void handleBallBrickCollision(BallCollisionWithBrickEvent collisionEvent);
-
     /**
      * Handles the collision event between the ball and the border.
      *
      * @param collisionEvent Receive a {@link BallCollisionWithBorderEvent}.
      */
     void handleBorderCollision(BallCollisionWithBorderEvent collisionEvent);
-
     /**
      * Handles the collision event between the ball and the pad.
      *
      * @param collisionEvent Receive a {@link BallCollisionWithPadEvent}.
      */
     void handlePadCollision(BallCollisionWithPadEvent collisionEvent);
-
     /**
      * Handles a {@link PowerupActivationEvent}.
      *
      * @param event The instance of {@link PowerupActivationEvent}.
      */
     void handlePowerupActivation(PowerupActivationEvent event);
-
     /**
      * Handles a {@link DecreaseLifeEvent}.
      *
      * @param event The instance of {@link DecreaseLifeEvent}.
      */
     void handleDecreaseLife(DecreaseLifeEvent event);
-
     /**
      * Shuts down the {@link SoundEffectEventHandler}.
      */
