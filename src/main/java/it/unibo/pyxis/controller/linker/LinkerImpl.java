@@ -171,7 +171,7 @@ public class LinkerImpl implements Linker {
     @Override
     public final void resume() {
         this.switchScene(SceneType.GAME_SCENE);
-        this.gameState.setState(StateEnum.RUN);
+        this.gameState.setState(StateEnum.WAITING_FOR_STARTING_COMMAND);
         this.gameState.getCurrentLevel().getArena().getPowerupHandler().resume();
     }
     /**
