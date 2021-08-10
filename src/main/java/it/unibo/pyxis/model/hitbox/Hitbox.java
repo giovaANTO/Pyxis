@@ -14,7 +14,7 @@ public interface Hitbox {
      * @param borderDimension
      * @return An {@link Optional} with the specified colliding {@link HitEdge} of the border, an EMPTY {@link Optional} if they are not colliding.
      */
-    Optional<CollisionInformation> collidingEdgeWithBorder(Dimension borderDimension);
+    Optional<CollisionInformationImpl> collidingEdgeWithBorder(Dimension borderDimension);
     /**
      * Checks for a collision with a {@link Hitbox}.
      *
@@ -22,7 +22,7 @@ public interface Hitbox {
      * @return An {@link Optional} with the specified {@link HitEdge} the {@link Hitbox} is colliding with,
      * an empty {@link Optional} if they are not colliding.
      */
-    Optional<CollisionInformation> collidingEdgeWithHB(Hitbox hitbox);
+    Optional<CollisionInformationImpl> collidingEdgeWithHB(Hitbox hitbox);
     /**
      * Returns the dimension of the {@link Hitbox}.
      *

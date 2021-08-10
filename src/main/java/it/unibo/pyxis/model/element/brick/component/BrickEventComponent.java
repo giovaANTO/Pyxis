@@ -7,7 +7,7 @@ import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
-import it.unibo.pyxis.model.hitbox.CollisionInformation;
+import it.unibo.pyxis.model.hitbox.CollisionInformationImpl;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import org.greenrobot.eventbus.EventBus;
@@ -55,7 +55,7 @@ public class BrickEventComponent extends AbstractEventComponent<Brick> {
     @Subscribe
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Hitbox hitbox = this.getEntity().getHitbox();
-        final Optional<CollisionInformation> collInfo = movementEvent.getElement().getHitbox().collidingEdgeWithHB(hitbox);
+        final Optional<CollisionInformationImpl> collInfo = movementEvent.getElement().getHitbox().collidingEdgeWithHB(hitbox);
         collInfo.ifPresent(cI -> {
             final Ball ball = movementEvent.getElement();
             this.handleIncomingDamage(movementEvent.getElement().getType());

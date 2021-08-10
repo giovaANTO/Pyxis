@@ -4,7 +4,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 import it.unibo.pyxis.model.element.Element;
-import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
@@ -15,34 +14,37 @@ public class BallHitbox extends AbstractHitbox {
     public BallHitbox(final Element element) {
         super(element);
     }
-
     /**
-     * Checks which is the closest point of the {@link RectHitbox} to the center of the {@link BallHitbox}.
-     *
-     * @param cHBCenterCoord
-     * @param rHBCenterCoord
-     * @param rHBEdgeLength
+     * Calculation of the value of the closest point of the
+     * {@link RectHitbox} from the center of the {@link BallHitbox}.
+     * @param bHBCenterValue The value of the center of the {@link BallHitbox}.
+     * @param rHBCenterValue The value of the center of the {@link RectHitbox}.
+     * @param rHBEdgeLength The lenght of the edge of the {@link RectHitbox}.
+     * 
      * @return cHBCenterCoord if the center of the {@link BallHitbox} is inside the {@link RectHitbox},
-     * the Coordinate of the closest edge of the {@link RectHitbox} otherwise.
+     *                  the Coordinate of the closest edge of the {@link RectHitbox} otherwise.
      */
-    private double closestPointCalculation(final double cHBCenterCoord, final double rHBCenterCoord,
+    private double closestPointComponentCalculation(final double bHBCenterValue, final double rHBCenterValue,
                                            final double rHBEdgeLength) {
-        return cHBCenterCoord < rHBCenterCoord - rHBEdgeLength / 2
-                ? rHBCenterCoord - rHBEdgeLength / 2
-                : Math.min(cHBCenterCoord, rHBCenterCoord + rHBEdgeLength / 2);
+        return bHBCenterValue < rHBCenterValue - rHBEdgeLength / 2
+                ? rHBCenterValue - rHBEdgeLength / 2
+                : Math.min(bHBCenterValue, rHBCenterValue + rHBEdgeLength / 2);
     }
-
     /**
-     * Returns the offset to apply to the {@link Element} after the collision.
-     *
-     * @param distanceFromClosestPoint
-     * @param componentDistance
-     * @return The offset to apply to the {@link Element} after the collision.
+     * Returns the component of the offset to apply
+     * to the {@link it.unibo.pyxis.model.element.Element} after the collision.
+     * @param distanceFromClosestPoint The distance from
+     *                  the closest point of the {@link RectHitbox}
+     *                  to the center of the {@link BallHitbox}.
+     * @param distanceComponent The component of the distance from
+     *                  the closest point of the {@link RectHitbox}
+     *                  to the center of the {@link BallHitbox}.
+     * 
+     * @return The offset to apply to the {@link it.unibo.pyxis.model.element.Element} after the collision.
      */
-    private double cornerOffsetCalculation(final double distanceFromClosestPoint, final double componentDistance) {
-        return (this.getRadius() - distanceFromClosestPoint) * componentDistance / this.getRadius();
+    private double cornerOffsetCalculation(final double distanceFromClosestPoint, final double distanceComponent) {
+        return (this.getRadius() - distanceFromClosestPoint) * distanceComponent / this.getRadius();
     }
-
     /**
      * Returns the radius of the {@link BallHitbox}.
      *
@@ -51,8 +53,11 @@ public class BallHitbox extends AbstractHitbox {
     private Double getRadius() {
         return getDimension().getHeight() / 2;
     }
-
-    protected Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Optional<CollisionInformationImpl> collidingEdgeWithOtherHB(final Hitbox hitbox) {
 
         double closestPointX;
         double closestPointY;
@@ -67,8 +72,8 @@ public class BallHitbox extends AbstractHitbox {
         final double rHBWidth = hitbox.getDimension().getWidth();
         final double rHBHeight = hitbox.getDimension().getHeight();
 
-        closestPointX = closestPointCalculation(bHBCenterX, rHBCenterX, rHBWidth);
-        closestPointY = closestPointCalculation(bHBCenterY, rHBCenterY, rHBHeight);
+        closestPointX = closestPointComponentCalculation(bHBCenterX, rHBCenterX, rHBWidth);
+        closestPointY = closestPointComponentCalculation(bHBCenterY, rHBCenterY, rHBHeight);
 
         if (closestPointX != bHBCenterX && closestPointY != bHBCenterY) {
             borderOffset.setWidth(cornerOffsetCalculation(this.getPosition().distance(closestPointX, closestPointY),
@@ -103,47 +108,58 @@ public class BallHitbox extends AbstractHitbox {
             }
         }
 
-        return isCollidingWithPoint(closestPointX, closestPointY)
-                ? Optional.of(new CollisionInformation(hitEdge, borderOffset))
+        return this.isCollidingWithPoint(closestPointX, closestPointY)
+                ? Optional.of(new CollisionInformationImpl(hitEdge, borderOffset))
                 : Optional.empty();
     }
-
-    protected Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox) {
-        return getPosition().distance(hitbox.getPosition()) <= getRadius() + ((BallHitbox) hitbox).getRadius()
-                ? Optional.of(new CollisionInformation(HitEdge.CIRCLE, new DimensionImpl()))
-                : Optional.empty();
-    }
-
-    protected boolean isCollidingWithOtherHB(final Hitbox hitbox) {
-        return collidingEdgeWithOtherHB(hitbox).isPresent();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Optional<CollisionInformation> collidingEdgeWithHB(final Hitbox hitbox) {
-        return hitbox instanceof BallHitbox
-                ? collidingEdgeWithSameHB(hitbox)
-                : collidingEdgeWithOtherHB(hitbox);
+    protected Optional<CollisionInformationImpl> collidingEdgeWithSameHB(final Hitbox hitbox) {
+        return this.getPosition().distance(hitbox.getPosition()) <= this.getRadius() + ((BallHitbox) hitbox).getRadius()
+                ? Optional.of(new CollisionInformationImpl(HitEdge.CIRCLE, new DimensionImpl()))
+                : Optional.empty();
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<CollisionInformationImpl> collidingEdgeWithHB(final Hitbox hitbox) {
+        return hitbox instanceof BallHitbox
+                ? this.collidingEdgeWithSameHB(hitbox)
+                : this.collidingEdgeWithOtherHB(hitbox);
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isCollidingWithHB(final Hitbox hitbox) {
         return hitbox instanceof BallHitbox
-                ? isCollidingWithSameHB(hitbox)
-                : isCollidingWithOtherHB(hitbox);
+                ? this.isCollidingWithSameHB(hitbox)
+                : this.isCollidingWithOtherHB(hitbox);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isCollidingWithPoint(final Coord position) {
-        return getPosition().distance(position) <= getRadius();
+        return this.getPosition().distance(position) <= this.getRadius();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isCollidingWithPoint(final double px, final double py) {
-        return getPosition().distance(px, py) <= getRadius();
+        return this.getPosition().distance(px, py) <= this.getRadius();
     }
-
+    /**
+     * Returns the pace of the {@link it.unibo.pyxis.model.element.Element}
+     * of the {@link BallHitbox}.
+     * @return The pace of the {@link it.unibo.pyxis.model.element.Element}
+     *                  of the {@link BallHitbox}.
+     */
     private Vector getPace() {
         return this.getElement().getPace();
     }
-
 }

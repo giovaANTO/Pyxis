@@ -30,7 +30,7 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
             collisionEvent.getCollisionInformation().setHitEdge(HitEdge.HORIZONTAL);
         }
         final HitEdge hitEdge = collisionEvent.getCollisionInformation().getHitEdge();
-        final Dimension borderOffset = collisionEvent.getCollisionInformation().getBorderOffset();
+        final Dimension borderOffset = collisionEvent.getCollisionInformation().getCollisionOffset();
         this.getEntity().registerCollision(hitEdge, borderOffset);
     }
     /**

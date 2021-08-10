@@ -6,7 +6,7 @@ import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
 import it.unibo.pyxis.model.event.movement.BallMovementEvent;
 import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
-import it.unibo.pyxis.model.hitbox.CollisionInformation;
+import it.unibo.pyxis.model.hitbox.CollisionInformationImpl;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.Dimension;
@@ -30,7 +30,7 @@ public class PadEventComponent extends AbstractEventComponent<Pad> {
     public void handleBallMovement(final BallMovementEvent movementEvent) {
         final Hitbox currentHitbox = this.getEntity().getHitbox();
         final Hitbox ballHitbox = movementEvent.getElement().getHitbox();
-        final Optional<CollisionInformation> collInfo = ballHitbox.collidingEdgeWithHB(currentHitbox);
+        final Optional<CollisionInformationImpl> collInfo = ballHitbox.collidingEdgeWithHB(currentHitbox);
         collInfo.ifPresent(cI -> {
             final int elemId = movementEvent.getElement().getId();
             final Coord padPos = this.getEntity().getPosition();
