@@ -16,8 +16,9 @@ import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.PAD_POWERUP;
 
 public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
 
-    private static final int MAX_APPLICABLE_ANGLE = 350;
-    private static final int MIN_APPLICABLE_ANGLE = 190;
+    private static final int MAX_APPLICABLE_ANGLE = 342;
+    private static final int MIN_APPLICABLE_ANGLE = 198;
+    private static final int FLAT_CORNER_ANGLE = 180;
 
     /**
      * Creates a new generic {@link PowerupEffect}.
@@ -63,12 +64,16 @@ public final class PowerupEffectFactoryImpl implements PowerupEffectFactory {
         };
     }
     /**
-     *
-     * @return
+     * Returns a random angle between the MAX_APPLICABLE_ANGLE
+     * and the MIN_APPLICABLE_ANGLE in radians.
+     * 
+     * @return A random angle between the MAX_APPLICABLE_ANGLE
+     *                  and the MIN_APPLICABLE_ANGLE in radians.
      */
     private double randomAngle() {
-        Random r = new Random();
-        return r.nextInt((MAX_APPLICABLE_ANGLE - MIN_APPLICABLE_ANGLE) + 1) + MIN_APPLICABLE_ANGLE;
+        final Random random = new Random();
+        return (random.nextInt(MAX_APPLICABLE_ANGLE - MIN_APPLICABLE_ANGLE) + MIN_APPLICABLE_ANGLE)
+                * Math.PI / FLAT_CORNER_ANGLE;
     }
     /**
      * {@inheritDoc}

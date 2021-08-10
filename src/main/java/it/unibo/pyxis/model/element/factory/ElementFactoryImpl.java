@@ -17,34 +17,31 @@ import java.util.Random;
 
 public final class ElementFactoryImpl implements ElementFactory {
 
-    private static final double MIN_ANGLE = 70;
-    private static final double MAX_ANGLE = 140;
+    private static final int MAX_ANGLE = 342;
+    private static final int MIN_ANGLE = 198;
+    private static final int FLAT_CORNER_ANGLE = 180;
 
     /**
-     * Generate a random angle between two values.
-     * @return a dobule representing the value of an angle.
+     * Returns a random angle between the MAX_ANGLE
+     * and the MIN_ANGLE in radians.
+     * 
+     * @return A random angle between the MAX_ANGLE
+     *                  and the MIN_ANGLE in radians.
      */
     private double randomAngle() {
-        Random random = new Random();
-        return MIN_ANGLE + (MAX_ANGLE - MIN_ANGLE) * random.nextDouble();
+        final Random random = new Random();
+        return (random.nextInt(MAX_ANGLE - MIN_ANGLE) + MIN_ANGLE)
+                * Math.PI / FLAT_CORNER_ANGLE;
     }
     /**
      * Creates a new pace {@link Vector} with a random angle direction.
      * @param module The module of the {@link Vector}
+     * 
      * @return A new {@link Vector} instance.
      */
     private Vector paceWithRandomAngle(final double module) {
         final double randomAngle = this.randomAngle();
-        double componentX = module * Math.cos(randomAngle);
-        double componentY = Math.abs(module * Math.sin(randomAngle));
-        System.out.println(componentY + " " + componentX);
-        if (componentY <= 60) {
-            componentY += 60;
-            componentX = Math.pow(module, 2) - Math.pow(componentY, 2);
-            componentX = Math.sqrt(componentX);
-        }
-        System.out.println(componentY + " " + componentX);
-        return new VectorImpl(componentX, -componentY);
+        return new VectorImpl(module * Math.cos(randomAngle), module * Math.sin(randomAngle));
     }
     /**
      * {@inheritDoc}

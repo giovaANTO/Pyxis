@@ -13,8 +13,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class BallEventComponent extends AbstractEventComponent<Ball> {
 
-    private static final double MIN_LEFT_PERCENTAGE = 0.1;
-    private static final double MIN_RIGHT_PERCENTAGE = 0.9;
+    private static final double ANGLE_MIN_PERCENTAGE_FLAT_CORNER = 0.1;
+    private static final double ANGLE_MAX_PERCENTAGE_FLAT_CORNER = 0.9;
 
     public BallEventComponent(final Ball entity) {
         super(entity);
@@ -40,7 +40,7 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
      * @param padHitPercentage The parameter to calculate the new {@link Vector}.
      */
     private void applyPaceChange(final double padHitPercentage) {
-        final double angle = Math.PI * Math.min(Math.max(padHitPercentage, MIN_LEFT_PERCENTAGE), MIN_RIGHT_PERCENTAGE);
+        final double angle = Math.PI * Math.min(Math.max(padHitPercentage, ANGLE_MIN_PERCENTAGE_FLAT_CORNER), ANGLE_MAX_PERCENTAGE_FLAT_CORNER);
         final double module = this.getEntity().getPace().getModule();
         final Vector newPace = this.getEntity().getPace();
         newPace.setX(Math.cos(angle) * module);
