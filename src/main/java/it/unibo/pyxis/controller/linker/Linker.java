@@ -62,11 +62,6 @@ public interface Linker {
      */
     void selectLevel();
     /**
-     * Sets the {@link InputHandler}.
-     * @param inputHandler The {@link InputHandler} instance to set.
-     */
-    void setInputHandler(InputHandler inputHandler);
-    /**
      * Sets the {@link SceneHandler}.
      * @param sceneHandler The {@link SceneHandler} instance to set.
      */
