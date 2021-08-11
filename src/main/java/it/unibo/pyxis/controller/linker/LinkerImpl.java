@@ -120,14 +120,6 @@ public class LinkerImpl implements Linker {
      * {@inheritDoc}
      */
     @Override
-    public final void load() {
-        this.switchScene(SceneType.MENU_SCENE);
-        SoundPlayer.playBackgroundMusic(Sound.MENU_MUSIC);
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public final void menu() {
         this.switchScene(SceneType.MENU_SCENE);
         if (this.gameState.getState() == StateEnum.PAUSE) {
