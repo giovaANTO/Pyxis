@@ -1,12 +1,12 @@
 package it.unibo.pyxis.model.level.component;
 
-import it.unibo.pyxis.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.AbstractUpdateComponent;
 import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
-public class LevelPhysicsComponent extends AbstractPhysicsComponent<Level> {
+public class LevelUpdateComponent extends AbstractUpdateComponent<Level> {
 
-    public LevelPhysicsComponent(final Level entity) {
+    public LevelUpdateComponent(final Level entity) {
         super(entity);
     }
     /**

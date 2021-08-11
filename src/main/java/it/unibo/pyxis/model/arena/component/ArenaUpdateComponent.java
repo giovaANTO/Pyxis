@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.arena.component;
 
 import it.unibo.pyxis.model.arena.Arena;
-import it.unibo.pyxis.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.AbstractUpdateComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.Events;
@@ -12,9 +12,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Optional;
 
-public class ArenaPhysicsComponent extends AbstractPhysicsComponent<Arena> {
+public class ArenaUpdateComponent extends AbstractUpdateComponent<Arena> {
 
-    public ArenaPhysicsComponent(final Arena entity) {
+    public ArenaUpdateComponent(final Arena entity) {
         super(entity);
     }
 

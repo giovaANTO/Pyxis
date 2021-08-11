@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.element.ball.component;
 
-import it.unibo.pyxis.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.AbstractUpdateComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.event.Events;
@@ -13,9 +13,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-public class BallPhysicsComponent extends AbstractPhysicsComponent<Ball> {
+public class BallUpdateComponent extends AbstractUpdateComponent<Ball> {
 
-    public BallPhysicsComponent(final Ball entity) {
+    public BallUpdateComponent(final Ball entity) {
         super(entity);
     }
 

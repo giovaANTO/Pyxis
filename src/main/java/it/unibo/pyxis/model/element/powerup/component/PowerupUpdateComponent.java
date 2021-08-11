@@ -1,14 +1,14 @@
 package it.unibo.pyxis.model.element.powerup.component;
 
-import it.unibo.pyxis.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.AbstractUpdateComponent;
 import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.util.Coord;
 import org.greenrobot.eventbus.EventBus;
 
-public final class PowerupPhysicsComponent extends AbstractPhysicsComponent<Powerup> {
+public final class PowerupUpdateComponent extends AbstractUpdateComponent<Powerup> {
 
-    public PowerupPhysicsComponent(final Powerup entity) {
+    public PowerupUpdateComponent(final Powerup entity) {
         super(entity);
     }
 

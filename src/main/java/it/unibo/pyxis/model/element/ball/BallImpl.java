@@ -1,9 +1,9 @@
 package it.unibo.pyxis.model.element.ball;
 
-import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.UpdateComponent;
 import it.unibo.pyxis.model.element.AbstractElement;
 import it.unibo.pyxis.model.element.ball.component.BallEventComponent;
-import it.unibo.pyxis.model.element.ball.component.BallPhysicsComponent;
+import it.unibo.pyxis.model.element.ball.component.BallUpdateComponent;
 import it.unibo.pyxis.model.hitbox.BallHitbox;
 import it.unibo.pyxis.model.hitbox.HitEdge;
 import it.unibo.pyxis.model.util.Coord;
@@ -32,7 +32,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.pace = inputPace;
         this.collisionInformation = new HashMap<>();
         this.id = inputId;
-        this.registerComponent(new BallPhysicsComponent(this));
+        this.registerComponent(new BallUpdateComponent(this));
         this.registerComponent(new BallEventComponent(this));
     }
     /**
@@ -96,7 +96,7 @@ public final class BallImpl extends AbstractElement implements Ball {
      */
     @Override
     public void update(final double dt) {
-        this.getComponent(PhysicsComponent.class).update(dt);
+        this.getComponent(UpdateComponent.class).update(dt);
     }
     /**
      * {@inheritDoc}

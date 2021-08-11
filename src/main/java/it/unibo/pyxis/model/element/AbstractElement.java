@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.element;
 
-import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.UpdateComponent;
 import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Coord;
@@ -121,7 +121,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
      */
     @Override
     public void update(final double dt) {
-        this.getComponent(PhysicsComponent.class).update(dt);
+        this.getComponent(UpdateComponent.class).update(dt);
     }
 
 }

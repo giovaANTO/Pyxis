@@ -1,12 +1,12 @@
 package it.unibo.pyxis.ecs.utils;
 
-import it.unibo.pyxis.ecs.component.physics.AbstractPhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.AbstractUpdateComponent;
 
-public class TestPhysicsComponent extends AbstractPhysicsComponent<TestEntity> implements TPhysicsComponent {
+public class TestUpdateComponent extends AbstractUpdateComponent<TestEntity> implements TPhysicsComponent {
 
     private int numberOfUpdates = 0;
 
-    public TestPhysicsComponent(final TestEntity entity) {
+    public TestUpdateComponent(final TestEntity entity) {
         super(entity);
     }
 

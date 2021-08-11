@@ -1,7 +1,7 @@
 package it.unibo.pyxis.model.element.powerup;
 
 import it.unibo.pyxis.model.element.AbstractElement;
-import it.unibo.pyxis.model.element.powerup.component.PowerupPhysicsComponent;
+import it.unibo.pyxis.model.element.powerup.component.PowerupUpdateComponent;
 import it.unibo.pyxis.model.hitbox.RectHitbox;
 
 import it.unibo.pyxis.model.util.Coord;
@@ -22,7 +22,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         super(DIMENSION, inputCoord);
         this.setHitbox(new RectHitbox(this));
         this.type = inputType;
-        this.registerComponent(new PowerupPhysicsComponent(this));
+        this.registerComponent(new PowerupUpdateComponent(this));
     }
     /**
      * {@inheritDoc}

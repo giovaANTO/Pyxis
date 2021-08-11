@@ -1,16 +1,15 @@
 package it.unibo.pyxis.ecs.component.physics;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.unibo.pyxis.ecs.component.AbstractComponent;
 import it.unibo.pyxis.ecs.Entity;
 
-public abstract class AbstractPhysicsComponent<E extends Entity> extends AbstractComponent<E> implements PhysicsComponent<E> {
+public abstract class AbstractUpdateComponent<E extends Entity> extends AbstractComponent<E> implements UpdateComponent<E> {
 
     private boolean isAttached;
 
-    public AbstractPhysicsComponent(final E entity) {
+    public AbstractUpdateComponent(final E entity) {
         super(entity);
         this.isAttached = false;
     }

@@ -2,10 +2,10 @@ package it.unibo.pyxis.model.level;
 
 import it.unibo.pyxis.model.arena.Arena;
 import it.unibo.pyxis.ecs.component.event.EventComponent;
-import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.UpdateComponent;
 import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.level.component.LevelEventComponent;
-import it.unibo.pyxis.model.level.component.LevelPhysicsComponent;
+import it.unibo.pyxis.model.level.component.LevelUpdateComponent;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 
 public final class LevelImpl extends EntityImpl implements Level {
@@ -22,7 +22,7 @@ public final class LevelImpl extends EntityImpl implements Level {
         this.score = 0;
         this.levelStatus = LevelStatus.PLAYING;
         this.arena = inputArena;
-        this.registerComponent(new LevelPhysicsComponent(this));
+        this.registerComponent(new LevelUpdateComponent(this));
         this.registerComponent(new LevelEventComponent(this));
     }
     /**
@@ -94,6 +94,6 @@ public final class LevelImpl extends EntityImpl implements Level {
      */
     @Override
     public void update(final double delta) {
-        this.getComponent(PhysicsComponent.class).update(delta);
+        this.getComponent(UpdateComponent.class).update(delta);
     }
 }
