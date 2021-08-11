@@ -1,6 +1,7 @@
-package it.unibo.pyxis.controller.controllers;
+package it.unibo.pyxis.controller;
 
 import it.unibo.pyxis.model.level.status.LevelStatus;
+import it.unibo.pyxis.view.MenuSceneView;
 
 public class EndLevelSceneController extends AbstractController {
 
@@ -26,7 +27,7 @@ public class EndLevelSceneController extends AbstractController {
         return this.getLinker().getGameState().getScore();
     }
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.MenuSceneView}.
+     * Loads the {@link MenuSceneView}.
      */
     public final void menu() {
         this.getLinker().menu();

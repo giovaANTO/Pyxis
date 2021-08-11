@@ -1,6 +1,6 @@
-package it.unibo.pyxis.view.views;
+package it.unibo.pyxis.view;
 
-import it.unibo.pyxis.controller.controllers.MenuSceneController;
+import it.unibo.pyxis.controller.MenuSceneController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

@@ -1,8 +1,8 @@
-package it.unibo.pyxis.view.views;
+package it.unibo.pyxis.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import it.unibo.pyxis.controller.controllers.EndLevelSceneController;
+import it.unibo.pyxis.controller.EndLevelSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

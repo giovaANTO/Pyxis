@@ -1,8 +1,8 @@
-package it.unibo.pyxis.view.views;
+package it.unibo.pyxis.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import it.unibo.pyxis.controller.controllers.SettingsSceneController;
+import it.unibo.pyxis.controller.SettingsSceneController;
 import it.unibo.pyxis.controller.soundplayer.SoundPlayer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,25 +26,9 @@ public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneCon
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         backgroundSlider.setValue(SoundPlayer.getBackgroundVolume());
-        backgroundSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {
-                SoundPlayer.setBackgroundVolume(backgroundSlider.getValue());
-            }
-        });
+        backgroundSlider.valueProperty().addListener(o -> SoundPlayer.setBackgroundVolume(backgroundSlider.getValue()));
         soundEffectSlider.setValue(SoundPlayer.getSoundEffectVolume());
-        soundEffectSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            /**
-             * {@inheritDoc}
-             */
-            @Override
-            public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {
-                SoundPlayer.setSoundEffectVolume(soundEffectSlider.getValue());
-            }
-        });
+        soundEffectSlider.valueProperty().addListener(o -> SoundPlayer.setSoundEffectVolume(soundEffectSlider.getValue()));
     }
 
     /**

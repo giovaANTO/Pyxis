@@ -1,6 +1,6 @@
-package it.unibo.pyxis.view.views;
+package it.unibo.pyxis.view;
 
-import it.unibo.pyxis.controller.controllers.Controller;
+import it.unibo.pyxis.controller.Controller;
 import it.unibo.pyxis.controller.soundplayer.Sound;
 import it.unibo.pyxis.controller.soundplayer.SoundPlayer;
 import javafx.fxml.Initializable;

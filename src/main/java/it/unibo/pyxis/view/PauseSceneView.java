@@ -1,6 +1,6 @@
-package it.unibo.pyxis.view.views;
+package it.unibo.pyxis.view;
 
-import it.unibo.pyxis.controller.controllers.PauseSceneController;
+import it.unibo.pyxis.controller.PauseSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;

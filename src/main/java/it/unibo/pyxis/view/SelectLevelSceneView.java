@@ -1,6 +1,6 @@
-package it.unibo.pyxis.view.views;
+package it.unibo.pyxis.view;
 
-import it.unibo.pyxis.controller.controllers.SelectLevelSceneController;
+import it.unibo.pyxis.controller.SelectLevelSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;

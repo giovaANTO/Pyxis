@@ -1,6 +1,6 @@
 package it.unibo.pyxis.view.scene;
 
-import it.unibo.pyxis.controller.controllers.*;
+import it.unibo.pyxis.controller.*;
 
 public enum SceneType {
     /**

@@ -1,8 +1,11 @@
-package it.unibo.pyxis.controller.controllers;
+package it.unibo.pyxis.controller;
+
+import it.unibo.pyxis.view.GameSceneView;
+import it.unibo.pyxis.view.MenuSceneView;
 
 public class SelectLevelSceneController extends AbstractController {
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.MenuSceneView}.
+     * Loads the {@link MenuSceneView}.
      */
     public final void back() {
         this.getLinker().menu();
@@ -24,7 +27,7 @@ public class SelectLevelSceneController extends AbstractController {
         return this.getLinker().getGameState().getLevelIterator().size();
     }
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.GameSceneView} with the selected
+     * Loads the {@link GameSceneView} with the selected
      * {@link it.unibo.pyxis.model.level.Level}.
      *
      * @param inputLevel The index of the {@link it.unibo.pyxis.model.level.Level}

@@ -1,6 +1,6 @@
 package it.unibo.pyxis.view.scene;
 
-import it.unibo.pyxis.controller.controllers.Controller;
+import it.unibo.pyxis.controller.Controller;
 import it.unibo.pyxis.controller.linker.Linker;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

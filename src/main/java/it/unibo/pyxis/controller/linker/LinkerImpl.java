@@ -14,7 +14,7 @@ import it.unibo.pyxis.model.state.StateEnum;
 import it.unibo.pyxis.view.scene.SceneHandler;
 import it.unibo.pyxis.view.scene.SceneHandlerImpl;
 import it.unibo.pyxis.view.scene.SceneType;
-import it.unibo.pyxis.view.views.RenderableView;
+import it.unibo.pyxis.view.RenderableView;
 import javafx.stage.Stage;
 
 public class LinkerImpl implements Linker {

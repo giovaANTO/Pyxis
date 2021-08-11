@@ -1,6 +1,6 @@
-package it.unibo.pyxis.view.views;
+package it.unibo.pyxis.view;
 
-import it.unibo.pyxis.controller.controllers.Controller;
+import it.unibo.pyxis.controller.Controller;
 
 public interface View<C extends Controller> extends ViewSoundEffects {
     /**

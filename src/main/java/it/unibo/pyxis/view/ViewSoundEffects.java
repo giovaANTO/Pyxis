@@ -1,4 +1,4 @@
-package it.unibo.pyxis.view.views;
+package it.unibo.pyxis.view;
 
 public interface ViewSoundEffects {
     /**

@@ -1,4 +1,4 @@
-package it.unibo.pyxis.controller.controllers;
+package it.unibo.pyxis.controller;
 
 import it.unibo.pyxis.ecs.component.sprite.SpriteComponent;
 import it.unibo.pyxis.model.arena.Arena;

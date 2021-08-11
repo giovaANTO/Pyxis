@@ -1,4 +1,8 @@
-package it.unibo.pyxis.controller.controllers;
+package it.unibo.pyxis.controller;
+
+import it.unibo.pyxis.view.GameSceneView;
+import it.unibo.pyxis.view.SelectLevelSceneView;
+import it.unibo.pyxis.view.SettingsSceneView;
 
 public class MenuSceneController extends AbstractController {
     /**
@@ -8,19 +12,19 @@ public class MenuSceneController extends AbstractController {
         this.getLinker().quit();
     }
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.SelectLevelSceneView}.
+     * Loads the {@link SelectLevelSceneView}.
      */
     public final void selectLevel() {
         this.getLinker().selectLevel();
     }
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.SettingsSceneView}.
+     * Loads the {@link SettingsSceneView}.
      */
     public final void showSettings() {
         this.getLinker().settings();
     }
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.GameSceneView}.
+     * Loads the {@link GameSceneView}.
      */
     public final void startNewGame() {
         this.getLinker().run();
