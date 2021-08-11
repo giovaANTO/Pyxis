@@ -2,8 +2,6 @@ package it.unibo.pyxis.model.powerup.handler;
 
 import it.unibo.pyxis.model.powerup.effect.PowerupEffect;
 
-import java.util.concurrent.Future;
-
 public interface PowerupHandler {
     /**
      * Returns the number of threads that are currently running.
@@ -17,7 +15,7 @@ public interface PowerupHandler {
      *
      * @param effect The effect to insert.
      */
-    Future<?> addPowerup(PowerupEffect effect);
+    void addPowerup(PowerupEffect effect);
     /**
      * Returns the paused status of the {@link PowerupHandler}.
      *

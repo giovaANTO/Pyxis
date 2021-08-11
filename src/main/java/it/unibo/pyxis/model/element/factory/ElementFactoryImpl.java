@@ -30,8 +30,7 @@ public final class ElementFactoryImpl implements ElementFactory {
      */
     private double randomAngle() {
         final Random random = new Random();
-        return (random.nextInt(MAX_ANGLE - MIN_ANGLE) + MIN_ANGLE)
-                * Math.PI / FLAT_CORNER_ANGLE;
+        return (random.nextInt(MAX_ANGLE - MIN_ANGLE) + MIN_ANGLE) * Math.PI / FLAT_CORNER_ANGLE;
     }
     /**
      * Creates a new pace {@link Vector} with a random angle direction.

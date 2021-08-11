@@ -306,7 +306,6 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         final double compX = Math.pow(this.startingBallPace.getX(), 2);
         final double compY = Math.pow(this.startingBallPace.getY(), 2);
         final double module = Math.sqrt(compX + compY);
-        System.out.println(module);
         this.ballSet.clear();
         this.ballSet.add(factory.createBallWithRandomPace(1, BallType.NORMAL_BALL, this.startingBallPosition.copyOf(), module));
     }

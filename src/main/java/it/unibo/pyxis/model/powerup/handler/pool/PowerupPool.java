@@ -4,7 +4,6 @@ import it.unibo.pyxis.model.powerup.effect.PowerupEffect;
 import it.unibo.pyxis.model.powerup.effect.PowerupEffectType;
 
 import java.util.Map;
-import java.util.concurrent.Future;
 
 public interface PowerupPool {
     /**
@@ -28,7 +27,6 @@ public interface PowerupPool {
      * to the pool.
      *
      * @param effect The {@link PowerupEffect} instance to submit.
-     * @return A {@link Future} instance of the running task.
      */
-    Future<?> submit(PowerupEffect effect);
+    void submit(PowerupEffect effect);
 }
