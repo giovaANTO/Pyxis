@@ -29,7 +29,7 @@ public final class Launcher extends Application {
         SceneHandler sceneHandler = new SceneHandlerImpl(primaryStage, linker);
         linker.setInputHandler(inputHandler);
         linker.setSceneHandler(sceneHandler);
-        linker.load();
+        linker.menu();
     }
 
     public static void run(final String[] args) {

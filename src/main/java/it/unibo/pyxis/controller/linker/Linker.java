@@ -30,11 +30,6 @@ public interface Linker {
      */
     void insertCommand(Command<GameState> levelCommand);
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.MenuSceneView} and plays the
-     * background menu's {@link it.unibo.pyxis.controller.soundplayer.Sound}.
-     */
-    void load();
-    /**
      * Loads the {@link it.unibo.pyxis.view.views.MenuSceneView}.
      */
     void menu();
