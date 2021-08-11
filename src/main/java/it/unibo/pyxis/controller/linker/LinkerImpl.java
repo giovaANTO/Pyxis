@@ -3,6 +3,7 @@ package it.unibo.pyxis.controller.linker;
 import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
+import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.view.input.InputHandler;
 import it.unibo.pyxis.view.soundplayer.SoundPlayer;
 import it.unibo.pyxis.model.level.status.LevelStatus;
@@ -17,6 +18,7 @@ public class LinkerImpl implements Linker {
 
     private GameState gameState;
     private SceneHandler sceneHandler;
+    private GameLoop gameLoop;
     private int maximumLevelReached;
 
     public LinkerImpl() {
@@ -40,8 +42,8 @@ public class LinkerImpl implements Linker {
      * Creates and start a new {@link GameLoop} instance.
      */
     private void createGameLoop() {
-        final GameLoop gameLoop = new GameLoopImpl(this);
-        gameLoop.start();
+        this.gameLoop =  new GameLoopImpl(this);
+        this.gameLoop.start();
     }
     /**
      * Creates a new {@link GameState} instance.
@@ -91,6 +93,14 @@ public class LinkerImpl implements Linker {
             gameCommand.execute(this.gameState);
         }
     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void insertGameCommand(final Command<Level> inputCommand) {
+        this.gameLoop.addCommand(inputCommand);
+    }
+
     /**
      * {@inheritDoc}
      */

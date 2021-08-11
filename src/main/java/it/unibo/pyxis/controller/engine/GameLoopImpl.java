@@ -23,8 +23,10 @@ public final class GameLoopImpl extends Thread implements GameLoop {
         this.commandQueue = new ArrayBlockingQueue<Command<Level>>(COMMAND_QUEUE_DIMENSION);
     }
     /**
+     * Apply a sleep on the current thread based on the time used by the gameloop for
+     * complete a cycle.
      *
-     * @param current
+     * @param current The start time of the cycle
      */
     private void waitForNextFrame(final long current) {
         long dt = System.currentTimeMillis() - current;
@@ -35,28 +37,6 @@ public final class GameLoopImpl extends Thread implements GameLoop {
                 System.out.println(ex.getMessage());
             }
         }
-    }
-    /**
-     * Establishes if the {@link Command} can be processed.
-     *
-     * @return True if {@link it.unibo.pyxis.model.state.GameState}'s
-     *         {@link StateEnum} is RUN or WAITING_FOR_STARTING_COMMAND.
-     *         False otherwise.
-     */
-    private boolean conditionProcessInput() {
-        return this.linker.getGameState().getState() == StateEnum.RUN
-                || this.linker.getGameState().getState()
-                == StateEnum.WAITING_FOR_STARTING_COMMAND;
-    }
-    /**
-     * Establishes if the updates can be processed.
-     *
-     * @return True if {@link it.unibo.pyxis.model.state.GameState}'s
-     *         {@link StateEnum} is RUN.
-     *         False otherwise.
-     */
-    private boolean conditionProcessUpdate() {
-        return this.linker.getGameState().getState() == StateEnum.RUN;
     }
     /**
      * Establishes if the render can be processed.
@@ -75,7 +55,9 @@ public final class GameLoopImpl extends Thread implements GameLoop {
      */
     @Override
     public void addCommand(final Command<Level> command) {
-        this.commandQueue.add(command);
+        if (this.linker.getGameState().getState() == StateEnum.RUN) {
+            this.commandQueue.add(command);
+        }
     }
     /**
      * {@inheritDoc}
@@ -103,10 +85,8 @@ public final class GameLoopImpl extends Thread implements GameLoop {
         while (this.linker.getGameState().getState() != StateEnum.STOP) {
             long current = System.currentTimeMillis();
             int elapsed = (int) (current - lastTime);
-            if (this.conditionProcessInput()) {
+            if (this.linker.getGameState().getState() == StateEnum.RUN) {
                 this.processInput();
-            }
-            if (this.conditionProcessUpdate()) {
                 this.update(elapsed);
             }
             if (this.conditionProcessRender()) {
@@ -122,8 +102,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     @Override
     public void update(final double elapsed) {
         this.linker.getGameState().update(elapsed);
-        if (this.linker.getGameState().getCurrentLevel().getLevelStatus()
-                != LevelStatus.PLAYING) {
+        if (this.linker.getGameState().getCurrentLevel().getLevelStatus() != LevelStatus.PLAYING) {
             Platform.runLater(this.linker::endLevel);
         }
     }

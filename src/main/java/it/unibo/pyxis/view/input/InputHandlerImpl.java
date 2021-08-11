@@ -15,18 +15,10 @@ public class InputHandlerImpl implements InputHandler {
         final EventHandler<KeyEvent> keyEventEventHandler = keyEvent -> {
             switch (keyEvent.getCode()) {
                 case A:
-                    inputLinker.insertCommand(gameState -> {
-                        if (gameState.getState() == StateEnum.RUN) {
-                            gameState.getCurrentLevel().getArena().movePadLeft();
-                        }
-                    });
+                    inputLinker.insertGameCommand(level -> level.getArena().movePadLeft());
                     break;
                 case D:
-                    inputLinker.insertCommand(gameState -> {
-                        if (gameState.getState() == StateEnum.RUN) {
-                            gameState.getCurrentLevel().getArena().movePadRight();
-                        }
-                    });
+                    inputLinker.insertGameCommand(level -> level.getArena().movePadRight());
                     break;
                 case SPACE:
                     inputLinker.insertCommand(gameState -> {

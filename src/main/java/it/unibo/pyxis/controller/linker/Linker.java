@@ -1,6 +1,7 @@
 package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.command.Command;
+import it.unibo.pyxis.model.level.Level;
 import it.unibo.pyxis.view.input.InputHandler;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.view.scene.SceneHandler;
@@ -30,6 +31,13 @@ public interface Linker {
      * @param levelCommand The {@link Command} to add.
      */
     void insertCommand(Command<GameState> levelCommand);
+    /**
+     * Adds a {@link Command} to the {@link it.unibo.pyxis.controller.engine.GameLoop}
+     * input list.
+     *
+     * @param inputCommand The {@link Command} to add.
+     */
+    void insertGameCommand(Command<Level> inputCommand);
     /**
      * Loads the {@link it.unibo.pyxis.view.MenuSceneView}.
      */
