@@ -1,7 +1,7 @@
 package it.unibo.pyxis.app;
 
-import it.unibo.pyxis.controller.input.InputHandler;
-import it.unibo.pyxis.controller.input.InputHandlerImpl;
+import it.unibo.pyxis.view.input.InputHandler;
+import it.unibo.pyxis.view.input.InputHandlerImpl;
 import it.unibo.pyxis.controller.linker.Linker;
 import it.unibo.pyxis.controller.linker.LinkerImpl;
 import it.unibo.pyxis.view.scene.SceneHandler;

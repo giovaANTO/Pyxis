@@ -1,4 +1,4 @@
-package it.unibo.pyxis.controller.input;
+package it.unibo.pyxis.view.input;
 
 import it.unibo.pyxis.controller.linker.Linker;
 import it.unibo.pyxis.model.state.StateEnum;

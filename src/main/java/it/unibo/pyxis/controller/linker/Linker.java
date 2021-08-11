@@ -1,7 +1,7 @@
 package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.command.Command;
-import it.unibo.pyxis.controller.input.InputHandler;
+import it.unibo.pyxis.view.input.InputHandler;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.view.scene.SceneHandler;
 
