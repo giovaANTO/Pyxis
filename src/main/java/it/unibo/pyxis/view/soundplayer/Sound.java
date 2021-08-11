@@ -1,4 +1,4 @@
-package it.unibo.pyxis.controller.soundplayer;
+package it.unibo.pyxis.view.soundplayer;
 
 public enum Sound {
     /**

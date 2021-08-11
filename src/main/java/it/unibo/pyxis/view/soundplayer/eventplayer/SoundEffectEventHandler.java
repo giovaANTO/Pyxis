@@ -1,4 +1,4 @@
-package it.unibo.pyxis.controller.soundplayer.eventplayer;
+package it.unibo.pyxis.view.soundplayer.eventplayer;
 
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;

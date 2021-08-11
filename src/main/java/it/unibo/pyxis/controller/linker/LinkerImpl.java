@@ -5,8 +5,7 @@ import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
 import it.unibo.pyxis.view.input.InputHandler;
 import it.unibo.pyxis.view.input.InputHandlerImpl;
-import it.unibo.pyxis.controller.soundplayer.Sound;
-import it.unibo.pyxis.controller.soundplayer.SoundPlayer;
+import it.unibo.pyxis.view.soundplayer.SoundPlayer;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
@@ -20,7 +19,6 @@ import javafx.stage.Stage;
 public class LinkerImpl implements Linker {
 
     private GameState gameState;
-    private GameLoop gameLoop;
     private SceneHandler sceneHandler;
     private InputHandler inputHandler;
     private int maximumLevelReached;
@@ -46,8 +44,8 @@ public class LinkerImpl implements Linker {
      * Creates and start a new {@link GameLoop} instance.
      */
     private void createGameLoop() {
-        this.gameLoop = new GameLoopImpl(this);
-        this.gameLoop.start();
+        final GameLoop gameLoop = new GameLoopImpl(this);
+        gameLoop.start();
     }
     /**
      * Creates a new {@link GameState} instance.

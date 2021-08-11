@@ -28,16 +28,15 @@ public final class PauseSceneView extends AbstractJavaFXView<PauseSceneControlle
         vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound}s and calls the
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound}s and calls the
      * {@link PauseSceneController#menu()}.
      */
     public void menu() {
-        this.playMainMenuMusic();
         this.playGenericButtonPressSound();
         this.getController().menu();
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link PauseSceneController#quit()}.
      */
     public void quit() {
@@ -45,7 +44,7 @@ public final class PauseSceneView extends AbstractJavaFXView<PauseSceneControlle
         this.getController().quit();
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link PauseSceneController#resume()}.
      */
     public void resume() {
@@ -53,7 +52,7 @@ public final class PauseSceneView extends AbstractJavaFXView<PauseSceneControlle
         this.getController().resume();
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link PauseSceneController#settings()}.
      */
     public void settings() {

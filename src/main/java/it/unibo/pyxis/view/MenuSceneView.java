@@ -4,7 +4,6 @@ import it.unibo.pyxis.controller.MenuSceneController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -51,9 +50,10 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
         this.quitButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
         //this.img.setImage(new Image(IMG_PATH + TITLE));
         StackPane.setAlignment(vBox, Pos.CENTER);
+        this.playMainMenuMusic();
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuSceneController#quit()}.
      */
     public void quit() {
@@ -61,7 +61,7 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
         this.getController().quit();
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuSceneController#selectLevel()}.
      */
     public void selectLevels() {
@@ -69,7 +69,7 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
         this.getController().selectLevel();
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuSceneController#showSettings()}.
      */
     public void showSettings() {
@@ -77,11 +77,10 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
         this.getController().showSettings();
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls the
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuSceneController#startNewGame()}.
      */
     public void startNewGame() {
-        this.playInGameMusic();
         this.playStartGameButtonPressSound();
         this.getController().startNewGame();
     }

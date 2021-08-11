@@ -34,16 +34,15 @@ public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelSceneCon
         this.nextLevelButton.setDisable(this.getController().disableNextLevelButton());
     }
     /**
-     * Applies all the {@link it.unibo.pyxis.controller.soundplayer.Sound}s and call
+     * Applies all the {@link it.unibo.pyxis.view.soundplayer.Sound}s and call
      * {@link EndLevelSceneController#menu()}.
      */
     public void menu() {
-        this.playMainMenuMusic();
         this.playGenericButtonPressSound();
         this.getController().menu();
     }
     /**
-     * Applies all the {@link it.unibo.pyxis.controller.soundplayer.Sound}s and call
+     * Applies all the {@link it.unibo.pyxis.view.soundplayer.Sound}s and call
      * {@link EndLevelSceneController#nextLevel()}.
      */
     public void nextLevel() {

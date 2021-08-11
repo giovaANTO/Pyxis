@@ -54,7 +54,7 @@ public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelSc
         return gridPane;
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls
      * {@link SelectLevelSceneController#back()}.
      */
     public void back() {
@@ -62,14 +62,13 @@ public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelSc
         this.getController().back();
     }
     /**
-     * Applies the {@link it.unibo.pyxis.controller.soundplayer.Sound} and calls
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls
      * {@link SelectLevelSceneController#runLevel(int)}.
      *
      * @param inputLevel The index of the {@link it.unibo.pyxis.model.level.Level} to
      *                   load.
      */
     public void getLevel(final int inputLevel) {
-        this.playInGameMusic();
         this.getController().runLevel(inputLevel);
     }
     /**

@@ -1,4 +1,4 @@
-package it.unibo.pyxis.controller.soundplayer;
+package it.unibo.pyxis.view.soundplayer;
 
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import it.unibo.pyxis.controller.soundplayer.eventplayer.SoundEffectEventHandlerImpl;
+import it.unibo.pyxis.view.soundplayer.eventplayer.SoundEffectEventHandlerImpl;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -22,8 +22,10 @@ public final class SoundPlayer {
     private static double soundEffectVolume = STARTING_SOUND_EFFECT_VOLUME;
     private static final Map<Sound, Media> ALL_SOUNDS;
 
+    private static Sound currentBackgroundMusic;
     private static MediaPlayer backgroundMusicPlayer;
     private static MediaPlayer soundEffectPlayer;
+
 
     private static final SoundEffectEventHandlerImpl MODEL_SOUND_EFFECT_HANDLER = new SoundEffectEventHandlerImpl();
 
@@ -76,6 +78,9 @@ public final class SoundPlayer {
      * @param backgroundMusic The {@link Sound} to loop.
      */
     public static void playBackgroundMusic(final Sound backgroundMusic) {
+        if (backgroundMusic == currentBackgroundMusic) {
+            return;
+        }
         if (!Objects.isNull(backgroundMusicPlayer)) {
             backgroundMusicPlayer.stop();
             backgroundMusicPlayer.dispose();
@@ -87,6 +92,7 @@ public final class SoundPlayer {
             backgroundMusicPlayer.seek(Duration.ZERO);
             backgroundMusicPlayer.play();
         });
+        currentBackgroundMusic = backgroundMusic;
     }
     /**
      * Plays a {@link Sound} for its duration.

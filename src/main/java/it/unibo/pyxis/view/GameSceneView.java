@@ -88,6 +88,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
         this.drawer = new DrawerImpl(arenaCanvas.getGraphicsContext2D(), this.getController().getArenaDimension());
         this.currentLevel.setText(this.getController().getCurrentLevelNumber().toString());
         this.setupBinders();
+        this.playInGameMusic();
     }
     /**
      * {@inheritDoc}

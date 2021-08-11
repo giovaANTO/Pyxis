@@ -1,8 +1,8 @@
 package it.unibo.pyxis.view;
 
 import it.unibo.pyxis.controller.Controller;
-import it.unibo.pyxis.controller.soundplayer.Sound;
-import it.unibo.pyxis.controller.soundplayer.SoundPlayer;
+import it.unibo.pyxis.view.soundplayer.Sound;
+import it.unibo.pyxis.view.soundplayer.SoundPlayer;
 import javafx.fxml.Initializable;
 
 public abstract class AbstractJavaFXView<C extends Controller> implements View<C>, Initializable {

@@ -1,10 +1,10 @@
-package it.unibo.pyxis.controller.soundplayer.eventplayer;
+package it.unibo.pyxis.view.soundplayer.eventplayer;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import it.unibo.pyxis.controller.soundplayer.Sound;
-import it.unibo.pyxis.controller.soundplayer.SoundPlayer;
+import it.unibo.pyxis.view.soundplayer.Sound;
+import it.unibo.pyxis.view.soundplayer.SoundPlayer;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBorderEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithBrickEvent;
 import it.unibo.pyxis.model.event.collision.BallCollisionWithPadEvent;
@@ -18,9 +18,9 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     }
 
     /**
-     * Plays the given {@link it.unibo.pyxis.controller.soundplayer.Sound}.
+     * Plays the given {@link it.unibo.pyxis.view.soundplayer.Sound}.
      *
-     * @param soundEffect The {@link it.unibo.pyxis.controller.soundplayer.Sound}
+     * @param soundEffect The {@link it.unibo.pyxis.view.soundplayer.Sound}
      *                    to be played.
      */
     private void playSoundEffect(final Sound soundEffect) {
