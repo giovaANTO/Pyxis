@@ -29,7 +29,6 @@ public abstract class AbstractPhysicsComponent<E extends Entity> extends Abstrac
     @Override
     public final void attach() {
         this.isAttached = true;
-        this.getLogger().log(Level.INFO, "Physics component attached");
     }
     /**
      * {@inheritDoc}
@@ -37,7 +36,6 @@ public abstract class AbstractPhysicsComponent<E extends Entity> extends Abstrac
     @Override
     public final void detach() {
         this.isAttached = false;
-        this.getLogger().log(Level.INFO, "Physics component detached");
     }
     /**
      * {@inheritDoc}

@@ -37,13 +37,11 @@ public final class ElementFactoryImpl implements ElementFactory {
         final double randomAngle = this.randomAngle();
         double componentX = module * Math.cos(randomAngle);
         double componentY = Math.abs(module * Math.sin(randomAngle));
-        System.out.println(componentY + " " + componentX);
         if (componentY <= 60) {
             componentY += 60;
             componentX = Math.pow(module, 2) - Math.pow(componentY, 2);
             componentX = Math.sqrt(componentX);
         }
-        System.out.println(componentY + " " + componentX);
         return new VectorImpl(componentX, -componentY);
     }
     /**

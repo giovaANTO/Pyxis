@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -54,8 +53,8 @@ public final class PowerupHandlerImpl implements PowerupHandler {
      * {@inheritDoc}
      */
     @Override
-    public Future<?> addPowerup(final PowerupEffect effect) {
-        return this.executor.submit(effect);
+    public void addPowerup(final PowerupEffect effect) {
+        this.executor.submit(effect);
     }
     /**
      * {@inheritDoc}
@@ -176,8 +175,8 @@ public final class PowerupHandlerImpl implements PowerupHandler {
          * {@inheritDoc}
          */
         @Override
-        public Future<?> submit(final PowerupEffect effect) {
-            return this.submit(this.buildRunnable(effect));
+        public void submit(final PowerupEffect effect) {
+            this.submit(this.buildRunnable(effect));
         }
         /**
          * {@inheritDoc}

@@ -5,7 +5,6 @@ import it.unibo.pyxis.ecs.Entity;
 import javafx.scene.image.Image;
 
 import java.util.Objects;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class AbstractSpriteComponent<E extends Entity> extends AbstractComponent<E> implements SpriteComponent<E> {
@@ -30,7 +29,6 @@ public abstract class AbstractSpriteComponent<E extends Entity> extends Abstract
     @Override
     public final void attach() {
         this.isAttached = true;
-        this.getLogger().log(Level.INFO, "Sprite component attached");
     }
     /**
      * {@inheritDoc}
@@ -38,7 +36,6 @@ public abstract class AbstractSpriteComponent<E extends Entity> extends Abstract
     @Override
     public final void detach() {
         this.isAttached = false;
-        this.getLogger().log(Level.INFO, "Sprite component detached");
     }
     /**
      * {@inheritDoc}

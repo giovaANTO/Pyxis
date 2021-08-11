@@ -67,9 +67,7 @@ public final class DimensionImpl implements Dimension {
      */
     @Override
     public void increaseWidth(final double increaseValue) {
-        System.out.println("DimensionImpl - Increasing starting width: " + this.getWidth() + " with " + increaseValue);
         this.setWidth(this.getWidth() + increaseValue);
-        System.out.println("DimensionImpl - After increase: " + this.getWidth());
     }
     /**
      * {@inheritDoc}
