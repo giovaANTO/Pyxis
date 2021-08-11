@@ -1,7 +1,9 @@
 package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.command.Command;
+import it.unibo.pyxis.controller.input.InputHandler;
 import it.unibo.pyxis.model.state.GameState;
+import it.unibo.pyxis.view.scene.SceneHandler;
 
 public interface Linker {
     /**
@@ -27,6 +29,11 @@ public interface Linker {
      * @param levelCommand The {@link Command} to add.
      */
     void insertCommand(Command<GameState> levelCommand);
+    /**
+     * Loads the {@link it.unibo.pyxis.view.views.MenuSceneView} and plays the
+     * background menu's {@link it.unibo.pyxis.controller.soundplayer.Sound}.
+     */
+    void load();
     /**
      * Loads the {@link it.unibo.pyxis.view.views.MenuSceneView}.
      */
@@ -58,6 +65,16 @@ public interface Linker {
      * Loads the {@link it.unibo.pyxis.view.views.SelectLevelSceneView}.
      */
     void selectLevel();
+    /**
+     * Sets the {@link InputHandler}.
+     * @param inputHandler The {@link InputHandler} instance to set.
+     */
+    void setInputHandler(InputHandler inputHandler);
+    /**
+     * Sets the {@link SceneHandler}.
+     * @param sceneHandler The {@link SceneHandler} instance to set.
+     */
+    void setSceneHandler(SceneHandler sceneHandler);
     /**
      * Loads the {@link it.unibo.pyxis.view.views.SettingsSceneView}.
      */

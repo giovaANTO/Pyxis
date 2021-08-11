@@ -4,15 +4,21 @@ import it.unibo.pyxis.controller.controllers.MenuSceneController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController> {
 
     private static final Double SCALE_FACTOR = 1.5;
+    private static final String SEP = File.separator;
+    private static final String IMG_PATH = SEP + "resources" + SEP + "images" + SEP;
+    private static final String TITLE = "Pyxis.png";
 
     @FXML
     private StackPane mainPane;
@@ -26,6 +32,8 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     private Button levelsButton;
     @FXML
     private Button quitButton;
+    @FXML
+    private ImageView img;
 
     public MenuSceneView(final MenuSceneController inputController) {
         super(inputController);
@@ -35,12 +43,13 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        vBox.prefWidthProperty().bind(mainPane.prefWidthProperty());
-        vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
-        newGameButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);
-        settingsButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);
-        levelsButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);
-        quitButton.setPrefWidth(mainPane.getPrefWidth() / SCALE_FACTOR);
+        this.vBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.vBox.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
+        this.newGameButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
+        this.settingsButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
+        this.levelsButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
+        this.quitButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
+        //this.img.setImage(new Image(IMG_PATH + TITLE));
         StackPane.setAlignment(vBox, Pos.CENTER);
     }
     /**
