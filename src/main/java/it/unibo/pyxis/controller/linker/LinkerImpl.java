@@ -25,13 +25,9 @@ public class LinkerImpl implements Linker {
     private InputHandler inputHandler;
     private int maximumLevelReached;
 
-    public LinkerImpl(final Stage inputStage) {
+    public LinkerImpl() {
         this.createGameState();
         this.createGameLoop();
-        this.createInputHandler(inputStage);
-        this.createSceneHandler(inputStage);
-        SoundPlayer.playBackgroundMusic(Sound.MENU_MUSIC);
-        this.switchScene(SceneType.MENU_SCENE);
         this.maximumLevelReached = 1;
     }
     /**
@@ -124,6 +120,14 @@ public class LinkerImpl implements Linker {
      * {@inheritDoc}
      */
     @Override
+    public final void load() {
+        this.switchScene(SceneType.MENU_SCENE);
+        SoundPlayer.playBackgroundMusic(Sound.MENU_MUSIC);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final void menu() {
         this.switchScene(SceneType.MENU_SCENE);
         if (this.gameState.getState() == StateEnum.PAUSE) {
@@ -189,6 +193,20 @@ public class LinkerImpl implements Linker {
     @Override
     public final void selectLevel() {
         this.switchScene(SceneType.SELECT_LEVEL_SCENE);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setInputHandler(final InputHandler inputInputHandler) {
+        this.inputHandler = inputInputHandler;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setSceneHandler(final SceneHandler inputSceneHandler) {
+        this.sceneHandler = inputSceneHandler;
     }
     /**
      * {@inheritDoc}
