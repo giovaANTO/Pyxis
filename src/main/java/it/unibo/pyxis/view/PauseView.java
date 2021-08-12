@@ -8,14 +8,14 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public final class PauseSceneView extends AbstractJavaFXView<PauseController> {
+public final class PauseView extends AbstractJavaFXView<PauseController> {
 
     @FXML
     private StackPane mainPane;
     @FXML
     private VBox vBox;
 
-    public PauseSceneView(final PauseController inputController) {
+    public PauseView(final PauseController inputController) {
         super(inputController);
     }
 

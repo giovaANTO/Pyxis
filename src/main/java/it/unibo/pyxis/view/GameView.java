@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class GameSceneView extends AbstractJavaFXView<GameController> implements RenderableView {
+public final class GameView extends AbstractJavaFXView<GameController> implements RenderableView {
 
     @FXML
     private AnchorPane mainPane;
@@ -40,7 +40,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameController> impl
     private Binder canvasBinder;
     private Set<LabelSizeBinder> labelBinders;
 
-    public GameSceneView(final GameController inputController) {
+    public GameView(final GameController inputController) {
         super(inputController);
     }
 

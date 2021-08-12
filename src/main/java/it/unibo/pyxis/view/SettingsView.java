@@ -8,14 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 
-public final class SettingsSceneView extends AbstractJavaFXView<SettingsController> {
+public final class SettingsView extends AbstractJavaFXView<SettingsController> {
 
     @FXML
     private StackPane mainPane;
     @FXML
     private Slider backgroundSlider, soundEffectSlider;
 
-    public SettingsSceneView(final SettingsController inputController) {
+    public SettingsView(final SettingsController inputController) {
         super(inputController);
     }
     /**

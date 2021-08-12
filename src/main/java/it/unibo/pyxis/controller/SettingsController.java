@@ -1,14 +1,14 @@
 package it.unibo.pyxis.controller;
 
 import it.unibo.pyxis.model.state.StateEnum;
-import it.unibo.pyxis.view.MenuSceneView;
-import it.unibo.pyxis.view.PauseSceneView;
+import it.unibo.pyxis.view.MenuView;
+import it.unibo.pyxis.view.PauseView;
 
 public class SettingsController extends AbstractController {
     /**
-     * Loads the {@link PauseSceneView} if the
+     * Loads the {@link PauseView} if the
      * {@link it.unibo.pyxis.model.state.GameState}'s {@link StateEnum} is PAUSE,
-     * otherwise load the {@link MenuSceneView}.
+     * otherwise load the {@link MenuView}.
      */
     public final void back() {
         if (this.getLinker().getGameState().getState() == StateEnum.PAUSE) {

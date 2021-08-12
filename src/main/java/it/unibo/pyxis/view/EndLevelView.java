@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelController> {
+public final class EndLevelView extends AbstractJavaFXView<EndLevelController> {
 
     @FXML
     private StackPane mainPane;
@@ -20,7 +20,7 @@ public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelControll
     @FXML
     private Button nextLevelButton;
 
-    public EndLevelSceneView(final EndLevelController inputController) {
+    public EndLevelView(final EndLevelController inputController) {
         super(inputController);
     }
     /**

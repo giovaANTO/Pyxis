@@ -12,7 +12,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public final class MenuSceneView extends AbstractJavaFXView<MenuController> {
+public final class MenuView extends AbstractJavaFXView<MenuController> {
 
     private static final Double SCALE_FACTOR = 1.5;
     private static final String SEP = File.separator;
@@ -34,7 +34,7 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuController> {
     @FXML
     private ImageView img;
 
-    public MenuSceneView(final MenuController inputController) {
+    public MenuView(final MenuController inputController) {
         super(inputController);
     }
     /**

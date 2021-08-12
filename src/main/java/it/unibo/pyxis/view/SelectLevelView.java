@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelController> {
+public final class SelectLevelView extends AbstractJavaFXView<SelectLevelController> {
 
     @FXML
     private AnchorPane mainPane;
@@ -19,7 +19,7 @@ public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelCo
     private int numLevel;
     private int levelsDone;
 
-    public SelectLevelSceneView(final SelectLevelController inputController) {
+    public SelectLevelView(final SelectLevelController inputController) {
         super(inputController);
     }
 

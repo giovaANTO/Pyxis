@@ -8,12 +8,12 @@ public interface ViewSoundEffects {
     void playGenericButtonPressSound();
     /**
      * Play the {@link it.unibo.pyxis.view.soundplayer.Sound} of the
-     * {@link GameSceneView}.
+     * {@link GameView}.
      */
     void playInGameMusic();
     /**
      * Play the {@link it.unibo.pyxis.view.soundplayer.Sound} of the
-     * {@link MenuSceneView}.
+     * {@link MenuView}.
      */
     void playMainMenuMusic();
     /**
