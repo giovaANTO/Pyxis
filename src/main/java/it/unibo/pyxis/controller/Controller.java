@@ -11,7 +11,7 @@ public interface Controller {
      */
     Linker getLinker();
     /**
-     * Returns the {@link View} binded to the {@link Controller}.
+     * Returns the {@link View} bound to the {@link Controller}.
      *
      * @return The {@link View}.
      */
