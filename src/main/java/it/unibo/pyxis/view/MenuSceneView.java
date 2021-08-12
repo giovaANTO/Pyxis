@@ -50,8 +50,9 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
         this.settingsButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
         this.levelsButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
         this.quitButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
-        this.img.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(IMG_PATH + TITLE))));
-        StackPane.setAlignment(vBox, Pos.CENTER);
+        this.img.setImage(new Image(Objects.requireNonNull(
+                getClass().getResourceAsStream(IMG_PATH + TITLE))));
+        StackPane.setAlignment(this.vBox, Pos.CENTER);
         this.playMainMenuMusic();
     }
     /**

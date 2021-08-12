@@ -23,8 +23,8 @@ public final class PauseSceneView extends AbstractJavaFXView<PauseSceneControlle
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        vBox.prefWidthProperty().bind(mainPane.prefWidthProperty());
-        vBox.prefHeightProperty().bind(mainPane.prefHeightProperty());
+        this.vBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.vBox.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound}s and calls the

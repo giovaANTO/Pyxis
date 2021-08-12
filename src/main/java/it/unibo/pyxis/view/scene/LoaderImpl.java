@@ -20,9 +20,8 @@ public class LoaderImpl implements Loader {
      * @return The {@link FXMLLoader} already located on the resources.
      */
     private FXMLLoader getFxLoader(final SceneType inputScene) {
-        return new FXMLLoader(ClassLoader.
-                getSystemResource(FIRST_ROOT_PATH + inputScene.getName()
-                        + SECOND_ROOT_PATH));
+        String scenePath = FIRST_ROOT_PATH + inputScene.getName() + SECOND_ROOT_PATH;
+        return new FXMLLoader(ClassLoader.getSystemResource(scenePath));
     }
     /**
      * Binds the input {@link Controller} with the input {@link View}.
@@ -44,7 +43,8 @@ public class LoaderImpl implements Loader {
             Object viewController;
             try {
                 Class<?> currentControllerClass = inputController.getClass();
-                viewController = param.getConstructor(currentControllerClass).newInstance(inputController);
+                viewController = param.getConstructor(currentControllerClass).
+                        newInstance(inputController);
             } catch (ReflectiveOperationException ex) {
                 throw new RuntimeException(ex);
             }

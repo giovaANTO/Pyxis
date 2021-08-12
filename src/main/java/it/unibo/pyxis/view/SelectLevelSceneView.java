@@ -11,11 +11,11 @@ import java.util.ResourceBundle;
 
 public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelSceneController> {
 
+    private static final int BUTTON_GAP = 10;
     @FXML
     private AnchorPane mainPane;
     @FXML
     private Button backButton;
-
     private int numLevel;
     private int levelsDone;
 
@@ -81,15 +81,13 @@ public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelSc
         this.levelsDone = this.getController().getLevelsDone();
 
         GridPane gridPane = this.populateButton();
-
         this.mainPane.getChildren().add(gridPane);
-
         AnchorPane.setRightAnchor(gridPane, 0.0);
         AnchorPane.setLeftAnchor(gridPane, 0.0);
         AnchorPane.setBottomAnchor(gridPane, 0.0);
-        AnchorPane.setTopAnchor(gridPane, this.backButton.getPrefHeight() + 10);
-
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
+        AnchorPane.setTopAnchor(gridPane, this.backButton.getPrefHeight()
+                + BUTTON_GAP);
+        gridPane.setHgap(BUTTON_GAP);
+        gridPane.setVgap(BUTTON_GAP);
     }
 }
