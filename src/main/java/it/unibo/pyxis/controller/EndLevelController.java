@@ -3,7 +3,7 @@ package it.unibo.pyxis.controller;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 import it.unibo.pyxis.view.MenuSceneView;
 
-public class EndLevelSceneController extends AbstractController {
+public class EndLevelController extends AbstractController {
 
     /**
      * Establishes if the next level button has to be disabled.

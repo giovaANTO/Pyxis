@@ -1,32 +1,38 @@
 package it.unibo.pyxis.view.scene;
 
-import it.unibo.pyxis.controller.*;
+import it.unibo.pyxis.controller.Controller;
+import it.unibo.pyxis.controller.EndLevelController;
+import it.unibo.pyxis.controller.GameController;
+import it.unibo.pyxis.controller.MenuController;
+import it.unibo.pyxis.controller.PauseController;
+import it.unibo.pyxis.controller.SelectLevelController;
+import it.unibo.pyxis.controller.SettingsController;
 
 public enum SceneType {
     /**
      * The main menu's Scene.
      */
-    MENU_SCENE("MenuScene", new MenuSceneController()),
+    MENU_SCENE("MenuScene", new MenuController()),
     /**
      * The settings menu's Scene.
      */
-    SETTINGS_SCENE("SettingsScene", new SettingsSceneController()),
+    SETTINGS_SCENE("SettingsScene", new SettingsController()),
     /**
      * The select level menu's Scene.
      */
-    SELECT_LEVEL_SCENE("SelectLevelScene", new SelectLevelSceneController()),
+    SELECT_LEVEL_SCENE("SelectLevelScene", new SelectLevelController()),
     /**
      * The game Scene.
      */
-    GAME_SCENE("GameScene", new GameSceneController()),
+    GAME_SCENE("GameScene", new GameController()),
     /**
      * The pause menu's Scene.
      */
-    PAUSE_SCENE("PauseScene", new PauseSceneController()),
+    PAUSE_SCENE("PauseScene", new PauseController()),
     /**
      * The end level menu's Scene.
      */
-    END_LEVEL_SCENE("EndLevelScene", new EndLevelSceneController());
+    END_LEVEL_SCENE("EndLevelScene", new EndLevelController());
 
     private final String name;
     private final Controller controller;

@@ -2,20 +2,20 @@ package it.unibo.pyxis.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import it.unibo.pyxis.controller.SettingsSceneController;
+import it.unibo.pyxis.controller.SettingsController;
 import it.unibo.pyxis.view.soundplayer.SoundPlayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 
-public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneController> {
+public final class SettingsSceneView extends AbstractJavaFXView<SettingsController> {
 
     @FXML
     private StackPane mainPane;
     @FXML
     private Slider backgroundSlider, soundEffectSlider;
 
-    public SettingsSceneView(final SettingsSceneController inputController) {
+    public SettingsSceneView(final SettingsController inputController) {
         super(inputController);
     }
     /**
@@ -31,7 +31,7 @@ public final class SettingsSceneView extends AbstractJavaFXView<SettingsSceneCon
 
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
-     * {@link SettingsSceneController#back()}.
+     * {@link SettingsController#back()}.
      */
     public void back() {
         this.playGenericButtonPressSound();

@@ -16,9 +16,7 @@ public final class SceneHandlerImpl implements SceneHandler {
         this.linker = inputLinker;
         this.loader = new LoaderImpl();
         this.stage = inputStage;
-        this.stage.setOnCloseRequest(event -> {
-            this.linker.quit();
-        });
+        this.stage.setOnCloseRequest(event -> this.linker.quit());
     }
     /**
      * Loads the new current {@link Controller} from the new {@link Scene} loaded,

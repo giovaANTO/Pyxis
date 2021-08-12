@@ -1,6 +1,6 @@
 package it.unibo.pyxis.view;
 
-import it.unibo.pyxis.controller.MenuSceneController;
+import it.unibo.pyxis.controller.MenuController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController> {
+public final class MenuSceneView extends AbstractJavaFXView<MenuController> {
 
     private static final Double SCALE_FACTOR = 1.5;
     private static final String SEP = File.separator;
@@ -34,7 +34,7 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     @FXML
     private ImageView img;
 
-    public MenuSceneView(final MenuSceneController inputController) {
+    public MenuSceneView(final MenuController inputController) {
         super(inputController);
     }
     /**
@@ -54,7 +54,7 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
-     * {@link MenuSceneController#quit()}.
+     * {@link MenuController#quit()}.
      */
     public void quit() {
         this.playGenericButtonPressSound();
@@ -62,7 +62,7 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
-     * {@link MenuSceneController#selectLevel()}.
+     * {@link MenuController#selectLevel()}.
      */
     public void selectLevels() {
         this.playGenericButtonPressSound();
@@ -70,7 +70,7 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
-     * {@link MenuSceneController#showSettings()}.
+     * {@link MenuController#showSettings()}.
      */
     public void showSettings() {
         this.playGenericButtonPressSound();
@@ -78,7 +78,7 @@ public final class MenuSceneView extends AbstractJavaFXView<MenuSceneController>
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
-     * {@link MenuSceneController#startNewGame()}.
+     * {@link MenuController#startNewGame()}.
      */
     public void startNewGame() {
         this.playStartGameButtonPressSound();

@@ -3,7 +3,7 @@ package it.unibo.pyxis.controller;
 import it.unibo.pyxis.view.GameSceneView;
 import it.unibo.pyxis.view.MenuSceneView;
 
-public class SelectLevelSceneController extends AbstractController {
+public class SelectLevelController extends AbstractController {
     /**
      * Loads the {@link MenuSceneView}.
      */

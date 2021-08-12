@@ -3,7 +3,7 @@ package it.unibo.pyxis.controller;
 import it.unibo.pyxis.view.MenuSceneView;
 import it.unibo.pyxis.view.SettingsSceneView;
 
-public class PauseSceneController extends AbstractController {
+public class PauseController extends AbstractController {
     /**
      * Loads the {@link MenuSceneView}.
      */

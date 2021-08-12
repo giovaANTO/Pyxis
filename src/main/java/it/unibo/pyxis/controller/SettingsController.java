@@ -4,7 +4,7 @@ import it.unibo.pyxis.model.state.StateEnum;
 import it.unibo.pyxis.view.MenuSceneView;
 import it.unibo.pyxis.view.PauseSceneView;
 
-public class SettingsSceneController extends AbstractController {
+public class SettingsController extends AbstractController {
     /**
      * Loads the {@link PauseSceneView} if the
      * {@link it.unibo.pyxis.model.state.GameState}'s {@link StateEnum} is PAUSE,

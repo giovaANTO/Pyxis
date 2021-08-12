@@ -4,7 +4,7 @@ import it.unibo.pyxis.view.GameSceneView;
 import it.unibo.pyxis.view.SelectLevelSceneView;
 import it.unibo.pyxis.view.SettingsSceneView;
 
-public class MenuSceneController extends AbstractController {
+public class MenuController extends AbstractController {
     /**
      * Quits the application.
      */

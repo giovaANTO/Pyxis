@@ -1,6 +1,6 @@
 package it.unibo.pyxis.view;
 
-import it.unibo.pyxis.controller.SelectLevelSceneController;
+import it.unibo.pyxis.controller.SelectLevelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelSceneController> {
+public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelController> {
 
     @FXML
     private AnchorPane mainPane;
@@ -19,7 +19,7 @@ public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelSc
     private int numLevel;
     private int levelsDone;
 
-    public SelectLevelSceneView(final SelectLevelSceneController inputController) {
+    public SelectLevelSceneView(final SelectLevelController inputController) {
         super(inputController);
     }
 
@@ -55,7 +55,7 @@ public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelSc
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls
-     * {@link SelectLevelSceneController#back()}.
+     * {@link SelectLevelController#back()}.
      */
     public void back() {
         this.playGenericButtonPressSound();
@@ -63,7 +63,7 @@ public final class SelectLevelSceneView extends AbstractJavaFXView<SelectLevelSc
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls
-     * {@link SelectLevelSceneController#runLevel(int)}.
+     * {@link SelectLevelController#runLevel(int)}.
      *
      * @param inputLevel The index of the {@link it.unibo.pyxis.model.level.Level} to
      *                   load.

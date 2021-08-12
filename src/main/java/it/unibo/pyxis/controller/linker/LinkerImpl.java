@@ -87,9 +87,9 @@ public class LinkerImpl implements Linker {
      * {@inheritDoc}
      */
     @Override
-    public final void insertCommand(final Command<GameState> gameCommand) {
+    public final void insertCommand(final Command<GameState> levelCommand) {
         if (this.conditionInsertCommand()) {
-            gameCommand.execute(this.gameState);
+            levelCommand.execute(this.gameState);
         }
     }
     /**
