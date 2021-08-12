@@ -23,10 +23,10 @@ public final class SettingsView extends AbstractJavaFXView<SettingsController> {
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        backgroundSlider.setValue(SoundPlayer.getBackgroundVolume());
-        backgroundSlider.valueProperty().addListener(o -> SoundPlayer.setBackgroundVolume(backgroundSlider.getValue()));
-        soundEffectSlider.setValue(SoundPlayer.getSoundEffectVolume());
-        soundEffectSlider.valueProperty().addListener(o -> SoundPlayer.setSoundEffectVolume(soundEffectSlider.getValue()));
+        this.backgroundSlider.setValue(SoundPlayer.getBackgroundVolume());
+        this.backgroundSlider.valueProperty().addListener(o -> SoundPlayer.setBackgroundVolume(this.backgroundSlider.getValue()));
+        this.soundEffectSlider.setValue(SoundPlayer.getSoundEffectVolume());
+        this.soundEffectSlider.valueProperty().addListener(o -> SoundPlayer.setSoundEffectVolume(this.soundEffectSlider.getValue()));
     }
 
     /**

@@ -60,10 +60,10 @@ public final class GameView extends AbstractJavaFXView<GameController> implement
      * {@link javafx.scene.canvas.Canvas} and the {@link javafx.scene.control.Label}s.
      */
     private void setupBinders() {
-        this.canvasBinder = new CanvasRatioBinder(mainPane, arenaCanvas);
-        this.labelBinders = Stream.concat(leftVBox.getChildren().stream(), rightVBox.getChildren().stream())
+        this.canvasBinder = new CanvasRatioBinder(this.mainPane, this.arenaCanvas);
+        this.labelBinders = Stream.concat(this.leftVBox.getChildren().stream(), this.rightVBox.getChildren().stream())
                 .filter(n -> n instanceof Label)
-                .map(n -> new LabelSizeBinder(mainPane, (Label) n))
+                .map(n -> new LabelSizeBinder(this.mainPane, (Label) n))
                 .collect(Collectors.toSet());
     }
     /**
@@ -78,13 +78,13 @@ public final class GameView extends AbstractJavaFXView<GameController> implement
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        stackPane.prefWidthProperty().bind(mainPane.widthProperty());
-        stackPane.prefHeightProperty().bind(mainPane.heightProperty());
-        leftVBox.prefWidthProperty().bind(mainPane.widthProperty().multiply(leftVBox.getPrefWidth() / mainPane.getPrefWidth()));
-        leftVBox.prefHeightProperty().bind(mainPane.heightProperty());
-        rightVBox.prefWidthProperty().bind(mainPane.widthProperty().multiply(rightVBox.getPrefWidth() / mainPane.getPrefWidth()));
-        rightVBox.prefHeightProperty().bind(mainPane.heightProperty());
-        this.drawer = new DrawerImpl(arenaCanvas.getGraphicsContext2D(), this.getController().getArenaDimension());
+        this.stackPane.prefWidthProperty().bind(this.mainPane.widthProperty());
+        this.stackPane.prefHeightProperty().bind(this.mainPane.heightProperty());
+        this.leftVBox.prefWidthProperty().bind(this.mainPane.widthProperty().multiply(this.leftVBox.getPrefWidth() / this.mainPane.getPrefWidth()));
+        this.leftVBox.prefHeightProperty().bind(this.mainPane.heightProperty());
+        this.rightVBox.prefWidthProperty().bind(this.mainPane.widthProperty().multiply(this.rightVBox.getPrefWidth() / this.mainPane.getPrefWidth()));
+        this.rightVBox.prefHeightProperty().bind(this.mainPane.heightProperty());
+        this.drawer = new DrawerImpl(this.arenaCanvas.getGraphicsContext2D(), this.getController().getArenaDimension());
         this.currentLevel.setText(this.getController().getCurrentLevelNumber().toString());
         this.setupBinders();
         this.playInGameMusic();

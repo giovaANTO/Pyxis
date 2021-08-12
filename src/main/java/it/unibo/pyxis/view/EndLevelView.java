@@ -21,6 +21,8 @@ public final class EndLevelView extends AbstractJavaFXView<EndLevelController> {
     private Button nextLevelButton;
     private static final String WIN_TEXT = "You successfully completed this level.";
     private static final String LOOSE_TEXT = "You've been defeated.";
+    private static final String TOTAL_SCORE_TEXT = "Total score: ";
+    private static final String LEVEL_SCORE_TEXT = "Level score: ";
 
     public EndLevelView(final EndLevelController inputController) {
         super(inputController);
@@ -37,9 +39,9 @@ public final class EndLevelView extends AbstractJavaFXView<EndLevelController> {
         } else {
             this.endLevelLabel.setText(LOOSE_TEXT);
         }
-        this.totalScore.setText("Total score: "
+        this.totalScore.setText(TOTAL_SCORE_TEXT
                 + this.getController().getTotalScore().toString());
-        this.levelScore.setText("Level score: "
+        this.levelScore.setText(LEVEL_SCORE_TEXT
                 + this.getController().getLevelScore().toString());
         this.nextLevelButton.setDisable(this.getController().disableNextLevelButton());
     }
