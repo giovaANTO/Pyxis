@@ -10,9 +10,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import it.unibo.pyxis.model.arena.component.ArenaEventComponent;
-import it.unibo.pyxis.model.arena.component.ArenaPhysicsComponent;
+import it.unibo.pyxis.model.arena.component.ArenaUpdateComponent;
 import it.unibo.pyxis.ecs.component.event.EventComponent;
-import it.unibo.pyxis.ecs.component.physics.PhysicsComponent;
+import it.unibo.pyxis.ecs.component.physics.UpdateComponent;
 import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallType;
@@ -50,7 +50,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         this.dimension = inputDimension;
 
         this.powerupHandler = new PowerupHandlerImpl(this);
-        this.registerComponent(new ArenaPhysicsComponent(this));
+        this.registerComponent(new ArenaUpdateComponent(this));
         this.registerComponent(new ArenaEventComponent(this));
     }
 
@@ -339,6 +339,6 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      */
     @Override
     public void update(final double delta) {
-        this.getComponent(PhysicsComponent.class).update(delta);
+        this.getComponent(UpdateComponent.class).update(delta);
     }
 }

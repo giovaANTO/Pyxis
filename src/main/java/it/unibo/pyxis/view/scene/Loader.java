@@ -1,6 +1,6 @@
 package it.unibo.pyxis.view.scene;
 
-import it.unibo.pyxis.controller.controllers.Controller;
+import it.unibo.pyxis.controller.Controller;
 import javafx.scene.Parent;
 
 public interface Loader {

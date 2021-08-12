@@ -1,6 +1,7 @@
 package it.unibo.pyxis.view.scene;
 
-import it.unibo.pyxis.controller.controllers.Controller;
+import it.unibo.pyxis.controller.Controller;
+import it.unibo.pyxis.view.View;
 import javafx.stage.Stage;
 
 public interface SceneHandler {
@@ -11,7 +12,7 @@ public interface SceneHandler {
 
     /**
      * Return the {@link Controller} bound to the current
-     * {@link it.unibo.pyxis.view.views.View}.
+     * {@link View}.
      *
      * @return The current {@link Controller}.
      */

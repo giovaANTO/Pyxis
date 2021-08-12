@@ -1,14 +1,16 @@
 package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.command.Command;
-import it.unibo.pyxis.controller.input.InputHandler;
+import it.unibo.pyxis.model.level.Level;
+import it.unibo.pyxis.view.input.InputHandler;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.view.scene.SceneHandler;
+
 
 public interface Linker {
     /**
      * Sets the {@link GameState}'s {@link it.unibo.pyxis.model.state.StateEnum} to
-     * PAUSE and load the {@link it.unibo.pyxis.view.views.EndLevelSceneView}.
+     * PAUSE and load the {@link it.unibo.pyxis.view.EndLevelSceneView}.
      */
     void endLevel();
     /**
@@ -30,11 +32,18 @@ public interface Linker {
      */
     void insertCommand(Command<GameState> levelCommand);
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.MenuSceneView}.
+     * Adds a {@link Command} to the {@link it.unibo.pyxis.controller.engine.GameLoop}
+     * input list.
+     *
+     * @param inputCommand The {@link Command} to add.
+     */
+    void insertGameCommand(Command<Level> inputCommand);
+    /**
+     * Loads the {@link it.unibo.pyxis.view.MenuSceneView}.
      */
     void menu();
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.PauseSceneView} and
+     * Loads the {@link it.unibo.pyxis.view.PauseSceneView} and
      * set the {@link GameState}'s {@link it.unibo.pyxis.model.state.StateEnum}
      * to PAUSE.
      */
@@ -44,8 +53,8 @@ public interface Linker {
      */
     void quit();
     /**
-     * Renders the current {@link it.unibo.pyxis.view.views.View} if
-     * {@link it.unibo.pyxis.view.views.RenderableView}.
+     * Renders the current {@link it.unibo.pyxis.view.View} if
+     * {@link it.unibo.pyxis.view.RenderableView}.
      */
     void render();
     /**
@@ -53,25 +62,20 @@ public interface Linker {
      */
     void resume();
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.GameSceneView}.
+     * Loads the {@link it.unibo.pyxis.view.GameSceneView}.
      */
     void run();
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.SelectLevelSceneView}.
+     * Loads the {@link it.unibo.pyxis.view.SelectLevelSceneView}.
      */
     void selectLevel();
-    /**
-     * Sets the {@link InputHandler}.
-     * @param inputHandler The {@link InputHandler} instance to set.
-     */
-    void setInputHandler(InputHandler inputHandler);
     /**
      * Sets the {@link SceneHandler}.
      * @param sceneHandler The {@link SceneHandler} instance to set.
      */
     void setSceneHandler(SceneHandler sceneHandler);
     /**
-     * Loads the {@link it.unibo.pyxis.view.views.SettingsSceneView}.
+     * Loads the {@link it.unibo.pyxis.view.SettingsSceneView}.
      */
     void settings();
     /**

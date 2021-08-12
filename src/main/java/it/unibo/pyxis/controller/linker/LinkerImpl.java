@@ -3,26 +3,22 @@ package it.unibo.pyxis.controller.linker;
 import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
-import it.unibo.pyxis.controller.input.InputHandler;
-import it.unibo.pyxis.controller.input.InputHandlerImpl;
-import it.unibo.pyxis.controller.soundplayer.Sound;
-import it.unibo.pyxis.controller.soundplayer.SoundPlayer;
+import it.unibo.pyxis.model.level.Level;
+import it.unibo.pyxis.view.input.InputHandler;
+import it.unibo.pyxis.view.soundplayer.SoundPlayer;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
 import it.unibo.pyxis.model.state.StateEnum;
 import it.unibo.pyxis.view.scene.SceneHandler;
-import it.unibo.pyxis.view.scene.SceneHandlerImpl;
 import it.unibo.pyxis.view.scene.SceneType;
-import it.unibo.pyxis.view.views.RenderableView;
-import javafx.stage.Stage;
+import it.unibo.pyxis.view.RenderableView;
 
 public class LinkerImpl implements Linker {
 
     private GameState gameState;
-    private GameLoop gameLoop;
     private SceneHandler sceneHandler;
-    private InputHandler inputHandler;
+    private GameLoop gameLoop;
     private int maximumLevelReached;
 
     public LinkerImpl() {
@@ -46,7 +42,7 @@ public class LinkerImpl implements Linker {
      * Creates and start a new {@link GameLoop} instance.
      */
     private void createGameLoop() {
-        this.gameLoop = new GameLoopImpl(this);
+        this.gameLoop =  new GameLoopImpl(this);
         this.gameLoop.start();
     }
     /**
@@ -54,25 +50,6 @@ public class LinkerImpl implements Linker {
      */
     private void createGameState() {
         this.gameState = new GameStateImpl();
-    }
-    /**
-     * Creates a new {@link InputHandler} instance and bind it with the
-     * current {@link Stage}.
-     *
-     * @param inputStage The {@link Stage} to bind.
-     */
-    private void createInputHandler(final Stage inputStage) {
-        this.inputHandler = new InputHandlerImpl();
-        this.inputHandler.bindCommands(this, inputStage);
-    }
-    /**
-     * Creates a new {@link SceneHandler} instance and bind it with the
-     * current {@link Stage}.
-     *
-     * @param inputStage The {@link Stage} to bind.
-     */
-    private void createSceneHandler(final Stage inputStage) {
-        this.sceneHandler = new SceneHandlerImpl(inputStage, this);
     }
     /**
      * Switches the actual {@link SceneType} to the input {@link SceneType}.
@@ -116,6 +93,14 @@ public class LinkerImpl implements Linker {
             gameCommand.execute(this.gameState);
         }
     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void insertGameCommand(final Command<Level> inputCommand) {
+        this.gameLoop.addCommand(inputCommand);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -185,13 +170,6 @@ public class LinkerImpl implements Linker {
     @Override
     public final void selectLevel() {
         this.switchScene(SceneType.SELECT_LEVEL_SCENE);
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void setInputHandler(final InputHandler inputInputHandler) {
-        this.inputHandler = inputInputHandler;
     }
     /**
      * {@inheritDoc}

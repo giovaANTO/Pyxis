@@ -24,9 +24,11 @@ public final class LevelLoaderImpl implements LevelLoader {
         this.loaderAssistant = new LoaderAssistantImpl();
     }
     /**
+     * Return a formatted string containing the
+     * file path of the {@link Level} file to load.
      *
-     * @param filename
-     * @return
+     * @param filename The level file name
+     * @return A string containing the path to the {@link Level} file
      */
     private String getFilePath(final String filename) {
         final Formatter formatter = new Formatter();

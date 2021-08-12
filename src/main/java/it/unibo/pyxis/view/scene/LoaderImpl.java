@@ -1,7 +1,7 @@
 package it.unibo.pyxis.view.scene;
 
-import it.unibo.pyxis.controller.controllers.Controller;
-import it.unibo.pyxis.view.views.View;
+import it.unibo.pyxis.controller.Controller;
+import it.unibo.pyxis.view.View;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
