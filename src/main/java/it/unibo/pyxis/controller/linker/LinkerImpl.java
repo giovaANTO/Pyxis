@@ -4,7 +4,6 @@ import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
 import it.unibo.pyxis.model.level.Level;
-import it.unibo.pyxis.view.input.InputHandler;
 import it.unibo.pyxis.view.soundplayer.SoundPlayer;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 import it.unibo.pyxis.model.state.GameState;
