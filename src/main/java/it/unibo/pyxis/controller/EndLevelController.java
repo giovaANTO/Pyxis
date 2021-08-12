@@ -1,9 +1,8 @@
 package it.unibo.pyxis.controller;
 
 import it.unibo.pyxis.model.level.status.LevelStatus;
-import it.unibo.pyxis.view.MenuSceneView;
 
-public class EndLevelSceneController extends AbstractController {
+public class EndLevelController extends AbstractController {
 
     /**
      * Establishes if the next level button has to be disabled.
@@ -44,11 +43,10 @@ public class EndLevelSceneController extends AbstractController {
      *         False otherwise.
      */
     public final boolean haveWon() {
-        return this.getLinker().getGameState().getCurrentLevel().getLevelStatus()
-                == LevelStatus.SUCCESSFULLY_COMPLETED;
+        return this.getLinker().getGameState().getCurrentLevel().getLevelStatus() == LevelStatus.SUCCESSFULLY_COMPLETED;
     }
     /**
-     * Loads the {@link MenuSceneView}.
+     * Loads the {@link it.unibo.pyxis.view.MenuView}.
      */
     public final void menu() {
         this.getLinker().menu();

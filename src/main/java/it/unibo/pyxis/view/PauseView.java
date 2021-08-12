@@ -1,6 +1,6 @@
 package it.unibo.pyxis.view;
 
-import it.unibo.pyxis.controller.PauseSceneController;
+import it.unibo.pyxis.controller.PauseController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -8,14 +8,14 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public final class PauseSceneView extends AbstractJavaFXView<PauseSceneController> {
+public final class PauseView extends AbstractJavaFXView<PauseController> {
 
     @FXML
     private StackPane mainPane;
     @FXML
     private VBox vBox;
 
-    public PauseSceneView(final PauseSceneController inputController) {
+    public PauseView(final PauseController inputController) {
         super(inputController);
     }
     /**
@@ -28,7 +28,7 @@ public final class PauseSceneView extends AbstractJavaFXView<PauseSceneControlle
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound}s and calls the
-     * {@link PauseSceneController#menu()}.
+     * {@link PauseController#menu()}.
      */
     public void menu() {
         this.playGenericButtonPressSound();
@@ -36,7 +36,7 @@ public final class PauseSceneView extends AbstractJavaFXView<PauseSceneControlle
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
-     * {@link PauseSceneController#quit()}.
+     * {@link PauseController#quit()}.
      */
     public void quit() {
         this.playGenericButtonPressSound();
@@ -44,7 +44,7 @@ public final class PauseSceneView extends AbstractJavaFXView<PauseSceneControlle
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
-     * {@link PauseSceneController#resume()}.
+     * {@link PauseController#resume()}.
      */
     public void resume() {
         this.playStartGameButtonPressSound();
@@ -52,7 +52,7 @@ public final class PauseSceneView extends AbstractJavaFXView<PauseSceneControlle
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
-     * {@link PauseSceneController#settings()}.
+     * {@link PauseController#settings()}.
      */
     public void settings() {
         this.playGenericButtonPressSound();

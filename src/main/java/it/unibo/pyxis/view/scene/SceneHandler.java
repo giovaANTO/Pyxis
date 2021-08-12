@@ -1,18 +1,16 @@
 package it.unibo.pyxis.view.scene;
 
 import it.unibo.pyxis.controller.Controller;
-import it.unibo.pyxis.view.View;
-import javafx.stage.Stage;
 
 public interface SceneHandler {
     /**
-     * Close the application's {@link Stage}.
+     * Close the application's {@link javafx.stage.Stage}.
      */
     void close();
 
     /**
      * Return the {@link Controller} bound to the current
-     * {@link View}.
+     * {@link it.unibo.pyxis.view.View}.
      *
      * @return The current {@link Controller}.
      */

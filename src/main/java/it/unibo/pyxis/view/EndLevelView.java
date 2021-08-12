@@ -2,14 +2,14 @@ package it.unibo.pyxis.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import it.unibo.pyxis.controller.EndLevelSceneController;
+import it.unibo.pyxis.controller.EndLevelController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelSceneController> {
+public final class EndLevelView extends AbstractJavaFXView<EndLevelController> {
 
     @FXML
     private StackPane mainPane;
@@ -24,7 +24,7 @@ public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelSceneCon
     private static final String TOTAL_SCORE_TEXT = "Total score: ";
     private static final String LEVEL_SCORE_TEXT = "Level score: ";
 
-    public EndLevelSceneView(final EndLevelSceneController inputController) {
+    public EndLevelView(final EndLevelController inputController) {
         super(inputController);
     }
     /**
@@ -47,7 +47,7 @@ public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelSceneCon
     }
     /**
      * Applies all the {@link it.unibo.pyxis.view.soundplayer.Sound}s and call
-     * {@link EndLevelSceneController#menu()}.
+     * {@link EndLevelController#menu()}.
      */
     public void menu() {
         this.playGenericButtonPressSound();
@@ -55,7 +55,7 @@ public final class EndLevelSceneView extends AbstractJavaFXView<EndLevelSceneCon
     }
     /**
      * Applies all the {@link it.unibo.pyxis.view.soundplayer.Sound}s and call
-     * {@link EndLevelSceneController#nextLevel()}.
+     * {@link EndLevelController#nextLevel()}.
      */
     public void nextLevel() {
         this.playStartGameButtonPressSound();

@@ -2,7 +2,6 @@ package it.unibo.pyxis.controller.linker;
 
 import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.model.level.Level;
-import it.unibo.pyxis.view.input.InputHandler;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.view.scene.SceneHandler;
 
@@ -10,7 +9,7 @@ import it.unibo.pyxis.view.scene.SceneHandler;
 public interface Linker {
     /**
      * Sets the {@link GameState}'s {@link it.unibo.pyxis.model.state.StateEnum} to
-     * PAUSE and load the {@link it.unibo.pyxis.view.EndLevelSceneView}.
+     * PAUSE and load the {@link it.unibo.pyxis.view.EndLevelView}.
      */
     void endLevel();
     /**
@@ -39,11 +38,11 @@ public interface Linker {
      */
     void insertGameCommand(Command<Level> inputCommand);
     /**
-     * Loads the {@link it.unibo.pyxis.view.MenuSceneView}.
+     * Loads the {@link it.unibo.pyxis.view.MenuView}.
      */
     void menu();
     /**
-     * Loads the {@link it.unibo.pyxis.view.PauseSceneView} and
+     * Loads the {@link it.unibo.pyxis.view.PauseView} and
      * set the {@link GameState}'s {@link it.unibo.pyxis.model.state.StateEnum}
      * to PAUSE.
      */
@@ -62,11 +61,11 @@ public interface Linker {
      */
     void resume();
     /**
-     * Loads the {@link it.unibo.pyxis.view.GameSceneView}.
+     * Loads the {@link it.unibo.pyxis.view.GameView}.
      */
     void run();
     /**
-     * Loads the {@link it.unibo.pyxis.view.SelectLevelSceneView}.
+     * Loads the {@link it.unibo.pyxis.view.SelectLevelView}.
      */
     void selectLevel();
     /**
@@ -75,7 +74,7 @@ public interface Linker {
      */
     void setSceneHandler(SceneHandler sceneHandler);
     /**
-     * Loads the {@link it.unibo.pyxis.view.SettingsSceneView}.
+     * Loads the {@link it.unibo.pyxis.view.SettingsView}.
      */
     void settings();
     /**

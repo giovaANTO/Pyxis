@@ -4,7 +4,6 @@ import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
 import it.unibo.pyxis.model.level.Level;
-import it.unibo.pyxis.view.input.InputHandler;
 import it.unibo.pyxis.view.soundplayer.SoundPlayer;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 import it.unibo.pyxis.model.state.GameState;
@@ -88,9 +87,9 @@ public class LinkerImpl implements Linker {
      * {@inheritDoc}
      */
     @Override
-    public final void insertCommand(final Command<GameState> gameCommand) {
+    public final void insertCommand(final Command<GameState> levelCommand) {
         if (this.conditionInsertCommand()) {
-            gameCommand.execute(this.gameState);
+            levelCommand.execute(this.gameState);
         }
     }
     /**

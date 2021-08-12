@@ -18,7 +18,7 @@ import javafx.scene.image.Image;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GameSceneController extends AbstractController {
+public class GameController extends AbstractController {
 
     /**
      * Returns the current {@link Arena} loaded.

@@ -1,6 +1,6 @@
 package it.unibo.pyxis.view;
 
-import it.unibo.pyxis.controller.GameSceneController;
+import it.unibo.pyxis.controller.GameController;
 import it.unibo.pyxis.view.drawer.Drawer;
 import it.unibo.pyxis.view.drawer.DrawerImpl;
 import it.unibo.pyxis.view.drawer.binder.Binder;
@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class GameSceneView extends AbstractJavaFXView<GameSceneController> implements RenderableView {
+public final class GameView extends AbstractJavaFXView<GameController> implements RenderableView {
 
     @FXML
     private AnchorPane mainPane;
@@ -40,7 +40,7 @@ public final class GameSceneView extends AbstractJavaFXView<GameSceneController>
     private Binder canvasBinder;
     private Set<LabelSizeBinder> labelBinders;
 
-    public GameSceneView(final GameSceneController inputController) {
+    public GameView(final GameController inputController) {
         super(inputController);
     }
     /**
