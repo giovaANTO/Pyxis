@@ -18,7 +18,6 @@ public final class PauseSceneView extends AbstractJavaFXView<PauseSceneControlle
     public PauseSceneView(final PauseSceneController inputController) {
         super(inputController);
     }
-
     /**
      * {@inheritDoc}
      */

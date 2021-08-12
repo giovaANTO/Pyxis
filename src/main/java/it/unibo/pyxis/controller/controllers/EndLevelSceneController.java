@@ -13,17 +13,38 @@ public class EndLevelSceneController extends AbstractController {
      *         False otherwise.
      */
     public final boolean disableNextLevelButton() {
-        return this.getLinker().getGameState().getCurrentLevel().getLevelStatus()
-                != LevelStatus.SUCCESSFULLY_COMPLETED
-                    || !this.getLinker().getGameState().getLevelIterator().hasNext();
+        boolean notSuccessfullyCompleted = this.getLinker().getGameState().
+                getCurrentLevel().getLevelStatus() != LevelStatus.SUCCESSFULLY_COMPLETED;
+        boolean iteratorHasNext = this.getLinker().getGameState().getLevelIterator().
+                hasNext();
+        return notSuccessfullyCompleted || !iteratorHasNext;
     }
     /**
      * Returns the {@link it.unibo.pyxis.model.state.GameState} score.
      *
      * @return The score.
      */
-    public final Integer getScore() {
+    public final Integer getTotalScore() {
         return this.getLinker().getGameState().getScore();
+    }
+    /**
+     * Returns the {@link it.unibo.pyxis.model.state.GameState} score.
+     *
+     * @return The score.
+     */
+    public final Integer getLevelScore() {
+        return this.getLinker().getGameState().getCurrentLevel().getScore();
+    }
+    /**
+     * Returns true if the actual {@link it.unibo.pyxis.model.level.Level}'s
+     * {@link LevelStatus} is SUCCESSFULLY_COMPLETED.
+     *
+     * @return True if {@link LevelStatus} is SUCCESSFULLY_COMPLETED.
+     *         False otherwise.
+     */
+    public final boolean haveWon() {
+        return this.getLinker().getGameState().getCurrentLevel().getLevelStatus()
+                == LevelStatus.SUCCESSFULLY_COMPLETED;
     }
     /**
      * Loads the {@link it.unibo.pyxis.view.views.MenuSceneView}.
@@ -32,7 +53,7 @@ public class EndLevelSceneController extends AbstractController {
         this.getLinker().menu();
     }
     /**
-     * Loads the next level.
+     * Loads the next {@link it.unibo.pyxis.model.level.Level}.
      */
     public final void nextLevel() {
         this.getLinker().switchLevel();
