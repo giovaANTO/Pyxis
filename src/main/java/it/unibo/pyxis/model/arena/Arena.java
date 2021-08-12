@@ -10,7 +10,6 @@ import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.brick.Brick;
 import it.unibo.pyxis.model.element.pad.Pad;
 import it.unibo.pyxis.model.element.powerup.Powerup;
-import org.greenrobot.eventbus.EventBus;
 
 
 public interface Arena extends Entity {
@@ -41,13 +40,12 @@ public interface Arena extends Entity {
     void cleanUp();
     /**
      * Removes all the {@link Ball}s in the {@link Arena} unsubscribing them
-     * from the {@link EventBus}.
+     * from the {@link org.greenrobot.eventbus.EventBus}.
      */
     void clearBalls();
-
     /**
      * Removes all the {@link Brick}s in the {@link Arena} unsubscribing them
-     * from the {@link EventBus}.
+     * from the {@link org.greenrobot.eventbus.EventBus}.
      */
     void clearBricks();
     /**
@@ -160,6 +158,10 @@ public interface Arena extends Entity {
      */
     void resetStartingPosition();
 
+    /**
+     * Restore the dimension of the {@link Pad}.
+     */
+    void restorePadDimension();
     /**
      * Sets the {@link Pad} in the {@link Arena}.
      *

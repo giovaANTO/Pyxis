@@ -33,6 +33,8 @@ import org.greenrobot.eventbus.EventBus;
 public final class ArenaImpl extends EntityImpl implements Arena {
 
     private static final double PAD_X_MOVEMENT = 10;
+    private static final double MAX_PAD_X_DIMENSION = 200;
+    private static final double MIN_PAD_X_DIMENSION = 10;
     private final Set<Ball> ballSet;
     private final Map<Coord, Brick> brickMap;
     private final Set<Powerup> powerupSet;
@@ -40,6 +42,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     private final Dimension dimension;
     private Pad pad;
     private Coord startingPadPosition;
+    private Dimension startingPadDimension;
     private Coord startingBallPosition;
     private Vector startingBallPace;
 
@@ -65,12 +68,28 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         updatedCoord.sumXValue(dx);
         return updatedCoord;
     }
+
+    /**
+     * Check if the dimension of the {@link Pad} can be modified.
+     *
+     * @param amount increase or decrease amount to apply to {@link Pad}
+     * @return true if I can proceed to modify the {@link Pad} dimension, false otherwise.
+     */
+    private boolean canModifyPadDimensions(final double amount) {
+        final Dimension padDimension = this.getPad().getDimension();
+        padDimension.increaseWidth(amount);
+        return padDimension.getWidth() < MAX_PAD_X_DIMENSION && padDimension.getWidth() > MIN_PAD_X_DIMENSION;
+    }
+
     /**
      * Modifies the {@link Pad}'s width dimension of a certain amount.
      *
      * @param amount The amount.
      */
     private synchronized void modifyPadWidth(final double amount) {
+        if (!this.canModifyPadDimensions(amount)) {
+            return;
+        }
         final double padWidth = this.pad.getDimension().getWidth();
         final Coord padPosition = this.getPad().getPosition();
         final double halfIncrement = (padWidth + amount) / 2;
@@ -242,8 +261,9 @@ public final class ArenaImpl extends EntityImpl implements Arena {
                     this.pad.getPosition().getY());
         }
         this.pad.setPosition(newPosition);
-        if (this.getBalls().stream()
-                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()))) {
+        final boolean anyCollsion = this.getBalls().stream()
+                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()));
+        if (anyCollsion) {
             this.pad.setPosition(oldPosition);
         }
     }
@@ -313,9 +333,17 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      * {@inheritDoc}
      */
     @Override
+    public void restorePadDimension() {
+        this.pad.setWidth(this.startingPadDimension.getWidth());
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setPad(final Pad inputPad) {
-        if (Objects.isNull(this.startingPadPosition)) {
+        if (Objects.isNull(this.pad)) {
             this.startingPadPosition = inputPad.getPosition();
+            this.startingPadDimension = inputPad.getDimension();
         }
         this.pad = inputPad;
     }

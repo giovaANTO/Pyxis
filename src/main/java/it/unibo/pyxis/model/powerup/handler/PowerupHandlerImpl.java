@@ -158,12 +158,8 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                     } catch (InterruptedException e) {
                         System.out.println(e.getMessage());
                     } finally {
-                        if (effect.getType() == BALL_POWERUP) {
-                            final Map<Long, Thread> typeMap = InternalExecutor.this.getTypeMap(BALL_POWERUP);
-                            if (typeMap.size() == 1) {
-                                effect.removeEffect(PowerupHandlerImpl.this.getArena());
-                            }
-                        } else {
+                        final Map<Long, Thread> typeMap = InternalExecutor.this.getTypeMap(effect.getType());
+                        if (typeMap.size() == 1) {
                             effect.removeEffect(PowerupHandlerImpl.this.getArena());
                         }
                         InternalExecutor.this.untrackThread(effect.getType(), Thread.currentThread().getId());
