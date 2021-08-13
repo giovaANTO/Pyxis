@@ -1,10 +1,7 @@
 package it.unibo.pyxis.model.state;
-
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.plaf.nimbus.State;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,7 +36,4 @@ class GameStateTest {
         assertEquals(StateEnum.WAITING_FOR_NEW_GAME, this.testGameState.getState());
 
     }
-
-
-
 }
