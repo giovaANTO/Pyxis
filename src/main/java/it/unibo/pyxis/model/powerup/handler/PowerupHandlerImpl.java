@@ -22,7 +22,7 @@ import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.ARENA_POWERU
 public final class PowerupHandlerImpl implements PowerupHandler {
 
     private static final int MIN_POOL_SIZE = 6;
-    private static final int MAX_POOL_SIZE = 20;
+    private static final int MAX_POOL_SIZE = 10;
     private static final int KEEP_ALIVE_TIMEOUT = 10;
 
     private final InternalExecutor executor;
