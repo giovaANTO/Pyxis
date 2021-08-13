@@ -29,11 +29,11 @@ public final class GameLoopImpl extends Thread implements GameLoop {
      * @param current The start time of the frame
      */
     private void waitForNextFrame(final long current) {
-        long dt = System.currentTimeMillis() - current;
+        final long dt = System.currentTimeMillis() - current;
         if (dt < PERIOD) {
             try {
                 Thread.sleep(PERIOD - dt);
-            } catch (Exception ex) {
+            } catch (final InterruptedException ex) {
                 System.out.println(ex.getMessage());
             }
         }
@@ -82,8 +82,8 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     public void run() {
         long lastTime = System.currentTimeMillis();
         while (this.linker.getGameState().getState() != StateEnum.STOP) {
-            long current = System.currentTimeMillis();
-            int elapsed = (int) (current - lastTime);
+            final long current = System.currentTimeMillis();
+            final int elapsed = (int) (current - lastTime);
             if (this.linker.getGameState().getState() == StateEnum.RUN) {
                 this.processInput();
                 this.update(elapsed);

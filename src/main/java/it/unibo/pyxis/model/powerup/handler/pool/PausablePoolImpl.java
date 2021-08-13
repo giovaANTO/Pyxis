@@ -13,7 +13,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     private final ReentrantLock lock;
     private final Condition waitCond;
 
-    private boolean isPaused = false;
+    private boolean isPaused;
 
     public PausablePoolImpl(final int corePoolSize, final int maximumPoolSize, final long keepAliveTime,
                             final TimeUnit unit, final BlockingQueue<Runnable> workQueue) {

@@ -23,16 +23,23 @@ class EntityTest {
     void testRegisterComponent() {
         this.entity.registerComponent(new TestUpdateComponent(this.entity));
         assertTrue(this.entity.hasComponent(UpdateComponent.class));
-
         this.entity.registerComponent(new TestEventComponent(this.entity));
         assertTrue(this.entity.hasComponent(EventComponent.class));
+    }
+
+    @Test
+    void testCantRegisterAlreadyAttachedComponent(){
+        final TestUpdateComponent alreadyAttachedComponent = new TestUpdateComponent(this.entity);
+        alreadyAttachedComponent.attach();
+        assertTrue(alreadyAttachedComponent.isAttached());
+        assertFalse(this.entity.hasComponent(UpdateComponent.class));
+        assertThrows(IllegalStateException.class, () -> this.entity.registerComponent(alreadyAttachedComponent));
     }
 
     @Test
     void testRemoveComponent() {
         this.entity.registerComponent(new TestUpdateComponent(this.entity));
         assertTrue(this.entity.hasComponent(UpdateComponent.class));
-
         this.entity.removeComponent(UpdateComponent.class);
         assertFalse(this.entity.hasComponent(UpdateComponent.class));
     }

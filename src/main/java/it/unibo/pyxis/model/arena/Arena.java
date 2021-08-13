@@ -54,12 +54,6 @@ public interface Arena extends Entity {
      */
     void clearPowerups();
     /**
-     * Decreases the {@link Pad}'s {@link Dimension}'s width of an input amount.
-     *
-     * @param amount The amount to decrease.
-     */
-    void decreasePadWidth(double amount);
-    /**
      * Returns a {@link java.util.Set} of {@link Ball} that are currently present in
      * the {@link Arena}.
      *

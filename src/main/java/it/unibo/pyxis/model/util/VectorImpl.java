@@ -71,8 +71,8 @@ public final class VectorImpl implements Vector {
      */
     @Override
     public Vector rotationBy(final double rotationAngle) {
-        double cos = Math.cos(rotationAngle);
-        double sin = Math.sin(rotationAngle);
+        final double cos = Math.cos(rotationAngle);
+        final double sin = Math.sin(rotationAngle);
         return new VectorImpl(this.getX() * cos - this.getY() * sin, this.getX() * sin + this.getY() * cos);
     }
     /**

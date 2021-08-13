@@ -106,9 +106,9 @@ public class LinkerImpl implements Linker {
     public final void menu() {
         this.switchScene(SceneType.MENU_SCENE);
         if (this.gameState.getState() == StateEnum.PAUSE) {
-            boolean levelCompleted = this.gameState.getCurrentLevel().getLevelStatus()
+            final boolean levelCompleted = this.gameState.getCurrentLevel().getLevelStatus()
                     == LevelStatus.SUCCESSFULLY_COMPLETED;
-            int actualLevelReached = this.gameState.getCurrentLevel().getLevelNumber()
+            final int actualLevelReached = this.gameState.getCurrentLevel().getLevelNumber()
                     + (levelCompleted ? 1 : 0);
             this.maximumLevelReached = Math.max(this.maximumLevelReached,
                     actualLevelReached);

@@ -95,7 +95,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         final double halfIncrement = (padWidth + amount) / 2;
         double offset = 0;
         if (padPosition.getX() + halfIncrement > this.getDimension().getWidth()) {
-            offset = (this.getDimension().getWidth() - (padPosition.getX() + halfIncrement));
+            offset = this.getDimension().getWidth() - (padPosition.getX() + halfIncrement);
         } else if (padPosition.getX() - halfIncrement < 0) {
             offset = -(padPosition.getX() - halfIncrement);
         }
@@ -166,13 +166,6 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         this.getPowerups().forEach(this::removePowerup);
         this.powerupSet.clear();
         this.powerupHandler.stop();
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void decreasePadWidth(final double amount) {
-        this.modifyPadWidth(-amount);
     }
     /**
      * {@inheritDoc}
@@ -342,10 +335,8 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      */
     @Override
     public void setPad(final Pad inputPad) {
-        if (Objects.isNull(this.pad)) {
-            this.startingPadPosition = inputPad.getPosition();
-            this.startingPadDimension = inputPad.getDimension();
-        }
+        this.startingPadPosition = inputPad.getPosition();
+        this.startingPadDimension = inputPad.getDimension();
         this.pad = inputPad;
     }
     /**
