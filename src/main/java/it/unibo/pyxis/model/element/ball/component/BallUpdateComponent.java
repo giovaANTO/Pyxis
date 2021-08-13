@@ -48,9 +48,10 @@ public class BallUpdateComponent extends AbstractUpdateComponent<Ball> {
         this.getEntity().setPace(newPace);
     }
     /**
-     * a
+     * Set a new {@link Ball} position applying the offset calculated
+     * during collisions.
      *
-     * @param borderOffset
+     * @param borderOffset The input offset {@link Dimension}
      */
     private void applyOffset(final Dimension borderOffset) {
         final Coord updatedCoord = this.getEntity().getPosition();
@@ -61,7 +62,7 @@ public class BallUpdateComponent extends AbstractUpdateComponent<Ball> {
         this.getEntity().setPosition(updatedCoord);
     }
     /**
-     *
+     * Redirect {@link Ball} using the registered collision's information.
      */
     private void applicateCollisions() {
         final Map<HitEdge, Dimension> collInfo = this.getEntity().getCollisionInformation();
