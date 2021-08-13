@@ -133,10 +133,7 @@ public class LinkerImpl implements Linker {
      */
     @Override
     public final void quit() {
-        this.gameState.setState(StateEnum.STOP);
-        this.gameState.getCurrentLevel().getArena().cleanUp();
-        SoundPlayer.shutdown();
-        this.sceneHandler.close();
+        System.exit(0);
     }
     /**
      * {@inheritDoc}
