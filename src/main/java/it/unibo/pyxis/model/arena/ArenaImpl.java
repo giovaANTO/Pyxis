@@ -170,13 +170,6 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      * {@inheritDoc}
      */
     @Override
-    public void decreasePadWidth(final double amount) {
-        this.modifyPadWidth(-amount);
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Set<Ball> getBalls() {
         return Set.copyOf(this.ballSet);
     }
@@ -341,10 +334,8 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      */
     @Override
     public void setPad(final Pad inputPad) {
-        if (Objects.isNull(this.pad)) {
-            this.startingPadPosition = inputPad.getPosition();
-            this.startingPadDimension = inputPad.getDimension();
-        }
+        this.startingPadPosition = inputPad.getPosition();
+        this.startingPadDimension = inputPad.getDimension();
         this.pad = inputPad;
     }
     /**

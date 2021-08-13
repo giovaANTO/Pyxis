@@ -29,7 +29,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     }
 
     public PadImpl(final Coord inputPosition) {
-        this(DIMENSION, inputPosition, DEFAULT_TAG);
+        this(DIMENSION.copyOf(), inputPosition, DEFAULT_TAG);
     }
 
     /**
