@@ -13,9 +13,9 @@ public class EndLevelController extends AbstractController {
      *         False otherwise.
      */
     public final boolean disableNextLevelButton() {
-        boolean notSuccessfullyCompleted = this.getLinker().getGameState().
+        final boolean notSuccessfullyCompleted = this.getLinker().getGameState().
                 getCurrentLevel().getLevelStatus() != LevelStatus.SUCCESSFULLY_COMPLETED;
-        boolean iteratorHasNext = this.getLinker().getGameState().getLevelIterator().
+        final boolean iteratorHasNext = this.getLinker().getGameState().getLevelIterator().
                 hasNext();
         return notSuccessfullyCompleted || !iteratorHasNext;
     }

@@ -95,7 +95,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         final double halfIncrement = (padWidth + amount) / 2;
         double offset = 0;
         if (padPosition.getX() + halfIncrement > this.getDimension().getWidth()) {
-            offset = (this.getDimension().getWidth() - (padPosition.getX() + halfIncrement));
+            offset = this.getDimension().getWidth() - (padPosition.getX() + halfIncrement);
         } else if (padPosition.getX() - halfIncrement < 0) {
             offset = -(padPosition.getX() - halfIncrement);
         }

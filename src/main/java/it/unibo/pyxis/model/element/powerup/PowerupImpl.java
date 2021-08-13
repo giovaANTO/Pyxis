@@ -35,7 +35,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         if (!(o instanceof PowerupImpl)) {
             return false;
         }
-        PowerupImpl powerup = (PowerupImpl) o;
+        final PowerupImpl powerup = (PowerupImpl) o;
         return super.equals(o) && getType() == powerup.getType();
     }
     /**

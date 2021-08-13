@@ -20,7 +20,7 @@ public class LoaderImpl implements Loader {
      * @return The {@link FXMLLoader} already located on the resources.
      */
     private FXMLLoader getFxLoader(final SceneType inputScene) {
-        String scenePath = FIRST_ROOT_PATH + inputScene.getName() + SECOND_ROOT_PATH;
+        final String scenePath = FIRST_ROOT_PATH + inputScene.getName() + SECOND_ROOT_PATH;
         return new FXMLLoader(ClassLoader.getSystemResource(scenePath));
     }
     /**
@@ -38,11 +38,11 @@ public class LoaderImpl implements Loader {
      */
     @Override
     public final Parent getScene(final SceneType inputSceneType, final Controller inputController) {
-        FXMLLoader loader = this.getFxLoader(inputSceneType);
+        final FXMLLoader loader = this.getFxLoader(inputSceneType);
         loader.setControllerFactory(param -> {
             Object viewController;
             try {
-                Class<?> currentControllerClass = inputController.getClass();
+                final Class<?> currentControllerClass = inputController.getClass();
                 viewController = param.getConstructor(currentControllerClass).
                         newInstance(inputController);
             } catch (ReflectiveOperationException ex) {
