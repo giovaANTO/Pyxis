@@ -17,7 +17,6 @@ import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
-import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.factory.ElementFactory;
 import it.unibo.pyxis.model.element.factory.ElementFactoryImpl;
 import it.unibo.pyxis.model.element.pad.Pad;
@@ -27,7 +26,6 @@ import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
-import it.unibo.pyxis.model.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 
 public final class ArenaImpl extends EntityImpl implements Arena {
@@ -44,7 +42,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     private Coord startingPadPosition;
     private Dimension startingPadDimension;
     private Coord startingBallPosition;
-    private Vector startingBallPace;
+    private double startingBallModule;
 
     public ArenaImpl(final Dimension inputDimension) {
         this.brickMap = new HashMap<>();
@@ -110,7 +108,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     public void addBall(final Ball ball) {
         if (Objects.isNull(this.startingBallPosition)) {
             this.startingBallPosition = ball.getPosition();
-            this.startingBallPace = ball.getPace();
+            this.startingBallModule = ball.getPace().getModule();
         }
         this.ballSet.add(ball);
     }
@@ -240,7 +238,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      */
     @Override
     public boolean isCleared() {
-        return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
+        return this.getBricks().stream().noneMatch(b -> !b.getBrickType().isIndestructible());
     }
     /**
      * {@inheritDoc}
@@ -317,11 +315,9 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     public void resetStartingPosition() {
         final ElementFactory factory = new ElementFactoryImpl();
         this.getPad().setPosition(this.startingPadPosition.copyOf());
-        final double compX = Math.pow(this.startingBallPace.getX(), 2);
-        final double compY = Math.pow(this.startingBallPace.getY(), 2);
-        final double module = Math.sqrt(compX + compY);
         this.ballSet.clear();
-        this.ballSet.add(factory.createBallWithRandomPace(1, BallType.NORMAL_BALL, this.startingBallPosition.copyOf(), module));
+        this.ballSet.add(factory.createBallWithRandomAngle(1, BallType.NORMAL_BALL,
+                                    this.startingBallPosition.copyOf(), this.startingBallModule));
     }
     /**
      * {@inheritDoc}

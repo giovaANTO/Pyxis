@@ -70,10 +70,11 @@ public final class VectorImpl implements Vector {
      * {@inheritDoc}
      */
     @Override
-    public Vector rotationBy(final double rotationAngle) {
+    public Vector createVectorWithSameModule(final double rotationAngle) {
         final double cos = Math.cos(rotationAngle);
         final double sin = Math.sin(rotationAngle);
-        return new VectorImpl(this.getX() * cos - this.getY() * sin, this.getX() * sin + this.getY() * cos);
+        final double module = this.getModule();
+        return new VectorImpl(module * cos, module * sin);
     }
     /**
      * {@inheritDoc}

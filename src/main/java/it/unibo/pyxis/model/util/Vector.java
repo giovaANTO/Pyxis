@@ -32,7 +32,7 @@ public interface Vector {
      * @param  rotationAngle The rotation angle of the {@link Vector}.
      * @return A new rotated {@link Vector}.
      */
-    Vector rotationBy(double rotationAngle);
+    Vector createVectorWithSameModule(double rotationAngle);
     /**
      * Sets {@link Vector}'s X component.
      *

@@ -56,7 +56,7 @@ public interface ElementFactory {
      * @return
      *          A new {@link Ball} instance.
      */
-    Ball createBallWithRandomPace(int id, BallType type, Coord position, double module);
+    Ball createBallWithRandomAngle(int id, BallType type, Coord position, double module);
     /**
      * Creates a {@link Brick} of blue {@link BrickType}.
      *

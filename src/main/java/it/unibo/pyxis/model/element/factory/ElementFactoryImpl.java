@@ -50,7 +50,7 @@ public final class ElementFactoryImpl implements ElementFactory {
         return new BallImpl.Builder()
                 .ballType(type)
                 .id(id)
-                .pace(ball.getPace().rotationBy(angle))
+                .pace(ball.getPace().createVectorWithSameModule(angle))
                 .initialPosition(ball.getPosition())
                 .build();
     }
@@ -58,7 +58,7 @@ public final class ElementFactoryImpl implements ElementFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ball createBallWithRandomPace(final int id, final BallType type, final Coord pos, final double module) {
+    public Ball createBallWithRandomAngle(final int id, final BallType type, final Coord pos, final double module) {
         return new BallImpl.Builder()
                 .ballType(type)
                 .id(id)
