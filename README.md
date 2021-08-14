@@ -28,5 +28,3 @@ For build the project use Gradle.
 * [Antonioni Giovanni](https://github.com/giovaz94)
 * [Luca Rubboli](https://github.com/Luca1313)
 * Riccardo Traini
-
-### License
