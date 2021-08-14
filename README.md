@@ -29,3 +29,4 @@ For build the project use Gradle.
 * [Luca Rubboli](https://github.com/Luca1313)
 * Riccardo Traini
 
+### License
