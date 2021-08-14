@@ -8,7 +8,6 @@ import it.unibo.pyxis.model.util.Vector;
 import java.util.Map;
 
 public interface Ball extends Element {
-
     /**
      * Clears all the collision information of the {@link Ball}.
      */

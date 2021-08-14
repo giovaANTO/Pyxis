@@ -19,15 +19,6 @@ public abstract class AbstractElement extends EntityImpl implements Element {
         this.dimension = inputDimension;
         this.position = inputPosition;
     }
-
-    /**
-     * Sets the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
-     *
-     * @param hitbox The {@link Hitbox} to set.
-     */
-    protected void setHitbox(final Hitbox hitbox) {
-        this.hitbox = hitbox;
-    }
     /**
      * {@inheritDoc}
      */
@@ -100,6 +91,13 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     @Override
     public final void setHeight(final double inputHeight) {
         this.dimension.setHeight(inputHeight);
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setHitbox(final Hitbox hitbox) {
+        this.hitbox = hitbox;
     }
     /**
      * {@inheritDoc}

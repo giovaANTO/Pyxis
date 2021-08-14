@@ -58,6 +58,12 @@ public interface Element extends Entity {
      */
     void setHeight(double height);
     /**
+     * Sets the {@link Hitbox} of the {@link Element} as the parameter {@link Hitbox}.
+     *
+     * @param hitbox The {@link Hitbox} to set.
+     */
+    void setHitbox(Hitbox hitbox);
+    /**
      * Sets the {@link Element}'s pace {@link Vector}.
      *
      * @param inputPace The input pace {@link Vector}.

@@ -27,16 +27,16 @@ public interface Linker {
     /**
      * Adds a {@link Command} to the list of commands that a player can input.
      *
-     * @param levelCommand The {@link Command} to add.
+     * @param command The {@link Command} to add.
      */
-    void insertCommand(Command<GameState> levelCommand);
+    void insertCommand(Command<GameState> command);
     /**
      * Adds a {@link Command} to the {@link it.unibo.pyxis.controller.engine.GameLoop}
      * input list.
      *
-     * @param inputCommand The {@link Command} to add.
+     * @param command The {@link Command} to add.
      */
-    void insertGameCommand(Command<Level> inputCommand);
+    void insertGameCommand(Command<Level> command);
     /**
      * Loads the {@link it.unibo.pyxis.view.MenuView}.
      */

@@ -4,12 +4,12 @@ import it.unibo.pyxis.controller.Controller;
 
 public interface SceneHandler {
     /**
-     * Close the application's {@link javafx.stage.Stage}.
+     * Closes the application's {@link javafx.stage.Stage}.
      */
     void close();
 
     /**
-     * Return the {@link Controller} bound to the current
+     * Returns the {@link Controller} bound to the current
      * {@link it.unibo.pyxis.view.View}.
      *
      * @return The current {@link Controller}.

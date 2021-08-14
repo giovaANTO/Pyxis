@@ -13,13 +13,14 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     private final ReentrantLock lock;
     private final Condition waitCond;
 
-    private boolean isPaused = false;
+    private boolean isPaused;
 
     public PausablePoolImpl(final int corePoolSize, final int maximumPoolSize, final long keepAliveTime,
                             final TimeUnit unit, final BlockingQueue<Runnable> workQueue) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
         this.lock = new ReentrantLock();
         this.waitCond = lock.newCondition();
+        this.isPaused = false;
     }
     /**
      * {@inheritDoc}
@@ -27,7 +28,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
     @Override
     protected void beforeExecute(final Thread t, final Runnable r) {
         super.beforeExecute(t, r);
-        lock.lock();
+        this.lock.lock();
         try {
             while (this.isPaused) {
                 this.waitCond.await();
@@ -35,7 +36,7 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
         } catch (InterruptedException ie) {
             t.interrupt();
         } finally {
-            lock.unlock();
+            this.lock.unlock();
         }
     }
     /**
@@ -64,11 +65,11 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
      */
     @Override
     public void pause() {
-        lock.lock();
+        this.lock.lock();
         try {
             this.isPaused = true;
         } finally {
-            lock.unlock();
+            this.lock.unlock();
         }
     }
     /**
@@ -76,12 +77,12 @@ public class PausablePoolImpl extends ThreadPoolExecutor implements PausablePool
      */
     @Override
     public void resume() {
-        lock.lock();
+        this.lock.lock();
         try {
             this.isPaused = false;
             this.waitCond.signalAll();
         } finally {
-            lock.unlock();
+            this.lock.unlock();
         }
     }
 }

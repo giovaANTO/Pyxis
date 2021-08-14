@@ -33,15 +33,16 @@ public class LinkerImpl implements Linker {
      *         False otherwise.
      */
     private boolean conditionInsertCommand() {
-        return this.getGameState().getState() == StateEnum.RUN
-                || this.getGameState().getState()
+        boolean isRunning = this.getGameState().getState() == StateEnum.RUN;
+        boolean isWaitingForStartingCommand = this.getGameState().getState()
                 == StateEnum.WAITING_FOR_STARTING_COMMAND;
+        return isRunning || isWaitingForStartingCommand;
     }
     /**
      * Creates and start a new {@link GameLoop} instance.
      */
     private void createGameLoop() {
-        this.gameLoop =  new GameLoopImpl(this);
+        this.gameLoop = new GameLoopImpl(this);
         this.gameLoop.start();
     }
     /**
@@ -87,17 +88,17 @@ public class LinkerImpl implements Linker {
      * {@inheritDoc}
      */
     @Override
-    public final void insertCommand(final Command<GameState> levelCommand) {
+    public final void insertCommand(final Command<GameState> command) {
         if (this.conditionInsertCommand()) {
-            levelCommand.execute(this.gameState);
+            command.execute(this.gameState);
         }
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public void insertGameCommand(final Command<Level> inputCommand) {
-        this.gameLoop.addCommand(inputCommand);
+    public void insertGameCommand(final Command<Level> command) {
+        this.gameLoop.addCommand(command);
     }
 
     /**
@@ -109,6 +110,7 @@ public class LinkerImpl implements Linker {
         if (this.gameState.getState() == StateEnum.PAUSE) {
             boolean levelCompleted = this.gameState.getCurrentLevel().getLevelStatus()
                     == LevelStatus.SUCCESSFULLY_COMPLETED;
+            //Da controllare il livello limite!!
             int actualLevelReached = this.gameState.getCurrentLevel().getLevelNumber()
                     + (levelCompleted ? 1 : 0);
             this.maximumLevelReached = Math.max(this.maximumLevelReached,
