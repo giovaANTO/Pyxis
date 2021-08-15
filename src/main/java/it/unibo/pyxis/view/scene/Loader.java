@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 public interface Loader {
     /**
      * Loads and then returns a new {@link javafx.scene.Scene} of the input
-     * {@link SceneType} already binded with the input {@link Controller}.
+     * {@link SceneType} already bound with the input {@link Controller}.
      *
      * @param sceneType The {@link SceneType} required.
      * @param controller The {@link Controller} to bind.
