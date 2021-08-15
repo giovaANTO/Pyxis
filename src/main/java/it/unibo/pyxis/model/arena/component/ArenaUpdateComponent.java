@@ -3,7 +3,6 @@ package it.unibo.pyxis.model.arena.component;
 import it.unibo.pyxis.model.arena.Arena;
 import it.unibo.pyxis.ecs.component.physics.AbstractUpdateComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
-import it.unibo.pyxis.model.element.powerup.Powerup;
 import it.unibo.pyxis.model.event.Events;
 import it.unibo.pyxis.model.hitbox.CollisionInformationImpl;
 import it.unibo.pyxis.model.hitbox.Hitbox;
@@ -19,8 +18,8 @@ public class ArenaUpdateComponent extends AbstractUpdateComponent<Arena> {
     }
 
     /**
-     * Checks if {@link Ball} or {@link Powerup} is colliding with a border.
-     * Remove the {@link Ball} or {@link Powerup} colliding with the bottom border,
+     * Checks if {@link Ball} or {@link it.unibo.pyxis.model.element.powerup.Powerup} is colliding with a border.
+     * Remove the {@link Ball} or {@link it.unibo.pyxis.model.element.powerup.Powerup} colliding with the bottom border,
      * Otherwise send a {@link it.unibo.pyxis.model.event.collision.CollisionEvent}
      * with the edge the {@link Ball} is colliding with.
      */

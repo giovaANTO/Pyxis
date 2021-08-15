@@ -27,7 +27,7 @@ public class EntityImpl implements Entity {
         } else if (this.componentMap.containsKey(inputInterface)) {
             return Optional.of(inputInterface);
         }
-        Class<?>[] superInterfaces = inputInterface.getInterfaces();
+        final Class<?>[] superInterfaces = inputInterface.getInterfaces();
         return Arrays.stream(superInterfaces).filter(this.componentMap::containsKey).findFirst();
     }
     /**
@@ -39,7 +39,7 @@ public class EntityImpl implements Entity {
     private Optional<Class<?>> findComponentInterface(final Component<?> component) {
         Class<?> actualClass = component.getClass();
         while (!actualClass.getName().equals(Object.class.getName())) {
-            Class<?>[] compInterfaces = actualClass.getInterfaces();
+            final Class<?>[] compInterfaces = actualClass.getInterfaces();
             if (compInterfaces.length != 0) {
                 final Optional<Class<?>> assignableComponentClass = Arrays.stream(compInterfaces)
                         .filter(Component.class::isAssignableFrom)
@@ -76,7 +76,7 @@ public class EntityImpl implements Entity {
     @Override
     public final <C extends Component<?>> void registerComponent(final C component) {
         if (component.isAttached()) {
-           throw new IllegalArgumentException("The input component is already attached to an entity");
+           throw new IllegalStateException("The input component is already attached to an entity");
         }
         final Optional<Class<?>> componentClass = findComponentInterface(component);
         if (componentClass.isPresent() && !this.hasComponent(componentClass.get())) {

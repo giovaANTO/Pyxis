@@ -4,7 +4,6 @@ import it.unibo.pyxis.controller.command.Command;
 import it.unibo.pyxis.controller.engine.GameLoop;
 import it.unibo.pyxis.controller.engine.GameLoopImpl;
 import it.unibo.pyxis.model.level.Level;
-import it.unibo.pyxis.view.soundplayer.SoundPlayer;
 import it.unibo.pyxis.model.level.status.LevelStatus;
 import it.unibo.pyxis.model.state.GameState;
 import it.unibo.pyxis.model.state.GameStateImpl;
@@ -138,10 +137,7 @@ public class LinkerImpl implements Linker {
      */
     @Override
     public final void quit() {
-        this.gameState.setState(StateEnum.STOP);
-        this.gameState.getCurrentLevel().getArena().cleanUp();
-        SoundPlayer.shutdown();
-        this.sceneHandler.close();
+        System.exit(0);
     }
     /**
      * {@inheritDoc}

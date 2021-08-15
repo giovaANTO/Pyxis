@@ -17,7 +17,6 @@ import it.unibo.pyxis.ecs.EntityImpl;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.brick.Brick;
-import it.unibo.pyxis.model.element.brick.BrickType;
 import it.unibo.pyxis.model.element.factory.ElementFactory;
 import it.unibo.pyxis.model.element.factory.ElementFactoryImpl;
 import it.unibo.pyxis.model.element.pad.Pad;
@@ -27,12 +26,13 @@ import it.unibo.pyxis.model.powerup.handler.PowerupHandlerImpl;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
-import it.unibo.pyxis.model.util.Vector;
 import org.greenrobot.eventbus.EventBus;
 
 public final class ArenaImpl extends EntityImpl implements Arena {
 
     private static final double PAD_X_MOVEMENT = 10;
+    private static final double MAX_PAD_X_DIMENSION = 200;
+    private static final double MIN_PAD_X_DIMENSION = 10;
     private final Set<Ball> ballSet;
     private final Map<Coord, Brick> brickMap;
     private final Set<Powerup> powerupSet;
@@ -40,8 +40,9 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     private final Dimension dimension;
     private Pad pad;
     private Coord startingPadPosition;
+    private Dimension startingPadDimension;
     private Coord startingBallPosition;
-    private Vector startingBallPace;
+    private double startingBallModule;
 
     public ArenaImpl(final Dimension inputDimension) {
         this.brickMap = new HashMap<>();
@@ -65,18 +66,34 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         updatedCoord.sumXValue(dx);
         return updatedCoord;
     }
+
+    /**
+     * Check if the dimension of the {@link Pad} can be modified.
+     *
+     * @param amount increase or decrease amount to apply to {@link Pad}
+     * @return true if I can proceed to modify the {@link Pad} dimension, false otherwise.
+     */
+    private boolean canModifyPadDimensions(final double amount) {
+        final Dimension padDimension = this.getPad().getDimension();
+        padDimension.increaseWidth(amount);
+        return padDimension.getWidth() < MAX_PAD_X_DIMENSION && padDimension.getWidth() > MIN_PAD_X_DIMENSION;
+    }
+
     /**
      * Modifies the {@link Pad}'s width dimension of a certain amount.
      *
      * @param amount The amount.
      */
     private synchronized void modifyPadWidth(final double amount) {
+        if (!this.canModifyPadDimensions(amount)) {
+            return;
+        }
         final double padWidth = this.pad.getDimension().getWidth();
         final Coord padPosition = this.getPad().getPosition();
         final double halfIncrement = (padWidth + amount) / 2;
         double offset = 0;
         if (padPosition.getX() + halfIncrement > this.getDimension().getWidth()) {
-            offset = (this.getDimension().getWidth() - (padPosition.getX() + halfIncrement));
+            offset = this.getDimension().getWidth() - (padPosition.getX() + halfIncrement);
         } else if (padPosition.getX() - halfIncrement < 0) {
             offset = -(padPosition.getX() - halfIncrement);
         }
@@ -91,7 +108,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     public void addBall(final Ball ball) {
         if (Objects.isNull(this.startingBallPosition)) {
             this.startingBallPosition = ball.getPosition();
-            this.startingBallPace = ball.getPace();
+            this.startingBallModule = ball.getPace().getModule();
         }
         this.ballSet.add(ball);
     }
@@ -121,6 +138,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         this.clearBricks();
         this.clearPowerups();
         this.powerupHandler.shutdown();
+        this.restorePadDimension();
         this.getPad().removeComponent(EventComponent.class);
         this.removeComponent(EventComponent.class);
     }
@@ -146,13 +164,6 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         this.getPowerups().forEach(this::removePowerup);
         this.powerupSet.clear();
         this.powerupHandler.stop();
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void decreasePadWidth(final double amount) {
-        this.modifyPadWidth(-amount);
     }
     /**
      * {@inheritDoc}
@@ -227,7 +238,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      */
     @Override
     public boolean isCleared() {
-        return this.getBricks().stream().noneMatch(b -> b.getBrickType() != BrickType.INDESTRUCTIBLE);
+        return this.getBricks().stream().noneMatch(b -> !b.getBrickType().isIndestructible());
     }
     /**
      * {@inheritDoc}
@@ -242,8 +253,9 @@ public final class ArenaImpl extends EntityImpl implements Arena {
                     this.pad.getPosition().getY());
         }
         this.pad.setPosition(newPosition);
-        if (this.getBalls().stream()
-                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()))) {
+        final boolean anyCollsion = this.getBalls().stream()
+                .anyMatch(b -> b.getHitbox().isCollidingWithHB(this.pad.getHitbox()));
+        if (anyCollsion) {
             this.pad.setPosition(oldPosition);
         }
     }
@@ -303,20 +315,24 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     public void resetStartingPosition() {
         final ElementFactory factory = new ElementFactoryImpl();
         this.getPad().setPosition(this.startingPadPosition.copyOf());
-        final double compX = Math.pow(this.startingBallPace.getX(), 2);
-        final double compY = Math.pow(this.startingBallPace.getY(), 2);
-        final double module = Math.sqrt(compX + compY);
         this.ballSet.clear();
-        this.ballSet.add(factory.createBallWithRandomPace(1, BallType.NORMAL_BALL, this.startingBallPosition.copyOf(), module));
+        this.ballSet.add(factory.createBallWithRandomAngle(1, BallType.NORMAL_BALL,
+                                    this.startingBallPosition.copyOf(), this.startingBallModule));
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void restorePadDimension() {
+        this.pad.setWidth(this.startingPadDimension.getWidth());
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public void setPad(final Pad inputPad) {
-        if (Objects.isNull(this.startingPadPosition)) {
-            this.startingPadPosition = inputPad.getPosition();
-        }
+        this.startingPadPosition = inputPad.getPosition();
+        this.startingPadDimension = inputPad.getDimension();
         this.pad = inputPad;
     }
     /**

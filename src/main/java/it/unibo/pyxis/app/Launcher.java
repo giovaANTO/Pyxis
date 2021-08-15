@@ -18,8 +18,8 @@ public final class Launcher extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
         final GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        float width = gd.getDisplayMode().getWidth();
-        float height = gd.getDisplayMode().getHeight();
+        final float width = gd.getDisplayMode().getWidth();
+        final float height = gd.getDisplayMode().getHeight();
         primaryStage.setHeight(height / WINDOW_SCALE_FACTOR);
         primaryStage.setWidth(width / WINDOW_SCALE_FACTOR);
         final Linker linker = new LinkerImpl();

@@ -1,11 +1,8 @@
 package it.unibo.pyxis.controller;
 
-import it.unibo.pyxis.view.MenuView;
-import it.unibo.pyxis.view.SettingsView;
-
 public class PauseController extends AbstractController {
     /**
-     * Loads the {@link MenuView}.
+     * Loads the {@link it.unibo.pyxis.view.MenuView}.
      */
     public final void menu() {
         this.getLinker().menu();
@@ -23,7 +20,7 @@ public class PauseController extends AbstractController {
         this.getLinker().resume();
     }
     /**
-     * Loads the {@link SettingsView}.
+     * Loads the {@link it.unibo.pyxis.view.SettingsView}.
      */
     public final void settings() {
         this.getLinker().settings();

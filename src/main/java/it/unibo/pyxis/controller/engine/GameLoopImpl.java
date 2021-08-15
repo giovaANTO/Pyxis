@@ -20,20 +20,20 @@ public final class GameLoopImpl extends Thread implements GameLoop {
 
     public GameLoopImpl(final Linker linker) {
         this.linker = linker;
-        this.commandQueue = new ArrayBlockingQueue<Command<Level>>(COMMAND_QUEUE_DIMENSION);
+        this.commandQueue = new ArrayBlockingQueue<>(COMMAND_QUEUE_DIMENSION);
     }
     /**
      * Apply a sleep on the current thread based on the time used by the gameloop for
-     * complete a cycle.
+     * complete a frame.
      *
-     * @param current The start time of the cycle
+     * @param current The start time of the frame
      */
     private void waitForNextFrame(final long current) {
-        long dt = System.currentTimeMillis() - current;
+        final long dt = System.currentTimeMillis() - current;
         if (dt < PERIOD) {
             try {
                 Thread.sleep(PERIOD - dt);
-            } catch (Exception ex) {
+            } catch (final InterruptedException ex) {
                 System.out.println(ex.getMessage());
             }
         }
@@ -46,9 +46,8 @@ public final class GameLoopImpl extends Thread implements GameLoop {
      *         False otherwise.
      */
     private boolean conditionProcessRender() {
-        return this.linker.getGameState().getState() == StateEnum.RUN
-                || this.linker.getGameState().getState()
-                == StateEnum.WAITING_FOR_STARTING_COMMAND;
+        final StateEnum appState = this.linker.getGameState().getState();
+        return appState == StateEnum.RUN || appState == StateEnum.WAITING_FOR_STARTING_COMMAND;
     }
     /**
      * {@inheritDoc}
@@ -83,8 +82,8 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     public void run() {
         long lastTime = System.currentTimeMillis();
         while (this.linker.getGameState().getState() != StateEnum.STOP) {
-            long current = System.currentTimeMillis();
-            int elapsed = (int) (current - lastTime);
+            final long current = System.currentTimeMillis();
+            final int elapsed = (int) (current - lastTime);
             if (this.linker.getGameState().getState() == StateEnum.RUN) {
                 this.processInput();
                 this.update(elapsed);

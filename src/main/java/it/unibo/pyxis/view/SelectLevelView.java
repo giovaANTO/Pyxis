@@ -30,15 +30,15 @@ public final class SelectLevelView extends AbstractJavaFXView<SelectLevelControl
      * @return The {@link GridPane} already populated.
      */
     private GridPane populateButton() {
-        GridPane gridPane = new GridPane();
+        final GridPane gridPane = new GridPane();
         final int col = (int) Math.ceil(Math.sqrt(this.numLevel));
         int countX = 0;
         int countY = 0;
         for (int i = 1; i <= this.numLevel; i++) {
             final Button butt = new Button(String.valueOf(i));
             butt.setOnAction(event -> {
-                this.playGenericButtonPressSound();
-                this.getLevel(Integer.parseInt(butt.getText()));
+                this.playStartGameButtonPressSound();
+                this.runLevel(Integer.parseInt(butt.getText()));
             });
             butt.setPrefHeight(this.mainPane.getPrefHeight());
             butt.setPrefWidth(this.mainPane.getPrefWidth());
@@ -55,21 +55,21 @@ public final class SelectLevelView extends AbstractJavaFXView<SelectLevelControl
     }
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls
-     * {@link SelectLevelController#back()}.
-     */
-    public void back() {
-        this.playGenericButtonPressSound();
-        this.getController().back();
-    }
-    /**
-     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls
      * {@link SelectLevelController#runLevel(int)}.
      *
      * @param inputLevel The index of the {@link it.unibo.pyxis.model.level.Level} to
      *                   load.
      */
-    public void getLevel(final int inputLevel) {
+    private void runLevel(final int inputLevel) {
         this.getController().runLevel(inputLevel);
+    }
+    /**
+     * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls
+     * {@link SelectLevelController#back()}.
+     */
+    public void back() {
+        this.playGenericButtonPressSound();
+        this.getController().back();
     }
     /**
      * {@inheritDoc}
@@ -80,7 +80,7 @@ public final class SelectLevelView extends AbstractJavaFXView<SelectLevelControl
         this.numLevel = this.getController().getTotalLevels();
         this.levelsDone = this.getController().getLevelsDone();
 
-        GridPane gridPane = this.populateButton();
+        final GridPane gridPane = this.populateButton();
         this.mainPane.getChildren().add(gridPane);
         AnchorPane.setRightAnchor(gridPane, 0.0);
         AnchorPane.setLeftAnchor(gridPane, 0.0);

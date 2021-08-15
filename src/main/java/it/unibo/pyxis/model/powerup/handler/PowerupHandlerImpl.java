@@ -22,7 +22,7 @@ import static it.unibo.pyxis.model.powerup.effect.PowerupEffectType.ARENA_POWERU
 public final class PowerupHandlerImpl implements PowerupHandler {
 
     private static final int MIN_POOL_SIZE = 6;
-    private static final int MAX_POOL_SIZE = 9;
+    private static final int MAX_POOL_SIZE = 10;
     private static final int KEEP_ALIVE_TIMEOUT = 10;
 
     private final InternalExecutor executor;
@@ -155,18 +155,13 @@ public final class PowerupHandlerImpl implements PowerupHandler {
                             lock.unlock();
                             TimeUnit.SECONDS.sleep(1);
                         }
-                    } catch (InterruptedException e) {
-                        System.out.println(e.getMessage());
-                    } finally {
-                        if (effect.getType() == BALL_POWERUP) {
-                            final Map<Long, Thread> typeMap = InternalExecutor.this.getTypeMap(BALL_POWERUP);
-                            if (typeMap.size() == 1) {
-                                effect.removeEffect(PowerupHandlerImpl.this.getArena());
-                            }
-                        } else {
+                        final Map<Long, Thread> typeMap = InternalExecutor.this.getTypeMap(effect.getType());
+                        if (typeMap.size() == 1 && typeMap.containsKey(Thread.currentThread().getId())) {
                             effect.removeEffect(PowerupHandlerImpl.this.getArena());
                         }
                         InternalExecutor.this.untrackThread(effect.getType(), Thread.currentThread().getId());
+                    } catch (InterruptedException e) {
+                        effect.removeEffect(PowerupHandlerImpl.this.getArena());
                     }
                 }
             };

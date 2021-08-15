@@ -61,7 +61,7 @@ public final class LoaderAssistantImpl implements LoaderAssistant {
         final Coord initialPosition = new CoordImpl(skeleton.getX(), skeleton.getY());
         final BallType ballType = this.getBallType(skeleton.getBallType());
         final int id = skeleton.getId();
-        return this.elementFactory.createBallWithRandomPace(id, ballType, initialPosition, BALL_MODULE);
+        return this.elementFactory.createBallWithRandomAngle(id, ballType, initialPosition, BALL_MODULE);
     }
     /**
      * Creates a {@link Brick} instance from a skeleton.

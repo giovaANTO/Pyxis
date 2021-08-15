@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -17,9 +16,7 @@ import java.util.ResourceBundle;
 public final class MenuView extends AbstractJavaFXView<MenuController> {
 
     private static final Double SCALE_FACTOR = 1.5;
-    private static final String SEP = File.separator;
-    private static final String IMG_PATH = SEP + "images" + SEP;
-    private static final String TITLE = "Pyxis.png";
+    private static final String IMG_PATH = "images/Pyxis.png";
 
     @FXML
     private StackPane mainPane;
@@ -51,7 +48,7 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
         this.levelsButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
         this.quitButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
         this.img.setImage(new Image(Objects.requireNonNull(
-                getClass().getResourceAsStream(IMG_PATH + TITLE))));
+                ClassLoader.getSystemResourceAsStream(IMG_PATH))));
         StackPane.setAlignment(this.vBox, Pos.CENTER);
         this.playMainMenuMusic();
     }

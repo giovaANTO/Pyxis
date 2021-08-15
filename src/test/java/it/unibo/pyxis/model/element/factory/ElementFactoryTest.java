@@ -71,7 +71,7 @@ class ElementFactoryTest {
     @Test
     void copyBallWithAngle() {
         final Vector initalPace = new VectorImpl(2,2);
-        final Vector angledPace = initalPace.rotationBy(20);
+        final Vector angledPace = initalPace.createVectorWithSameModule(20);
         final Coord initialPosition = new CoordImpl(1,1);
         final Ball ballToCopy = new BallImpl.Builder()
                 .ballType(BallType.NORMAL_BALL)
@@ -89,7 +89,7 @@ class ElementFactoryTest {
     @Test
     void copyBallWithType() {
         final Vector initalPace = new VectorImpl(2,2);
-        final Vector angledPace = initalPace.rotationBy(20);
+        final Vector angledPace = initalPace.createVectorWithSameModule(20);
         final Coord initialPosition = new CoordImpl(1,1);
         final Ball ballToCopy = new BallImpl.Builder()
                 .ballType(BallType.NORMAL_BALL)
