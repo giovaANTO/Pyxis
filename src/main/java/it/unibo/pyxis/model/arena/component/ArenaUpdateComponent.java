@@ -32,6 +32,7 @@ public class ArenaUpdateComponent extends AbstractUpdateComponent<Arena> {
                 if (arena.getBalls().isEmpty()) {
                     EventBus.getDefault().post(Events.newDecreaseLifeEvent());
                     arena.clearPowerups();
+                    arena.restorePadDimension();
                     arena.resetStartingPosition();
                     return;
                 }

@@ -80,6 +80,25 @@ public final class ArenaImpl extends EntityImpl implements Arena {
     }
 
     /**
+     * Check the width dimension of the {@link Pad} after a resize and adjust
+     * its position consequently.
+     *
+     * @param resizeAmount The resize amount.
+     */
+    private void adjustPositionOnResize(final double resizeAmount) {
+        final double padWidth = this.pad.getDimension().getWidth();
+        final Coord padPosition = this.getPad().getPosition();
+        final double halfIncrement = (padWidth + resizeAmount) / 2;
+        double offset = 0;
+        if (padPosition.getX() + halfIncrement > this.getDimension().getWidth()) {
+            offset = this.getDimension().getWidth() - (padPosition.getX() + halfIncrement);
+        } else if (padPosition.getX() - halfIncrement < 0) {
+            offset = -(padPosition.getX() - halfIncrement);
+        }
+        this.pad.setPosition(new CoordImpl(padPosition.getX() + offset, padPosition.getY()));
+    }
+
+    /**
      * Modifies the {@link Pad}'s width dimension of a certain amount.
      *
      * @param amount The amount.
@@ -88,18 +107,8 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         if (!this.canModifyPadDimensions(amount)) {
             return;
         }
-        final double padWidth = this.pad.getDimension().getWidth();
-        final Coord padPosition = this.getPad().getPosition();
-        final double halfIncrement = (padWidth + amount) / 2;
-        double offset = 0;
-        if (padPosition.getX() + halfIncrement > this.getDimension().getWidth()) {
-            offset = this.getDimension().getWidth() - (padPosition.getX() + halfIncrement);
-        } else if (padPosition.getX() - halfIncrement < 0) {
-            offset = -(padPosition.getX() - halfIncrement);
-        }
-        final Coord newPadPosition = new CoordImpl(padPosition.getX() + offset, padPosition.getY());
         this.pad.increaseWidth(amount);
-        this.pad.setPosition(newPadPosition);
+        this.adjustPositionOnResize(amount);
     }
     /**
      * {@inheritDoc}
@@ -238,7 +247,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      */
     @Override
     public boolean isCleared() {
-        return this.getBricks().stream().noneMatch(b -> !b.getBrickType().isIndestructible());
+        return this.getBricks().stream().allMatch(b -> b.getBrickType().isIndestructible());
     }
     /**
      * {@inheritDoc}
@@ -324,7 +333,9 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      */
     @Override
     public void restorePadDimension() {
+        final double difference = this.getPad().getDimension().getWidth() - this.startingPadDimension.getWidth();
         this.pad.setWidth(this.startingPadDimension.getWidth());
+        this.adjustPositionOnResize(difference);
     }
     /**
      * {@inheritDoc}
