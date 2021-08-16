@@ -40,21 +40,21 @@ public abstract class AbstractElement extends EntityImpl implements Element {
      * {@inheritDoc}
      */
     @Override
-    public final Dimension getDimension() {
+    public synchronized final Dimension getDimension() {
         return this.dimension.copyOf();
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Hitbox getHitbox() {
+    public synchronized final Hitbox getHitbox() {
         return this.hitbox;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Coord getPosition() {
+    public synchronized final Coord getPosition() {
         return this.position.copyOf();
     }
     /**
@@ -75,21 +75,21 @@ public abstract class AbstractElement extends EntityImpl implements Element {
      * {@inheritDoc}
      */
     @Override
-    public final void increaseHeight(final double increaseValue) {
+    public synchronized final void increaseHeight(final double increaseValue) {
         this.dimension.increaseHeight(increaseValue);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void increaseWidth(final double increaseValue) {
+    public synchronized final void increaseWidth(final double increaseValue) {
         this.dimension.increaseWidth(increaseValue);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void setHeight(final double inputHeight) {
+    public synchronized final void setHeight(final double inputHeight) {
         this.dimension.setHeight(inputHeight);
     }
     /**
@@ -103,7 +103,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
      * {@inheritDoc}
      */
     @Override
-    public final void setPosition(final Coord inputPosition) {
+    public synchronized final void setPosition(final Coord inputPosition) {
         Objects.requireNonNull(inputPosition, "Error, tried to set null position.");
         this.position.setXY(inputPosition.getX(), inputPosition.getY());
     }
@@ -111,7 +111,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
      * {@inheritDoc}
      */
     @Override
-    public final void setWidth(final double inputWidth) {
+    public synchronized final void setWidth(final double inputWidth) {
         this.dimension.setWidth(inputWidth);
     }
     /**

@@ -147,7 +147,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
         this.clearBricks();
         this.clearPowerups();
         this.powerupHandler.shutdown();
-        this.restorePadDimension();
+        //this.restorePadDimension();
         this.getPad().removeComponent(EventComponent.class);
         this.removeComponent(EventComponent.class);
     }
