@@ -99,7 +99,6 @@ public class LinkerImpl implements Linker {
     public void insertGameCommand(final Command<Level> command) {
         this.gameLoop.addCommand(command);
     }
-
     /**
      * {@inheritDoc}
      */
