@@ -96,7 +96,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
      * {@inheritDoc}
      */
     @Override
-    public void setHitbox(final Hitbox hitbox) {
+    public synchronized void setHitbox(final Hitbox hitbox) {
         this.hitbox = hitbox;
     }
     /**
@@ -104,7 +104,6 @@ public abstract class AbstractElement extends EntityImpl implements Element {
      */
     @Override
     public synchronized final void setPosition(final Coord inputPosition) {
-        Objects.requireNonNull(inputPosition, "Error, tried to set null position.");
         this.position.setXY(inputPosition.getX(), inputPosition.getY());
     }
     /**
@@ -118,7 +117,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
      * {@inheritDoc}
      */
     @Override
-    public void update(final double dt) {
+    public synchronized void update(final double dt) {
         this.getComponent(UpdateComponent.class).update(dt);
     }
 
