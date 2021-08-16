@@ -14,7 +14,7 @@ import java.util.Random;
 
 public final class ArenaEventComponent extends AbstractEventComponent<Arena> {
 
-    private static final double POWERUP_SPAWN_PROBABILITY = 6.0 / 10;
+    private static final double POWERUP_SPAWN_PROBABILITY = 2.0 / 10;
 
     private final Random randomNumberGenerator;
 
@@ -49,7 +49,7 @@ public final class ArenaEventComponent extends AbstractEventComponent<Arena> {
      */
     private void spawnPowerup(final Coord spawnCoord) {
         final PowerupType selectedType = PowerupType.values()[rangeNextInt(PowerupType.values().length)];
-        final Powerup powerup = new PowerupImpl(PowerupType.DECREASE_PAD, spawnCoord);
+        final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
         this.getEntity().addPowerup(powerup);
     }
     /**
