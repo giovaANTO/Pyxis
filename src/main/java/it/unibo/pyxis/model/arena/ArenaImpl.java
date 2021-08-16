@@ -333,7 +333,7 @@ public final class ArenaImpl extends EntityImpl implements Arena {
      */
     @Override
     public void restorePadDimension() {
-        final double difference = this.getPad().getDimension().getWidth() - this.startingPadDimension.getWidth();
+        final double difference = this.startingPadDimension.getWidth() - this.getPad().getDimension().getWidth();
         this.pad.setWidth(this.startingPadDimension.getWidth());
         this.adjustPositionOnResize(difference);
     }
