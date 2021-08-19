@@ -10,18 +10,21 @@ public interface Controller {
      * @return The {@link Linker}
      */
     Linker getLinker();
+
     /**
      * Returns the {@link View} bound to the {@link Controller}.
      *
      * @return The {@link View}.
      */
     View<? extends Controller> getView();
+
     /**
      * Sets the instance of the {@link Linker}.
      *
      * @param linker The {@link Linker} to set.
      */
     void setLinker(Linker linker);
+
     /**
      * Binds the {@link View} to the {@link Controller}.
      *

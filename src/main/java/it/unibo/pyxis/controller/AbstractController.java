@@ -15,6 +15,7 @@ public abstract class AbstractController implements Controller {
     public final Linker getLinker() {
         return this.linker;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -22,6 +23,7 @@ public abstract class AbstractController implements Controller {
     public final View<? extends Controller> getView() {
         return this.view;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -29,6 +31,7 @@ public abstract class AbstractController implements Controller {
     public final void setLinker(final Linker inputLinker) {
         this.linker = inputLinker;
     }
+
     /**
      * {@inheritDoc}
      */

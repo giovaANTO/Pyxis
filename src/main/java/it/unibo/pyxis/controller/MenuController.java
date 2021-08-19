@@ -7,18 +7,21 @@ public class MenuController extends AbstractController {
     public final void quit() {
         this.getLinker().quit();
     }
+
     /**
      * Loads the {@link it.unibo.pyxis.view.SelectLevelView}.
      */
     public final void selectLevel() {
         this.getLinker().selectLevel();
     }
+
     /**
      * Loads the {@link it.unibo.pyxis.view.SettingsView}.
      */
     public final void showSettings() {
         this.getLinker().settings();
     }
+
     /**
      * Loads the {@link it.unibo.pyxis.view.GameView}.
      */

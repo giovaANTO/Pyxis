@@ -22,6 +22,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
         this.linker = linker;
         this.commandQueue = new ArrayBlockingQueue<>(COMMAND_QUEUE_DIMENSION);
     }
+
     /**
      * Apply a sleep on the current thread based on the time used by the gameloop for
      * complete a frame.
@@ -38,6 +39,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             }
         }
     }
+
     /**
      * Establishes if the render can be processed.
      *
@@ -49,6 +51,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
         final StateEnum appState = this.linker.getGameState().getState();
         return appState == StateEnum.RUN || appState == StateEnum.WAITING_FOR_STARTING_COMMAND;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -58,6 +61,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             this.commandQueue.add(command);
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -68,6 +72,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             nextCommand.execute(this.linker.getGameState().getCurrentLevel());
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -75,6 +80,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
     public void render() {
         Platform.runLater(this.linker::render);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -95,6 +101,7 @@ public final class GameLoopImpl extends Thread implements GameLoop {
             lastTime = current;
         }
     }
+
     /**
      * {@inheritDoc}
      */

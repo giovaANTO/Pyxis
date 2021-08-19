@@ -18,6 +18,7 @@ public final class DrawerImpl implements Drawer {
         this.gc = gc;
         this.arenaDimension = arenaDimension;
     }
+
     /**
      * Draws an {@link javafx.scene.image.Image} into the
      * destination of the canvas converted from the given {@link Coord} and {@link Dimension}.
@@ -33,6 +34,7 @@ public final class DrawerImpl implements Drawer {
         final Dimension scaleDim = this.modelToViewDimensionScale(dimension);
         gc.drawImage(spriteImage, scalePos.getX(), scalePos.getY(), scaleDim.getWidth(), scaleDim.getHeight());
     }
+
     /**
      * Converts the {@link Coord} of an {@link it.unibo.pyxis.model.element.Element}
      * of the model to the relative {@link Coord} of the View.
@@ -52,6 +54,7 @@ public final class DrawerImpl implements Drawer {
         final double scaledY = (position.getY() - dimension.getHeight() / 2) * heightProportion;
         return new CoordImpl(scaledX, scaledY);
     }
+
     /**
      * Converts the {@link Dimension} of an
      * {@link it.unibo.pyxis.model.element.Element} of the model to the relative
@@ -70,6 +73,7 @@ public final class DrawerImpl implements Drawer {
         final double scaledHeight = dimension.getHeight() * heightProportion;
         return new DimensionImpl(scaledWidth, scaledHeight);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -77,6 +81,7 @@ public final class DrawerImpl implements Drawer {
     public void clear() {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -85,6 +90,7 @@ public final class DrawerImpl implements Drawer {
         final Image spriteImage = element.getComponent(SpriteComponent.class).obtainSprite();
         this.drawImage(spriteImage, element.getPosition(), element.getDimension());
     }
+
     /**
      * {@inheritDoc}
      */

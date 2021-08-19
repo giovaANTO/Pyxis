@@ -23,6 +23,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
         this.durability = type.getDurability();
         this.registerComponent(new BrickEventComponent(this));
     }
+
     /**
      * {@inheritDoc}
      */
@@ -30,6 +31,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
     public Vector getPace() {
         return new VectorImpl(0, 0);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -37,6 +39,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
     public void setPace(final Vector inputPace) {
         throw new UnsupportedOperationException("You can't set a the pace on a Brick");
     }
+
     /**
      * {@inheritDoc}
      */
@@ -44,6 +47,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
     public void update(final double delta) {
         throw new UnsupportedOperationException("You can't call update on a brick");
     }
+
     /**
      * {@inheritDoc}
      */
@@ -51,6 +55,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
     public int getDurability() {
         return this.durability;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -58,6 +63,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
     public void setDurability(final int inputDurability) {
         this.durability = inputDurability;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -65,6 +71,7 @@ public final class BrickImpl extends AbstractElement implements Brick {
     public BrickType getBrickType() {
         return this.brickType;
     }
+
     /**
      * {@inheritDoc}
      */

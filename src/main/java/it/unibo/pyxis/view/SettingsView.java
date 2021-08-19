@@ -18,6 +18,7 @@ public final class SettingsView extends AbstractJavaFXView<SettingsController> {
     public SettingsView(final SettingsController inputController) {
         super(inputController);
     }
+
     /**
      * {@inheritDoc}
      */

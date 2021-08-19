@@ -23,6 +23,7 @@ public abstract class AbstractSpriteComponent<E extends Entity> extends Abstract
     private Logger getLogger() {
         return Logger.getLogger(this.getClass().getName());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -30,6 +31,7 @@ public abstract class AbstractSpriteComponent<E extends Entity> extends Abstract
     public final void attach() {
         this.isAttached = true;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -37,6 +39,7 @@ public abstract class AbstractSpriteComponent<E extends Entity> extends Abstract
     public final void detach() {
         this.isAttached = false;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -44,11 +47,13 @@ public abstract class AbstractSpriteComponent<E extends Entity> extends Abstract
     public final boolean isAttached() {
         return this.isAttached;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public abstract String getFileName();
+
     /**
      * {@inheritDoc}
      */

@@ -8,10 +8,12 @@ public enum BallType {
      * The {@link Ball}'s standard type.
      */
     NORMAL_BALL(Optional.of(1), 1, true, "NORMAL"),
+
     /**
      * The {@link Ball}'s type that gives infinite damage and no bouncing peculiarities.
      */
     ATOMIC_BALL(Optional.empty(), 1, false, "ATOMIC"),
+
     /**
      * The {@link Ball}'s type that gives infinite damage.
      */
@@ -40,6 +42,7 @@ public enum BallType {
     public boolean bounce() {
         return this.bounce;
     }
+
     /**
      * Returns the {@link Ball}'s damage as Optional<Integer>.
      *
@@ -49,6 +52,7 @@ public enum BallType {
     public Optional<Integer> getDamage() {
         return this.damage;
     }
+
     /**
      * Returns the {@link Ball}'s {@link it.unibo.pyxis.model.util.Vector} pace
      * multiplier.
@@ -59,6 +63,7 @@ public enum BallType {
     public double getPaceMultiplier() {
         return this.paceMultiplier;
     }
+
     /**
      * Returns the {@link String} representing the {@link BallType}.
      *

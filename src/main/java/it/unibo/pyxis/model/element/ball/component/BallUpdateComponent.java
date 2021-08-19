@@ -31,6 +31,7 @@ public class BallUpdateComponent extends AbstractUpdateComponent<Ball> {
         updatedCoord.sumVector(this.getEntity().getPace(), movementTime);
         this.getEntity().setPosition(updatedCoord);
     }
+
     /**
      * Inverts the {@link Ball}'s X {@link Vector} pace component.
      */
@@ -39,6 +40,7 @@ public class BallUpdateComponent extends AbstractUpdateComponent<Ball> {
         newPace.setX(-this.getEntity().getPace().getX());
         this.getEntity().setPace(newPace);
     }
+
     /**
      * Inverts the {@link Ball}'s Y {@link Vector} pace component.
      */
@@ -47,6 +49,7 @@ public class BallUpdateComponent extends AbstractUpdateComponent<Ball> {
         newPace.setY(-this.getEntity().getPace().getY());
         this.getEntity().setPace(newPace);
     }
+
     /**
      * Set a new {@link Ball} position applying the offset calculated
      * during collisions.
@@ -61,6 +64,7 @@ public class BallUpdateComponent extends AbstractUpdateComponent<Ball> {
         updatedCoord.sumYValue(paceY > 0 ? borderOffset.getHeight() : -borderOffset.getHeight());
         this.getEntity().setPosition(updatedCoord);
     }
+
     /**
      * Redirect {@link Ball} using the registered collision's information.
      */
@@ -85,6 +89,7 @@ public class BallUpdateComponent extends AbstractUpdateComponent<Ball> {
         }
         this.getEntity().clearCollisionInformation();
     }
+
     /**
      * {@inheritDoc}
      */

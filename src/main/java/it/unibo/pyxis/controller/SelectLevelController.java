@@ -8,6 +8,7 @@ public class SelectLevelController extends AbstractController {
     public final void back() {
         this.getLinker().menu();
     }
+
     /**
      * Returns the current maximum {@link it.unibo.pyxis.model.level.Level} reached.
      *
@@ -16,6 +17,7 @@ public class SelectLevelController extends AbstractController {
     public final int getLevelsDone() {
         return this.getLinker().getMaximumLevelReached();
     }
+
     /**
      * Returns the {@link it.unibo.pyxis.model.level.Level}'s count.
      *
@@ -24,6 +26,7 @@ public class SelectLevelController extends AbstractController {
     public final int getTotalLevels() {
         return this.getLinker().getGameState().getLevelIterator().size();
     }
+
     /**
      * Loads the {@link it.unibo.pyxis.view.GameView} with the selected
      * {@link it.unibo.pyxis.model.level.Level}.

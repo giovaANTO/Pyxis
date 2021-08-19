@@ -46,6 +46,7 @@ public class ArenaUpdateComponent extends AbstractUpdateComponent<Arena> {
                 .filter(p -> p.getHitbox().isCollidingWithLowerBorder(arena.getDimension()))
                 .forEach(arena::removePowerup);
     }
+
     /**
      * {@inheritDoc}
      */

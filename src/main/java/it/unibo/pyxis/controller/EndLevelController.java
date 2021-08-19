@@ -19,6 +19,7 @@ public class EndLevelController extends AbstractController {
                 hasNext();
         return notSuccessfullyCompleted || !iteratorHasNext;
     }
+
     /**
      * Returns the {@link it.unibo.pyxis.model.state.GameState} score.
      *
@@ -27,6 +28,7 @@ public class EndLevelController extends AbstractController {
     public final Integer getTotalScore() {
         return this.getLinker().getGameState().getScore();
     }
+
     /**
      * Returns the {@link it.unibo.pyxis.model.state.GameState} score.
      *
@@ -35,6 +37,7 @@ public class EndLevelController extends AbstractController {
     public final Integer getLevelScore() {
         return this.getLinker().getGameState().getCurrentLevel().getScore();
     }
+
     /**
      * Returns true if the actual {@link it.unibo.pyxis.model.level.Level}'s
      * {@link LevelStatus} is SUCCESSFULLY_COMPLETED.
@@ -45,12 +48,14 @@ public class EndLevelController extends AbstractController {
     public final boolean haveWon() {
         return this.getLinker().getGameState().getCurrentLevel().getLevelStatus() == LevelStatus.SUCCESSFULLY_COMPLETED;
     }
+
     /**
      * Loads the {@link it.unibo.pyxis.view.MenuView}.
      */
     public final void menu() {
         this.getLinker().menu();
     }
+
     /**
      * Loads the next {@link it.unibo.pyxis.model.level.Level}.
      */

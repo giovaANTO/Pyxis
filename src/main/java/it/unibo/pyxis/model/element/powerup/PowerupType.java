@@ -16,6 +16,7 @@ public enum PowerupType {
             return factory.atomicBallEffect(STD_APP_TIME);
         }
     },
+
     /**
      * The {@link Powerup} that decrease the length of the
      * {@link it.unibo.pyxis.model.element.pad.Pad}.
@@ -27,6 +28,7 @@ public enum PowerupType {
             return factory.modifyPadWidthEffect(STD_APP_TIME, -PAD_MOD_FACTOR);
         }
     },
+
     /**
      * The {@link Powerup} that increase the length of the
      * {@link it.unibo.pyxis.model.element.pad.Pad}.
@@ -38,6 +40,7 @@ public enum PowerupType {
            return factory.modifyPadWidthEffect(STD_APP_TIME, PAD_MOD_FACTOR);
         }
     },
+
     /**
      * The {@link Powerup} that spawns multiple
      * {@link it.unibo.pyxis.model.element.ball.Ball}s in the
@@ -50,6 +53,7 @@ public enum PowerupType {
             return factory.spawnBalls();
         }
     },
+
     /**
      * The {@link Powerup} that set the {@link it.unibo.pyxis.model.element.ball.Ball}s'
      * {@link it.unibo.pyxis.model.element.ball.BallType} as STEEL.

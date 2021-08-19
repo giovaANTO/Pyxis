@@ -22,6 +22,7 @@ public final class PowerupUpdateComponent extends AbstractUpdateComponent<Poweru
         updatedCoord.sumVector(this.getEntity().getPace(), dt * this.getEntity().getUpdateTimeMultiplier());
         this.getEntity().setPosition(updatedCoord);
     }
+
     /**
      * {@inheritDoc}
      */

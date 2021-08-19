@@ -22,6 +22,7 @@ public final class LabelSizeBinder implements Binder {
         this.label.prefWidthProperty().bind(mainPaneWidthProperty.multiply(label.getPrefWidth() / mainPaneStartWidth));
         this.label.prefHeightProperty().bind(mainPaneHeigthProperty.multiply(label.getPrefHeight() / mainPaneStartHeight));
     }
+
     /**
      * {@inheritDoc}
      */

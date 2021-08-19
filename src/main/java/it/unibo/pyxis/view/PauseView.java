@@ -18,6 +18,7 @@ public final class PauseView extends AbstractJavaFXView<PauseController> {
     public PauseView(final PauseController inputController) {
         super(inputController);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -26,6 +27,7 @@ public final class PauseView extends AbstractJavaFXView<PauseController> {
         this.vBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.vBox.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound}s and calls the
      * {@link PauseController#menu()}.
@@ -34,6 +36,7 @@ public final class PauseView extends AbstractJavaFXView<PauseController> {
         this.playGenericButtonPressSound();
         this.getController().menu();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link PauseController#quit()}.
@@ -42,6 +45,7 @@ public final class PauseView extends AbstractJavaFXView<PauseController> {
         this.playGenericButtonPressSound();
         this.getController().quit();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link PauseController#resume()}.
@@ -50,6 +54,7 @@ public final class PauseView extends AbstractJavaFXView<PauseController> {
         this.playStartGameButtonPressSound();
         this.getController().resume();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link PauseController#settings()}.

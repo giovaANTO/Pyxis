@@ -10,6 +10,7 @@ public final class PowerupSpriteComponent extends AbstractSpriteComponent<Poweru
     public PowerupSpriteComponent(final Powerup entity) {
         super(entity);
     }
+
     /**
      * {@inheritDoc}
      */

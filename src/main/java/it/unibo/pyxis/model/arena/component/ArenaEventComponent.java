@@ -22,6 +22,7 @@ public final class ArenaEventComponent extends AbstractEventComponent<Arena> {
         super(entity);
         this.randomNumberGenerator = new Random();
     }
+
     /**
      * Determines if a {@link Powerup} should be created.
      *
@@ -31,6 +32,7 @@ public final class ArenaEventComponent extends AbstractEventComponent<Arena> {
         final int multiplier = 100;
         return rangeNextInt(multiplier) <= Math.floor(multiplier * POWERUP_SPAWN_PROBABILITY);
     }
+
     /**
      * Returns a pseudorandom {@link Integer} value between 0 (inclusive)
      * and the specified value (exclusive).
@@ -41,6 +43,7 @@ public final class ArenaEventComponent extends AbstractEventComponent<Arena> {
     private Integer rangeNextInt(final int upperBound) {
         return randomNumberGenerator.nextInt(upperBound);
     }
+
     /**
      * Spawns a new {@link Powerup} in a specified position.
      * Add a new instance of {@link Powerup} inside the set of powerups.
@@ -52,6 +55,7 @@ public final class ArenaEventComponent extends AbstractEventComponent<Arena> {
         final Powerup powerup = new PowerupImpl(selectedType, spawnCoord);
         this.getEntity().addPowerup(powerup);
     }
+
     /**
      * Handles a {@link BrickDestructionEvent}.
      *
@@ -64,6 +68,7 @@ public final class ArenaEventComponent extends AbstractEventComponent<Arena> {
             this.spawnPowerup(event.getBrickCoord());
         }
     }
+
     /**
      * Handles a {@link PowerupActivationEvent}.
      *

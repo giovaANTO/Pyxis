@@ -19,6 +19,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
         this.dimension = inputDimension;
         this.position = inputPosition;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -36,6 +37,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
         final boolean testHitbox = Objects.equals(this.getHitbox(), that.getHitbox());
         return testDimensions && testPositions && testHitbox;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -43,6 +45,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized final Dimension getDimension() {
         return this.dimension.copyOf();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -50,6 +53,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized final Hitbox getHitbox() {
         return this.hitbox;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -57,6 +61,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized final Coord getPosition() {
         return this.position.copyOf();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -64,6 +69,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public final double getUpdateTimeMultiplier() {
         return UPDATE_TIME_MULTIPLIER;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -71,6 +77,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public int hashCode() {
         return Objects.hash(this.getDimension(), this.getPosition(), this.getHitbox());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -78,6 +85,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized final void increaseHeight(final double increaseValue) {
         this.dimension.increaseHeight(increaseValue);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -85,6 +93,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized final void increaseWidth(final double increaseValue) {
         this.dimension.increaseWidth(increaseValue);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -92,6 +101,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized final void setHeight(final double inputHeight) {
         this.dimension.setHeight(inputHeight);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -99,6 +109,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized void setHitbox(final Hitbox hitbox) {
         this.hitbox = hitbox;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -106,6 +117,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized final void setPosition(final Coord inputPosition) {
         this.position.setXY(inputPosition.getX(), inputPosition.getY());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -113,6 +125,7 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized final void setWidth(final double inputWidth) {
         this.dimension.setWidth(inputWidth);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -120,5 +133,4 @@ public abstract class AbstractElement extends EntityImpl implements Element {
     public synchronized void update(final double dt) {
         this.getComponent(UpdateComponent.class).update(dt);
     }
-
 }

@@ -33,6 +33,7 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
         final Dimension borderOffset = collisionEvent.getCollisionInformation().getCollisionOffset();
         this.getEntity().registerCollision(hitEdge, borderOffset);
     }
+
     /**
      * Calculates and successively apply the new {@link Vector} pace to the {@link Ball}
      * after a {@link it.unibo.pyxis.model.element.pad.Pad} collision.
@@ -47,6 +48,7 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
         newPace.setY(Math.sin(angle) * module);
         this.getEntity().setPace(newPace);
     }
+
     /**
      * Handles the {@link CollisionEvent} between the {@link Ball} and a
      * {@link it.unibo.pyxis.model.element.brick.Brick}.
@@ -59,6 +61,7 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
             this.registerCollision(collisionEvent);
         }
     }
+
     /**
      * Handles the {@link CollisionEvent} between the {@link Ball} and the border.
      *
@@ -70,6 +73,7 @@ public class BallEventComponent extends AbstractEventComponent<Ball> {
             this.registerCollision(collisionEvent);
         }
     }
+
     /**
      * Handles the {@link CollisionEvent} between the {@link Ball} and the
      * {@link it.unibo.pyxis.model.element.pad.Pad}.

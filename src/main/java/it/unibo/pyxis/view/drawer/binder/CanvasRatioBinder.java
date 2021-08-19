@@ -24,6 +24,7 @@ public final class CanvasRatioBinder implements Binder {
         this.xScaleFactor = canvas.getWidth() / pane.getPrefWidth();
         this.yScaleFactor = canvas.getHeight() / pane.getPrefHeight();
     }
+
     /**
      * {@inheritDoc}
      */
