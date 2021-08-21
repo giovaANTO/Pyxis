@@ -1,16 +1,14 @@
-package it.unibo.pyxis.model.element.Ball;
+package it.unibo.pyxis.model.element.ball;
 
-import it.unibo.pyxis.model.element.ball.Ball;
-import it.unibo.pyxis.model.element.ball.BallImpl;
-import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.util.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BuilderTest {
+public class BallTest {
 
     private Ball ball1;
     private Vector startingPace;
@@ -41,6 +39,7 @@ public class BuilderTest {
         this.ball1.setType(BallType.ATOMIC_BALL);
         assertEquals(this.ball1.getType(), BallType.ATOMIC_BALL);
         this.ball1.setType(BallType.STEEL_BALL);
+        assertNotEquals(this.ball1.getType(), BallType.ATOMIC_BALL);
         assertEquals(this.ball1.getType(), BallType.STEEL_BALL);
     }
 
@@ -66,6 +65,7 @@ public class BuilderTest {
         final double modX = coordinates.getX() + (this.ball1.getPace().getX() * multiplier * this.dt * this.ball1.getUpdateTimeMultiplier());
         final double modY = coordinates.getY() + (this.ball1.getPace().getY() * multiplier * this.dt * this.ball1.getUpdateTimeMultiplier());
         Coord updatedCoordinates = new CoordImpl(modX, modY);
+        assertNotEquals(this.ball1.getPosition(), coordinates);
         assertEquals(this.ball1.getPosition(), updatedCoordinates);
     }
 
@@ -88,7 +88,7 @@ public class BuilderTest {
                     .id(1)
                     .build();
         });
-        final it.unibo.pyxis.model.element.ball.Ball testBall = new BallImpl.Builder()
+        final Ball testBall = new BallImpl.Builder()
                 .pace(this.startingPace)
                 .initialPosition(this.startingCoord)
                 .ballType(BallType.NORMAL_BALL)
