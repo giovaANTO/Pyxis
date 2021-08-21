@@ -57,7 +57,7 @@ public class BallHitbox extends AbstractHitbox {
      * {@inheritDoc}
      */
     @Override
-    protected Optional<CollisionInformationImpl> collidingEdgeWithOtherHB(final Hitbox hitbox) {
+    protected Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox) {
 
         double closestPointX;
         double closestPointY;
@@ -116,7 +116,7 @@ public class BallHitbox extends AbstractHitbox {
      * {@inheritDoc}
      */
     @Override
-    protected Optional<CollisionInformationImpl> collidingEdgeWithSameHB(final Hitbox hitbox) {
+    protected Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox) {
         return this.getPosition().distance(hitbox.getPosition()) <= this.getRadius() + ((BallHitbox) hitbox).getRadius()
                 ? Optional.of(new CollisionInformationImpl(HitEdge.CIRCLE, new DimensionImpl()))
                 : Optional.empty();
@@ -125,7 +125,7 @@ public class BallHitbox extends AbstractHitbox {
      * {@inheritDoc}
      */
     @Override
-    public Optional<CollisionInformationImpl> collidingEdgeWithHB(final Hitbox hitbox) {
+    public Optional<CollisionInformation> collidingInformationWithHB(final Hitbox hitbox) {
         return hitbox instanceof BallHitbox
                 ? this.collidingEdgeWithSameHB(hitbox)
                 : this.collidingEdgeWithOtherHB(hitbox);

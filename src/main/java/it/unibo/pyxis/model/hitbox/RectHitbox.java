@@ -33,16 +33,16 @@ public class RectHitbox extends AbstractHitbox {
      * {@inheritDoc}
      */
     @Override
-    protected Optional<CollisionInformationImpl> collidingEdgeWithOtherHB(final Hitbox hitbox) {
+    protected Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox) {
         return !(hitbox instanceof RectHitbox)
-                ? hitbox.collidingEdgeWithHB(this)
+                ? hitbox.collidingInformationWithHB(this)
                 : Optional.empty();
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    protected Optional<CollisionInformationImpl> collidingEdgeWithSameHB(final Hitbox hitbox) {
+    protected Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox) {
 
         double closestPointX;
         double closestPointY;
@@ -88,7 +88,7 @@ public class RectHitbox extends AbstractHitbox {
      * {@inheritDoc}
      */
     @Override
-    public Optional<CollisionInformationImpl> collidingEdgeWithHB(final Hitbox hitbox) {
+    public Optional<CollisionInformation> collidingInformationWithHB(final Hitbox hitbox) {
         return hitbox instanceof RectHitbox
                 ? this.collidingEdgeWithSameHB(hitbox)
                 : this.collidingEdgeWithOtherHB(hitbox);

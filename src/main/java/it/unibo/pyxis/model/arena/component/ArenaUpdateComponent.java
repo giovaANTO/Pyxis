@@ -4,7 +4,7 @@ import it.unibo.pyxis.model.arena.Arena;
 import it.unibo.pyxis.ecs.component.physics.AbstractUpdateComponent;
 import it.unibo.pyxis.model.element.ball.Ball;
 import it.unibo.pyxis.model.event.Events;
-import it.unibo.pyxis.model.hitbox.CollisionInformationImpl;
+import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.hitbox.Hitbox;
 import it.unibo.pyxis.model.util.Dimension;
 import org.greenrobot.eventbus.EventBus;
@@ -38,7 +38,7 @@ public class ArenaUpdateComponent extends AbstractUpdateComponent<Arena> {
                 }
             } else {
                 final Dimension arenaDimension = arena.getDimension();
-                final Optional<CollisionInformationImpl> collInformation = ballHitbox.collidingEdgeWithBorder(arenaDimension);
+                final Optional<CollisionInformation> collInformation = ballHitbox.collidingInformationWithBorder(arenaDimension);
                 collInformation.ifPresent(cI -> EventBus.getDefault().post(Events.newBallCollisionWithBorderEvent(ball.getId(), cI)));
             }
         }
