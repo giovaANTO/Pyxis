@@ -33,12 +33,12 @@ public final class SceneHandlerImpl implements SceneHandler {
     }
 
     /**
-     * Loads and returns the new {@link Scene} loaded by the {@link Loader}.
+     * Loads and returns the new {@link Parent} loaded by the {@link Loader}.
      *
      * @param inputSceneType The {@link SceneType} to load.
-     * @return The new {@link Scene} loaded.
+     * @return The new {@link Parent} loaded.
      */
-    private Parent loadNewScene(final SceneType inputSceneType) {
+    private Parent loadNewParent(final SceneType inputSceneType) {
         return this.loader.getScene(inputSceneType, this.currentController);
     }
 
@@ -65,9 +65,9 @@ public final class SceneHandlerImpl implements SceneHandler {
     public void switchScene(final SceneType inputSceneType) {
         this.currentControllerSetup(inputSceneType);
         if (this.stage.getScene() == null) {
-            this.stage.setScene(new Scene(this.loadNewScene(inputSceneType)));
+            this.stage.setScene(new Scene(this.loadNewParent(inputSceneType)));
         } else {
-            this.stage.getScene().setRoot(this.loadNewScene(inputSceneType));
+            this.stage.getScene().setRoot(this.loadNewParent(inputSceneType));
         }
         this.stage.show();
     }
