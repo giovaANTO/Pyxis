@@ -2,6 +2,7 @@ package it.unibo.pyxis.view.scene;
 
 import it.unibo.pyxis.controller.Controller;
 import it.unibo.pyxis.controller.linker.Linker;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -35,8 +36,8 @@ public final class SceneHandlerImpl implements SceneHandler {
      * @param inputSceneType The {@link SceneType} to load.
      * @return The new {@link Scene} loaded.
      */
-    private Scene loadNewScene(final SceneType inputSceneType) {
-        return new Scene(this.loader.getScene(inputSceneType, this.currentController));
+    private Parent loadNewScene(final SceneType inputSceneType) {
+        return this.loader.getScene(inputSceneType, this.currentController);
     }
     /**
      * {@inheritDoc}
@@ -58,7 +59,11 @@ public final class SceneHandlerImpl implements SceneHandler {
     @Override
     public void switchScene(final SceneType inputSceneType) {
         this.currentControllerSetup(inputSceneType);
-        this.stage.setScene(this.loadNewScene(inputSceneType));
+        if (this.stage.getScene() == null) {
+            this.stage.setScene(new Scene(this.loadNewScene(inputSceneType)));
+        } else {
+            this.stage.getScene().setRoot(this.loadNewScene(inputSceneType));
+        }
         this.stage.show();
     }
 }
