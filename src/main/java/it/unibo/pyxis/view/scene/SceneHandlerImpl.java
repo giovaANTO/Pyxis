@@ -18,6 +18,7 @@ public final class SceneHandlerImpl implements SceneHandler {
         this.loader = new LoaderImpl();
         this.stage = inputStage;
         this.stage.setOnCloseRequest(event -> this.linker.quit());
+        this.stage.show();
     }
 
     /**
@@ -69,6 +70,5 @@ public final class SceneHandlerImpl implements SceneHandler {
         } else {
             this.stage.getScene().setRoot(this.loadNewParent(inputSceneType));
         }
-        this.stage.show();
     }
 }
