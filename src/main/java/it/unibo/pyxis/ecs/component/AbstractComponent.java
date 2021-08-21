@@ -9,6 +9,7 @@ public abstract class AbstractComponent<E extends Entity> implements Component<E
     public AbstractComponent(final E entity) {
         this.entity = entity;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -16,16 +17,19 @@ public abstract class AbstractComponent<E extends Entity> implements Component<E
     public final E getEntity() {
         return this.entity;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public abstract void attach();
+
     /**
      * {@inheritDoc}
      */
     @Override
     public abstract void detach();
+
     /**
      * {@inheritDoc}
      */

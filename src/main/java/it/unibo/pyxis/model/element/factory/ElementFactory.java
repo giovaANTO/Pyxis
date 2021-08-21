@@ -22,6 +22,7 @@ public interface ElementFactory {
      * @return A new {@link Ball} instance.
      */
     Ball copyBallWithAngle(Ball ball, double angle, int id);
+
     /**
      * Creates a copy of a {@link Ball} maintaining the same properties of this but
      * with the {@link it.unibo.pyxis.model.util.Vector} pace rotated by a random
@@ -32,6 +33,7 @@ public interface ElementFactory {
      * @return A new {@link Ball} instance.
      */
     Ball copyBallWithRandomAngle(Ball ball, int id);
+
     /**
      * Creates a copy of a {@link Ball} maintaining the same properties of this but
      * with the {@link it.unibo.pyxis.model.util.Vector} pace rotated by a certain
@@ -45,6 +47,7 @@ public interface ElementFactory {
      * @return A new {@link Ball} instance.
      */
     Ball copyBallWithType(Ball ball, double angle, int id, BallType type);
+
     /**
      * Creates a new {@link Ball} with a random pace {@link it.unibo.pyxis.model.util.Vector}.
      *
@@ -57,6 +60,7 @@ public interface ElementFactory {
      *          A new {@link Ball} instance.
      */
     Ball createBallWithRandomAngle(int id, BallType type, Coord position, double module);
+
     /**
      * Creates a {@link Brick} of blue {@link BrickType}.
      *
@@ -64,6 +68,7 @@ public interface ElementFactory {
      * @return The new {@link Brick} instance.
      */
     Brick createBlueBrick(Coord position);
+
     /**
      * Creates a {@link Brick} of a given {@link BrickType}.
      *
@@ -72,6 +77,7 @@ public interface ElementFactory {
      * @return The new {@link Brick} instance.
      */
     Brick createBrickFromType(BrickType type, Coord position);
+
     /**
      * Creates a {@link Pad} with default {@link Dimension}.
      *
@@ -79,6 +85,7 @@ public interface ElementFactory {
      * @return A new {@link Pad} instance.
      */
     Pad createDefaultPad(Coord position);
+
     /**
      * Creates a {@link Brick} of green {@link BrickType}.
      *
@@ -86,6 +93,7 @@ public interface ElementFactory {
      * @return The new {@link Brick} instance.
      */
     Brick createGreenBrick(Coord position);
+
     /**
      * Creates a {@link Brick} of indestructible {@link BrickType}.
      *
@@ -93,6 +101,7 @@ public interface ElementFactory {
      * @return The new {@link Brick} instance.
      */
     Brick createIndestructibleBrick(Coord position);
+
     /**
      * Creates a {@link Brick} of orange {@link BrickType}.
      *
@@ -100,6 +109,7 @@ public interface ElementFactory {
      * @return The new {@link Brick} instance.
      */
     Brick createOrangeBrick(Coord position);
+
     /**
      * Creates a new {@link Pad}.
      *
@@ -108,18 +118,21 @@ public interface ElementFactory {
      * @return A new {@link Pad} instance.
      */
     Pad createPad(Dimension dimension, Coord position);
+
     /**
      * Creates a {@link Brick} of purple {@link BrickType}.
      * @param position The {@link Brick} position's {@link Coord}.
      * @return The new {@link Brick} instance.
      */
     Brick createPurpleBrick(Coord position);
+
     /**
      * Creates a {@link Brick} of red {@link BrickType}.
      * @param position The {@link Brick} position's {@link Coord}.
      * @return The new {@link Brick} instance.
      */
     Brick createRedBrick(Coord position);
+
     /**
      * Creates a {@link Brick} of yellow {@link BrickType}.
      * @param position The {@link Brick} position's {@link Coord}.

@@ -36,6 +36,7 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
     public MenuView(final MenuController inputController) {
         super(inputController);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -52,6 +53,7 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
         StackPane.setAlignment(this.vBox, Pos.CENTER);
         this.playMainMenuMusic();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuController#quit()}.
@@ -60,6 +62,7 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
         this.playGenericButtonPressSound();
         this.getController().quit();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuController#selectLevel()}.
@@ -68,6 +71,7 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
         this.playGenericButtonPressSound();
         this.getController().selectLevel();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuController#showSettings()}.
@@ -76,6 +80,7 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
         this.playGenericButtonPressSound();
         this.getController().showSettings();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuController#startNewGame()}.

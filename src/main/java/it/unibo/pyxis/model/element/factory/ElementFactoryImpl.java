@@ -32,6 +32,7 @@ public final class ElementFactoryImpl implements ElementFactory {
         final Random random = new Random();
         return (random.nextInt(MAX_ANGLE - MIN_ANGLE) + MIN_ANGLE) * Math.PI / FLAT_CORNER_ANGLE;
     }
+
     /**
      * Creates a new pace {@link Vector} with a random angle direction.
      * @param module The module of the {@link Vector}
@@ -42,6 +43,7 @@ public final class ElementFactoryImpl implements ElementFactory {
         final double randomAngle = this.randomAngle();
         return new VectorImpl(module * Math.cos(randomAngle), module * Math.sin(randomAngle));
     }
+
     /**
      * {@inheritDoc}
      */
@@ -54,6 +56,7 @@ public final class ElementFactoryImpl implements ElementFactory {
                 .initialPosition(ball.getPosition())
                 .build();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -66,6 +69,7 @@ public final class ElementFactoryImpl implements ElementFactory {
                 .initialPosition(pos)
                 .build();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -73,6 +77,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Ball copyBallWithAngle(final Ball ball, final double angle, final int id) {
         return this.copyBallWithType(ball, angle, id, ball.getType());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -80,6 +85,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Ball copyBallWithRandomAngle(final Ball ball, final int id) {
         return this.copyBallWithAngle(ball, this.randomAngle(), id);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -87,6 +93,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Brick createBlueBrick(final Coord position) {
         return this.createBrickFromType(BrickType.BLUE, position);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -94,6 +101,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Brick createBrickFromType(final BrickType type, final Coord position) {
         return new BrickImpl(type, position);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -101,6 +109,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Pad createDefaultPad(final Coord position) {
         return new PadImpl(position);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -108,6 +117,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Brick createGreenBrick(final Coord position) {
         return this.createBrickFromType(BrickType.GREEN, position);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -115,6 +125,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Brick createIndestructibleBrick(final Coord position) {
         return this.createBrickFromType(BrickType.INDESTRUCTIBLE, position);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -122,6 +133,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Brick createOrangeBrick(final Coord position) {
         return this.createBrickFromType(BrickType.ORANGE, position);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -129,6 +141,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Pad createPad(final Dimension dimension, final Coord position) {
         return new PadImpl(dimension, position);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -136,6 +149,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Brick createPurpleBrick(final Coord position) {
         return this.createBrickFromType(BrickType.PURPLE, position);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -143,6 +157,7 @@ public final class ElementFactoryImpl implements ElementFactory {
     public Brick createRedBrick(final Coord position) {
         return this.createBrickFromType(BrickType.RED, position);
     }
+
     /**
      * {@inheritDoc}
      */

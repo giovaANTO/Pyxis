@@ -43,6 +43,7 @@ public final class GameView extends AbstractJavaFXView<GameController> implement
     public GameView(final GameController inputController) {
         super(inputController);
     }
+
     /**
      * Draws all the {@link it.unibo.pyxis.model.element.Element}s of the
      * {@link it.unibo.pyxis.model.arena.Arena} in the {@link javafx.scene.canvas.Canvas}.
@@ -55,6 +56,7 @@ public final class GameView extends AbstractJavaFXView<GameController> implement
         this.getController().getPowerups().forEach(this.drawer::draw);
         this.drawer.draw(this.getController().getPad());
     }
+
     /**
      * Sets up the {@link it.unibo.pyxis.view.drawer.binder.Binder}s for the
      * {@link javafx.scene.canvas.Canvas} and the {@link javafx.scene.control.Label}s.
@@ -66,6 +68,7 @@ public final class GameView extends AbstractJavaFXView<GameController> implement
                 .map(n -> new LabelSizeBinder(this.mainPane, (Label) n))
                 .collect(Collectors.toSet());
     }
+
     /**
      * Updates the {@link it.unibo.pyxis.view.drawer.binder.Binder}s.
      */
@@ -73,6 +76,7 @@ public final class GameView extends AbstractJavaFXView<GameController> implement
         this.labelBinders.forEach(LabelSizeBinder::bind);
         this.canvasBinder.bind();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -89,6 +93,7 @@ public final class GameView extends AbstractJavaFXView<GameController> implement
         this.setupBinders();
         this.playInGameMusic();
     }
+
     /**
      * {@inheritDoc}
      */

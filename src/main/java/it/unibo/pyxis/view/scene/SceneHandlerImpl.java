@@ -19,6 +19,7 @@ public final class SceneHandlerImpl implements SceneHandler {
         this.stage = inputStage;
         this.stage.setOnCloseRequest(event -> this.linker.quit());
     }
+
     /**
      * Loads the new current {@link Controller} from the new {@link Scene} loaded,
      * and binds it to the {@link Linker}.
@@ -30,6 +31,7 @@ public final class SceneHandlerImpl implements SceneHandler {
         this.currentController = inputSceneType.getController();
         this.currentController.setLinker(this.linker);
     }
+
     /**
      * Loads and returns the new {@link Scene} loaded by the {@link Loader}.
      *
@@ -39,6 +41,7 @@ public final class SceneHandlerImpl implements SceneHandler {
     private Parent loadNewScene(final SceneType inputSceneType) {
         return this.loader.getScene(inputSceneType, this.currentController);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -46,6 +49,7 @@ public final class SceneHandlerImpl implements SceneHandler {
     public void close() {
         this.stage.close();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -53,6 +57,7 @@ public final class SceneHandlerImpl implements SceneHandler {
     public Controller getCurrentController() {
         return this.currentController;
     }
+
     /**
      * {@inheritDoc}
      */

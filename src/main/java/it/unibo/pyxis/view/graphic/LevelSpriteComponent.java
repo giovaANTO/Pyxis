@@ -8,6 +8,7 @@ public final class LevelSpriteComponent extends AbstractSpriteComponent<Level> {
     public LevelSpriteComponent(final Level entity) {
         super(entity);
     }
+
     /**
      * {@inheritDoc}
      */

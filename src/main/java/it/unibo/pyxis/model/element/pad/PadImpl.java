@@ -49,6 +49,7 @@ public final class PadImpl extends AbstractElement implements Pad {
         final PadImpl pad = (PadImpl) o;
         return Objects.equals(this.getTag(), pad.getTag());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -56,6 +57,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     public Vector getPace() {
         return new VectorImpl(0, 0);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -63,6 +65,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     public String getTag() {
         return this.tag;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -70,6 +73,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     public int hashCode() {
         return Objects.hash(this.getTag());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -77,6 +81,7 @@ public final class PadImpl extends AbstractElement implements Pad {
     public void setPace(final Vector inputPace) {
         throw new UnsupportedOperationException("You can't set the pace on a Pad");
     }
+
     /**
      * {@inheritDoc}
      */

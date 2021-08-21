@@ -82,7 +82,7 @@ public final class PowerupHandlerImpl implements PowerupHandler {
      */
     @Override
     public void shutdown() {
-        this.executor.shutdown();
+        this.executor.shutdownNow();
     }
     /**
      * {@inheritDoc}

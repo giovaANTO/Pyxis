@@ -32,6 +32,7 @@ public class ArenaUpdateComponent extends AbstractUpdateComponent<Arena> {
                 if (arena.getBalls().isEmpty()) {
                     EventBus.getDefault().post(Events.newDecreaseLifeEvent());
                     arena.clearPowerups();
+                    arena.restorePadDimension();
                     arena.resetStartingPosition();
                     return;
                 }
@@ -45,6 +46,7 @@ public class ArenaUpdateComponent extends AbstractUpdateComponent<Arena> {
                 .filter(p -> p.getHitbox().isCollidingWithLowerBorder(arena.getDimension()))
                 .forEach(arena::removePowerup);
     }
+
     /**
      * {@inheritDoc}
      */

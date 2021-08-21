@@ -30,6 +30,7 @@ public abstract class AbstractJavaFXView<C extends Controller> implements View<C
     private void playButtonSoundEffect(final Sound buttonSoundEffect) {
         SoundPlayer.playSoundEffect(buttonSoundEffect);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -37,6 +38,7 @@ public abstract class AbstractJavaFXView<C extends Controller> implements View<C
     public final C getController() {
         return this.controller;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -44,6 +46,7 @@ public abstract class AbstractJavaFXView<C extends Controller> implements View<C
     public final void setController(final C inputController) {
         this.controller = inputController;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -51,6 +54,7 @@ public abstract class AbstractJavaFXView<C extends Controller> implements View<C
     public final void playGenericButtonPressSound() {
         this.playButtonSoundEffect(Sound.GENERIC_BUTTON);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -58,6 +62,7 @@ public abstract class AbstractJavaFXView<C extends Controller> implements View<C
     public final void playInGameMusic() {
         this.playBackgroundMusic(Sound.IN_GAME_MUSIC);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -65,6 +70,7 @@ public abstract class AbstractJavaFXView<C extends Controller> implements View<C
     public final void playMainMenuMusic() {
         this.playBackgroundMusic(Sound.MENU_MUSIC);
     }
+
     /**
      * {@inheritDoc}
      */

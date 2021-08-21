@@ -7,6 +7,7 @@ public interface SceneHandler {
      * Closes the application's {@link javafx.stage.Stage}.
      */
     void close();
+
     /**
      * Returns the {@link Controller} bound to the current
      * {@link it.unibo.pyxis.view.View}.
@@ -14,6 +15,7 @@ public interface SceneHandler {
      * @return The current {@link Controller}.
      */
     Controller getCurrentController();
+
     /**
      * Loads and shows the input {@link javafx.scene.Scene}.
      *

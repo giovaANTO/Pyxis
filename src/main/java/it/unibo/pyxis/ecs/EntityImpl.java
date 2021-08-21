@@ -30,6 +30,7 @@ public class EntityImpl implements Entity {
         final Class<?>[] superInterfaces = inputInterface.getInterfaces();
         return Arrays.stream(superInterfaces).filter(this.componentMap::containsKey).findFirst();
     }
+
     /**
      * Extracts the interface of an input {@link Component}.
      *
@@ -52,6 +53,7 @@ public class EntityImpl implements Entity {
         }
         return Optional.empty();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -63,6 +65,7 @@ public class EntityImpl implements Entity {
         final Class<?> regInterface = this.extractRegisteredInterface(componentInterface).orElseThrow();
         return componentInterface.cast(this.componentMap.get(regInterface));
     }
+
     /**
      * {@inheritDoc}
      */
@@ -70,6 +73,7 @@ public class EntityImpl implements Entity {
     public final boolean hasComponent(final Class<?> componentInterface) {
         return this.extractRegisteredInterface(componentInterface).isPresent();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -84,6 +88,7 @@ public class EntityImpl implements Entity {
             this.componentMap.put(componentClass.get(), component);
         }
     }
+
     /**
      * {@inheritDoc}
      */

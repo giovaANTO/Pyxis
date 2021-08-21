@@ -24,6 +24,7 @@ public class LinkerImpl implements Linker {
         this.createGameLoop();
         this.maximumLevelReached = 1;
     }
+
     /**
      * Establishes if a command can be handled.
      *
@@ -37,6 +38,7 @@ public class LinkerImpl implements Linker {
                 == StateEnum.WAITING_FOR_STARTING_COMMAND;
         return isRunning || isWaitingForStartingCommand;
     }
+
     /**
      * Creates and start a new {@link GameLoop} instance.
      */
@@ -44,12 +46,14 @@ public class LinkerImpl implements Linker {
         this.gameLoop = new GameLoopImpl(this);
         this.gameLoop.start();
     }
+
     /**
      * Creates a new {@link GameState} instance.
      */
     private void createGameState() {
         this.gameState = new GameStateImpl();
     }
+
     /**
      * Switches the actual {@link SceneType} to the input {@link SceneType}.
      *
@@ -58,6 +62,7 @@ public class LinkerImpl implements Linker {
     private void switchScene(final SceneType inputSceneType) {
         this.sceneHandler.switchScene(inputSceneType);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -69,6 +74,7 @@ public class LinkerImpl implements Linker {
         this.gameState.updateTotalScore();
         this.switchScene(SceneType.END_LEVEL_SCENE);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -76,6 +82,7 @@ public class LinkerImpl implements Linker {
     public final GameState getGameState() {
         return this.gameState;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -83,6 +90,7 @@ public class LinkerImpl implements Linker {
     public final int getMaximumLevelReached() {
         return this.maximumLevelReached;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -92,6 +100,7 @@ public class LinkerImpl implements Linker {
             command.execute(this.gameState);
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -99,6 +108,7 @@ public class LinkerImpl implements Linker {
     public void insertGameCommand(final Command<Level> command) {
         this.gameLoop.addCommand(command);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -120,6 +130,7 @@ public class LinkerImpl implements Linker {
             this.gameState.setState(StateEnum.WAITING_FOR_NEW_GAME);
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -131,6 +142,7 @@ public class LinkerImpl implements Linker {
         }
         this.switchScene(SceneType.PAUSE_SCENE);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -138,6 +150,7 @@ public class LinkerImpl implements Linker {
     public final void quit() {
         System.exit(0);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -147,6 +160,7 @@ public class LinkerImpl implements Linker {
             ((RenderableView) this.sceneHandler.getCurrentController().getView()).render();
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -156,6 +170,7 @@ public class LinkerImpl implements Linker {
         this.gameState.setState(StateEnum.WAITING_FOR_STARTING_COMMAND);
         this.gameState.getCurrentLevel().getArena().getPowerupHandler().resume();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -165,6 +180,7 @@ public class LinkerImpl implements Linker {
         this.render();
         this.gameState.setState(StateEnum.WAITING_FOR_STARTING_COMMAND);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -172,6 +188,7 @@ public class LinkerImpl implements Linker {
     public final void selectLevel() {
         this.switchScene(SceneType.SELECT_LEVEL_SCENE);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -179,6 +196,7 @@ public class LinkerImpl implements Linker {
     public final void setSceneHandler(final SceneHandler inputSceneHandler) {
         this.sceneHandler = inputSceneHandler;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -186,6 +204,7 @@ public class LinkerImpl implements Linker {
     public final void settings() {
         this.switchScene(SceneType.SETTINGS_SCENE);
     }
+
     /**
      * {@inheritDoc}
      */

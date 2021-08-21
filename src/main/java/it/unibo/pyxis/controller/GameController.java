@@ -28,6 +28,7 @@ public class GameController extends AbstractController {
     private Arena getArena() {
         return this.getLinker().getGameState().getCurrentLevel().getArena();
     }
+
     /**
      * Returns the {@link Arena}'s {@link Dimension}.
      *
@@ -36,6 +37,7 @@ public class GameController extends AbstractController {
     public final Dimension getArenaDimension() {
         return this.getArena().getDimension();
     }
+
     /**
      * Returns the {@link Arena}'s {@link Ball}.
      *
@@ -47,6 +49,7 @@ public class GameController extends AbstractController {
                 .peek(b -> b.registerComponent(new BallSpriteComponent(b)))
                 .collect(Collectors.toSet());
     }
+
     /**
      * Returns the {@link Arena}'s {@link Brick}s.
      *
@@ -58,6 +61,7 @@ public class GameController extends AbstractController {
                 .peek(b -> b.registerComponent(new BrickSpriteComponent(b)))
                 .collect(Collectors.toSet());
     }
+
     /**
      * Returns the current {@link Level} number.
      *
@@ -66,6 +70,7 @@ public class GameController extends AbstractController {
     public final Integer getCurrentLevelNumber() {
         return this.getLinker().getGameState().getCurrentLevel().getLevelNumber();
     }
+
     /**
      * Returns the current {@link Level} background.
      *
@@ -78,6 +83,7 @@ public class GameController extends AbstractController {
         }
         return currentLevel.getComponent(SpriteComponent.class).obtainSprite();
     }
+
     /**
      * Returns the current {@link Level}'s lives.
      *
@@ -86,6 +92,7 @@ public class GameController extends AbstractController {
     public final Integer getLives() {
         return this.getLinker().getGameState().getCurrentLevel().getLives();
     }
+
     /**
      * Returns the {@link Arena}'s {@link Pad}.
      *
@@ -96,6 +103,7 @@ public class GameController extends AbstractController {
         arenaPad.registerComponent(new PadSpriteComponent(arenaPad));
         return arenaPad;
     }
+
     /**
      * Returns the {@link Arena}'s {@link Powerup}.
      *
@@ -107,6 +115,7 @@ public class GameController extends AbstractController {
                 .peek(p -> p.registerComponent(new PowerupSpriteComponent(p)))
                 .collect(Collectors.toSet());
     }
+
     /**
      * Returns the current {@link Level}'s score.
      *
