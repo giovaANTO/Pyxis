@@ -3,7 +3,6 @@ package it.unibo.pyxis.view;
 import it.unibo.pyxis.controller.MenuController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -15,7 +14,6 @@ import java.util.ResourceBundle;
 
 public final class MenuView extends AbstractJavaFXView<MenuController> {
 
-    private static final Double SCALE_FACTOR = 1.5;
     private static final String IMG_PATH = "images/Pyxis.png";
 
     @FXML
