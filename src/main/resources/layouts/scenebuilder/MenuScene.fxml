@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.unibo.pyxis.view.MenuView">
+<StackPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.pyxis.view.MenuView">
    <children>
       <VBox fx:id="vBox" alignment="CENTER" spacing="20.0">
          <children>
             <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#startNewGame" prefHeight="30.0" prefWidth="80.0" text="New Game" />
-            <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#showSettings" prefHeight="30.0" prefWidth="80.0" text="Settings" />
-            <Button fx:id="levelsButton" mnemonicParsing="false" onAction="#selectLevels" prefHeight="30.0" prefWidth="80.0" text="Levels" />
-            <Button fx:id="quitButton" mnemonicParsing="false" onAction="#quit" prefHeight="30.0" prefWidth="80.0" text="Quit" />
+            <Button mnemonicParsing="false" onAction="#startNewGame" prefHeight="30.0" prefWidth="150.0" text="New Game" />
+            <Button mnemonicParsing="false" onAction="#showSettings" prefHeight="30.0" prefWidth="150.0" text="Settings" />
+            <Button mnemonicParsing="false" onAction="#selectLevels" prefHeight="30.0" prefWidth="150.0" text="Levels" />
+            <Button mnemonicParsing="false" onAction="#quit" prefHeight="30.0" prefWidth="150.0" text="Quit" />
          </children>
       </VBox>
    </children>

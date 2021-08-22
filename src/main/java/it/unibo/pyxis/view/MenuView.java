@@ -23,14 +23,6 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
     @FXML
     private VBox vBox;
     @FXML
-    private Button newGameButton;
-    @FXML
-    private Button settingsButton;
-    @FXML
-    private Button levelsButton;
-    @FXML
-    private Button quitButton;
-    @FXML
     private ImageView img;
 
     public MenuView(final MenuController inputController) {
@@ -44,10 +36,6 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
     public void initialize(final URL location, final ResourceBundle resources) {
         this.vBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.vBox.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
-        this.newGameButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
-        this.settingsButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
-        this.levelsButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
-        this.quitButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
         this.img.setImage(new Image(Objects.requireNonNull(
                 ClassLoader.getSystemResourceAsStream(IMG_PATH))));
         StackPane.setAlignment(this.vBox, Pos.CENTER);
