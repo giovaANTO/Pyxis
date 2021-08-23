@@ -10,7 +10,7 @@
    <children>
       <VBox fx:id="vBox" alignment="CENTER" spacing="20.0" StackPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefWidth="150.0" text="PAUSE" textFill="WHITE">
+            <Label alignment="CENTER" prefHeight="80.0" prefWidth="300.0" text="PAUSE" textFill="WHITE">
                <font>
                   <Font size="50.0" />
                </font>

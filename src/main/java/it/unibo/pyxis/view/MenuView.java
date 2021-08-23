@@ -14,14 +14,14 @@ import java.util.ResourceBundle;
 
 public final class MenuView extends AbstractJavaFXView<MenuController> {
 
-    private static final String IMG_PATH = "images/Pyxis.png";
+    private static final String IMAGE_PATH = "images/Pyxis.png";
 
     @FXML
     private StackPane mainPane;
     @FXML
     private VBox vBox;
     @FXML
-    private ImageView img;
+    private ImageView menuImage;
 
     public MenuView(final MenuController inputController) {
         super(inputController);
@@ -34,8 +34,8 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
     public void initialize(final URL location, final ResourceBundle resources) {
         this.vBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.vBox.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
-        this.img.setImage(new Image(Objects.requireNonNull(
-                ClassLoader.getSystemResourceAsStream(IMG_PATH))));
+        this.menuImage.setImage(new Image(Objects.requireNonNull(
+                ClassLoader.getSystemResourceAsStream(IMAGE_PATH))));
         StackPane.setAlignment(this.vBox, Pos.CENTER);
         this.playMainMenuMusic();
     }
