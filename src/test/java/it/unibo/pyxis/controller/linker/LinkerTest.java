@@ -22,7 +22,7 @@ public class LinkerTest {
     private SceneHandler sceneHandler;
 
     @BeforeEach
-    private void setUp() {
+    public void setUp() {
         this.linker1 = new LinkerImpl();
         this.inputHandler = new InputHandlerImpl();
         this.stage = new Stage();
@@ -33,7 +33,7 @@ public class LinkerTest {
     }
 
     @Test
-    private void testSwitchScene() {
+    public void testSwitchScene() {
         System.out.println("testSwitchScene");
         assertEquals(this.sceneHandler.getCurrentController(), new MenuController());
         assertEquals(this.linker1.getGameState().getState(), StateEnum.WAITING_FOR_NEW_GAME);
@@ -47,7 +47,7 @@ public class LinkerTest {
     }
 
     @Test
-    private void testCommands() {
+    public void testCommands() {
         System.out.println("testCommands");
         this.linker1.run();
         assertEquals(this.linker1.getGameState().getState(), StateEnum.WAITING_FOR_STARTING_COMMAND);

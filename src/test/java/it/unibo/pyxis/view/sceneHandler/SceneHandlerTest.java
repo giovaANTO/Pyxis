@@ -24,17 +24,17 @@ public class SceneHandlerTest {
     private SceneHandler sceneHandler;
 
     @BeforeEach
-    private void setUp() {
+    public void setUp() {
         this.linker1 = new LinkerImpl();
         this.inputHandler = new InputHandlerImpl();
         this.stage = new Stage();
-        inputHandler.bindCommands(this.linker1, this.stage);
+        this.inputHandler.bindCommands(this.linker1, this.stage);
         this.sceneHandler = new SceneHandlerImpl(this.stage, this.linker1);
         this.linker1.setSceneHandler(this.sceneHandler);
     }
 
     @Test
-    private void testSwitchScene() {
+    public void testSwitchScene() {
         System.out.println("testSwitchScene");
         this.sceneHandler.switchScene(SceneType.MENU_SCENE);
         assertEquals(this.sceneHandler.getCurrentController(), new MenuController());
