@@ -1,10 +1,14 @@
 package it.unibo.pyxis.model.hitbox;
 
+import it.unibo.pyxis.model.element.ball.BallImpl;
+import it.unibo.pyxis.model.element.ball.BallType;
 import it.unibo.pyxis.model.element.pad.PadImpl;
 import it.unibo.pyxis.model.util.Coord;
 import it.unibo.pyxis.model.util.CoordImpl;
 import it.unibo.pyxis.model.util.Dimension;
 import it.unibo.pyxis.model.util.DimensionImpl;
+import it.unibo.pyxis.model.util.VectorImpl;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -50,14 +54,23 @@ class HitboxTest {
         final Coord coord2 = new CoordImpl(15, 17);
 
         final Dimension dimension1 = new DimensionImpl(3, 5);
-        final Dimension dimension2 = new DimensionImpl(9, 9);
+        final Dimension dimension2 = new DimensionImpl(9, 10);
 
-        final Hitbox rectHB1 = new PadImpl(dimension1, coord1).getHitbox();
-        final Hitbox rectHB2 = new PadImpl(dimension2, coord2).getHitbox();
+        final Hitbox rectHB = new PadImpl(dimension1, coord1).getHitbox();
+        final Hitbox rectHBToHitCorner = new PadImpl(dimension2, coord2).getHitbox();
 
-        Optional<CollisionInformation> result = rectHB1.collidingInformationWithHB(rectHB2);
+        Optional<CollisionInformation> result = rectHB.collidingInformationWithHB(rectHBToHitCorner);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.CORNER, result.get().getHitEdge());
+        assertEquals(new DimensionImpl(1, 0.5), result.get().getCollisionOffset());
+
+//        assertTrue(result.isPresent());
+//        assertEquals(HitEdge.HORIZONTAL, result.get().getHitEdge());
+//        assertEquals(new DimensionImpl(0, 0), result.get().getCollisionOffset());
+//
+//        assertTrue(result.isPresent());
+//        assertEquals(HitEdge.VERTICAL, result.get().getHitEdge());
+//        assertEquals(new DimensionImpl(1, 0), result.get().getCollisionOffset());
     }
 
     @Test
@@ -66,9 +79,10 @@ class HitboxTest {
         final Coord coord2 = new CoordImpl(6, 5);
         final Coord coord3 = new CoordImpl(5, 25);
         final Coord coord4 = new CoordImpl(13, 19);
+        final Coord coord5 = new CoordImpl(16, 15);
 
         final Dimension borderDimension = new DimensionImpl(20, 30);
-        final Dimension dimension1 = new DimensionImpl(4, 6);
+        final Dimension dimension1 = new DimensionImpl(4, 7);
         final Dimension dimension2 = new DimensionImpl(12, 10);
         final Dimension dimension3 = new DimensionImpl(12, 9.9);
 
@@ -78,11 +92,18 @@ class HitboxTest {
         final Hitbox rectHBToHitCorner = new PadImpl(dimension2, coord2).getHitbox();
         final Hitbox rectHBToHitLeft = new PadImpl(dimension3, coord3).getHitbox();
         final Hitbox rectHBToMiss = new PadImpl(dimension4, coord4).getHitbox();
+        final Hitbox ballHBToHitRight = new BallImpl.Builder()
+                                                .ballType(BallType.NORMAL_BALL)
+                                                .id(0)
+                                                .pace(new VectorImpl(0, 0))
+                                                .initialPosition(coord5)
+                                                .build()
+                                                .getHitbox();
 
         Optional<CollisionInformation> result = rectHBToHitUp.collidingInformationWithBorder(borderDimension);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.HORIZONTAL, result.get().getHitEdge());
-        assertEquals(new DimensionImpl(0, 0), result.get().getCollisionOffset());
+        assertEquals(new DimensionImpl(0, 0.5), result.get().getCollisionOffset());
 
         result = rectHBToHitCorner.collidingInformationWithBorder(borderDimension);
         assertTrue(result.isPresent());
@@ -96,6 +117,11 @@ class HitboxTest {
 
         result = rectHBToMiss.collidingInformationWithBorder(borderDimension);
         assertFalse(result.isPresent());
+
+        result = ballHBToHitRight.collidingInformationWithBorder(borderDimension);
+        assertTrue(result.isPresent());
+        assertEquals(HitEdge.VERTICAL, result.get().getHitEdge());
+        assertEquals(new DimensionImpl(3, 0), result.get().getCollisionOffset());
     }
 
     @Test
