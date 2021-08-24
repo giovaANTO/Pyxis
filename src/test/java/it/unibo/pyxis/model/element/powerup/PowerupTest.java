@@ -1,8 +1,5 @@
-package it.unibo.pyxis.model.element.Powerup;
+package it.unibo.pyxis.model.element.powerup;
 
-import it.unibo.pyxis.model.element.powerup.Powerup;
-import it.unibo.pyxis.model.element.powerup.PowerupImpl;
-import it.unibo.pyxis.model.element.powerup.PowerupType;
 import it.unibo.pyxis.model.util.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
