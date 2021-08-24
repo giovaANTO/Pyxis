@@ -38,7 +38,7 @@ public final class GameView extends AbstractJavaFXView<GameController> implement
 
     private Drawer drawer;
     private Binder canvasBinder;
-    private Set<LabelSizeBinder> labelBinders;
+    private Set<Binder> labelBinders;
 
     public GameView(final GameController inputController) {
         super(inputController);
@@ -73,7 +73,7 @@ public final class GameView extends AbstractJavaFXView<GameController> implement
      * Updates the {@link it.unibo.pyxis.view.drawer.binder.Binder}s.
      */
     private void updateBindNodesToContainer() {
-        this.labelBinders.forEach(LabelSizeBinder::bind);
+        this.labelBinders.forEach(Binder::bind);
         this.canvasBinder.bind();
     }
 
