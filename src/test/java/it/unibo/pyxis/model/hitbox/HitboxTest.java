@@ -57,7 +57,8 @@ class HitboxTest {
         final Coord coord3 = new CoordImpl(15.5, 10);
         final Coord coord4 = new CoordImpl(10, 19.5);
         final Coord coord5 = new CoordImpl(7, 15);
-        final Coord coord6 = new CoordImpl(17.5, 17.5);
+        final Coord coord6 = new CoordImpl(11, 3);
+        final Coord coord7 = new CoordImpl(17.5, 17.5);
 
         final Dimension dimension1 = new DimensionImpl(3, 5);
         final Dimension dimension2 = new DimensionImpl(9, 10);
@@ -85,11 +86,18 @@ class HitboxTest {
                                                 .initialPosition(coord5)
                                                 .build()
                                                 .getHitbox();
-        final Hitbox ballHBToHitMiss = new BallImpl.Builder()
+        final Hitbox ballHBToHitTop = new BallImpl.Builder()
                                                 .ballType(BallType.NORMAL_BALL)
                                                 .id(0)
                                                 .pace(new VectorImpl(0, 0))
                                                 .initialPosition(coord6)
+                                                .build()
+                                                .getHitbox();
+        final Hitbox ballHBToHitMiss = new BallImpl.Builder()
+                                                .ballType(BallType.NORMAL_BALL)
+                                                .id(0)
+                                                .pace(new VectorImpl(0, 0))
+                                                .initialPosition(coord7)
                                                 .build()
                                                 .getHitbox();
 
@@ -111,6 +119,11 @@ class HitboxTest {
         result = rectHB.collidingInformationWithHB(ballHBToHitCorner);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.CORNER, result.get().getHitEdge());
+
+        result = rectHB.collidingInformationWithHB(ballHBToHitTop);
+        assertTrue(result.isPresent());
+        assertEquals(HitEdge.TOP, result.get().getHitEdge());
+        assertEquals(new DimensionImpl(0, 2.5), result.get().getCollisionOffset());
 
         result = rectHB.collidingInformationWithHB(ballHBToHitMiss);
         assertFalse(result.isPresent());
