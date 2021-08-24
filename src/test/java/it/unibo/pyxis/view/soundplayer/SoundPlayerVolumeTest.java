@@ -1,4 +1,4 @@
-package it.unibo.pyxis.soundplayer;
+package it.unibo.pyxis.view.soundplayer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
