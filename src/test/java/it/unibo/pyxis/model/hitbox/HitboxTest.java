@@ -55,16 +55,16 @@ class HitboxTest {
         final Hitbox rectHB1 = new PadImpl(dimension1, coord1).getHitbox();
         final Hitbox rectHB2 = new PadImpl(dimension2, coord2).getHitbox();
 
-//        final Optional<HitEdge> result = rectHB1.collidingEdgeWithHB(rectHB2);
-//        assertTrue(result.isPresent());
-//        assertEquals(HitEdge.CORNER, result.get());
+        Optional<CollisionInformation> result = rectHB1.collidingInformationWithHB(rectHB2);
+        assertTrue(result.isPresent());
+        assertEquals(HitEdge.CORNER, result.get().getHitEdge());
     }
 
     @Test
-    void testCollidingEdgeWithBorder() {
+    void testCollidingInformationWithBorder() {
         final Coord coord1 = new CoordImpl(3, 3);
         final Coord coord2 = new CoordImpl(6, 5);
-        final Coord coord3 = new CoordImpl(6, 25);
+        final Coord coord3 = new CoordImpl(5, 25);
         final Coord coord4 = new CoordImpl(13, 19);
 
         final Dimension borderDimension = new DimensionImpl(20, 30);
@@ -82,14 +82,17 @@ class HitboxTest {
         Optional<CollisionInformation> result = rectHBToHitUp.collidingInformationWithBorder(borderDimension);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.HORIZONTAL, result.get().getHitEdge());
+        assertEquals(new DimensionImpl(0, 0), result.get().getCollisionOffset());
 
         result = rectHBToHitCorner.collidingInformationWithBorder(borderDimension);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.CORNER, result.get().getHitEdge());
+        assertEquals(new DimensionImpl(0, 0), result.get().getCollisionOffset());
 
         result = rectHBToHitLeft.collidingInformationWithBorder(borderDimension);
         assertTrue(result.isPresent());
         assertEquals(HitEdge.VERTICAL, result.get().getHitEdge());
+        assertEquals(new DimensionImpl(1, 0), result.get().getCollisionOffset());
 
         result = rectHBToMiss.collidingInformationWithBorder(borderDimension);
         assertFalse(result.isPresent());
