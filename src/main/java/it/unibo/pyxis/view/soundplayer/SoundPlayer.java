@@ -138,6 +138,7 @@ public final class SoundPlayer {
     public static void shutdown() {
         if (!Objects.isNull(backgroundMusicPlayer)) {
             backgroundMusicPlayer.stop();
+            backgroundMusicPlayer.dispose();
         }
         if (!Objects.isNull(soundEffectPlayer)) {
             soundEffectPlayer.stop();
