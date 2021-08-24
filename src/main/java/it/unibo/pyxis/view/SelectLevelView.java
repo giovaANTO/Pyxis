@@ -53,6 +53,7 @@ public final class SelectLevelView extends AbstractJavaFXView<SelectLevelControl
         }
         return gridPane;
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls
      * {@link SelectLevelController#runLevel(int)}.
@@ -63,6 +64,7 @@ public final class SelectLevelView extends AbstractJavaFXView<SelectLevelControl
     private void runLevel(final int inputLevel) {
         this.getController().runLevel(inputLevel);
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls
      * {@link SelectLevelController#back()}.
@@ -71,6 +73,7 @@ public final class SelectLevelView extends AbstractJavaFXView<SelectLevelControl
         this.playGenericButtonPressSound();
         this.getController().back();
     }
+
     /**
      * {@inheritDoc}
      */

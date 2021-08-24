@@ -10,6 +10,7 @@ public final class PadSpriteComponent extends AbstractSpriteComponent<Pad> {
     public PadSpriteComponent(final Pad entity) {
         super(entity);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -17,5 +18,4 @@ public final class PadSpriteComponent extends AbstractSpriteComponent<Pad> {
     public String getFileName() {
         return this.getSpritesPath() + PAD_FOLDER + "PAD.png";
     }
-
 }

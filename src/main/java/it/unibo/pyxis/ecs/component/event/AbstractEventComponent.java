@@ -6,7 +6,7 @@ import org.greenrobot.eventbus.EventBus;
 
 public abstract class AbstractEventComponent<E extends Entity> extends AbstractComponent<E> implements EventComponent<E> {
 
-    protected AbstractEventComponent(final E entity) {
+    public AbstractEventComponent(final E entity) {
         super(entity);
     }
     /**
@@ -16,6 +16,7 @@ public abstract class AbstractEventComponent<E extends Entity> extends AbstractC
     public final void attach() {
         EventBus.getDefault().register(this);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -23,6 +24,7 @@ public abstract class AbstractEventComponent<E extends Entity> extends AbstractC
     public final void detach() {
         EventBus.getDefault().unregister(this);
     }
+
     /**
      * {@inheritDoc}
      */

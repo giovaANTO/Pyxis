@@ -10,7 +10,7 @@ import it.unibo.pyxis.model.event.movement.PowerupMovementEvent;
 import it.unibo.pyxis.model.event.notify.DecreaseLifeEvent;
 import it.unibo.pyxis.model.event.notify.BrickDestructionEvent;
 import it.unibo.pyxis.model.event.notify.PowerupActivationEvent;
-import it.unibo.pyxis.model.hitbox.CollisionInformationImpl;
+import it.unibo.pyxis.model.hitbox.CollisionInformation;
 import it.unibo.pyxis.model.util.Coord;
 
 public final class Events {
@@ -49,7 +49,7 @@ public final class Events {
      * @return The {@link BallCollisionWithBrickEvent} instance.
      */
     public static BallCollisionWithBrickEvent newBallCollisionWithBrickEvent(final int id, final boolean isIndestructible,
-                                                                             final CollisionInformationImpl collisionInformation) {
+                                                                             final CollisionInformation collisionInformation) {
         return new BallCollisionWithBrickEvent() {
             @Override
             public int getBallId() {
@@ -62,7 +62,7 @@ public final class Events {
             }
 
             @Override
-            public CollisionInformationImpl getCollisionInformation() {
+            public CollisionInformation getCollisionInformation() {
                 return collisionInformation;
             }
         };
@@ -74,7 +74,7 @@ public final class Events {
      * @param collisionInformation The {@link CollisionInformationImpl} instance.
      * @return The {@link BallCollisionWithBorderEvent} instance.
      */
-    public static BallCollisionWithBorderEvent newBallCollisionWithBorderEvent(final int id, final CollisionInformationImpl collisionInformation) {
+    public static BallCollisionWithBorderEvent newBallCollisionWithBorderEvent(final int id, final CollisionInformation collisionInformation) {
         return new BallCollisionWithBorderEvent() {
             @Override
             public int getBallId() {
@@ -82,7 +82,7 @@ public final class Events {
             }
 
             @Override
-            public CollisionInformationImpl getCollisionInformation() {
+            public CollisionInformation getCollisionInformation() {
                 return collisionInformation;
             }
         };
@@ -96,7 +96,7 @@ public final class Events {
      *                 {@link it.unibo.pyxis.model.element.pad.Pad}.
      * @return The {@link BallCollisionWithPadEvent} instance.
      */
-    public static BallCollisionWithPadEvent newBallCollisionWithPadEvent(final int id, final CollisionInformationImpl collisionInformation,
+    public static BallCollisionWithPadEvent newBallCollisionWithPadEvent(final int id, final CollisionInformation collisionInformation,
                                                                          final double padWidth) {
         return new BallCollisionWithPadEvent() {
             @Override
@@ -110,7 +110,7 @@ public final class Events {
             }
 
             @Override
-            public CollisionInformationImpl getCollisionInformation() {
+            public CollisionInformation getCollisionInformation() {
                 return collisionInformation;
             }
         };

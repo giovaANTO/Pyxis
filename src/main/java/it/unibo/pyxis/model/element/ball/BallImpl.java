@@ -35,6 +35,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         this.registerComponent(new BallUpdateComponent(this));
         this.registerComponent(new BallEventComponent(this));
     }
+
     /**
      * {@inheritDoc}
      */
@@ -42,6 +43,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public Map<HitEdge, Dimension> getCollisionInformation() {
         return Collections.unmodifiableMap(this.collisionInformation);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -49,6 +51,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public void clearCollisionInformation() {
         this.collisionInformation.clear();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -56,6 +59,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public void registerCollision(final HitEdge hitEdge, final Dimension offset) {
         this.collisionInformation.put(hitEdge, offset);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -63,6 +67,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public BallType getType() {
         return this.type;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -70,6 +75,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public Vector getPace() {
         return this.pace.copyOf();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -77,6 +83,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public void setPace(final Vector inputPace) {
         this.pace = inputPace;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -84,6 +91,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public synchronized void setType(final BallType inputType) {
         this.type = inputType;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -91,6 +99,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public int getId() {
         return this.id;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -98,6 +107,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public void update(final double dt) {
         this.getComponent(UpdateComponent.class).update(dt);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -117,6 +127,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         final boolean testType = this.getType() == ball.getType();
         return testId && testType && getPace().equals(ball.getPace());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -124,6 +135,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public int hashCode() {
         return Objects.hash(this.getId());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -131,6 +143,7 @@ public final class BallImpl extends AbstractElement implements Ball {
     public String toString() {
         return "BallImpl{" + "type=" + type + ", pace=" + pace + ", id=" + id + "}";
     }
+
     /**
      * The Builder of the {@link it.unibo.pyxis.model.element.ball.Ball}.
      */
@@ -144,6 +157,7 @@ public final class BallImpl extends AbstractElement implements Ball {
         private void check(final Object inputObject) {
             Objects.requireNonNull(inputObject);
         }
+
         /**
          * {@inheritDoc}
          */
@@ -153,6 +167,7 @@ public final class BallImpl extends AbstractElement implements Ball {
             this.pace = Optional.of(inputPace);
             return this;
         }
+
         /**
          * {@inheritDoc}
          */
@@ -161,6 +176,7 @@ public final class BallImpl extends AbstractElement implements Ball {
             this.id = Optional.of(inputId);
             return this;
         }
+
         /**
          * {@inheritDoc}
          */
@@ -170,6 +186,7 @@ public final class BallImpl extends AbstractElement implements Ball {
             this.position = Optional.of(position);
             return this;
         }
+
         /**
          * {@inheritDoc}
          */
@@ -179,6 +196,7 @@ public final class BallImpl extends AbstractElement implements Ball {
             this.type = type;
             return this;
         }
+
         /**
          * {@inheritDoc}
          */

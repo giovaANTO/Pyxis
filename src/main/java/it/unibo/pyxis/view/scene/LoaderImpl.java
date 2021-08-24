@@ -23,6 +23,7 @@ public class LoaderImpl implements Loader {
         final String scenePath = FIRST_ROOT_PATH + inputScene.getName() + SECOND_ROOT_PATH;
         return new FXMLLoader(ClassLoader.getSystemResource(scenePath));
     }
+
     /**
      * Binds the input {@link Controller} with the input {@link View}.
      *
@@ -33,6 +34,7 @@ public class LoaderImpl implements Loader {
     private <C extends Controller> void setupController(final View<C> inputView, final C inputController) {
         inputController.setView(inputView);
     }
+
     /**
      * {@inheritDoc}
      */

@@ -3,7 +3,6 @@ package it.unibo.pyxis.view;
 import it.unibo.pyxis.controller.MenuController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -15,27 +14,19 @@ import java.util.ResourceBundle;
 
 public final class MenuView extends AbstractJavaFXView<MenuController> {
 
-    private static final Double SCALE_FACTOR = 1.5;
-    private static final String IMG_PATH = "images/Pyxis.png";
+    private static final String IMAGE_PATH = "images/Pyxis.png";
 
     @FXML
     private StackPane mainPane;
     @FXML
     private VBox vBox;
     @FXML
-    private Button newGameButton;
-    @FXML
-    private Button settingsButton;
-    @FXML
-    private Button levelsButton;
-    @FXML
-    private Button quitButton;
-    @FXML
-    private ImageView img;
+    private ImageView menuImage;
 
     public MenuView(final MenuController inputController) {
         super(inputController);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -43,15 +34,12 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
     public void initialize(final URL location, final ResourceBundle resources) {
         this.vBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.vBox.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
-        this.newGameButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
-        this.settingsButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
-        this.levelsButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
-        this.quitButton.setPrefWidth(this.mainPane.getPrefWidth() / SCALE_FACTOR);
-        this.img.setImage(new Image(Objects.requireNonNull(
-                ClassLoader.getSystemResourceAsStream(IMG_PATH))));
+        this.menuImage.setImage(new Image(Objects.requireNonNull(
+                ClassLoader.getSystemResourceAsStream(IMAGE_PATH))));
         StackPane.setAlignment(this.vBox, Pos.CENTER);
         this.playMainMenuMusic();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuController#quit()}.
@@ -60,6 +48,7 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
         this.playGenericButtonPressSound();
         this.getController().quit();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuController#selectLevel()}.
@@ -68,6 +57,7 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
         this.playGenericButtonPressSound();
         this.getController().selectLevel();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuController#showSettings()}.
@@ -76,6 +66,7 @@ public final class MenuView extends AbstractJavaFXView<MenuController> {
         this.playGenericButtonPressSound();
         this.getController().showSettings();
     }
+
     /**
      * Applies the {@link it.unibo.pyxis.view.soundplayer.Sound} and calls the
      * {@link MenuController#startNewGame()}.

@@ -12,17 +12,18 @@ public interface Hitbox {
      * Checks for a collision with the right, left and upper edge of a border with the parameter {@link Dimension}.
      *
      * @param borderDimension
-     * @return An {@link Optional} with the specified colliding {@link HitEdge} of the border, an EMPTY {@link Optional} if they are not colliding.
+     * @return An {@link Optional} with the specified {@link CollidingInformation},
+     * an empty {@link Optional} if they are not colliding.
      */
-    Optional<CollisionInformationImpl> collidingEdgeWithBorder(Dimension borderDimension);
+    Optional<CollisionInformation> collidingInformationWithBorder(Dimension borderDimension);
     /**
      * Checks for a collision with a {@link Hitbox}.
      *
      * @param hitbox
-     * @return An {@link Optional} with the specified {@link HitEdge} the {@link Hitbox} is colliding with,
+     * @return An {@link Optional} with the specified {@link CollidingInformation},
      * an empty {@link Optional} if they are not colliding.
      */
-    Optional<CollisionInformationImpl> collidingEdgeWithHB(Hitbox hitbox);
+    Optional<CollisionInformation> collidingInformationWithHB(Hitbox hitbox);
     /**
      * Returns the dimension of the {@link Hitbox}.
      *

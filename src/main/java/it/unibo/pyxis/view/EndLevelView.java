@@ -27,6 +27,7 @@ public final class EndLevelView extends AbstractJavaFXView<EndLevelController> {
     public EndLevelView(final EndLevelController inputController) {
         super(inputController);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -45,6 +46,7 @@ public final class EndLevelView extends AbstractJavaFXView<EndLevelController> {
                 + this.getController().getLevelScore().toString());
         this.nextLevelButton.setDisable(this.getController().disableNextLevelButton());
     }
+
     /**
      * Applies all the {@link it.unibo.pyxis.view.soundplayer.Sound}s and call
      * {@link EndLevelController#menu()}.
@@ -53,6 +55,7 @@ public final class EndLevelView extends AbstractJavaFXView<EndLevelController> {
         this.playGenericButtonPressSound();
         this.getController().menu();
     }
+
     /**
      * Applies all the {@link it.unibo.pyxis.view.soundplayer.Sound}s and call
      * {@link EndLevelController#nextLevel()}.

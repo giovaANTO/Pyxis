@@ -7,34 +7,35 @@ import javafx.scene.canvas.Canvas;
 
 public final class CanvasRatioBinder implements Binder {
 
-    private final ReadOnlyDoubleProperty wC;
-    private final ReadOnlyDoubleProperty hC;
-    private final DoubleProperty wN;
-    private final DoubleProperty hN;
+    private final ReadOnlyDoubleProperty widthPane;
+    private final ReadOnlyDoubleProperty heightPane;
+    private final DoubleProperty widthCanvas;
+    private final DoubleProperty heightCanvas;
     private final Double aspectRatio;
     private final Double xScaleFactor;
     private final Double yScaleFactor;
 
     public CanvasRatioBinder(final Pane pane, final Canvas canvas) {
-        this.wC = pane.widthProperty();
-        this.hC = pane.heightProperty();
-        this.wN = canvas.widthProperty();
-        this.hN = canvas.heightProperty();
+        this.widthPane = pane.widthProperty();
+        this.heightPane = pane.heightProperty();
+        this.widthCanvas = canvas.widthProperty();
+        this.heightCanvas = canvas.heightProperty();
         this.aspectRatio = canvas.getWidth() / canvas.getHeight();
         this.xScaleFactor = canvas.getWidth() / pane.getPrefWidth();
         this.yScaleFactor = canvas.getHeight() / pane.getPrefHeight();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void bind() {
-        if (wC.get() * xScaleFactor > hC.get() * yScaleFactor * aspectRatio) {
-            hN.bind(hC.multiply(yScaleFactor));
-            wN.bind(hN.multiply(aspectRatio));
+        if (widthPane.get() * xScaleFactor > heightPane.get() * yScaleFactor * aspectRatio) {
+            heightCanvas.bind(heightPane.multiply(yScaleFactor));
+            widthCanvas.bind(heightCanvas.multiply(aspectRatio));
         } else {
-            hN.bind(wC.multiply(xScaleFactor).divide(aspectRatio));
-            wN.bind(wC.multiply(xScaleFactor));
+            heightCanvas.bind(widthPane.multiply(xScaleFactor).divide(aspectRatio));
+            widthCanvas.bind(widthPane.multiply(xScaleFactor));
         }
     }
 }

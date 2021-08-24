@@ -33,20 +33,18 @@ public abstract class AbstractHitbox implements Hitbox {
      * Checks for a collision with the different type {@link Hitbox}.
      * @param hitbox The different type {@link Hitbox}.
      * 
-     * @return An {@link Optional} with the specified {@link HitEdge}
-     *                  the {@link RectHitbox} is colliding with,
+     * @return An {@link Optional} with the specified {@link CollidingInformation},
      *                  an EMPTY {@link Optional} if they are the same or not colliding.
      */
-    protected abstract Optional<CollisionInformationImpl> collidingEdgeWithOtherHB(Hitbox hitbox);
+    protected abstract Optional<CollisionInformation> collidingEdgeWithOtherHB(Hitbox hitbox);
     /**
      * Checks for a collision with the same type {@link Hitbox}.
      * @param hitbox The same type {@link Hitbox}.
      * 
-     * @return An {@link Optional} with the specified {@link HitEdge}
-     *                  the {@link RectHitbox} is colliding with,
+     * @return An {@link Optional} with the specified {@link CollidingInformation},
      *                  an EMPTY {@link Optional} if they are different or not colliding.
      */
-    protected abstract Optional<CollisionInformationImpl> collidingEdgeWithSameHB(Hitbox hitbox);
+    protected abstract Optional<CollisionInformation> collidingEdgeWithSameHB(Hitbox hitbox);
     /**
      * Return the offset to apply to the {@link Element} after the collision.
      * @param distanceFromCenter The distance from the center.
@@ -87,7 +85,7 @@ public abstract class AbstractHitbox implements Hitbox {
      * {@inheritDoc}
      */
     @Override
-    public final Optional<CollisionInformationImpl> collidingEdgeWithBorder(final Dimension borderDimension) {
+    public final Optional<CollisionInformation> collidingInformationWithBorder(final Dimension borderDimension) {
 
         final double cHBCenterX = getPosition().getX();
         final double cHBCenterY = getPosition().getY();

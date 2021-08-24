@@ -14,35 +14,35 @@ public class RectHitbox extends AbstractHitbox {
     }
 
     /**
-     * Calculation of the value of the closest point of the
-     * {@link RectHitbox} from the center of the {@link BallHitbox}.
-     * @param bHBCenterValue The value of the center of the {@link BallHitbox}.
-     * @param rHBCenterValue The value of the center of the {@link RectHitbox}.
+     * Calculation of the value of the closest point of the first
+     * {@link RectHitbox} from the center of the second {@link RectHitbox}.
+     * @param sHBCenterValue The value of the center of the first {@link RectHitbox}.
+     * @param fHBCenterValue The value of the center of the second {@link RectHitbox}.
      * @param rHBEdgeLength The lenght of the edge of the {@link RectHitbox}.
      * 
      * @return cHBCenterCoord if the center of the {@link BallHitbox} is inside the {@link RectHitbox},
      *                  the Coordinate of the closest edge of the {@link RectHitbox} otherwise.
      */
-    private double closestPointCalculation(final double bHBCenterValue, final double rHBCenterValue,
+    private double closestPointComponentCalculation(final double sHBCenterValue, final double fHBCenterValue,
                                            final double rHBEdgeLength) {
-        return bHBCenterValue < rHBCenterValue - rHBEdgeLength / 2
-                ? rHBCenterValue - rHBEdgeLength / 2
-                : Math.min(bHBCenterValue, rHBCenterValue + rHBEdgeLength / 2);
+        return sHBCenterValue < fHBCenterValue - rHBEdgeLength / 2
+                ? fHBCenterValue - rHBEdgeLength / 2
+                : Math.min(sHBCenterValue, fHBCenterValue + rHBEdgeLength / 2);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    protected Optional<CollisionInformationImpl> collidingEdgeWithOtherHB(final Hitbox hitbox) {
+    protected Optional<CollisionInformation> collidingEdgeWithOtherHB(final Hitbox hitbox) {
         return !(hitbox instanceof RectHitbox)
-                ? hitbox.collidingEdgeWithHB(this)
+                ? hitbox.collidingInformationWithHB(this)
                 : Optional.empty();
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    protected Optional<CollisionInformationImpl> collidingEdgeWithSameHB(final Hitbox hitbox) {
+    protected Optional<CollisionInformation> collidingEdgeWithSameHB(final Hitbox hitbox) {
 
         double closestPointX;
         double closestPointY;
@@ -57,8 +57,8 @@ public class RectHitbox extends AbstractHitbox {
         final double rHBWidth = hitbox.getDimension().getWidth();
         final double rHBHeight = hitbox.getDimension().getHeight();
 
-        closestPointX = closestPointCalculation(bHBCenterX, rHBCenterX, rHBWidth);
-        closestPointY = closestPointCalculation(bHBCenterY, rHBCenterY, rHBHeight);
+        closestPointX = closestPointComponentCalculation(bHBCenterX, rHBCenterX, rHBWidth);
+        closestPointY = closestPointComponentCalculation(bHBCenterY, rHBCenterY, rHBHeight);
 
         if (closestPointX != bHBCenterX && closestPointY != bHBCenterY) {
             edgeOffset.setWidth(widthOffsetCalculation(Math.abs(bHBCenterX - closestPointX)));
@@ -88,7 +88,7 @@ public class RectHitbox extends AbstractHitbox {
      * {@inheritDoc}
      */
     @Override
-    public Optional<CollisionInformationImpl> collidingEdgeWithHB(final Hitbox hitbox) {
+    public Optional<CollisionInformation> collidingInformationWithHB(final Hitbox hitbox) {
         return hitbox instanceof RectHitbox
                 ? this.collidingEdgeWithSameHB(hitbox)
                 : this.collidingEdgeWithOtherHB(hitbox);

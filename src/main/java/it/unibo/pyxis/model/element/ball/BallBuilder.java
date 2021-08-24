@@ -11,12 +11,14 @@ public interface BallBuilder {
      * @return The {@link BallBuilder}.
      */
     BallBuilder ballType(BallType type);
+
     /**
      * Builds the {@link Ball} checking all fields are set.
      *
      * @return The {@link Ball}.
      */
     Ball build();
+
     /**
      * Sets the {@link Ball}'s id.
      *
@@ -24,6 +26,7 @@ public interface BallBuilder {
      * @return The {@link BallBuilder}.
      */
     BallBuilder id(int id);
+
     /**
      * Sets the {@link Ball}'s {@link Coord} position.
      *
@@ -31,6 +34,7 @@ public interface BallBuilder {
      * @return The {@link BallBuilder}.
      */
     BallBuilder initialPosition(Coord position);
+
     /**
      * Sets the {@link Ball}'s {@link Vector} pace.
      *

@@ -9,6 +9,7 @@ public interface Drawer {
      * {@link it.unibo.pyxis.model.element.Element}s inside it.
      */
     void clear();
+
     /**
      * Draws an {@link it.unibo.pyxis.model.element.Element} inside the
      * {@link javafx.scene.canvas.Canvas}.
@@ -16,6 +17,7 @@ public interface Drawer {
      * @param element The {@link Element} to draw.
      */
     void draw(Element element);
+
     /**
      * Draws the {@link javafx.scene.canvas.Canvas} background.
      *

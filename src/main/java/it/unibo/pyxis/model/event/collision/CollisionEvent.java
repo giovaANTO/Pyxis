@@ -1,6 +1,6 @@
 package it.unibo.pyxis.model.event.collision;
 
-import it.unibo.pyxis.model.hitbox.CollisionInformationImpl;
+import it.unibo.pyxis.model.hitbox.CollisionInformation;
 
 /**
  * Generic collision event interface.
@@ -13,7 +13,7 @@ public interface CollisionEvent {
      * @return The {@link it.unibo.pyxis.model.hitbox.HitEdge} that collided with
      *         a {@link it.unibo.pyxis.model.element.ball.Ball}.
      */
-    CollisionInformationImpl getCollisionInformation();
+    CollisionInformation getCollisionInformation();
     /**
      * Returns the Id of the {@link it.unibo.pyxis.model.element.ball.Ball}
      * that collided in the event.

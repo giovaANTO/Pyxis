@@ -26,6 +26,7 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     private void playSoundEffect(final Sound soundEffect) {
         SoundPlayer.playSoundEffect(soundEffect);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -37,6 +38,7 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
                 : Sound.BREAKABLE_BRICK_COLLISION;
         this.playSoundEffect(soundEffect);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -45,6 +47,7 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     public final void handleBorderCollision(final BallCollisionWithBorderEvent collisionEvent) {
         this.playSoundEffect(Sound.BORDER_COLLISION);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -53,6 +56,7 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     public final void handleDecreaseLife(final DecreaseLifeEvent event) {
         this.playSoundEffect(Sound.LIFE_DECREASED);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -61,6 +65,7 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     public final void handlePadCollision(final BallCollisionWithPadEvent collisionEvent) {
         this.playSoundEffect(Sound.PAD_COLLISION);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -69,6 +74,7 @@ public class SoundEffectEventHandlerImpl implements SoundEffectEventHandler {
     public final void handlePowerupActivation(final PowerupActivationEvent event) {
         this.playSoundEffect(Sound.POWERUP_ACTIVATION);
     }
+
     /**
      * {@inheritDoc}
      */

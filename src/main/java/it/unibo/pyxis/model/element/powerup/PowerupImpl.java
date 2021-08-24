@@ -38,6 +38,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
         final PowerupImpl powerup = (PowerupImpl) o;
         return super.equals(o) && getType() == powerup.getType();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -45,6 +46,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     public PowerupType getType() {
         return this.type;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -52,6 +54,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     public Vector getPace() {
         return PACE.copyOf();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -59,6 +62,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     public int hashCode() {
         return Objects.hash(getType());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -66,6 +70,7 @@ public final class PowerupImpl extends AbstractElement implements Powerup {
     public void setPace(final Vector inputPace) {
         throw new UnsupportedOperationException("You can't set a the pace on a PowerupImpl");
     }
+
     /**
      * Returns a string representation of the object.
      *

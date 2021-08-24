@@ -12,6 +12,7 @@ public interface Ball extends Element {
      * Clears all the collision information of the {@link Ball}.
      */
     void clearCollisionInformation();
+
     /**
      * Returns the collision information {@link Map} of the {@link Ball}.
      *
@@ -19,24 +20,28 @@ public interface Ball extends Element {
      * {@link Ball}.
      */
     Map<HitEdge, Dimension> getCollisionInformation();
+
     /**
      * Allows to access to the {@link Ball} identifier.
      *
      * @return The identifier of the {@link Ball}.
      */
     int getId();
+
     /**
      * Returns the {@link Ball}'s {@link Vector} pace.
      *
      * @return The pace {@link Vector}.
      */
     Vector getPace();
+
     /**
      * Returns the {@link Ball}'s {@link BallType}.
      *
      * @return The {@link BallType}.
      */
     BallType getType();
+
     /**
      * Registers a new {@link Ball} collision.
      *
@@ -44,12 +49,14 @@ public interface Ball extends Element {
      * @param offset  The offset of the collision.
      */
     void registerCollision(HitEdge hitEdge, Dimension offset);
+
     /**
      * Sets the {@link Ball}'s {@link Vector} pace.
      *
      * @param pace The pace {@link Vector} to set.
      */
     void setPace(Vector pace);
+
     /**
      * Sets the {@link Ball}'s {@link BallType}.
      *
